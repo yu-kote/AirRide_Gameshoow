@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Input">
+      <UniqueIdentifier>{443f136a-83d1-42b1-990d-59cea3f3ac94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Gamepad">
+      <UniqueIdentifier>{f28aa084-0fbf-4bf1-bae9-2e9bf843b80b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object">
+      <UniqueIdentifier>{1de69191-5366-4e60-8c38-2aa182232c69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\GameObject">
+      <UniqueIdentifier>{b253e355-3883-4f9d-83ba-44a267873122}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Component">
+      <UniqueIdentifier>{38e395ad-fc7d-4b4e-a672-3196593e6821}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Component\Components">
+      <UniqueIdentifier>{89be742f-064b-4aaa-b8f5-2d3eb63890a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Share">
+      <UniqueIdentifier>{5ec2cd8b-b226-400a-9811-8a347ed30381}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene">
+      <UniqueIdentifier>{f4ececc1-6b34-4f1d-bd44-e91bf2eb2b82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene\SceneManager">
+      <UniqueIdentifier>{6ad032d3-af8a-4cd5-b8ed-dcff7d5d22c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene\SceneCategory">
+      <UniqueIdentifier>{298142b7-a03b-4c1a-a766-36d7dc434c32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene\SceneCategory\GameMain">
+      <UniqueIdentifier>{7088d6a3-93f1-48b9-851b-937d6001b060}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene\SceneCategory\Result">
+      <UniqueIdentifier>{0c5c2d4d-2d2f-4fb4-b3aa-8d99e92b2236}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene\SceneCategory\Select">
+      <UniqueIdentifier>{561bde19-682c-4550-b721-7edc167db5f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene\SceneCategory\Title">
+      <UniqueIdentifier>{6e602641-58ba-4768-9ceb-9c16c2f7084d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\GameObject\Camera">
+      <UniqueIdentifier>{f854cea7-fcef-4982-a7da-29515b53257d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\MainApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\Object.cpp">
+      <Filter>Header Files\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\Component\Component.cpp">
+      <Filter>Header Files\Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\GameObject.cpp">
+      <Filter>Header Files\Object\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\GameObjectEntities.cpp">
+      <Filter>Header Files\Object\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Input\InputEvent.cpp">
+      <Filter>Header Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Scene\SceneManager\CreateScene.cpp">
+      <Filter>Header Files\Scene\SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Scene\SceneCategory\Title.cpp">
+      <Filter>Header Files\Scene\SceneCategory\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Scene\SceneCategory\GameMain.cpp">
+      <Filter>Header Files\Scene\SceneCategory\GameMain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Scene\SceneCategory\Result.cpp">
+      <Filter>Header Files\Scene\SceneCategory\Result</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Scene\SceneCategory\Select.cpp">
+      <Filter>Header Files\Scene\SceneCategory\Select</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\Component\Components\CameraP.cpp">
+      <Filter>Header Files\Object\Component\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\Camera\MainCamera.cpp">
+      <Filter>Header Files\Object\GameObject\Camera</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\Input\InputEvent.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Input\Gamepad\Gamepad.h">
+      <Filter>Header Files\Gamepad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\Object.h">
+      <Filter>Header Files\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\Component\Component.h">
+      <Filter>Header Files\Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\GameObject.h">
+      <Filter>Header Files\Object\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\GameObjectEntities.h">
+      <Filter>Header Files\Object\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\Component\Components\Color.h">
+      <Filter>Header Files\Object\Component\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\FrameTimer.h">
+      <Filter>Header Files\Share</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Share.h">
+      <Filter>Header Files\Share</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Scene\SceneManager\CreateScene.h">
+      <Filter>Header Files\Scene\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Scene\SceneManager\SceneBase.h">
+      <Filter>Header Files\Scene\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Scene\SceneManager\SceneManager.h">
+      <Filter>Header Files\Scene\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Scene\SceneCategory\GameMain.h">
+      <Filter>Header Files\Scene\SceneCategory\GameMain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Scene\SceneCategory\Result.h">
+      <Filter>Header Files\Scene\SceneCategory\Result</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Scene\SceneCategory\Select.h">
+      <Filter>Header Files\Scene\SceneCategory\Select</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Scene\SceneCategory\Title.h">
+      <Filter>Header Files\Scene\SceneCategory\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\SampleObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\Component\Components\Transform.h">
+      <Filter>Header Files\Object\Component\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\Component\Components\CameraP.h">
+      <Filter>Header Files\Object\Component\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\Camera\MainCamera.h">
+      <Filter>Header Files\Object\GameObject\Camera</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resources.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

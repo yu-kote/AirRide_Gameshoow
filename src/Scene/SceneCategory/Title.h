@@ -1,0 +1,23 @@
+#pragma once
+#include "../SceneManager/SceneBase.h"
+#include "../SceneManager/CreateScene.h"
+#include "../../Object/GameObject/GameObjectEntities.h"
+#include "../../Input/InputEvent.h"
+#include "../../Object/GameObject/Camera/MainCamera.h"
+
+
+class Title :public SceneBase {
+public:
+
+	Title();
+	void setup() override;
+	void update() override;
+	void draw() override;
+	void shift() override;
+	void shutdown() override;
+
+	GameObjectEntities entities;
+
+private:
+
+};
