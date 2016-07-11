@@ -9,92 +9,94 @@
 #include <string>
 #include <typeinfo>
 
-// ï`âÊÇ≥ÇÍÇÈÇ‡ÇÃÇ…åpè≥Ç≥ÇÍÇÈÉNÉâÉX
-class GameObject : public Object {
-public:
+namespace ar {
 
-	GameObject();
-	GameObject(const std::string& name_);
+	// ï`âÊÇ≥ÇÍÇÈÇ‡ÇÃÇ…åpè≥Ç≥ÇÍÇÈÉNÉâÉX
+	class GameObject : public Object {
+	public:
 
-	void setIsActive(const int& is_active_) { is_active = is_active_; }
-	bool getIsActive() { return is_active; }
+		GameObject();
+		GameObject(const std::string& name_);
 
-	virtual void setup() = 0;
-	virtual void update() = 0;
-	virtual void draw() = 0;
+		void setIsActive(const bool& is_active_) { is_active = is_active_; }
+		bool getIsActive() { return is_active; }
 
-	void componentsUpdate();
+		virtual void setup() = 0;
+		virtual void update() = 0;
+		virtual void draw() = 0;
 
-	void drawBegin();
-	void drawEnd();
-	void componentsDraw();
+		void componentsUpdate();
 
-	void componentsDestroy();
+		void drawBegin();
+		void drawEnd();
+		void componentsDraw();
 
-public:
+		void componentsDestroy();
 
-	void pushModelView();
-	void popModelView();
+	public:
 
-public:
+		void pushModelView();
+		void popModelView();
 
-	Transform transform;
+	public:
 
-private:
-	bool is_active;
+		Transform transform;
 
-public:
+	private:
+		bool is_active;
 
-	template<typename T>
-	void addComponent() {
-		const type_info& id = typeid(T);
-		std::string componentname = createComponentName<T>();
+	public:
 
-		if (components.find(componentname) == components.end())
-			components.insert(std::make_pair(componentname, std::make_shared<T>()));
-	}
+		template<typename T>
+		void addComponent() {
+			std::string componentname = createComponentName<T>();
 
-	template<typename T>
-	void addComponent(T) {
-		const type_info& id = typeid(T);
-		std::string componentname = createComponentName<T>();
-
-		if (components.find(componentname) == components.end())
-			components.insert(std::make_pair(componentname, std::make_shared<T>()));
-	}
-
-	template<typename T>
-	std::shared_ptr<T> getComponent() {
-		int script_size = sizeof(T);
-
-		std::string componentname = createComponentName<T>();
-		if (components.find(componentname) == components.end())
-		{
-			components.insert(std::make_pair(componentname, std::make_shared<T>()));
+			if (components.find(componentname) == components.end())
+				components.insert(std::make_pair(componentname, std::make_shared<T>()));
 		}
 
-		if (script_size > 128)
-		{
-			return std::dynamic_pointer_cast<T>(components.find(componentname)->second);
+		template<typename T>
+		void addComponent(T) {
+			std::string componentname = createComponentName<T>();
+
+			if (components.find(componentname) == components.end())
+				components.insert(std::make_pair(componentname, std::make_shared<T>()));
 		}
-		else
-		{
-			return std::static_pointer_cast<T>(components.find(componentname)->second);
+
+		template<typename T>
+		std::shared_ptr<T> getComponent() {
+			int script_size = sizeof(T);
+
+			std::string componentname = createComponentName<T>();
+			if (components.find(componentname) == components.end())
+			{
+				components.insert(std::make_pair(componentname, std::make_shared<T>()));
+			}
+
+			if (script_size > 128)
+			{
+				return std::dynamic_pointer_cast<T>(components.find(componentname)->second);
+			}
+			else
+			{
+				return std::static_pointer_cast<T>(components.find(componentname)->second);
+			}
 		}
-	}
 
-private:
-	template<typename T>
-	static std::string createComponentName() {
-		const type_info& id = typeid(T);
+	private:
+		template<typename T>
+		static std::string createComponentName() {
+			const type_info& id = typeid(T);
 
-		std::string class_name = id.name();
-		class_name.erase(0, 6);
+			std::string class_name = id.name();
+			class_name.erase(0, 6);
 
-		return class_name;
-	}
+			return class_name;
+		}
 
-private:
+	private:
 
-	std::unordered_map<std::string, std::shared_ptr<Component>> components;
-};
+		std::unordered_map<std::string, std::shared_ptr<Component>> components;
+	};
+
+}

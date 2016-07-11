@@ -2,22 +2,26 @@
 #include "../Object.h"
 #include "../Component/Components/Transform.h"
 
-// •”•i
-class Component : public Object {
-public:
-	virtual void setup(){}
+namespace ar {
 
-	virtual void update() {}
 
-	virtual void drawBegin() {}
-	virtual void drawEnd() {}
-	virtual void draw() {}
+	// •”•i
+	class Component : public Object {
+	public:
+		virtual void setup() {}
 
-	Transform transform;
+		virtual void update() {}
 
-protected:
+		virtual void drawBegin() {}
+		virtual void drawEnd() {}
+		virtual void draw() {}
 
-private:
+		ar::Transform transform;
 
-};
+	protected:
 
+	private:
+
+	};
+
+}

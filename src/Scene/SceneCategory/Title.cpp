@@ -14,8 +14,8 @@ Title::Title()
 
 void Title::setup()
 {
-	entities.setObject<MainCamera>();
-	entities.setObject<SampleObject>();
+	entities.setObject<ar::MainCamera>();
+	entities.setObject<ar::SampleObject>();
 
 	entities.setupGameObject();
 

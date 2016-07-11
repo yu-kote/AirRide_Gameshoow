@@ -1,38 +1,52 @@
 #pragma once
 #include "cinder/app/AppNative.h"
 
-class Transform {
-public:
+namespace ar {
 
-	Transform() {
-		position = ci::Vec3f::zero();
-		angle = ci::Vec3f::zero();
-		rotation = ci::Quatf::identity();
-		scale = ci::Vec3f(1.0f, 1.0f, 1.0f);
-	}
+	class Transform {
+	public:
 
-protected:
-	// 後で更新する
+		Transform() {
+			position = ci::Vec3f::zero();
+			angle = ci::Vec3f::zero();
+			rotation = ci::Quatf::identity();
+			scale = ci::Vec3f(1.0f, 1.0f, 1.0f);
+		}
 
-	// オイラー角で回転
-	void rotate(ci::Vec3f angle_) {}
+	public:
+		// 更新する場所
 
-	// ベクトルで移動
-	void translation(ci::Vec3f vec_) {}
-	// 移動
-	void translate(ci::Vec3f translation_) {}
+		// 向く
+		void lookAt(const Transform& target_);
+		void lookAt(const ci::Vec3f& position_);
 
-public:
-	void console() {
-		ci::app::console() << "Position : " << position << std::endl;
-		ci::app::console() << "Rotation : " << rotation << std::endl;
-	}
+		// オイラー角でクォータニオンを回転
+		void rotate(const ci::Vec3f& angle_);
+		void rotate(ci::Vec3f axis_, float angle_);
+		void rotate(float angle_x_, float angle_y_, float angle_z_);
 
-public:
-	ci::Vec3f position;
-	ci::Vec3f angle;
-	ci::Quatf rotation;
-	ci::Matrix44f local_matrix;
-	ci::Vec3f scale;
 
-};
+		// 移動
+		void translate(const ci::Vec3f& translation_);
+		void translate(float x_, float y_, float z_);
+
+
+		ci::Vec3f rotateMatrix(const ci::Vec3f& angle_, float z_);
+
+	public:
+
+		void console() {
+			ci::app::console() << "Position : " << position << std::endl;
+			ci::app::console() << "Rotation : " << rotation << std::endl;
+		}
+
+	public:
+		ci::Vec3f position;
+		ci::Vec3f angle;
+		ci::Quatf rotation;
+		ci::Matrix44f local_matrix;
+		ci::Vec3f scale;
+
+	};
+
+}

@@ -1,10 +1,10 @@
 #include "Object.h"
 
-Object::Object()
+ar::Object::Object()
 {
 }
 
-Object::Object(const std::string & name_) :
+ar::Object::Object(const std::string & name_) :
 	name(name_)
 {
 }

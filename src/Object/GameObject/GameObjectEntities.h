@@ -4,103 +4,107 @@
 #include <list>
 #include <string>
 
+namespace ar {
 
-// GameObjectを管理するクラス
-class GameObjectEntities {
-public:
 
-	GameObjectEntities();
-	~GameObjectEntities();
+	// GameObjectを管理するクラス
+	class GameObjectEntities {
+	public:
 
-	void setupGameObject();
-	void updateGameObject();
-	void drawGameObject();
+		GameObjectEntities();
+		~GameObjectEntities();
 
-	void Alldestroy();
-private:
+		void setupGameObject();
+		void updateGameObject();
+		void drawGameObject();
 
-	void componentsUpdate();
+		void Alldestroy();
+	private:
 
-	void drawBegin();
-	void drawEnd();
+		void componentsUpdate();
 
-	void componentsDraw();
+		void drawBegin();
+		void drawEnd();
 
-	void componentsDestory();
+		void componentsDraw();
 
-public:
+		void componentsDestory();
 
-	// こっちは呼ばなくていいかも
-	// GameObjectクラスを継承したクラスをループに登録する
-	template<typename T>
-	void setObject() {
+	public:
 
-		std::string classname = createClassName<T>();
+		// こっちは呼ばなくていいかも
+		// GameObjectクラスを継承したクラスをループに登録する
+		template<typename T>
+		void setObject() {
 
-		objects.insert(std::make_pair(classname, std::make_shared<T>()));
-	}
+			std::string classname = createClassName<T>();
 
-	// こっちだけで十分
-	// GameObjectを継承したクラスの情報を知りたいときかつそのクラスが存在しなかったら登録する
-	template<typename T>
-	std::shared_ptr<T> getObject() {
-		int script_size = sizeof(T);
-
-		std::string classname = createClassName<T>();
-		if (objects.find(classname) == objects.end())
-		{
 			objects.insert(std::make_pair(classname, std::make_shared<T>()));
 		}
 
-		if (script_size > 128)
-		{
-			return std::dynamic_pointer_cast<T>(objects.find(classname)->second);
+		// こっちだけで十分
+		// GameObjectを継承したクラスの情報を知りたいときかつそのクラスが存在しなかったら登録する
+		template<typename T>
+		std::shared_ptr<T> getObject() {
+			int script_size = sizeof(T);
+
+			std::string classname = createClassName<T>();
+			if (objects.find(classname) == objects.end())
+			{
+				objects.insert(std::make_pair(classname, std::make_shared<T>()));
+			}
+
+			if (script_size > 128)
+			{
+				return std::dynamic_pointer_cast<T>(objects.find(classname)->second);
+			}
+			else
+			{
+				return std::static_pointer_cast<T>(objects.find(classname)->second);
+			}
 		}
-		else
-		{
-			return std::static_pointer_cast<T>(objects.find(classname)->second);
+
+		template<typename T>
+		void destroyGameObject() {
+			std::string classname = createClassName<T>();
+			if (objects.find(classname) == objects.end())
+			{
+				return;
+			}
+			objects.find(classname)->second->componentsDestroy();
+			objects.find(classname)->second->destory();
+
+			objects.erase(objects.find(classname));
 		}
-	}
 
-	template<typename T>
-	void destroyGameObject() {
-		std::string classname = createClassName<T>();
-		if (objects.find(classname) == objects.end())
-		{
-			return;
+		void destroyGameObject(std::string classname_) {
+
+			if (objects.find(classname_) == objects.end())
+			{
+				return;
+			}
+			objects.find(classname_)->second->componentsDestroy();
+			objects.find(classname_)->second->destory();
+
+			objects.erase(classname_);
 		}
-		objects.find(classname)->second->componentsDestroy();
-		objects.find(classname)->second->destory();
 
-		objects.erase(objects.find(classname));
-	}
+	private:
 
-	void destroyGameObject(std::string classname_) {
+		template<typename T>
+		static std::string createClassName() {
+			const type_info& id = typeid(T);
 
-		if (objects.find(classname_) == objects.end())
-		{
-			return;
+			std::string class_name = id.name();
+			class_name.erase(0, 6);
+
+			return class_name;
 		}
-		objects.find(classname_)->second->componentsDestroy();
-		objects.find(classname_)->second->destory();
 
-		objects.erase(classname_);
-	}
+	private:
 
-private:
+		std::unordered_map<std::string, std::shared_ptr<GameObject>> objects;
 
-	template<typename T>
-	static std::string createClassName() {
-		const type_info& id = typeid(T);
+	};
 
-		std::string class_name = id.name();
-		class_name.erase(0, 6);
-
-		return class_name;
-	}
-
-private:
-
-	std::unordered_map<std::string, std::shared_ptr<GameObject>> objects;
-
-};
+}

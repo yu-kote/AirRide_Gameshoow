@@ -1,22 +1,26 @@
 #pragma once
 #include <iostream>
 
-// ‚·‚×‚Ä‚ÌŒ³
-class Object {
-public:
+namespace ar {
 
-	Object();
-	Object(const std::string& name_);
+	// ‚·‚×‚Ä‚ÌŒ³
+	class Object {
+	public:
 
-	virtual void destory() {}
+		Object();
+		Object(const std::string& name_);
 
-public:
+		virtual void destory() {}
 
-	void setName(const std::string& name_) { name = name_; }
-	std::string getName() { return name; }
+	public:
 
-protected:
+		void setName(const std::string& name_) { name = name_; }
+		std::string getName() { return name; }
 
-	std::string name;
+	protected:
 
-};
+		std::string name;
+
+	};
+
+}

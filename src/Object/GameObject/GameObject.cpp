@@ -1,17 +1,17 @@
 #include "GameObject.h"
 
-GameObject::GameObject()
+ar::GameObject::GameObject()
 {
 	is_active = true;
 }
 
-GameObject::GameObject(const std::string & name_) :
+ar::GameObject::GameObject(const std::string & name_) :
 	Object(name_)
 {
 	is_active = true;
 }
 
-void GameObject::pushModelView()
+void ar::GameObject::pushModelView()
 {
 	ci::gl::pushModelView();
 	ci::gl::translate(transform.position);
@@ -20,12 +20,12 @@ void GameObject::pushModelView()
 	ci::gl::scale(transform.scale);
 }
 
-void GameObject::popModelView()
+void ar::GameObject::popModelView()
 {
 	ci::gl::popModelView();
 }
 
-void GameObject::componentsUpdate()
+void ar::GameObject::componentsUpdate()
 {
 	for (auto it : components)
 	{
@@ -33,7 +33,7 @@ void GameObject::componentsUpdate()
 	}
 }
 
-void GameObject::drawBegin()
+void ar::GameObject::drawBegin()
 {
 	for (auto it : components)
 	{
@@ -41,7 +41,7 @@ void GameObject::drawBegin()
 	}
 }
 
-void GameObject::drawEnd()
+void ar::GameObject::drawEnd()
 {
 	for (auto it : components)
 	{
@@ -49,7 +49,7 @@ void GameObject::drawEnd()
 	}
 }
 
-void GameObject::componentsDraw()
+void ar::GameObject::componentsDraw()
 {
 	for (auto it : components)
 	{
@@ -57,7 +57,7 @@ void GameObject::componentsDraw()
 	}
 }
 
-void GameObject::componentsDestroy()
+void ar::GameObject::componentsDestroy()
 {
 	for (auto it : components)
 	{

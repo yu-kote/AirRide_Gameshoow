@@ -5,16 +5,20 @@
 #include "cinder/Camera.h"
 
 
-class MainCamera : public GameObject {
-public:
-
-	MainCamera();
-
-	void setup();
-	void update();
-	void draw();
+namespace ar {
 
 
-private:
+	class MainCamera : public GameObject {
+	public:
 
-};
+		MainCamera();
+
+		void setup();
+		void update();
+		void draw();
+
+
+	private:
+
+	};
+}
