@@ -1,16 +1,16 @@
 #include "GameObjectEntities.h"
 
 
-GameObjectEntities::GameObjectEntities()
+ar::GameObjectEntities::GameObjectEntities()
 {
 }
 
-GameObjectEntities::~GameObjectEntities()
+ar::GameObjectEntities::~GameObjectEntities()
 {
 	Alldestroy();
 }
 
-void GameObjectEntities::componentsUpdate()
+void ar::GameObjectEntities::componentsUpdate()
 {
 	for (const auto& it : objects)
 	{
@@ -18,7 +18,7 @@ void GameObjectEntities::componentsUpdate()
 	}
 }
 
-void GameObjectEntities::drawBegin()
+void ar::GameObjectEntities::drawBegin()
 {
 	for (const auto& it : objects)
 	{
@@ -26,7 +26,7 @@ void GameObjectEntities::drawBegin()
 	}
 }
 
-void GameObjectEntities::drawEnd()
+void ar::GameObjectEntities::drawEnd()
 {
 	for (const auto& it : objects)
 	{
@@ -34,7 +34,7 @@ void GameObjectEntities::drawEnd()
 	}
 }
 
-void GameObjectEntities::componentsDraw()
+void ar::GameObjectEntities::componentsDraw()
 {
 	for (const auto& it : objects)
 	{
@@ -42,7 +42,7 @@ void GameObjectEntities::componentsDraw()
 	}
 }
 
-void GameObjectEntities::componentsDestory()
+void ar::GameObjectEntities::componentsDestory()
 {
 	for (const auto& it : objects)
 	{
@@ -51,7 +51,7 @@ void GameObjectEntities::componentsDestory()
 }
 
 
-void GameObjectEntities::setupGameObject()
+void ar::GameObjectEntities::setupGameObject()
 {
 	for (const auto& it : objects)
 	{
@@ -59,7 +59,7 @@ void GameObjectEntities::setupGameObject()
 	}
 }
 
-void GameObjectEntities::updateGameObject()
+void ar::GameObjectEntities::updateGameObject()
 {
 	for (const auto& it : objects)
 	{
@@ -68,7 +68,7 @@ void GameObjectEntities::updateGameObject()
 	}
 }
 
-void GameObjectEntities::drawGameObject()
+void ar::GameObjectEntities::drawGameObject()
 {
 	ci::gl::pushModelView();
 	for (const auto& it : objects)
@@ -87,7 +87,7 @@ void GameObjectEntities::drawGameObject()
 	ci::gl::popModelView();
 }
 
-void GameObjectEntities::Alldestroy()
+void ar::GameObjectEntities::Alldestroy()
 {
 	for (auto it : objects)
 	{

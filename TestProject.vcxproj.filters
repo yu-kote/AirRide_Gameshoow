@@ -93,11 +93,14 @@
     <ClCompile Include="..\src\Scene\SceneCategory\Select.cpp">
       <Filter>Header Files\Scene\SceneCategory\Select</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Object\Component\Components\CameraP.cpp">
-      <Filter>Header Files\Object\Component\Components</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Object\GameObject\Camera\MainCamera.cpp">
       <Filter>Header Files\Object\GameObject\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\Component\Components\Camera.cpp">
+      <Filter>Header Files\Object\Component\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\Component\Components\Transform.cpp">
+      <Filter>Header Files\Object\Component\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,11 +158,11 @@
     <ClInclude Include="..\src\Object\Component\Components\Transform.h">
       <Filter>Header Files\Object\Component\Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Object\Component\Components\CameraP.h">
-      <Filter>Header Files\Object\Component\Components</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Object\GameObject\Camera\MainCamera.h">
       <Filter>Header Files\Object\GameObject\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\Component\Components\Camera.h">
+      <Filter>Header Files\Object\Component\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

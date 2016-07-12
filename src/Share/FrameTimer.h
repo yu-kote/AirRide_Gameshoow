@@ -67,7 +67,7 @@ public:
 	bool getIsStop() {
 		return is_stop;
 	}
-	int getWorldCount() {
+	long long getWorldCount() {
 		return worldcount;
 	}
 

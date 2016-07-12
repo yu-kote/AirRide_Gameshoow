@@ -1,26 +1,26 @@
 #include "MainCamera.h"
-#include "../../Component/Components/CameraP.h"
+#include "../../Component/Components/Camera.h"
 #include "../../../Share/Share.h"
 
 
 using namespace ci;
 using namespace ci::app;
-MainCamera::MainCamera()
+ar::MainCamera::MainCamera()
 {
 }
 
-void MainCamera::setup()
+void ar::MainCamera::setup()
 {
-	addComponent<CameraP>();
+	addComponent<ar::Camera>();
 
 }
 
-void MainCamera::update()
+void ar::MainCamera::update()
 {
 
 }
 
-void MainCamera::draw()
+void ar::MainCamera::draw()
 {
 
 }
