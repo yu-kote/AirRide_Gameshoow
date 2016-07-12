@@ -110,7 +110,8 @@
     <ClCompile Include="..\src\Input\InputEvent.cpp" />
     <ClCompile Include="..\src\MainApp.cpp" />
     <ClCompile Include="..\src\Object\Component\Component.cpp" />
-    <ClCompile Include="..\src\Object\Component\Components\CameraP.cpp" />
+    <ClCompile Include="..\src\Object\Component\Components\Camera.cpp" />
+    <ClCompile Include="..\src\Object\Component\Components\Transform.cpp" />
     <ClCompile Include="..\src\Object\GameObject\Camera\MainCamera.cpp" />
     <ClCompile Include="..\src\Object\GameObject\GameObject.cpp" />
     <ClCompile Include="..\src\Object\GameObject\GameObjectEntities.cpp" />
@@ -127,7 +128,7 @@
     <ClInclude Include="..\src\Input\InputEvent.h" />
     <ClInclude Include="..\src\Object\Component\Component.h" />
     <ClInclude Include="..\src\Object\Component\Components\Color.h" />
-    <ClInclude Include="..\src\Object\Component\Components\CameraP.h" />
+    <ClInclude Include="..\src\Object\Component\Components\Camera.h" />
     <ClInclude Include="..\src\Object\Component\Components\Transform.h" />
     <ClInclude Include="..\src\Object\GameObject\Camera\MainCamera.h" />
     <ClInclude Include="..\src\Object\GameObject\GameObject.h" />
