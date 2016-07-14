@@ -18,7 +18,7 @@ namespace ar {
 
 		// 向く
 		void lookAt(const Transform& target_);
-		void lookAt(const ci::Vec3f& position_);
+		void lookAt(const ci::Vec2f& position_);
 
 		// オイラー角でクォータニオンを回転
 		void rotate(const ci::Vec3f& angle_);
@@ -46,6 +46,8 @@ namespace ar {
 		ci::Quatf rotation;
 		ci::Matrix44f local_matrix;
 		ci::Vec3f scale;
+
+		ci::Vec3f direction;
 
 	};
 
