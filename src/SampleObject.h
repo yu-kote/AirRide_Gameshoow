@@ -24,6 +24,7 @@ namespace ar {
 			if (env.isPush(ci::app::KeyEvent::KEY_1))
 			{
 				c_color->setColor(ci::ColorA(1.0f, 0.0f, 0.0f));
+				changeangle = ci::Vec3f::zero();
 			}
 			else if (env.isPush(ci::app::KeyEvent::KEY_2))
 			{
@@ -38,13 +39,20 @@ namespace ar {
 			}
 			if (env.isPress(ci::app::KeyEvent::KEY_4))
 			{
+				changeangle.y += 0.1f;
+			}
+			if (env.isPress(ci::app::KeyEvent::KEY_5))
+			{
+				changeangle.z += 0.1f;
+			}
+			if (env.isPress(ci::app::KeyEvent::KEY_6))
+			{
 				changeangle += 0.1f;
-
 			}
 		}
 
 		void draw()override {
-			ci::gl::drawCube(ci::Vec3f::zero(), ci::Vec3f(1.0f, 1.0f, 1.0f));
+			ci::gl::drawColorCube(ci::Vec3f::zero(), ci::Vec3f(1.0f, 1.0f, 1.0f));
 		}
 
 	private:
