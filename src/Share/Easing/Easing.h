@@ -3,6 +3,8 @@
 #include "cinder/CinderMath.h"
 
 
+
+
 class c_Easinginfo
 {
 public:
@@ -81,6 +83,10 @@ class c_Easing
 {
 public:
 
+	//static c_Easing singl() {
+	//	static c_Easing hoge;
+	//	return hoge;
+	//}
 	//イージングを積み上げる関数
 	//イージングさせたい値
 	//イージングさせた後の値
@@ -126,6 +132,7 @@ public:
 
 private:
 	static std::unordered_map <float*, c_AnimInfo>  easinginfo;
+
 };
 
 
@@ -287,3 +294,13 @@ namespace EasingFunction {
 		return -(e - b) / 2.f * (std::cos(float(M_PI) * t) - 1.f) + b;
 	}
 };
+
+///実際の使い方
+/*
+
+c_Easing::apply(動かしたい値, 動かした後の値, EasingFunction::QuadOut,60);
+c_Easing::clear(mPos.x); イージングを削除する
+c_Easing::isEnd(mPos.x);　イージングが終わったらtrueを返す関数
+c_Easing::stop(mPos.x);		イージングを止める
+c_Easing::start(mPos.x);	イージングを再開する
+*/
