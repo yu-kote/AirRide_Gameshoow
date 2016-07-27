@@ -1,0 +1,30 @@
+{
+"UI":
+		{
+		"セレクト" :{
+				"UIType" : "CollisionUI",
+				"Pos_x" : 0,
+				"Pos_y" : 0,
+				"Size_x" : 100,
+				"Size_y" : 100
+				},
+
+		"スタート" :{
+				"UIType" : "CollisionUI",
+				"Pos_x" : 200,
+				"Pos_y" : 200,
+				"Size_x" : 100,
+				"Size_y" : 100
+			},
+			
+			"タイトル" :{
+				"UIType" : "CollisionUI",
+				"Pos_x" : 300,
+				"Pos_y" : 100,
+				"Size_x" : 500,
+				"Size_y" : 30
+			}
+		
+		}	
+
+}
