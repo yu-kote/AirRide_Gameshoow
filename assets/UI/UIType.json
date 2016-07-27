@@ -1,0 +1,18 @@
+{
+"Objects":
+		[
+		"スタート",
+		"セレクト",
+		"タイトル"
+		],
+
+"UIType":
+		[
+		"CollisionUI",
+		"FontUI",
+		"GaugeUI",
+		"BarCollisionUI"
+		"TextureUI"
+		]
+	
+}
