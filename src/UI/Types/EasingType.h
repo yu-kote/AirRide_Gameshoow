@@ -3,12 +3,12 @@
 #include "../picojson.h"
 #include <fstream>
 #include <cassert>
-class UIType {
+class EasingType {
 private:
-	static std::unordered_map<std::string, int> ui_type;
-	
+	static std::unordered_map<std::string, int> easing_type;
+
 public:
-	UIType() 
+	EasingType()
 	{
 		std::ifstream fs;
 		fs.open("../assets/UI/UIType.json", std::ios::binary);
@@ -19,11 +19,11 @@ public:
 
 
 		picojson::object ui_data(val.get<picojson::object>());
-		picojson::array& ui_array = ui_data["UIType"].get<picojson::array>();
+		picojson::array& ui_array = ui_data["UIState"].get<picojson::array>();
 
 		int i = 0;
 		for (auto it = ui_array.begin(); it != ui_array.end(); it++) {
-			ui_type[it->get<std::string>()] = i;
+			easing_type[it->get<std::string>()] = i;
 			i++;
 		}
 
@@ -33,8 +33,7 @@ public:
 
 
 	static std::unordered_map<std::string, int>& get() {
-		return ui_type;
+		return easing_type;
 	}
 
 };
-

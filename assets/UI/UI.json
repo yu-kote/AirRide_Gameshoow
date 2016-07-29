@@ -6,23 +6,34 @@
 				"Pos_x" : 0,
 				"Pos_y" : 0,
 				"Size_x" : 100,
-				"Size_y" : 100
+                "Size_y": 100,
+                "EaseIn": [
+                    {"UIState":"Size_x", "Change":500, "EasingType":"BackOut","Frame":300}
+                ]
 				},
 
-		"スタート" :{
-				"UIType" : "CollisionUI",
-				"Pos_x" : 200,
-				"Pos_y" : 200,
-				"Size_x" : 100,
-				"Size_y" : 100
-			},
+            "スタート": {
+                "UIType": "CollisionUI",
+                "Pos_x": 200,
+                "Pos_y": 200,
+                "Size_x": 100,
+                "Size_y": 100,
+                "EaseIn": [
+                    {"UIState":"Pos_y", "Change":0, "EasingType":"BackOut","Frame":300},
+                    {"UIState":"Pos_y", "Change":500, "EasingType":"BackOut","Frame":300}
+                ]
+
+            },
 			
-			"タイトル" :{
+		"タイトル" :{
 				"UIType" : "CollisionUI",
 				"Pos_x" : 300,
 				"Pos_y" : 100,
 				"Size_x" : 500,
-				"Size_y" : 30
+                "Size_y": 30,
+                "EaseIn": [
+                    {"UIState":"Pos_x", "Change":500, "EasingType":"BackOut","Frame":300}
+                ]
 			}
 		
 		}	
