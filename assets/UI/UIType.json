@@ -1,0 +1,63 @@
+{
+"Objects":
+		[
+		"スタート",
+		"セレクト",
+		"タイトル"
+		],
+
+"UIType":
+		[
+		"CollisionUI",
+		"FontUI",
+		"GaugeUI",
+		"BarCollisionUI",
+		"TextureUI"
+		],
+"UIState" :
+		[
+		"Pos_x",
+		"Pos_y",
+		"Size_x",
+		"Size_y",
+		"Color_r",
+		"Color_g",
+		"Color_b",
+		"Color_a"
+		],
+"EasingType":
+		[
+		"Linear",
+		"BackIn",
+		"BackOut",
+		"BackInOut",
+		"BounceOut",
+		"BounceIn",
+		"BounceInOut",
+		"CircIn",
+		"CircOut",
+		"CircInOut",
+		"CubicIn",
+		"CubicOut",
+		"CubicInOut",
+		"ElasticIn",
+		"ElasticOut",
+		"ElasticInOut",
+		"ExpoIn",
+		"ExpoOut",
+		"ExpoInOut",
+		"QuadIn",
+		"QuadOut",
+		"QuadInOut",
+		"QuartIn",
+		"QuartOut",
+		"QuartInOut",
+		"QuintIn",
+		"QuintOut",
+		"QuintInOut",
+		"SineIn",
+		"SineOut",
+		"SineInOut"
+		]
+	
+}
