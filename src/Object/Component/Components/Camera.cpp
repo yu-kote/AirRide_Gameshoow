@@ -18,9 +18,8 @@ void ar::Camera::setup()
 
 void ar::Camera::update()
 {
-	camera.setCenterOfInterestPoint(Vec3f(0.0f, 0.0f, 1000.0f));
-	camera.setEyePoint(transform.position);
-
+	camera.setEyePoint(transform.position + move_distance);
+	camera.setCenterOfInterestPoint(Vec3f(0, 0, 1000) + lookpoint + move_distance);
 }
 
 void ar::Camera::draw()

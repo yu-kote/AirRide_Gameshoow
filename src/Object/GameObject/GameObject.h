@@ -47,6 +47,7 @@ namespace ar {
 
 	public:
 
+		// コンポーネントの追加
 		template<typename T>
 		void addComponent() {
 			std::string componentname = createComponentName<T>();
@@ -55,14 +56,16 @@ namespace ar {
 				components.insert(std::make_pair(componentname, std::make_shared<T>()));
 		}
 
+		// コンポーネントの追加(コンストラクタあり)
 		template<typename T>
-		void addComponent(T) {
+		void addComponent(const T& component_) {
 			std::string componentname = createComponentName<T>();
 
 			if (components.find(componentname) == components.end())
-				components.insert(std::make_pair(componentname, std::make_shared<T>()));
+				components.insert(std::make_pair(componentname, std::make_shared<T>(component_)));
 		}
 
+		// コンポーネントの取得
 		template<typename T>
 		std::shared_ptr<T> getComponent() {
 			int script_size = sizeof(T);
@@ -70,7 +73,7 @@ namespace ar {
 			std::string componentname = createComponentName<T>();
 			if (components.find(componentname) == components.end())
 			{
-				components.insert(std::make_pair(componentname, std::make_shared<T>()));
+				assert(!"Component Not Finded");
 			}
 
 			if (script_size > 128)
