@@ -20,7 +20,6 @@ public:
 		camera_o.setEyePoint(ci::Vec3f(0.0f, 0.0f, 0.0f));
 		camera_o.setCenterOfInterestPoint(ci::Vec3f(0.0f, 0.0f, -1000.0f));
 	};
-	UIManager ui;
 	void update();
 	void draw();
 	
