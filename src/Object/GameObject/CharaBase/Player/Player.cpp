@@ -12,6 +12,28 @@ Player::~Player()
 
 void Player::setup()
 {
+	transform.position = ci::Vec3f(0.0f, 0.0f, 0.0f);
+	transform.angle = ci::Vec3f(0.0f, 0.0f, 0.0f);
+	transform.scale = ci::Vec3f(1.0f, 1.0f, 1.0f);
+
+	addComponent<ar::Color>();
+
+	status = CharaStatus::NORMAL;
+	speed = ci::Vec3f::zero();
+
+	move_count = 0.0f;
+	start_move_pos = ci::Vec3f::zero();
+	end_move_pos = ci::Vec3f::zero();
+
+	roll_angle = 0.0f;
+	roll_count = 0.0f;
+	start_roll_angle = 0.0f;
+	end_roll_angle = 0.0f;
+
+	dash_count = 0.0f;
+	start_dash_pos = ci::Vec3f::zero();
+	end_dash_pos = ci::Vec3f::zero();
+
 	leap_hands.Setup();
 
 	window_size_camera_to_player = ci::Vec2f(40.0f, 40.0f);
@@ -52,10 +74,9 @@ void Player::update()
 void Player::draw()
 {
 	pushModelView();
-
-	getComponent<ar::Color>()->drawBegin();
+	
 	ci::gl::drawCube(ci::Vec3f::zero(), ci::Vec3f::one());
-	getComponent<ar::Color>()->drawEnd();
+
 	popModelView();
 }
 
