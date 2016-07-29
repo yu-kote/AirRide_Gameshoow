@@ -104,35 +104,61 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ResourceCompile Include="Resources.rc" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="..\src\Input\InputEvent.cpp" />
+    <ClCompile Include="..\src\Input\LeapMotion\Cinder-LeapMotion.cpp" />
+    <ClCompile Include="..\src\Input\LeapMotion\LeapHands\LeapHands.cpp" />
     <ClCompile Include="..\src\MainApp.cpp" />
     <ClCompile Include="..\src\Object\Component\Component.cpp" />
     <ClCompile Include="..\src\Object\Component\Components\Camera.cpp" />
+    <ClCompile Include="..\src\Object\Component\Components\Light.cpp" />
     <ClCompile Include="..\src\Object\Component\Components\Transform.cpp" />
     <ClCompile Include="..\src\Object\GameObject\Camera\MainCamera.cpp" />
+    <ClCompile Include="..\src\Object\GameObject\CharaBase\CharaBase.cpp" />
+    <ClCompile Include="..\src\Object\GameObject\CharaBase\Player\Player.cpp" />
     <ClCompile Include="..\src\Object\GameObject\GameObject.cpp" />
     <ClCompile Include="..\src\Object\GameObject\GameObjectEntities.cpp" />
+    <ClCompile Include="..\src\Object\GameObject\SignPost\SignPost.cpp" />
+    <ClCompile Include="..\src\Object\GameObject\SignPost\SignPostManager.cpp" />
     <ClCompile Include="..\src\Object\Object.cpp" />
     <ClCompile Include="..\src\Scene\SceneCategory\GameMain.cpp" />
     <ClCompile Include="..\src\Scene\SceneCategory\Result.cpp" />
     <ClCompile Include="..\src\Scene\SceneCategory\Select.cpp" />
     <ClCompile Include="..\src\Scene\SceneCategory\Title.cpp" />
     <ClCompile Include="..\src\Scene\SceneManager\CreateScene.cpp" />
+    <ClCompile Include="..\src\Share\Easing\Easing.cpp" />
+    <ClCompile Include="..\src\UI\Types\EasingType.cpp" />
+    <ClCompile Include="..\src\UI\Types\UIObjects.cpp" />
+    <ClCompile Include="..\src\UI\Types\UIState.cpp" />
+    <ClCompile Include="..\src\UI\Types\UIType.cpp" />
+    <ClCompile Include="..\src\UI\UIBase.cpp" />
+    <ClCompile Include="..\src\UI\UIManager\UIManager.cpp" />
+    <ClCompile Include="..\src\UI\UIPlate\UIPlate.cpp" />
+    <ClCompile Include="..\src\UI\UIs\BarCollisionUI\BarCollisionUI.cpp" />
+    <ClCompile Include="..\src\UI\UIs\CollisionUI\CollisionUI.cpp" />
+    <ClCompile Include="..\src\UI\UIs\FontUI\FontUI.cpp" />
+    <ClCompile Include="..\src\UI\UIs\GaugeUI\GaugeUI.cpp" />
+    <ClCompile Include="..\src\UI\UIs\TextureUI\TextureUI.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\FrameTimer.h" />
     <ClInclude Include="..\src\Input\Gamepad\Gamepad.h" />
     <ClInclude Include="..\src\Input\InputEvent.h" />
+    <ClInclude Include="..\src\Input\LeapMotion\Cinder-LeapMotion.h" />
+    <ClInclude Include="..\src\Input\LeapMotion\Leap.h" />
+    <ClInclude Include="..\src\Input\LeapMotion\LeapHands\LeapHands.h" />
+    <ClInclude Include="..\src\Input\LeapMotion\LeapMath.h" />
     <ClInclude Include="..\src\Object\Component\Component.h" />
     <ClInclude Include="..\src\Object\Component\Components\Color.h" />
     <ClInclude Include="..\src\Object\Component\Components\Camera.h" />
+    <ClInclude Include="..\src\Object\Component\Components\Light.h" />
+    <ClInclude Include="..\src\Object\Component\Components\Material.h" />
     <ClInclude Include="..\src\Object\Component\Components\Transform.h" />
     <ClInclude Include="..\src\Object\GameObject\Camera\MainCamera.h" />
+    <ClInclude Include="..\src\Object\GameObject\CharaBase\CharaBase.h" />
+    <ClInclude Include="..\src\Object\GameObject\CharaBase\Player\Player.h" />
     <ClInclude Include="..\src\Object\GameObject\GameObject.h" />
     <ClInclude Include="..\src\Object\GameObject\GameObjectEntities.h" />
+    <ClInclude Include="..\src\Object\GameObject\SignPost\SignPost.h" />
+    <ClInclude Include="..\src\Object\GameObject\SignPost\SignPostManager.h" />
     <ClInclude Include="..\src\Object\Object.h" />
     <ClInclude Include="..\src\SampleObject.h" />
     <ClInclude Include="..\src\Scene\SceneCategory\GameMain.h" />
@@ -143,6 +169,23 @@
     <ClInclude Include="..\src\Scene\SceneManager\SceneBase.h" />
     <ClInclude Include="..\src\Scene\SceneManager\SceneManager.h" />
     <ClInclude Include="..\src\Share.h" />
+    <ClInclude Include="..\src\Share\Easing\Easing.h" />
+    <ClInclude Include="..\src\Share\FrameTimer.h" />
+    <ClInclude Include="..\src\Share\Time.h" />
+    <ClInclude Include="..\src\UI\myLib\DesLib.h" />
+    <ClInclude Include="..\src\UI\picojson.h" />
+    <ClInclude Include="..\src\UI\Types\EasingType.h" />
+    <ClInclude Include="..\src\UI\Types\UIObjects.h" />
+    <ClInclude Include="..\src\UI\Types\UIState.h" />
+    <ClInclude Include="..\src\UI\Types\UIType.h" />
+    <ClInclude Include="..\src\UI\UIBase.h" />
+    <ClInclude Include="..\src\UI\UIManager\UIManager.h" />
+    <ClInclude Include="..\src\UI\UIPlate\UIPlate.h" />
+    <ClInclude Include="..\src\UI\UIs\BarCollisionUI\BarCollisionUI.h" />
+    <ClInclude Include="..\src\UI\UIs\CollisionUI\CollisionUI.h" />
+    <ClInclude Include="..\src\UI\UIs\FontUI\FontUI.h" />
+    <ClInclude Include="..\src\UI\UIs\GaugeUI\GaugeUI.h" />
+    <ClInclude Include="..\src\UI\UIs\TextureUI\TextureUI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

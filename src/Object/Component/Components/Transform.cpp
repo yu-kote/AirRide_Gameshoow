@@ -32,7 +32,7 @@ void ar::Transform::rotate(const ci::Vec3f& angle_)
 	quat_x = Quatf(Vec3f(1.0f, 0.0f, 0.0f), angle_.x);
 	quat_y = Quatf(Vec3f(0.0f, 1.0f, 0.0f), angle_.y);
 	quat_z = Quatf(Vec3f(0.0f, 0.0f, 1.0f), angle_.z);
-	
+
 	//rotation = quat_x * quat_y * quat_z;
 	rotation = quat_x.toMatrix44() * quat_y.toMatrix44() * quat_z.toMatrix44();
 }
@@ -50,6 +50,16 @@ void ar::Transform::rotate(float angle_x_, float angle_y_, float angle_z_)
 void ar::Transform::translate(const ci::Vec3f& translation_)
 {
 	position += translation_;
+}
+
+Vec3f ar::Transform::translate(const ci::Vec3f & vector_, const Vec3f & angle_)
+{
+	Matrix44f my = Matrix44f(cos(angle_.y), 0, sin(angle_.y), 0,
+							 0, 1, 0, 0,
+							 -sin(angle_.y), 0, cos(angle_.y), 0,
+							 0, 0, 0, 1);
+
+	return my * vector_;
 }
 
 void ar::Transform::translate(float x, float y, float z)

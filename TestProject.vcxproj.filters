@@ -9,10 +9,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
-    </Filter>
     <Filter Include="Header Files\Input">
       <UniqueIdentifier>{443f136a-83d1-42b1-990d-59cea3f3ac94}</UniqueIdentifier>
     </Filter>
@@ -58,6 +54,54 @@
     <Filter Include="Header Files\Object\GameObject\Camera">
       <UniqueIdentifier>{f854cea7-fcef-4982-a7da-29515b53257d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Object\GameObject\SignPost">
+      <UniqueIdentifier>{9ffb95af-c8a1-4501-9338-fc01a24939df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ui">
+      <UniqueIdentifier>{a9f5e73a-b810-47ae-9e11-83796b7098dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ui\UIs">
+      <UniqueIdentifier>{17acc9c4-6082-4574-930e-5a36836d75cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ui\UIPlate">
+      <UniqueIdentifier>{aeb1b58b-cc26-4978-b074-4418d9a9bd97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ui\UIManager">
+      <UniqueIdentifier>{ac5673b2-ae2d-4e27-bdf8-d636ed11cc49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ui\Types">
+      <UniqueIdentifier>{19f75404-66e7-4c64-bed5-3190fc7cda0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ui\myLib">
+      <UniqueIdentifier>{40454a83-24e5-42b1-bdbd-473ba393a302}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Component\Components\Camera">
+      <UniqueIdentifier>{09b00158-cdc8-4ffe-a340-6fcc75e80674}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Component\Components\Color">
+      <UniqueIdentifier>{fcd183f6-995e-425e-ae4d-e006e5dd80d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Component\Components\Transform">
+      <UniqueIdentifier>{707b16bd-d5bd-4e7d-ac20-eb9381170bb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Component\Components\Material">
+      <UniqueIdentifier>{81f797d5-3f8a-46c3-9ef7-466b2779803c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Component\Components\Light">
+      <UniqueIdentifier>{40dd942b-cef1-4c99-ae31-fdb56478cbd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\GameObject\CharaBase">
+      <UniqueIdentifier>{442a3d48-ae6d-46f1-b260-fb698cf8e2b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\GameObject\CharaBase\Player">
+      <UniqueIdentifier>{11c1b01f-64be-44f3-b65d-5da24554a1b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Input\LeapMotion">
+      <UniqueIdentifier>{7af33fb5-4a38-4341-8aed-3ff124154ea0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Share\Easing">
+      <UniqueIdentifier>{ad3badd0-de1d-4888-95d5-bc2bfeb7dd18}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\MainApp.cpp">
@@ -96,11 +140,71 @@
     <ClCompile Include="..\src\Object\GameObject\Camera\MainCamera.cpp">
       <Filter>Header Files\Object\GameObject\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\SignPost\SignPostManager.cpp">
+      <Filter>Header Files\Object\GameObject\SignPost</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\SignPost\SignPost.cpp">
+      <Filter>Header Files\Object\GameObject\SignPost</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UI\UIBase.cpp">
+      <Filter>Ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UI\UIs\TextureUI\TextureUI.cpp">
+      <Filter>Ui\UIs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UI\UIs\GaugeUI\GaugeUI.cpp">
+      <Filter>Ui\UIs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UI\UIs\FontUI\FontUI.cpp">
+      <Filter>Ui\UIs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UI\UIs\CollisionUI\CollisionUI.cpp">
+      <Filter>Ui\UIs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UI\UIs\BarCollisionUI\BarCollisionUI.cpp">
+      <Filter>Ui\UIs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UI\UIPlate\UIPlate.cpp">
+      <Filter>Ui\UIPlate</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UI\UIManager\UIManager.cpp">
+      <Filter>Ui\UIManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UI\Types\UIType.cpp">
+      <Filter>Ui\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UI\Types\UIObjects.cpp">
+      <Filter>Ui\Types</Filter>
+    </ClCompile>
     <ClCompile Include="..\src\Object\Component\Components\Camera.cpp">
-      <Filter>Header Files\Object\Component\Components</Filter>
+      <Filter>Header Files\Object\Component\Components\Camera</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Object\Component\Components\Transform.cpp">
-      <Filter>Header Files\Object\Component\Components</Filter>
+      <Filter>Header Files\Object\Component\Components\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\Component\Components\Light.cpp">
+      <Filter>Header Files\Object\Component\Components\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\CharaBase\CharaBase.cpp">
+      <Filter>Header Files\Object\GameObject\CharaBase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\CharaBase\Player\Player.cpp">
+      <Filter>Header Files\Object\GameObject\CharaBase\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Input\LeapMotion\LeapHands\LeapHands.cpp">
+      <Filter>Header Files\Input\LeapMotion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Input\LeapMotion\Cinder-LeapMotion.cpp">
+      <Filter>Header Files\Input\LeapMotion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Share\Easing\Easing.cpp">
+      <Filter>Header Files\Share\Easing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UI\Types\EasingType.cpp">
+      <Filter>Ui\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UI\Types\UIState.cpp">
+      <Filter>Ui\Types</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -121,12 +225,6 @@
     </ClInclude>
     <ClInclude Include="..\src\Object\GameObject\GameObjectEntities.h">
       <Filter>Header Files\Object\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Object\Component\Components\Color.h">
-      <Filter>Header Files\Object\Component\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\FrameTimer.h">
-      <Filter>Header Files\Share</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Share.h">
       <Filter>Header Files\Share</Filter>
@@ -155,19 +253,98 @@
     <ClInclude Include="..\src\SampleObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Object\Component\Components\Transform.h">
-      <Filter>Header Files\Object\Component\Components</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Object\GameObject\Camera\MainCamera.h">
       <Filter>Header Files\Object\GameObject\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Object\Component\Components\Camera.h">
-      <Filter>Header Files\Object\Component\Components</Filter>
+    <ClInclude Include="..\src\Share\FrameTimer.h">
+      <Filter>Header Files\Share</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Resources.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
+    <ClInclude Include="..\src\Object\GameObject\SignPost\SignPost.h">
+      <Filter>Header Files\Object\GameObject\SignPost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\SignPost\SignPostManager.h">
+      <Filter>Header Files\Object\GameObject\SignPost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UI\picojson.h">
+      <Filter>Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UI\UIBase.h">
+      <Filter>Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UI\UIs\TextureUI\TextureUI.h">
+      <Filter>Ui\UIs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UI\UIs\GaugeUI\GaugeUI.h">
+      <Filter>Ui\UIs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UI\UIs\FontUI\FontUI.h">
+      <Filter>Ui\UIs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UI\UIs\CollisionUI\CollisionUI.h">
+      <Filter>Ui\UIs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UI\UIs\BarCollisionUI\BarCollisionUI.h">
+      <Filter>Ui\UIs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UI\UIPlate\UIPlate.h">
+      <Filter>Ui\UIPlate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UI\UIManager\UIManager.h">
+      <Filter>Ui\UIManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UI\Types\UIObjects.h">
+      <Filter>Ui\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UI\Types\UIType.h">
+      <Filter>Ui\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UI\myLib\DesLib.h">
+      <Filter>Ui\myLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\Component\Components\Camera.h">
+      <Filter>Header Files\Object\Component\Components\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\Component\Components\Color.h">
+      <Filter>Header Files\Object\Component\Components\Color</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\Component\Components\Transform.h">
+      <Filter>Header Files\Object\Component\Components\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\Component\Components\Light.h">
+      <Filter>Header Files\Object\Component\Components\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\Component\Components\Material.h">
+      <Filter>Header Files\Object\Component\Components\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\CharaBase\CharaBase.h">
+      <Filter>Header Files\Object\GameObject\CharaBase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\CharaBase\Player\Player.h">
+      <Filter>Header Files\Object\GameObject\CharaBase\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Input\LeapMotion\LeapMath.h">
+      <Filter>Header Files\Input\LeapMotion</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Input\LeapMotion\LeapHands\LeapHands.h">
+      <Filter>Header Files\Input\LeapMotion</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Input\LeapMotion\Leap.h">
+      <Filter>Header Files\Input\LeapMotion</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Input\LeapMotion\Cinder-LeapMotion.h">
+      <Filter>Header Files\Input\LeapMotion</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Share\Time.h">
+      <Filter>Header Files\Share</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Share\Easing\Easing.h">
+      <Filter>Header Files\Share\Easing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UI\Types\EasingType.h">
+      <Filter>Ui\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UI\Types\UIState.h">
+      <Filter>Ui\Types</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
