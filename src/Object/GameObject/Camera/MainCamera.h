@@ -7,7 +7,6 @@
 
 namespace ar {
 
-
 	class MainCamera : public GameObject {
 	public:
 
@@ -17,8 +16,15 @@ namespace ar {
 		void update();
 		void draw();
 
+		//void setPlayer(std::shared_ptr<Player> player_);
 
 	private:
 
+		ci::Vec3f target_position;
+
+		void move();
+
+
 	};
+
 }

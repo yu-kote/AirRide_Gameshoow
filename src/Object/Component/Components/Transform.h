@@ -28,6 +28,7 @@ namespace ar {
 
 		// ˆÚ“®
 		void translate(const ci::Vec3f& translation_);
+		ci::Vec3f translate(const ci::Vec3f& vector_, const ci::Vec3f& angle_);
 		void translate(float x_, float y_, float z_);
 
 

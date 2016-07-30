@@ -32,18 +32,23 @@ namespace ar {
 
 	public:
 
-		// こっちは呼ばなくていいかも
 		// GameObjectクラスを継承したクラスをループに登録する
 		template<typename T>
 		void setObject() {
-
 			std::string classname = createClassName<T>();
 
 			objects.insert(std::make_pair(classname, std::make_shared<T>()));
 		}
 
-		// こっちだけで十分
-		// GameObjectを継承したクラスの情報を知りたいときかつそのクラスが存在しなかったら登録する
+		template<typename T>
+		void setObject(const T& ptr) {
+			std::string classname = createClassName<T>();
+
+			objects.insert(std::make_pair(classname, std::make_shared<T>(ptr)));
+		}
+
+
+		// GameObjectを継承したクラスの情報を知りたいとき
 		template<typename T>
 		std::shared_ptr<T> getObject() {
 			int script_size = sizeof(T);
@@ -51,7 +56,7 @@ namespace ar {
 			std::string classname = createClassName<T>();
 			if (objects.find(classname) == objects.end())
 			{
-				objects.insert(std::make_pair(classname, std::make_shared<T>()));
+				assert(!"GameObject Not Finded");
 			}
 
 			if (script_size > 128)
