@@ -12,10 +12,13 @@ namespace ar {
 
 		SignPost();
 		SignPost(ci::Vec3f position_, ci::Vec3f size_ = ci::Vec3f(0.3f, 0.3f, 0.3f));
+		SignPost(ci::Vec3f position_, ci::Vec3f _direction, ci::Vec3f size_ = ci::Vec3f(0.3f, 0.3f, 0.3f));
 
 		void setup();
 		void update();
 		void draw();
 
+		ci::Vec3f direction;
+		float length;
 	};
 }

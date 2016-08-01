@@ -4,7 +4,6 @@
 
 namespace ar {
 
-
 	class SignPostManager : public GameObject {
 	public:
 		SignPostManager();
@@ -14,6 +13,8 @@ namespace ar {
 		void draw();
 
 		std::vector<ci::Vec3f> postPositions();
+
+		ci::Matrix44f getMatrix(ci::Vec3f);
 
 
 	private:
