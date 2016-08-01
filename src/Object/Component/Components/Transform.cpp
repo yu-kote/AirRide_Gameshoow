@@ -47,24 +47,37 @@ void ar::Transform::rotate(float angle_x_, float angle_y_, float angle_z_)
 
 }
 
-void ar::Transform::translate(const ci::Vec3f& translation_)
+void ar::Transform::translateXZ(const ci::Vec3f& vector_, const float& angle_y_)
 {
-	position += translation_;
+	position += translationXZ(vector_, angle_y_);
 }
 
-Vec3f ar::Transform::translate(const ci::Vec3f & vector_, const Vec3f & angle_)
+Vec3f ar::Transform::translationXZ(const ci::Vec3f & vector_, const float & angle_y_)
 {
-	Matrix44f my = Matrix44f(cos(angle_.y), 0, sin(angle_.y), 0,
+	Matrix44f my = Matrix44f(cos(angle_y_), 0, sin(angle_y_), 0,
 							 0, 1, 0, 0,
-							 -sin(angle_.y), 0, cos(angle_.y), 0,
+							 -sin(angle_y_), 0, cos(angle_y_), 0,
 							 0, 0, 0, 1);
 
 	return my * vector_;
 }
 
-void ar::Transform::translate(float x, float y, float z)
+void ar::Transform::translate(const ci::Vec3f & vector_, const ci::Vec3f angle_)
 {
+	position += translation(vector_, angle_);
+}
 
+ci::Vec3f ar::Transform::translation(const ci::Vec3f & vector_, const ci::Vec3f & angle_)
+{
+	Matrix44f mx = Matrix44f(1, 0, 0, 0,
+							 0, cos(angle_.x), -sin(angle_.x), 0,
+							 0, sin(angle_.x), cos(angle_.x), 0,
+							 0, 0, 0, 1);
+	Matrix44f my = Matrix44f(cos(angle_.y), 0, sin(angle_.y), 0,
+							 0, 1, 0, 0,
+							 -sin(angle_.y), 0, cos(angle_.y), 0,
+							 0, 0, 0, 1);
+	return my * mx * vector_;
 }
 
 ci::Vec3f ar::Transform::rotateMatrix(const ci::Vec3f & angle_, float z_)

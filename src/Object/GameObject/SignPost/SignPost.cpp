@@ -37,8 +37,7 @@ void ar::SignPost::draw()
 {
 #if 1
 
-	gl::drawCube(transform.position,
-		transform.scale);
+	//gl::drawCube(transform.position,transform.scale);
 
 #endif // DEBUG
 }

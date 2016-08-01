@@ -75,9 +75,6 @@
     <Filter Include="Ui\myLib">
       <UniqueIdentifier>{40454a83-24e5-42b1-bdbd-473ba393a302}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Object\Component\Components\Camera">
-      <UniqueIdentifier>{09b00158-cdc8-4ffe-a340-6fcc75e80674}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Object\Component\Components\Color">
       <UniqueIdentifier>{fcd183f6-995e-425e-ae4d-e006e5dd80d2}</UniqueIdentifier>
     </Filter>
@@ -101,6 +98,9 @@
     </Filter>
     <Filter Include="Header Files\Share\Easing">
       <UniqueIdentifier>{ad3badd0-de1d-4888-95d5-bc2bfeb7dd18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\GameObject\CharaBase\Enemy">
+      <UniqueIdentifier>{820fa3cf-879f-4434-8ec5-5f1bcec1b4c0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -136,9 +136,6 @@
     </ClCompile>
     <ClCompile Include="..\src\Scene\SceneCategory\Select.cpp">
       <Filter>Header Files\Scene\SceneCategory\Select</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Object\GameObject\Camera\MainCamera.cpp">
-      <Filter>Header Files\Object\GameObject\Camera</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Object\GameObject\SignPost\SignPostManager.cpp">
       <Filter>Header Files\Object\GameObject\SignPost</Filter>
@@ -176,9 +173,6 @@
     <ClCompile Include="..\src\UI\Types\UIObjects.cpp">
       <Filter>Ui\Types</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Object\Component\Components\Camera.cpp">
-      <Filter>Header Files\Object\Component\Components\Camera</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Object\Component\Components\Transform.cpp">
       <Filter>Header Files\Object\Component\Components\Transform</Filter>
     </ClCompile>
@@ -205,6 +199,12 @@
     </ClCompile>
     <ClCompile Include="..\src\UI\Types\UIState.cpp">
       <Filter>Ui\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\CharaBase\Enemy\Enemy.cpp">
+      <Filter>Header Files\Object\GameObject\CharaBase\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\Camera\Camera.cpp">
+      <Filter>Header Files\Object\GameObject\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -253,9 +253,6 @@
     <ClInclude Include="..\src\SampleObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Object\GameObject\Camera\MainCamera.h">
-      <Filter>Header Files\Object\GameObject\Camera</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Share\FrameTimer.h">
       <Filter>Header Files\Share</Filter>
     </ClInclude>
@@ -301,9 +298,6 @@
     <ClInclude Include="..\src\UI\myLib\DesLib.h">
       <Filter>Ui\myLib</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Object\Component\Components\Camera.h">
-      <Filter>Header Files\Object\Component\Components\Camera</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Object\Component\Components\Color.h">
       <Filter>Header Files\Object\Component\Components\Color</Filter>
     </ClInclude>
@@ -345,6 +339,12 @@
     </ClInclude>
     <ClInclude Include="..\src\UI\Types\UIState.h">
       <Filter>Ui\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\CharaBase\Enemy\Enemy.h">
+      <Filter>Header Files\Object\GameObject\CharaBase\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\Camera\Camera.h">
+      <Filter>Header Files\Object\GameObject\Camera</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

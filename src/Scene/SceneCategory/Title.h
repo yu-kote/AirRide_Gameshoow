@@ -1,9 +1,7 @@
 #pragma once
 #include "../SceneManager/SceneBase.h"
-#include "../SceneManager/CreateScene.h"
+
 #include "../../Object/GameObject/GameObjectEntities.h"
-#include "../../Input/InputEvent.h"
-#include "../../Object/GameObject/Camera/MainCamera.h"
 #include "../../UI/UIPlate/UIPlate.h"
 
 class Title :public SceneBase {
@@ -16,10 +14,10 @@ public:
 	void shift() override;
 	void shutdown() override;
 
+private:
 	ar::GameObjectEntities entities;
 
 	UIPlate ui;
-private:
 
 };
 

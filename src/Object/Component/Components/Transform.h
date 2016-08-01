@@ -26,10 +26,15 @@ namespace ar {
 		void rotate(float angle_x_, float angle_y_, float angle_z_);
 
 
-		// 移動
-		void translate(const ci::Vec3f& translation_);
-		ci::Vec3f translate(const ci::Vec3f& vector_, const ci::Vec3f& angle_);
-		void translate(float x_, float y_, float z_);
+		// 平面移動のみ
+		void translateXZ(const ci::Vec3f& vector_, const float& angle_y_);
+		// 平面移動のための行列計算
+		ci::Vec3f translationXZ(const ci::Vec3f& vector_, const float& angle_y_);
+
+		// 全方向移動
+		void translate(const ci::Vec3f& vector_, const ci::Vec3f angle_);
+		// 全方向移動のための行列計算
+		ci::Vec3f translation(const ci::Vec3f& vector_, const ci::Vec3f& angle_);
 
 
 		ci::Vec3f rotateMatrix(const ci::Vec3f& angle_, float z_);
