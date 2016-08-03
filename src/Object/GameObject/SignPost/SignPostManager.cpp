@@ -16,7 +16,7 @@ void ar::SignPostManager::setup()
 	postQuatDecide();
 	for (auto& it = signpost.begin(); it != signpost.end() - 1; it++)
 	{
-		ci::Vec3f dir = (*(it + 1))->transform.position 
+		ci::Vec3f dir = (*(it + 1))->transform.position
 			- (*it)->transform.position;
 		(*it)->direction = dir;
 	}
