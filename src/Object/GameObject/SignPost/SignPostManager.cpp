@@ -14,6 +14,18 @@ void ar::SignPostManager::setup()
 {
 	postLoad();
 	postQuatDecide();
+	for (auto& it = signpost.begin(); it != signpost.end() - 1; it++)
+	{
+		ci::Vec3f dir = (*(it + 1))->transform.position
+			- (*it)->transform.position;
+		(*it)->direction = dir;
+	}
+	for (auto& it = signpost.begin() + 1; it != signpost.end(); it++)
+	{
+		(*it)->length =
+			(*(it - 1))->length + (*(it - 1))->direction.length();
+	}
+
 	addComponent<ar::Light>();
 	addComponent<ar::Material>(ar::Material(
 		gl::Material(ColorA(0.6f, 1.0f, 0.6f, 1.0f),      // Ambient
@@ -42,6 +54,29 @@ std::vector<ci::Vec3f> ar::SignPostManager::postPositions()
 		positions.push_back(signpost[i]->transform.position);
 	}
 	return positions;
+}
+
+ci::Matrix44f ar::SignPostManager::getMatrix(ci::Vec3f _pos)
+{
+	ci::Matrix44f matr = ci::Matrix44f::identity();
+	if (_pos.z < 0) return matr;
+	if (_pos.z > signpost.back()->length) return matr;
+
+	for (auto& it = signpost.begin(); it != signpost.end() - 1; it++)
+	{
+		if ((*it)->length < _pos.z && (*(it + 1))->length >= _pos.z) {
+			matr *= ci::Matrix44f::createTranslation((*it)->transform.position);
+			matr *= ci::Quatf(
+				ci::Vec3f::zAxis(),
+				(*it)->direction.normalized()
+				).toMatrix44();
+			matr *= ci::Matrix44f::createTranslation(
+				ci::Vec3f(_pos.x, _pos.y, _pos.z - (*it)->length));
+			//ci::gl::multModelView(matr);
+			return matr;
+		}
+	}
+
 }
 
 void ar::SignPostManager::signPostDraw()
