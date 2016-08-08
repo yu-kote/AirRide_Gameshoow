@@ -21,4 +21,8 @@ namespace ar {
 		ci::Vec3f direction;
 		float length;
 	};
+
+
+
+
 }

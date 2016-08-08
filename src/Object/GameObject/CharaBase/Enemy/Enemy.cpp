@@ -14,25 +14,35 @@ Enemy::~Enemy()
 
 void Enemy::setup()
 {
+	ai = std::make_shared<AILevel1>(AILevel1(static_cast<CharaBase*>(this), player.get()));
+
 }
 
 void Enemy::update()
 {
-	transform.position.z += 1;
-
+	matrix = signpostmanager->getMatrix(transform.position);
+	ai->update();
 }
 
 void Enemy::draw()
 {
+	ci::gl::popMatrices();
+
 	ci::gl::pushMatrices();
-	signpostmanager->getMatrix(transform.position);
+	ci::gl::multModelView(matrix);
+
 	ci::gl::drawColorCube(ci::Vec3f::zero(), ci::Vec3f::one());
 	ci::gl::popMatrices();
+	ci::gl::pushMatrices();
 
 }
 
 void Enemy::setSignPostManager(std::shared_ptr<ar::SignPostManager> _spm)
 {
-
 	signpostmanager = _spm;
+}
+
+void Enemy::setPlayer(std::shared_ptr<CharaBase> _player)
+{
+	player = _player;
 }

@@ -29,10 +29,10 @@ void ar::SignPostManager::setup()
 	addComponent<ar::Light>();
 	addComponent<ar::Material>(ar::Material(
 		gl::Material(ColorA(0.6f, 1.0f, 0.6f, 1.0f),      // Ambient
-					 ColorA(0.6f, 1.0f, 0.6f, 1.0f),      // Diffuse
-					 ColorA(0.6f, 1.0f, 0.6f, 1.0f),      // Specular
-					 80.0f,                               // Shininess
-					 ColorA(0.5f, 0.5f, 0.5f, 1.0f))));	  // Emission
+			ColorA(0.6f, 1.0f, 0.6f, 1.0f),      // Diffuse
+			ColorA(0.6f, 1.0f, 0.6f, 1.0f),      // Specular
+			80.0f,                               // Shininess
+			ColorA(0.5f, 0.5f, 0.5f, 1.0f))));	  // Emission
 }
 
 void ar::SignPostManager::update()
@@ -59,12 +59,20 @@ std::vector<ci::Vec3f> ar::SignPostManager::postPositions()
 ci::Matrix44f ar::SignPostManager::getMatrix(ci::Vec3f _pos)
 {
 	ci::Matrix44f matr = ci::Matrix44f::identity();
-	if (_pos.z < 0) return matr;
+	if (_pos.z <= 0) return matr;
 	if (_pos.z > signpost.back()->length) return matr;
 
+	for (auto& it : signpost)
+	{
+		//ci::app::console() << it->length<< std::endl;
+	}
 	for (auto& it = signpost.begin(); it != signpost.end() - 1; it++)
 	{
+
 		if ((*it)->length < _pos.z && (*(it + 1))->length >= _pos.z) {
+
+			//matr *= ci::Matrix44f::createTranslation(ci::Vec3f(0,0,-130));
+
 			matr *= ci::Matrix44f::createTranslation((*it)->transform.position);
 			matr *= ci::Quatf(
 				ci::Vec3f::zAxis(),
@@ -76,13 +84,14 @@ ci::Matrix44f ar::SignPostManager::getMatrix(ci::Vec3f _pos)
 			return matr;
 		}
 	}
-
+	return matr;
 }
 
 void ar::SignPostManager::signPostDraw()
 {
+
 	std::for_each(signpost.begin(), signpost.end(),
-				  [&](std::shared_ptr<SignPost> post) {post->draw(); });
+		[&](std::shared_ptr<SignPost> post) {post->draw(); });
 	singPostLineDraw();
 }
 
@@ -100,7 +109,7 @@ void ar::SignPostManager::ringDraw()
 {
 	int i = 0;
 	std::for_each(signpost.begin(), signpost.end(),
-				  [&](std::shared_ptr<SignPost> post)
+		[&](std::shared_ptr<SignPost> post)
 	{
 		gl::pushModelView();
 		gl::translate(post->transform.position);

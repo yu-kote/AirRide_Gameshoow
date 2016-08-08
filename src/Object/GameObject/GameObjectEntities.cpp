@@ -61,6 +61,8 @@ void ar::GameObjectEntities::setupGameObject()
 
 void ar::GameObjectEntities::updateGameObject()
 {
+	//objects.size();
+	
 	for (const auto& it : objects)
 	{
 		it.second->componentsUpdate();
