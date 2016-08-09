@@ -43,6 +43,10 @@ void Player::setup()
 	before_hand_normal = ci::Vec3f::zero();
 	before_hand_pos = ci::Vec3f::zero();
 
+
+	window_size = ci::Vec3f(10.0f * 100.0f / 171.0f * 2.0f, 10.0f * 100.0f / 171.0f * 2.0f, 0.0f);
+
+
 	min_hand_normal_z_range = -0.5;
 	min_hand_normal_z_range = 0.5f;
 	min_hand_normal_xy_range = -M_PI / 3.0f;
