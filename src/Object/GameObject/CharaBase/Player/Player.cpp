@@ -14,7 +14,7 @@ void Player::setup()
 {
 	transform.position = ci::Vec3f(0.0f, 0.0f, 0.0f);
 	transform.angle = ci::Vec3f(0.0f, 0.0f, 0.0f);
-	transform.scale = ci::Vec3f(1.0f, 1.0f, 1.0f);
+	transform.scale = ci::Vec3f(0.0f, 0.0f, 1.0f);
 
 	addComponent<ar::Color>();
 
@@ -31,8 +31,8 @@ void Player::setup()
 	end_roll_angle = 0.0f;
 
 	dash_count = 0.0f;
-	start_dash_pos = ci::Vec3f::zero();
-	end_dash_pos = ci::Vec3f::zero();
+	start_dash_pos = ci::Vec3f(0.0f, 0.0f, 3.0f);
+	end_dash_pos = ci::Vec3f(0.0f, 0.0f, 1.0f);
 
 	leap_hands.Setup();
 
@@ -69,6 +69,9 @@ void Player::update()
 	roll();
 	dash();
 	move();
+
+	// cameraÇ©ÇÁÇÕÇ›èoÇ»Ç¢ÇÊÇ§Ç…Ç∑ÇÈ
+	collisionToWindow();
 }
 
 void Player::draw()
