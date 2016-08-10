@@ -12,24 +12,20 @@ namespace ar {
 		void update();
 		void draw();
 
-		std::vector<ci::Vec3f> postPositions();
-
+		
 		ci::Matrix44f getMatrix(ci::Vec3f);
 
 
 	private:
-		std::vector<std::shared_ptr<SignPost>> signpost;
-		std::vector<ci::Quatf> postquat;
-	private:
-		void signPostDraw();
-		void singPostLineDraw();
-		void ringDraw();
-
-	private:
-
+		std::vector<SignPost> signposts;
+		
 		void postLoad();
+		void setDirection();
+		void setRingQuat();
+		void setLength();
 
-		void postQuatDecide();
-
+		void ringDraw();
+		void pointDraw();
+		float round_length;
 	};
 }

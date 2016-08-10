@@ -5,6 +5,8 @@
 #include "EnemyAI/EnemyAI.h"
 #include "../Player/Player.h"
 
+
+
 class Enemy : public CharaBase
 {
 public:

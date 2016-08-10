@@ -14,14 +14,15 @@ Enemy::~Enemy()
 
 void Enemy::setup()
 {
+	player->transform.position;
 	ai = std::make_shared<AILevel1>(AILevel1(static_cast<CharaBase*>(this), player.get()));
 
 }
 
 void Enemy::update()
 {
-	matrix = signpostmanager->getMatrix(transform.position);
 	ai->update();
+	matrix = signpostmanager->getMatrix(transform.position);
 }
 
 void Enemy::draw()
