@@ -7,18 +7,31 @@
 
 namespace ar {
 
-	class SignPost : public Component {
+	class SignPost {
 	public:
 
-		SignPost();
-		SignPost(ci::Vec3f position_, ci::Vec3f size_ = ci::Vec3f(0.3f, 0.3f, 0.3f));
-		SignPost(ci::Vec3f position_, ci::Vec3f _direction, ci::Vec3f size_ = ci::Vec3f(0.3f, 0.3f, 0.3f));
+		SignPost(ci::Vec3f);
 
-		void setup();
-		void update();
+		void setDirection(ci::Vec3f);
+		void setRingQuat(ci::Vec3f);
+
+		void setLength(float);
+		float getLength();
+		ci::Vec3f getDirection();
+		ci::Matrix44f getMatrix();
+
+		ci::Vec3f getPos();
+
 		void draw();
+		void ringDraw();
 
+	private:
+		ci::Matrix44f matrix;
+		ci::Quatf ring_quat;
 		ci::Vec3f direction;
 		float length;
+		ci::Vec3f pos;
+
+		
 	};
 }
