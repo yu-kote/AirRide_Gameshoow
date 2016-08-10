@@ -32,6 +32,9 @@ protected:
 
 	void roll();
 	void dash();
+	void collisionToWindow();
+
+	ci::Vec3f window_size;
 
 	CharaStatus status;
 	ci::Vec3f speed;
