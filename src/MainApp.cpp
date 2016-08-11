@@ -8,6 +8,8 @@
 #include "Share/FrameTimer.h"
 #include "Input/InputEvent.h"
 #include "Scene/SceneManager/SceneManager.h"
+#include "Share/Easing/Easing.h"
+
 
 using namespace ci;
 using namespace ci::app;
@@ -120,6 +122,8 @@ void DesignApp::draw()
 #if _DEBUG
 	timer.draw();
 #endif
+	c_Easing::update();
+
 }
 
 
