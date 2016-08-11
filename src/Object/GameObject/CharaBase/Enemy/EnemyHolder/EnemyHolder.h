@@ -1,13 +1,15 @@
 #pragma once
 #include "../Enemy.h"
 #include "../../CharaBase.h"
+#include "../EnemyAI/EnemyAI.h"
+#include "../../../SignPost/SignPostManager.h"
 
 class EnemyHolder : public ar::GameObject
 {
 public:
 
 
-	//EnemyHolder();
+	EnemyHolder();
 
 	void setup() override;
 	void update() override;
@@ -18,6 +20,11 @@ public:
 	void setPlayer(std::shared_ptr<CharaBase>);
 
 private:
-	std::list<Enemy> enemys;
+	std::vector<Enemy> enemys;
+
+	CharaBase* player;
+	ar::SignPostManager* signPostM;
+
+
 };
 
