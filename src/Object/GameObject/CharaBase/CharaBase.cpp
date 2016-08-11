@@ -69,30 +69,35 @@ void CharaBase::collisionToWindow()
 	{
 		transform.position.x = -window_size.x / 2.0f;
 
-		if (status == CharaStatus::ROLL)
-			end_move_pos.x = -window_size.x / 2.0f;
+		/*if (status == CharaStatus::ROLL)
+			end_move_pos.x = -window_size.x / 2.0f;*/
 	}
 	if (transform.position.x > window_size.x / 2.0f)
 	{
 		transform.position.x = window_size.x / 2.0f;
 
-		if (status == CharaStatus::ROLL)
-			end_move_pos.x = window_size.x / 2.0f;
+		/*if (status == CharaStatus::ROLL)
+			end_move_pos.x = window_size.x / 2.0f;*/
 	}
 	if (transform.position.y < -window_size.y / 2.0f)
 	{
 		transform.position.y = -window_size.y / 2.0f;
 
-		if (status == CharaStatus::ROLL)
-			end_move_pos.y = -window_size.y / 2.0f;
+		/*if (status == CharaStatus::ROLL)
+			end_move_pos.y = -window_size.y / 2.0f;*/
 	}
 	if (transform.position.y > window_size.y / 2.0f)
 	{
 		transform.position.y = window_size.y / 2.0f;
 
-		if (status == CharaStatus::ROLL)
-			end_move_pos.y = window_size.y / 2.0f;
+		/*if (status == CharaStatus::ROLL)
+			end_move_pos.y = window_size.y / 2.0f;*/
 	}
+}
+
+void CharaBase::updateStageMatrix()
+{
+	matrix = signpostmanager->getMatrix(transform.position);
 }
 
 void CharaBase::setup()
