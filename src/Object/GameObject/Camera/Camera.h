@@ -1,7 +1,7 @@
 #pragma once
 #include "cinder/app/AppNative.h"
 #include "../../GameObject/GameObject.h"
-
+#include "../../../Object/GameObject/CharaBase/CharaBase.h"
 #include "cinder/Camera.h"
 
 namespace ar {
@@ -18,10 +18,13 @@ namespace ar {
 		void setMoveDistance(const ci::Vec3f& move_distance_) { move_distance = move_distance_; }
 		void setAngleDistance(const ci::Vec3f& angle_distance_) { angle_distance = angle_distance_; }
 
+		void setEyePoint(ci::Vec3f);
+		void setCenterOfInterestPoint(ci::Vec3f);
+		void setChara(std::shared_ptr<CharaBase>);
 
 	private:
 		ci::CameraPersp camera;
-
+		CharaBase* chara;
 		ci::Vec3f move_distance;
 		ci::Vec3f angle_distance;
 		ci::Vec3f lookpoint;
