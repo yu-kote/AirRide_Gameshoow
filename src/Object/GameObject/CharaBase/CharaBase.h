@@ -3,6 +3,7 @@
 #include "../../Component/Components/Color.h"
 #include "../../../Share/Easing/Easing.h"
 #include "../../../Share/Time.h"
+#include "../SignPost/SignPostManager.h"
 
 enum class CharaStatus
 {
@@ -33,6 +34,12 @@ protected:
 	void roll();
 	void dash();
 	void collisionToWindow();
+	void updateStageMatrix();
+
+	void setSignPostManager(std::shared_ptr<ar::SignPostManager> signpostmanager) { this->signpostmanager = signpostmanager; }
+
+	std::shared_ptr<ar::SignPostManager> signpostmanager;
+	ci::Matrix44f matrix;
 
 	ci::Vec3f window_size;
 

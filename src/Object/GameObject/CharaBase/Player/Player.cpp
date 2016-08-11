@@ -44,7 +44,9 @@ void Player::setup()
 	before_hand_pos = ci::Vec3f::zero();
 
 
-	window_size = ci::Vec3f(10.0f * 100.0f / 171.0f * 2.0f, 10.0f * 100.0f / 171.0f * 2.0f, 0.0f);
+	window_size = ci::Vec3f(10.0f * 100.0f / 171.0f * 2.0f,
+		10.0f * 100.0f / 171.0f * 2.0f,
+		0.0f);
 
 
 	min_hand_normal_z_range = -0.5;
@@ -76,15 +78,20 @@ void Player::update()
 
 	// cameraÇ©ÇÁÇÕÇ›èoÇ»Ç¢ÇÊÇ§Ç…Ç∑ÇÈ
 	collisionToWindow();
+
+	// stageçsóÒÇ…ïœä∑
+	updateStageMatrix();
 }
 
 void Player::draw()
 {
-	pushModelView();
+	ci::gl::pushModelView();
+
+	ci::gl::multModelView(matrix);
 	
 	ci::gl::drawCube(ci::Vec3f::zero(), ci::Vec3f::one());
 
-	popModelView();
+	ci::gl::popModelView();
 }
 
 void Player::move()
