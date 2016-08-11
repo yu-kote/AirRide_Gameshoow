@@ -12,12 +12,7 @@ Enemy::~Enemy()
 
 }
 
-void Enemy::setup()
-{
-	player->transform.position;
-	ai = std::make_shared<AILevel1>(AILevel1(static_cast<CharaBase*>(this), player.get()));
 
-}
 
 void Enemy::update()
 {
@@ -41,6 +36,7 @@ void Enemy::draw()
 void Enemy::setSignPostManager(std::shared_ptr<ar::SignPostManager> _spm)
 {
 	signpostmanager = _spm;
+	//signpostmanager->getMatrix(ci::Vec3f::zero());
 }
 
 void Enemy::setPlayer(std::shared_ptr<CharaBase> _player)

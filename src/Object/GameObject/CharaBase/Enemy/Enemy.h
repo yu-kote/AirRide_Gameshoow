@@ -12,12 +12,14 @@ class Enemy : public CharaBase
 public:
 	Enemy();
 	~Enemy();
-	void setup() override;
 	void update() override;
 	void draw() override;
 
 	void setSignPostManager(std::shared_ptr<ar::SignPostManager>);
 	void setPlayer(std::shared_ptr<CharaBase>);
+
+	template<class T>
+	void setAI();
 
 private:
 	std::shared_ptr<EnemyAIBase> ai;
@@ -26,8 +28,10 @@ private:
 
 	std::shared_ptr<ar::SignPostManager> signpostmanager;
 	std::shared_ptr<CharaBase> player;
-
-
-
 };
 
+template<class T>
+void Enemy::setAI()
+{
+	ai = std::make_shared<T>(T(static_cast<CharaBase*>(this), player.get()));
+}

@@ -7,13 +7,21 @@
 //
 //}
 
+EnemyHolder::EnemyHolder()
+{
+	enemys = std::vector<Enemy>(4);
+}
+
 void EnemyHolder::setup()
 {
-	enemys = std::list<Enemy>(4);
 	for (auto& it : enemys)
 	{
 		it.setup();
 	}
+	enemys[0].setAI<AILevel1>();
+	enemys[1].setAI<AILevel2>();
+	enemys[2].setAI<AILevel3>();
+	enemys[3].setAI<AILevel4>();
 
 }
 

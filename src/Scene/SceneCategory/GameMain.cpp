@@ -17,19 +17,14 @@ void GameMain::setup()
 	entities.setObject<ar::Camera>();
 	entities.setObject<ar::SignPostManager>();
 	entities.setObject<Player>();
-	//entities.setObject<EnemyHolder>();
+	entities.setObject<EnemyHolder>();
 
+	//entities.setObject<Enemy>();
 
-
-	entities.setObject<Enemy>();
-	entities.getObject<Enemy>()->setSignPostManager(entities.getObject<ar::SignPostManager>());
-	entities.getObject<Enemy>()->setPlayer(entities.getObject<Player>());
+	entities.getObject<EnemyHolder>()->setSignPostManager(entities.getObject<ar::SignPostManager>());
+	entities.getObject<EnemyHolder>()->setPlayer(entities.getObject<Player>());
 
 	entities.setupGameObject();
-
-	//entities.getObject<EnemyHolder>()->setSignPostManager(entities.getObject<ar::SignPostManager>());
-
-
 }
 
 void GameMain::draw()
