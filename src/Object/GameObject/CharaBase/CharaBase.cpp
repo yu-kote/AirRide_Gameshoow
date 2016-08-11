@@ -63,6 +63,43 @@ void CharaBase::dash()
 	speed = QuadOut(dash_count, start_dash_pos, end_dash_pos);
 }
 
+void CharaBase::collisionToWindow()
+{
+	if (transform.position.x < -window_size.x / 2.0f)
+	{
+		transform.position.x = -window_size.x / 2.0f;
+
+		/*if (status == CharaStatus::ROLL)
+			end_move_pos.x = -window_size.x / 2.0f;*/
+	}
+	if (transform.position.x > window_size.x / 2.0f)
+	{
+		transform.position.x = window_size.x / 2.0f;
+
+		/*if (status == CharaStatus::ROLL)
+			end_move_pos.x = window_size.x / 2.0f;*/
+	}
+	if (transform.position.y < -window_size.y / 2.0f)
+	{
+		transform.position.y = -window_size.y / 2.0f;
+
+		/*if (status == CharaStatus::ROLL)
+			end_move_pos.y = -window_size.y / 2.0f;*/
+	}
+	if (transform.position.y > window_size.y / 2.0f)
+	{
+		transform.position.y = window_size.y / 2.0f;
+
+		/*if (status == CharaStatus::ROLL)
+			end_move_pos.y = window_size.y / 2.0f;*/
+	}
+}
+
+void CharaBase::updateStageMatrix()
+{
+	matrix = signpostmanager->getMatrix(transform.position);
+}
+
 void CharaBase::setup()
 {
 	transform.position = ci::Vec3f(0.0f, 0.0f, 0.0f);
