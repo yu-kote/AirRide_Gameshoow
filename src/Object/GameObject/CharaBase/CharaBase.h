@@ -24,6 +24,9 @@ public:
 	virtual void update() override;
 	virtual void draw() override;
 
+	void setSignPostManager(std::shared_ptr<ar::SignPostManager> signpostmanager) { this->signpostmanager = signpostmanager; }
+	ci::Matrix44f getMatrix() const { return matrix; }
+
 protected:
 
 	virtual void move();
@@ -36,7 +39,6 @@ protected:
 	void collisionToWindow();
 	void updateStageMatrix();
 
-	void setSignPostManager(std::shared_ptr<ar::SignPostManager> signpostmanager) { this->signpostmanager = signpostmanager; }
 
 	std::shared_ptr<ar::SignPostManager> signpostmanager;
 	ci::Matrix44f matrix;

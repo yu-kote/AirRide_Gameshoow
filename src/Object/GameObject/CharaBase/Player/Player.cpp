@@ -85,13 +85,15 @@ void Player::update()
 
 void Player::draw()
 {
-	ci::gl::pushModelView();
+	ci::gl::popMatrices();
 
+	ci::gl::pushMatrices();
 	ci::gl::multModelView(matrix);
 	
 	ci::gl::drawCube(ci::Vec3f::zero(), ci::Vec3f::one());
 
-	ci::gl::popModelView();
+	ci::gl::popMatrices();
+	ci::gl::pushMatrices();
 }
 
 void Player::move()
