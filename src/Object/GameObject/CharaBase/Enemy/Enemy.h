@@ -15,7 +15,6 @@ public:
 	void update() override;
 	void draw() override;
 
-	void setSignPostManager(std::shared_ptr<ar::SignPostManager>);
 	void setPlayer(std::shared_ptr<CharaBase>);
 
 	template<class T>
@@ -23,10 +22,6 @@ public:
 
 private:
 	std::shared_ptr<EnemyAIBase> ai;
-	ci::Matrix44f matrix;
-
-
-	std::shared_ptr<ar::SignPostManager> signpostmanager;
 	std::shared_ptr<CharaBase> player;
 };
 
