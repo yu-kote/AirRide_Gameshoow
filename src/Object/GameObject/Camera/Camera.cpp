@@ -15,21 +15,58 @@ void ar::Camera::setup()
 						 60.0f,
 						 1.0f, 1000.0f);
 	lookpoint = Vec3f(1, 1, 1);
+	Vec3f camera_pos = chara->getMatrix()
+		* Matrix44f::createTranslation(
+			Vec3f(chara->transform.position.x, chara->transform.position.y, 0)).inverted()
+		*Vec3f::zero();
+	Vec3f dir = -chara->getMatrix().transformVec(Vec3f::zAxis());
+	camera.setEyePoint(camera_pos + dir * 10);
+	camera.setCenterOfInterestPoint(camera_pos);
+
 }
 
 void ar::Camera::update()
 {
-	moveUpdate();
+	/*moveUpdate();
 	rotateUpdate();
 	cameraDecision(transform.position,
-				   lookpoint);
+				   lookpoint);*/
 
-
+	Vec3f camera_pos = chara->getMatrix()
+		* Matrix44f::createTranslation(
+			Vec3f(chara->transform.position.x, chara->transform.position.y, 0)).inverted()
+		*Vec3f::zero();
+	Vec3f dir = -chara->getMatrix().transformVec(Vec3f::zAxis());
+	setEyePoint(camera_pos + dir * 10);
+	setCenterOfInterestPoint(camera_pos);
+	
 	gl::setMatrices(camera);
+
 }
 
 void ar::Camera::draw()
 {
+}
+
+void ar::Camera::setEyePoint(ci::Vec3f _pos)
+{
+	camera.setEyePoint(camera.getEyePoint() +
+		((_pos - camera.getEyePoint()) * 0.1f));
+	//camera.setEyePoint(_pos);
+}
+
+void ar::Camera::setCenterOfInterestPoint(ci::Vec3f _pos)
+{
+	/*camera.setCenterOfInterestPoint(
+		camera.getCenterOfInterestPoint() +
+		((_pos - camera.getEyePoint()) * 0.1f));*/
+	camera.setCenterOfInterestPoint(_pos);
+
+}
+
+void ar::Camera::setChara(std::shared_ptr<CharaBase> _chara)
+{
+	chara = _chara.get();
 }
 
 void ar::Camera::cameraDecision(const ci::Vec3f & position_, const ci::Vec3f & lookpoint_)

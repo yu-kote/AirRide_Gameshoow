@@ -20,10 +20,12 @@ void GameMain::setup()
 	entities.setObject<EnemyHolder>();
 
 	//entities.setObject<Enemy>();
+	entities.getObject<Player>()->setSignPostManager(entities.getObject<ar::SignPostManager>());
 
 	entities.getObject<EnemyHolder>()->setSignPostManager(entities.getObject<ar::SignPostManager>());
 	entities.getObject<EnemyHolder>()->setPlayer(entities.getObject<Player>());
 
+	entities.getObject<ar::Camera>()->setChara(entities.getObject<Player>());
 	entities.setupGameObject();
 }
 
