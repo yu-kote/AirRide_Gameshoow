@@ -19,7 +19,7 @@ void Player::setup()
 	addComponent<ar::Color>();
 
 	status = CharaStatus::NORMAL;
-	speed = ci::Vec3f::zero();
+	speed = ci::Vec3f(0.0f, 0.0f, 1.0f);
 
 	move_count = 0.0f;
 	start_move_pos = ci::Vec3f::zero();
