@@ -1,0 +1,5 @@
+# AirRide_Gameshoow
+エアライド(仮)
+
+金山はComponentのCameraPとCameraと
+GameObjectとMainCameraのcppとヘッダーを消しておいてください。
