@@ -16,18 +16,28 @@ public:
 	void draw() override;
 
 private:
+
+	void operationKey();
+
 	void debugMove();
+	void debugRoll();
+	void debugDash();
 	
 
-	void move() override;
-	void moveDestination();
+	void operationLeap();
 
+	void moveDestination();
 	void UpdateLeapHands();
 	void handNormalRotation();
 	void handPosZDistance();
 
-	// LeapMotion
-	LeapHands leap_hands;
+	enum class OperationType
+	{
+		LEAPMOTION,
+		KEY
+	};
+
+	OperationType operation_type;
 
 	// camera‚©‚çŒ©‚½ƒvƒŒƒCƒ„[‚Ì‰f‚é”ÍˆÍ
 	ci::Vec2f window_size_camera_to_player;

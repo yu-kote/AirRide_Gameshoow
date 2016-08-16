@@ -27,7 +27,13 @@ public:
 	void setSignPostManager(std::shared_ptr<ar::SignPostManager> signpostmanager) { this->signpostmanager = signpostmanager; }
 	ci::Matrix44f getMatrix() const { return matrix; }
 	
-	void rolling(ci::Vec2f);
+	enum class RollDirection
+	{
+		LEFT,
+		RIGHT
+	};
+
+	void rolling(ci::Vec2f, RollDirection);
 	void attack();
 
 
@@ -36,7 +42,7 @@ protected:
 	void debugCourseOutStop();
 
 
-	virtual void move();
+	void move();
 
 	// ç°ÇÃÇ∆Ç±ÇÎégÇÌÇ»Ç¢
 	void moveRollAxis();
@@ -66,6 +72,8 @@ protected:
 	float roll_count;
 	float start_roll_angle;
 	float end_roll_angle;
+
+	ci::Vec2f move_direction;
 
 	float dash_count;
 	ci::Vec3f start_dash_pos;
