@@ -2,7 +2,7 @@
 
 Player::Player()
 {
-	
+
 }
 
 Player::~Player()
@@ -12,6 +12,10 @@ Player::~Player()
 
 void Player::setup()
 {
+	LEAPHANDS.Setup();
+
+	operation_type = OperationType::KEY;
+
 	transform.position = ci::Vec3f(0.0f, 0.0f, 0.0f);
 	transform.angle = ci::Vec3f(0.0f, 0.0f, 0.0f);
 	transform.scale = ci::Vec3f(0.0f, 0.0f, 1.0f);
@@ -30,11 +34,11 @@ void Player::setup()
 	start_roll_angle = 0.0f;
 	end_roll_angle = 0.0f;
 
+	move_direction = ci::Vec2f::zero();
+
 	dash_count = 0.0f;
 	start_dash_pos = ci::Vec3f(0.0f, 0.0f, 3.0f);
 	end_dash_pos = ci::Vec3f(0.0f, 0.0f, 1.0f);
-
-	leap_hands.Setup();
 
 	window_size_camera_to_player = ci::Vec2f(40.0f, 40.0f);
 	pos_to_ratio = ci::Vec2f::zero();
@@ -50,7 +54,7 @@ void Player::setup()
 
 
 	min_hand_normal_z_range = -0.5;
-	min_hand_normal_z_range = 0.5f;
+	max_hand_normal_z_range = 0.5f;
 	min_hand_normal_xy_range = -M_PI / 3.0f;
 	max_hand_normal_xy_range = M_PI / 3.0f;
 	min_dot_product_range = 1.0f;
@@ -60,28 +64,17 @@ void Player::setup()
 
 void Player::update()
 {
+	if (operation_type == OperationType::LEAPMOTION)
+		operationLeap();
+	else if (operation_type == OperationType::KEY)
+		operationKey();
+	
 
-	debugMove();
-
-	debugCourseOutStop();
-	// leapmotionの更新処理
-	UpdateLeapHands();
-
-	// 行き先の更新
-	moveDestination();
-
-	// Rollの確認処理
-	handNormalRotation();
-
-	// Dashの確認処理
-	handPosZDistance();
-
-	roll();
-	dash();
 	move();
 
 	// cameraからはみ出ないようにする
 	//collisionToWindow();
+	debugCourseOutStop();
 
 	// stage行列に変換
 	updateStageMatrix();
@@ -93,51 +86,97 @@ void Player::draw()
 
 	ci::gl::pushMatrices();
 	ci::gl::multModelView(matrix);
-	
+	ci::Matrix44f mrotate = ci::Matrix44f::createRotation(ci::Vec3f(0.0f, 0.0f, roll_angle));
+	ci::gl::multModelView(mrotate);
+
 	ci::gl::drawCube(ci::Vec3f::zero(), ci::Vec3f::one());
 
 	ci::gl::popMatrices();
 	ci::gl::pushMatrices();
 }
 
+void Player::operationKey()
+{
+	debugMove();
+	debugRoll();
+	debugDash();
+}
+
 void Player::debugMove()
 {
+	start_move_pos.z = transform.position.z;
+	end_move_pos.z = transform.position.z;
+
+	if (status != CharaStatus::NORMAL)
+		return;
+
 	ci::Vec2f _direction = ci::Vec2f::zero();
 	if (env.isPress(ci::app::KeyEvent::KEY_j)) {
-		_direction.x = 1;
+		_direction.x = 3;
 	}
 	if (env.isPress(ci::app::KeyEvent::KEY_l)) {
-		_direction.x -= 1;
+		_direction.x = -3;
 	}
 	if (env.isPress(ci::app::KeyEvent::KEY_i)) {
-		_direction.y += 1;
+		_direction.y = 3;
 	}
 	if (env.isPress(ci::app::KeyEvent::KEY_k)) {
-		_direction.y -= 1;
+		_direction.y = -3;
 	}
 	if (_direction.lengthSquared() > 0) {
 		_direction.normalize();
 		_direction *= 0.1f;
-		transform.position.x += _direction.x;
-		transform.position.y += _direction.y;
+		start_move_pos = transform.position;
+		end_move_pos += ci::Vec3f(_direction.x, _direction.y, 0.0f);
+		move_count = 0.0f;
+
+		move_direction = _direction;
 	}
 
 
 }
 
-
-
-void Player::move()
+void Player::debugRoll()
 {
-	move_count += TIME.getDeltaTime();
-	if (move_count >= 1.0f)
-		move_count = 1.0f;
+	if (status != CharaStatus::NORMAL)
+		return;
 
-	// 横移動
-	transform.position = QuadOut(move_count, start_move_pos, end_move_pos);
+	if (!env.isPush(ci::app::KeyEvent::KEY_SPACE))
+		return;
 
-	// Z軸移動
-	transform.position += speed;
+	if (move_direction.lengthSquared() <= 0)
+		return;
+
+	if (move_direction.x > 0)
+		rolling(move_direction * 50.0f, RollDirection::RIGHT);
+	else
+		rolling(move_direction * 50.0f, RollDirection::LEFT);
+}
+
+void Player::debugDash()
+{
+	if (status != CharaStatus::NORMAL)
+		return;
+
+	if (!env.isPush(ci::app::KeyEvent::KEY_b))
+		return;
+
+	attack();
+}
+
+void Player::operationLeap()
+{
+	// leapmotionの更新処理
+	UpdateLeapHands();
+
+	// 行き先の更新
+	moveDestination();
+
+	// Rollの確認処理
+	handNormalRotation();
+
+	// Dashの確認処理
+	handPosZDistance();
 }
 
 void Player::moveDestination()
@@ -188,7 +227,7 @@ void Player::handNormalRotation()
 
 	float start_theta = std::atan2(LEAPHANDS.GetHandNormal().x - 0.0f, LEAPHANDS.GetHandNormal().y - (-1.0f));
 
-	if (start_theta < min_hand_normal_xy_range ||
+	if (start_theta < min_hand_normal_xy_range &&
 		start_theta > max_hand_normal_xy_range)
 		return;
 
@@ -196,7 +235,7 @@ void Player::handNormalRotation()
 	float dot_product = (before_hand_normal.x * LEAPHANDS.GetHandNormal().x) + (before_hand_normal.y * LEAPHANDS.GetHandNormal().y);
 
 	// 6frame前の手の法線と今の法線との内積が [０以上～９０度未満] の場合はじく
-	if (dot_product >= min_dot_product_range && dot_product < max_dot_product_range)
+	if (dot_product <= min_dot_product_range && dot_product > max_dot_product_range)
 		return;
 
 	// 6frame前の法線と今の法線との角度
@@ -224,7 +263,7 @@ void Player::handNormalRotation()
 		// 移動先が右方向の場合はじく
 		if (direction_theta > 0.0f)
 			return;
-		
+
 		end_roll_angle = max_roll_angle;
 	}
 	// 手が時計回りしたとき
@@ -242,10 +281,10 @@ void Player::handNormalRotation()
 	// ロール中の移動処理がかけていない
 	////////////////////////////////////////////////////////////////////////////////////
 	start_move_pos = transform.position;
-	end_move_pos = transform.position +
+	end_move_pos = end_move_pos +
 		ci::Vec3f(distance_vec_normal.x * 10.0f,
 			distance_vec_normal.y * 10.0f,
-			transform.position.z);
+			0.0f);
 	////////////////////////////////////////////////////////////////////////////////////
 	roll_count = 0.0f;
 	status = CharaStatus::ROLL;
@@ -256,8 +295,10 @@ void Player::handPosZDistance()
 	if (status != CharaStatus::NORMAL)
 		return;
 
-	float distance_z = before_hand_pos.z - LEAPHANDS.GetHandCenterPos().z;
-	
+	float distance_z = LEAPHANDS.GetHandCenterPos().z - before_hand_pos.z;
+
+	ci::app::console() << LEAPHANDS.GetHandCenterPos().z << std::endl;
+
 	// 手のz軸に対しての移動量が満たなかった場合はじく
 	if (distance_z < dash_range)
 		return;
