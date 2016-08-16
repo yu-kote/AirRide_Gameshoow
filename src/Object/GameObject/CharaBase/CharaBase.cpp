@@ -33,14 +33,18 @@ void CharaBase::debugCourseOutStop()
 
 void CharaBase::move()
 {
-	// é©ï™Ç≈èëÇ´Ç‹ÇµÇÂÇ§
+	roll();
+	dash();
 
-	/*if (end_move_pos != transform.position)
-	{
-		start_move_pos = transform.position;
-	}
+	move_count += TIME.getDeltaTime();
+	if (move_count >= 1.0f)
+		move_count = 1.0f;
 
-	transform.position = QuadOut(move_count, start_move_pos, end_move_pos);*/
+	// â°à⁄ìÆ
+	transform.position = QuadOut(move_count, start_move_pos, end_move_pos);
+
+	// Zé≤à⁄ìÆ
+	transform.position += speed;
 }
 
 void CharaBase::moveRollAxis()
@@ -61,6 +65,8 @@ void CharaBase::roll()
 	}
 
 	roll_angle = EasingFunction::QuadOut(roll_count, start_roll_angle, end_roll_angle);
+	start_move_pos.z = transform.position.z;
+	end_move_pos.z = transform.position.z;
 }
 
 void CharaBase::dash()
@@ -76,6 +82,8 @@ void CharaBase::dash()
 	}
 
 	speed = QuadOut(dash_count, start_dash_pos, end_dash_pos);
+	start_move_pos.z = transform.position.z;
+	end_move_pos.z = transform.position.z;
 }
 
 void CharaBase::collisionToWindow()
@@ -150,20 +158,22 @@ void CharaBase::draw()
 
 }
 
-void CharaBase::rolling(ci::Vec2f _terget)
+void CharaBase::rolling(ci::Vec2f _terget, RollDirection roll_direction)
 {
 	status = CharaStatus::ROLL;
 	roll_count = 0;
 
-	
-	end_roll_angle = 2;
-	"ÉçÅ[Éã" ? "Ç«Ç§Ç‚ÇÒÇæ" : "?";
+	if (roll_direction == RollDirection::LEFT)
+		end_roll_angle = max_roll_angle;
+	else if (roll_direction == RollDirection::RIGHT)
+		end_roll_angle = -max_roll_angle;
+
+	start_move_pos = transform.position;
+	end_move_pos = ci::Vec3f(_terget.x, _terget.y, transform.position.z);
 }
 
 void CharaBase::attack()
 {
 	status = CharaStatus::DASH;
 	dash_count = 0;
-	start_dash_pos = end_dash_pos;
-	"?" ? "?" : "?";
 }
