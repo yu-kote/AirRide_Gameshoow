@@ -9,7 +9,7 @@
 #include "Input/InputEvent.h"
 #include "Scene/SceneManager/SceneManager.h"
 #include "Share/Easing/Easing.h"
-
+#include "Share/Interface/Interface.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -62,7 +62,8 @@ void DesignApp::mouseUp(MouseEvent event)
 
 void DesignApp::setup()
 {
-
+	Interface::single();
+	
 	env.padSetup();
 
 	scene.setup();
@@ -123,7 +124,7 @@ void DesignApp::draw()
 	timer.draw();
 #endif
 	c_Easing::update();
-
+	Params->draw();
 }
 
 

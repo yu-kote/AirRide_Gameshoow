@@ -26,8 +26,15 @@ public:
 
 	void setSignPostManager(std::shared_ptr<ar::SignPostManager> signpostmanager) { this->signpostmanager = signpostmanager; }
 	ci::Matrix44f getMatrix() const { return matrix; }
+	
+	void rolling(ci::Vec2f);
+	void attack();
+
 
 protected:
+
+	void debugCourseOutStop();
+
 
 	virtual void move();
 

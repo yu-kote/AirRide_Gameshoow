@@ -60,6 +60,10 @@ void Player::setup()
 
 void Player::update()
 {
+
+	debugMove();
+
+	debugCourseOutStop();
 	// leapmotionの更新処理
 	UpdateLeapHands();
 
@@ -77,7 +81,7 @@ void Player::update()
 	move();
 
 	// cameraからはみ出ないようにする
-	collisionToWindow();
+	//collisionToWindow();
 
 	// stage行列に変換
 	updateStageMatrix();
@@ -95,6 +99,33 @@ void Player::draw()
 	ci::gl::popMatrices();
 	ci::gl::pushMatrices();
 }
+
+void Player::debugMove()
+{
+	ci::Vec2f _direction = ci::Vec2f::zero();
+	if (env.isPress(ci::app::KeyEvent::KEY_j)) {
+		_direction.x = 1;
+	}
+	if (env.isPress(ci::app::KeyEvent::KEY_l)) {
+		_direction.x -= 1;
+	}
+	if (env.isPress(ci::app::KeyEvent::KEY_i)) {
+		_direction.y += 1;
+	}
+	if (env.isPress(ci::app::KeyEvent::KEY_k)) {
+		_direction.y -= 1;
+	}
+	if (_direction.lengthSquared() > 0) {
+		_direction.normalize();
+		_direction *= 0.1f;
+		transform.position.x += _direction.x;
+		transform.position.y += _direction.y;
+	}
+
+
+}
+
+
 
 void Player::move()
 {

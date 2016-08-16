@@ -1,8 +1,8 @@
 #include "CharaBase.h"
 
 ci::Vec3f QuadOut(float t, ci::Vec3f b, ci::Vec3f e) {
-	return ci::Vec3f(-(e.x - b.x) * t * (t - 2) + b.x, 
-		-(e.y - b.y) * t * (t - 2) + b.y, 
+	return ci::Vec3f(-(e.x - b.x) * t * (t - 2) + b.x,
+		-(e.y - b.y) * t * (t - 2) + b.y,
 		-(e.z - b.z) * t * (t - 2) + b.z);
 }
 
@@ -13,6 +13,21 @@ CharaBase::CharaBase()
 
 CharaBase::~CharaBase()
 {
+
+}
+
+void CharaBase::debugCourseOutStop()
+{
+
+	ci::Vec2f _pos = transform.position.xy();
+
+	if (_pos.lengthSquared() < 6.f * 6.f)return;
+
+	_pos.normalize();
+	_pos *= 6.f;
+	transform.position.x = _pos.x;
+	transform.position.y = _pos.y;
+
 
 }
 
@@ -30,7 +45,7 @@ void CharaBase::move()
 
 void CharaBase::moveRollAxis()
 {
-	
+
 }
 
 void CharaBase::roll()
@@ -133,4 +148,22 @@ void CharaBase::update()
 void CharaBase::draw()
 {
 
+}
+
+void CharaBase::rolling(ci::Vec2f _terget)
+{
+	status = CharaStatus::ROLL;
+	roll_count = 0;
+
+	
+	end_roll_angle = 2;
+	"ƒ[ƒ‹" ? "‚Ç‚¤‚â‚ñ‚¾" : "?";
+}
+
+void CharaBase::attack()
+{
+	status = CharaStatus::DASH;
+	dash_count = 0;
+	start_dash_pos = end_dash_pos;
+	"?" ? "?" : "?";
 }

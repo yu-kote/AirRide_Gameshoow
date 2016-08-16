@@ -16,6 +16,8 @@ public:
 	void draw() override;
 
 	void setPlayer(std::shared_ptr<CharaBase>);
+	void setTarget(const bool&);
+
 
 	template<class T>
 	void setAI();
