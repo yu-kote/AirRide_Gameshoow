@@ -18,10 +18,14 @@ AILevel1::AILevel1(CharaBase* _enemy, CharaBase* _player) :
 	
 }
 
-void AILevel1::update()
+void AILevel1::stert()
 {
 	Params->addParam("Enemy1", &HP);
-	ci::app::console() << HP << std::endl;
+}
+
+void AILevel1::update()
+{
+	//
 	if (!is_terget) {
 		enemy->transform.position.z += 1;
 		return;
@@ -61,9 +65,13 @@ AILevel2::AILevel2(CharaBase* _enemy, CharaBase* _player) :
 		400, EasingFunction::ExpoIn, 50);
 }
 
-void AILevel2::update()
+void AILevel2::stert()
 {
 	Params->addParam("Enemy2", &HP);
+}
+
+void AILevel2::update()
+{
 	if (!is_terget) {
 		enemy->transform.position.z += 1;
 		return;
@@ -83,9 +91,14 @@ AILevel3::AILevel3(CharaBase* _enemy, CharaBase* _player) :
 		500, EasingFunction::ExpoIn, 50);
 }
 
-void AILevel3::update()
+void AILevel3::stert()
 {
 	Params->addParam("Enemy3", &HP);
+}
+
+void AILevel3::update()
+{
+	//
 	if (!is_terget) {
 		enemy->transform.position.z += 1;
 		return;
@@ -103,9 +116,14 @@ AILevel4::AILevel4(CharaBase* _enemy, CharaBase* _player) :
 		600, EasingFunction::ExpoIn, 50);
 }
 
-void AILevel4::update()
+void AILevel4::stert()
 {
 	Params->addParam("Enemy4", &HP);
+}
+
+void AILevel4::update()
+{
+	//
 	if (!is_terget) {
 		enemy->transform.position.z += 1;
 		return;
