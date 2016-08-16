@@ -12,6 +12,7 @@ public:
 		is_terget = false;
 		HP = 1;
 	}
+	virtual void stert() {};
 	virtual void update() {};
 	void setTerget(const bool&);
 

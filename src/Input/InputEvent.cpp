@@ -211,7 +211,7 @@ void onDeviceAttached(struct Gamepad_device * device, void * context)
 {
 	if (verbose)
 	{
-		console() << "Device ID " << device->deviceID << " attached (vendor = " << device->vendorID << "; product = " << device->productID << ") with context" << context << std::endl;
+		//console() << "Device ID " << device->deviceID << " attached (vendor = " << device->vendorID << "; product = " << device->productID << ") with context" << context << std::endl;
 	}
 }
 
@@ -219,7 +219,7 @@ void onDeviceRemoved(struct Gamepad_device * device, void * context)
 {
 	if (verbose)
 	{
-		console() << "Device ID " << device->deviceID << " removed with context " << context << std::endl;
+		//console() << "Device ID " << device->deviceID << " removed with context " << context << std::endl;
 	}
 }
 

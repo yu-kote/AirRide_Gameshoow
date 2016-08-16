@@ -31,4 +31,5 @@ template<class T>
 void Enemy::setAI()
 {
 	ai = std::make_shared<T>(T(static_cast<CharaBase*>(this), player.get()));
+	ai->stert();
 }
