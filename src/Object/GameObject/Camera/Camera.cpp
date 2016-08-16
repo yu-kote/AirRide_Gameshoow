@@ -22,24 +22,30 @@ void ar::Camera::setup()
 	Vec3f dir = -chara->getMatrix().transformVec(Vec3f::zAxis());
 	camera.setEyePoint(camera_pos + dir * 10);
 	camera.setCenterOfInterestPoint(camera_pos);
-
+	camera_run = true;
+	Params->addParam("camera_run", &camera_run);
 }
 
 void ar::Camera::update()
 {
-	/*moveUpdate();
-	rotateUpdate();
-	cameraDecision(transform.position,
-				   lookpoint);*/
-
-	Vec3f camera_pos = chara->getMatrix()
-		* Matrix44f::createTranslation(
-			Vec3f(chara->transform.position.x, chara->transform.position.y, 0)).inverted()
-		*Vec3f::zero();
-	Vec3f dir = -chara->getMatrix().transformVec(Vec3f::zAxis());
-	setEyePoint(camera_pos + dir * 10);
-	setCenterOfInterestPoint(camera_pos);
 	
+	if (camera_run) {
+		Vec3f camera_pos = chara->getMatrix()
+			* Matrix44f::createTranslation(
+				Vec3f(chara->transform.position.x, chara->transform.position.y, 0)).inverted()
+			*Vec3f::zero();
+		Vec3f dir = -chara->getMatrix().transformVec(Vec3f::zAxis());
+		setEyePoint(camera_pos + dir * 10);
+		setCenterOfInterestPoint(camera_pos);
+		
+	}
+	else {
+		moveUpdate();
+		rotateUpdate();
+		cameraDecision(transform.position,
+			lookpoint);
+	}
+
 	gl::setMatrices(camera);
 
 }

@@ -3,6 +3,7 @@
 #include "../../GameObject/GameObject.h"
 #include "../../../Object/GameObject/CharaBase/CharaBase.h"
 #include "cinder/Camera.h"
+#include "../../../Share/Interface/Interface.h"
 
 namespace ar {
 
@@ -25,6 +26,9 @@ namespace ar {
 	private:
 		ci::CameraPersp camera;
 		CharaBase* chara;
+		bool camera_run;
+
+
 		ci::Vec3f move_distance;
 		ci::Vec3f angle_distance;
 		ci::Vec3f lookpoint;

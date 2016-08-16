@@ -7,6 +7,7 @@
 #include "../../Object/GameObject/CharaBase/Player/Player.h"
 #include "../../Object/GameObject/CharaBase/Enemy/Enemy.h"
 #include "../../Object/GameObject/CharaBase/Enemy/EnemyHolder/EnemyHolder.h"
+#include "../../Share/Interface/Interface.h"
 
 GameMain::GameMain()
 {
@@ -26,6 +27,7 @@ void GameMain::setup()
 	entities.getObject<EnemyHolder>()->setPlayer(entities.getObject<Player>());
 
 	entities.getObject<ar::Camera>()->setChara(entities.getObject<Player>());
+
 	entities.setupGameObject();
 }
 

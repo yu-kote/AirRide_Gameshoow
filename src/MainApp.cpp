@@ -9,7 +9,8 @@
 #include "Input/InputEvent.h"
 #include "Scene/SceneManager/SceneManager.h"
 #include "Share/Easing/Easing.h"
-
+#include "Share/Interface/Interface.h"
+#include "Share/Time.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -62,6 +63,7 @@ void DesignApp::mouseUp(MouseEvent event)
 
 void DesignApp::setup()
 {
+	Interface::single();
 
 	env.padSetup();
 
@@ -105,6 +107,7 @@ void DesignApp::update()
 	timer.start(true);
 	if (timer.getIsStop() == false)
 	{
+		TIME.update(static_cast<float>(getElapsedSeconds()), static_cast<int>(getElapsedFrames()));
 		env.padUpdate();
 		env.padProcessEvent();
 		scene.update();
@@ -123,7 +126,7 @@ void DesignApp::draw()
 	timer.draw();
 #endif
 	c_Easing::update();
-
+	Params->draw();
 }
 
 
