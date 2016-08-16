@@ -1,7 +1,7 @@
 #pragma once
 #include "../CharaBase.h"
 #include "../../../../Input/LeapMotion/LeapHands/LeapHands.h"
-
+#include "../../../../Input/InputEvent.h"
 
 
 class Player : public CharaBase
@@ -16,6 +16,8 @@ public:
 	void draw() override;
 
 private:
+	void debugMove();
+	
 
 	void move() override;
 	void moveDestination();

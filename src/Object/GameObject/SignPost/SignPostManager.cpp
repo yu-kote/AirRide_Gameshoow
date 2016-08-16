@@ -82,7 +82,7 @@ void ar::SignPostManager::pointDraw()
 
 void ar::SignPostManager::postLoad()
 {
-	std::ifstream ifstr(getAssetPath("StageInfo/StageVertex.txt").string());
+	std::ifstream ifstr(getAssetPath("StageInfo/StageVertexTest.txt").string());
 
 	if (!ifstr.is_open())
 		assert(!"Stage text not find");

@@ -18,13 +18,16 @@ public:
 
 	void setSignPostManager(std::shared_ptr<ar::SignPostManager>);
 	void setPlayer(std::shared_ptr<CharaBase>);
+	int getRanking();
 
 private:
 	std::vector<Enemy> enemys;
 
 	CharaBase* player;
 	ar::SignPostManager* signPostM;
+	int target_number;
 
+	void targetChange();
 
 };
 

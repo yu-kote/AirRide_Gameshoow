@@ -59,6 +59,7 @@ ci::Vec3f ar::SignPost::getPos()
 
 void ar::SignPost::draw()
 {
+#if 0
 	gl::pushModelView();
 
 	gl::translate(pos);
@@ -67,7 +68,6 @@ void ar::SignPost::draw()
 	gl::popModelView();
 	
 
-#if DEBUG
 
 	//gl::drawCube(transform.position,transform.scale);
 
@@ -79,7 +79,7 @@ void ar::SignPost::ringDraw()
 	gl::pushModelView();
 	gl::translate(pos);
 	gl::multModelView(ring_quat.toMatrix44());
-	gl::drawTorus(3.0f, 0.3f, 12, 12);
+	gl::drawTorus(7.0f, 0.3f, 1, 1);
 	gl::popModelView();
 
 }

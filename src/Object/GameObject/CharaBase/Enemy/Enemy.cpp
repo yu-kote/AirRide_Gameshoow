@@ -2,8 +2,7 @@
 
 Enemy::Enemy()
 {
-
-
+	
 }
 
 Enemy::~Enemy()
@@ -39,4 +38,9 @@ void Enemy::draw()
 void Enemy::setPlayer(std::shared_ptr<CharaBase> _player)
 {
 	player = _player;
+}
+
+void Enemy::setTarget(const bool & _is_terget)
+{
+	ai->setTerget(_is_terget);
 }
