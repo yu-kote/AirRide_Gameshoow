@@ -13,9 +13,7 @@ public:
 	void update() override;
 
 private:
-	ci::Vec2f aiterget;
-	int terget_change_count;
-
+	
 
 };
 

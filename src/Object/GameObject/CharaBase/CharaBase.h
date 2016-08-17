@@ -24,6 +24,9 @@ public:
 	virtual void update() override;
 	virtual void draw() override;
 
+
+	ci::Vec3f getWorldPoisition();
+
 	void setSignPostManager(std::shared_ptr<ar::SignPostManager> signpostmanager) { this->signpostmanager = signpostmanager; }
 	ci::Matrix44f getMatrix() const { return matrix; }
 
