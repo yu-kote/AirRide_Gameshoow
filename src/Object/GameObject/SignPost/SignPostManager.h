@@ -14,6 +14,7 @@ namespace ar {
 
 		
 		ci::Matrix44f getMatrix(ci::Vec3f);
+		ci::Vec3f getStagePos(ci::Vec3f);
 
 
 	private:
@@ -27,5 +28,8 @@ namespace ar {
 		void ringDraw();
 		void pointDraw();
 		float round_length;
+		std::vector<ar::SignPost>::iterator getNeerSignPost(ci::Vec3f);
+		std::vector<ar::SignPost>::iterator prevIterator(std::vector<ar::SignPost>::iterator);
+
 	};
 }

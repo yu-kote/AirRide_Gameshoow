@@ -26,13 +26,18 @@ public:
 
 	void setSignPostManager(std::shared_ptr<ar::SignPostManager> signpostmanager) { this->signpostmanager = signpostmanager; }
 	ci::Matrix44f getMatrix() const { return matrix; }
-	
+
 	enum class RollDirection
 	{
 		LEFT,
 		RIGHT
 	};
 
+	CharaStatus getStatus();
+	ci::Vec3f getSpeed();
+
+
+	void goToRolling(ci::Vec2f);
 	void rolling(ci::Vec2f, RollDirection);
 	void attack();
 

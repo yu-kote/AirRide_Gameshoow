@@ -71,7 +71,7 @@ int EnemyHolder::getRanking()
 void EnemyHolder::targetChange()
 {
 	if (target_number == enemys.size()-1)return;
-	if (enemys[target_number].transform.position.z < player->transform.position.z - 10) {
+	if (enemys[target_number].isEnd()) {
 		target_number++;
 		target_number = std::min(target_number, (int)enemys.size()-1);
 		enemys[target_number].setTarget(true);

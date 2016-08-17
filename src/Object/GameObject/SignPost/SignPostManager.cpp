@@ -8,6 +8,7 @@ using namespace ci::app;
 
 ar::SignPostManager::SignPostManager()
 {
+
 }
 
 void ar::SignPostManager::setup()
@@ -44,13 +45,13 @@ void ar::SignPostManager::draw()
 
 ci::Matrix44f ar::SignPostManager::getMatrix(ci::Vec3f _pos)
 {
-	
-	_pos.z = fmod(_pos.z,round_length);
+
+	_pos.z = fmod(_pos.z, round_length);
 
 	ci::Matrix44f matr = ci::Matrix44f::identity();
-	
-	for (auto& it = signposts.begin(); it != signposts.end()-1; it++) {
-		if (it->getLength() <= _pos.z && _pos.z < (it+1)->getLength()) {
+
+	for (auto& it = signposts.begin(); it != signposts.end() - 1; it++) {
+		if (it->getLength() <= _pos.z && _pos.z < (it + 1)->getLength()) {
 			matr *= ci::Matrix44f::createTranslation(it->getPos());
 			matr *= it->getMatrix();
 			matr *= ci::Matrix44f::createTranslation(
@@ -63,6 +64,18 @@ ci::Matrix44f ar::SignPostManager::getMatrix(ci::Vec3f _pos)
 	matr *= ci::Matrix44f::createTranslation(
 		ci::Vec3f(_pos.x, _pos.y, _pos.z - signposts.back().getLength()));
 	return matr;
+}
+
+ci::Vec3f ar::SignPostManager::getStagePos(ci::Vec3f _terget)
+{
+	auto it = getNeerSignPost(_terget);
+	if ((_terget - it->getPos()).dot(it->getDirection()) < 0) {
+		it = prevIterator(it);
+	}
+	_terget = ci::Matrix44f::createTranslation(it->getPos()).inverted() * _terget;
+	_terget = it->getMatrix().inverted() * _terget;
+	return ci::Vec3f(_terget.x, _terget.y, it->getLength() + _terget.z);
+
 }
 
 
@@ -79,6 +92,37 @@ void ar::SignPostManager::pointDraw()
 		it.draw();
 	}
 }
+
+std::vector<ar::SignPost>::iterator
+ar::SignPostManager::getNeerSignPost(ci::Vec3f _terget)
+{
+
+	float max_length = FLT_MAX;
+	std::vector<ar::SignPost>::iterator _sign;
+	float _length;
+	for (auto it = signposts.begin(); it != signposts.end(); it++) {
+		_length = _terget.distanceSquared(it->getPos());
+		if (_length < max_length) {
+			max_length = _length;
+			_sign = it;
+		}
+	}
+
+
+	return _sign;
+}
+
+std::vector<ar::SignPost>::iterator 
+ar::SignPostManager::prevIterator(
+	std::vector<ar::SignPost>::iterator _it)
+{
+
+	if (_it == signposts.begin())
+		return signposts.end() - 1;
+	return _it -1;
+
+}
+
 
 void ar::SignPostManager::postLoad()
 {
@@ -116,7 +160,7 @@ void ar::SignPostManager::setRingQuat()
 void ar::SignPostManager::setLength()
 {
 	float _length = 0;
-	for (auto& it: signposts)
+	for (auto& it : signposts)
 	{
 		it.setLength(_length);
 		_length += it.getDirection().length();

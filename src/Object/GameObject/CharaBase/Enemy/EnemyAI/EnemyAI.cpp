@@ -25,9 +25,10 @@ void AILevel1::stert()
 
 void AILevel1::update()
 {
+	//ci::app::console() << << std::endl;
 	//
 	if (!is_terget) {
-		enemy->transform.position.z += 1;
+		enemy->transform.position.z += player->getSpeed().z;
 		return;
 	}
 
@@ -47,7 +48,7 @@ void AILevel1::update()
 	}
 	if (difference < 3.f
 		&& HP > 0) {
-		enemy->transform.position.z += 1.2f;
+		enemy->transform.position.z += 1.5f;
 		return;
 	}
 	enemy->transform.position.z += 0.8f;
@@ -73,7 +74,7 @@ void AILevel2::stert()
 void AILevel2::update()
 {
 	if (!is_terget) {
-		enemy->transform.position.z += 1;
+		enemy->transform.position.z += player->getSpeed().z;
 		return;
 	}
 	if (!c_Easing::isEnd(enemy->transform.position.z))return;
@@ -100,7 +101,7 @@ void AILevel3::update()
 {
 	//
 	if (!is_terget) {
-		enemy->transform.position.z += 1;
+		enemy->transform.position.z += player->getSpeed().z;
 		return;
 	}
 }
@@ -125,7 +126,7 @@ void AILevel4::update()
 {
 	//
 	if (!is_terget) {
-		enemy->transform.position.z += 1;
+		enemy->transform.position.z += player->getSpeed().z;
 		return;
 	}
 
