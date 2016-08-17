@@ -15,7 +15,7 @@ public:
 	virtual void stert() {};
 	virtual void update() {};
 	void setTerget(const bool&);
-
+	int HP;
 protected:
 	CharaBase* enemy;
 	CharaBase* player;
@@ -25,7 +25,7 @@ protected:
 	void runPositon(ci::Vec3f, float = 1);
 	void goPositon(ci::Vec3f);
 
-	int HP;
+	
 };
 
 

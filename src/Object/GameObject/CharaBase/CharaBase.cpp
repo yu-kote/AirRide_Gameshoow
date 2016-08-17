@@ -158,6 +158,28 @@ void CharaBase::draw()
 
 }
 
+CharaStatus CharaBase::getStatus()
+{
+	return status;
+}
+
+ci::Vec3f CharaBase::getSpeed()
+{
+	return speed;
+}
+
+void CharaBase::goToRolling(ci::Vec2f _terget)
+{
+	if (start_move_pos.x > _terget.x) {
+		rolling(_terget, RollDirection::LEFT);
+	}
+	else
+	{
+		rolling(_terget, RollDirection::RIGHT);
+	}
+
+}
+
 void CharaBase::rolling(ci::Vec2f _terget, RollDirection roll_direction)
 {
 	status = CharaStatus::ROLL;

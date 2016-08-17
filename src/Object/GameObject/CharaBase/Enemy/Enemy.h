@@ -17,7 +17,7 @@ public:
 
 	void setPlayer(std::shared_ptr<CharaBase>);
 	void setTarget(const bool&);
-
+	bool isEnd();
 
 	template<class T>
 	void setAI();

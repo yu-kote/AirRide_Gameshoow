@@ -44,3 +44,8 @@ void Enemy::setTarget(const bool & _is_terget)
 {
 	ai->setTerget(_is_terget);
 }
+
+bool Enemy::isEnd()
+{
+	return ai->HP <= 0;
+}
