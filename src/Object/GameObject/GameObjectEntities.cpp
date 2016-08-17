@@ -62,11 +62,19 @@ void ar::GameObjectEntities::setupGameObject()
 void ar::GameObjectEntities::updateGameObject()
 {
 	//objects.size();
-	
+
 	for (const auto& it : objects)
 	{
 		it.second->componentsUpdate();
 		it.second->update();
+	}
+}
+
+void ar::GameObjectEntities::laterUpdateGameObject()
+{
+	for (const auto& it : objects)
+	{
+		it.second->laterUpdate();
 	}
 }
 
@@ -85,6 +93,36 @@ void ar::GameObjectEntities::drawGameObject()
 		it.second->popModelView();
 		it.second->drawEnd();
 
+	}
+	ci::gl::popModelView();
+}
+
+void ar::GameObjectEntities::transDrawGameObject()
+{
+	ci::gl::pushModelView();
+	for (const auto& it : objects)
+	{
+		it.second->transDraw();
+	}
+	ci::gl::popModelView();
+}
+
+void ar::GameObjectEntities::laterDrawGameObject()
+{
+	ci::gl::pushModelView();
+	for (const auto& it : objects)
+	{
+		it.second->laterDraw();
+	}
+	ci::gl::popModelView();
+}
+
+void ar::GameObjectEntities::transLaterDrawGameObject()
+{
+	ci::gl::pushModelView();
+	for (const auto& it : objects)
+	{
+		it.second->transLaterDraw();
 	}
 	ci::gl::popModelView();
 }

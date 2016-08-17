@@ -16,7 +16,11 @@ namespace ar {
 
 		void setupGameObject();
 		void updateGameObject();
+		void laterUpdateGameObject();
 		void drawGameObject();
+		void transDrawGameObject();
+		void laterDrawGameObject();
+		void transLaterDrawGameObject();
 
 		void Alldestroy();
 	private:

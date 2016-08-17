@@ -33,7 +33,8 @@ void InputEvent::setPull(const int& num)
 
 void InputEvent::erasePress(const int& num)
 {
-	press.erase(press.find(num));
+	if (press.find(num) != press.end())
+		press.erase(press.find(num));
 }
 
 bool InputEvent::isPush(const int& num)
