@@ -37,14 +37,17 @@ void Light::update()
 	light->setDirection(transform.direction);
 
 }
-void ar::Light::drawBegin()
+
+void ar::Light::draw()
 {
 	On();
 }
-void ar::Light::drawEnd()
+
+void ar::Light::laterDraw()
 {
 	Off();
 }
+
 void Light::On()
 {
 	// ƒ‰ƒCƒg‚ð—LŒø‚É‚·‚é

@@ -84,9 +84,6 @@
     <Filter Include="Header Files\Object\Component\Components\Material">
       <UniqueIdentifier>{81f797d5-3f8a-46c3-9ef7-466b2779803c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Object\Component\Components\Light">
-      <UniqueIdentifier>{40dd942b-cef1-4c99-ae31-fdb56478cbd3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Object\GameObject\CharaBase">
       <UniqueIdentifier>{442a3d48-ae6d-46f1-b260-fb698cf8e2b2}</UniqueIdentifier>
     </Filter>
@@ -101,6 +98,21 @@
     </Filter>
     <Filter Include="Header Files\Object\GameObject\CharaBase\Enemy">
       <UniqueIdentifier>{820fa3cf-879f-4434-8ec5-5f1bcec1b4c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Share\Interface">
+      <UniqueIdentifier>{e364c11d-f204-4ebe-8b0e-8aaebbbb6c6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\GameObject\CharaBase\Enemy\EnemyHolder">
+      <UniqueIdentifier>{8c7c9bc3-ed0d-4ae3-b863-fc663623c838}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\GameObject\CharaBase\Enemy\EnemyAI">
+      <UniqueIdentifier>{56c2a7bb-4d16-47cb-ae71-eae800784ef2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\GameObject\Obstacle">
+      <UniqueIdentifier>{7da5ce5d-f2bb-4ba6-b691-c70dfbaf2fdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\GameObject\Light">
+      <UniqueIdentifier>{216a7c27-5384-4a4f-b9e6-eb08fac34ea1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -176,9 +188,6 @@
     <ClCompile Include="..\src\Object\Component\Components\Transform.cpp">
       <Filter>Header Files\Object\Component\Components\Transform</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Object\Component\Components\Light.cpp">
-      <Filter>Header Files\Object\Component\Components\Light</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Object\GameObject\CharaBase\CharaBase.cpp">
       <Filter>Header Files\Object\GameObject\CharaBase</Filter>
     </ClCompile>
@@ -205,6 +214,27 @@
     </ClCompile>
     <ClCompile Include="..\src\Object\GameObject\Camera\Camera.cpp">
       <Filter>Header Files\Object\GameObject\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\CharaBase\Enemy\EnemyAI\EnemyAIBase.cpp">
+      <Filter>Header Files\Object\GameObject\CharaBase\Enemy\EnemyAI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\CharaBase\Enemy\EnemyAI\EnemyAI.cpp">
+      <Filter>Header Files\Object\GameObject\CharaBase\Enemy\EnemyAI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\CharaBase\Enemy\EnemyHolder\EnemyHolder.cpp">
+      <Filter>Header Files\Object\GameObject\CharaBase\Enemy\EnemyHolder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\Obstacle\Obstacle.cpp">
+      <Filter>Header Files\Object\GameObject\Obstacle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\Obstacle\ObstacleManager.cpp">
+      <Filter>Header Files\Object\GameObject\Obstacle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\Light\Light.cpp">
+      <Filter>Header Files\Object\GameObject\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\Obstacle\ObstaclePopArea.cpp">
+      <Filter>Header Files\Object\GameObject\Obstacle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -304,9 +334,6 @@
     <ClInclude Include="..\src\Object\Component\Components\Transform.h">
       <Filter>Header Files\Object\Component\Components\Transform</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Object\Component\Components\Light.h">
-      <Filter>Header Files\Object\Component\Components\Light</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Object\Component\Components\Material.h">
       <Filter>Header Files\Object\Component\Components\Material</Filter>
     </ClInclude>
@@ -345,6 +372,30 @@
     </ClInclude>
     <ClInclude Include="..\src\Object\GameObject\Camera\Camera.h">
       <Filter>Header Files\Object\GameObject\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Share\Interface\Interface.h">
+      <Filter>Header Files\Share\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\CharaBase\Enemy\EnemyAI\EnemyAIBase.h">
+      <Filter>Header Files\Object\GameObject\CharaBase\Enemy\EnemyAI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\CharaBase\Enemy\EnemyAI\EnemyAI.h">
+      <Filter>Header Files\Object\GameObject\CharaBase\Enemy\EnemyAI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\CharaBase\Enemy\EnemyHolder\EnemyHolder.h">
+      <Filter>Header Files\Object\GameObject\CharaBase\Enemy\EnemyHolder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\Obstacle\Obstacle.h">
+      <Filter>Header Files\Object\GameObject\Obstacle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\Obstacle\ObstacleManager.h">
+      <Filter>Header Files\Object\GameObject\Obstacle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\Obstacle\ObstaclePopArea.h">
+      <Filter>Header Files\Object\GameObject\Obstacle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\Light\Light.h">
+      <Filter>Header Files\Object\GameObject\Light</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

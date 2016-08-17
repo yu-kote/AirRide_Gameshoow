@@ -39,6 +39,7 @@ void ar::Camera::update()
 		setCenterOfInterestPoint(camera_pos);
 		
 	}
+
 	else {
 		moveUpdate();
 		rotateUpdate();

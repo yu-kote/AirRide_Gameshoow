@@ -123,6 +123,10 @@ void Player::debugMove()
 	if (env.isPress(ci::app::KeyEvent::KEY_k)) {
 		_direction.y = -3;
 	}
+	if (env.isPush(ci::app::KeyEvent::KEY_z)) {
+		goToRolling(transform.position.xy() + _direction.safeNormalized()*4);
+	}
+
 	if (_direction.lengthSquared() > 0) {
 		_direction.normalize();
 		_direction *= 0.1f;

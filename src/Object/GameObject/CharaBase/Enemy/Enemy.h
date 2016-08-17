@@ -17,18 +17,21 @@ public:
 
 	void setPlayer(std::shared_ptr<CharaBase>);
 	void setTarget(const bool&);
-
+	bool isEnd();
 
 	template<class T>
 	void setAI();
 
 private:
+	void damage();
 	std::shared_ptr<EnemyAIBase> ai;
 	std::shared_ptr<CharaBase> player;
+	bool is_hit;
 };
 
 template<class T>
 void Enemy::setAI()
 {
 	ai = std::make_shared<T>(T(static_cast<CharaBase*>(this), player.get()));
+	ai->stert();
 }

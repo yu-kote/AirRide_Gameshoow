@@ -33,7 +33,8 @@ void InputEvent::setPull(const int& num)
 
 void InputEvent::erasePress(const int& num)
 {
-	press.erase(press.find(num));
+	if (press.find(num) != press.end())
+		press.erase(press.find(num));
 }
 
 bool InputEvent::isPush(const int& num)
@@ -211,7 +212,7 @@ void onDeviceAttached(struct Gamepad_device * device, void * context)
 {
 	if (verbose)
 	{
-		console() << "Device ID " << device->deviceID << " attached (vendor = " << device->vendorID << "; product = " << device->productID << ") with context" << context << std::endl;
+		//console() << "Device ID " << device->deviceID << " attached (vendor = " << device->vendorID << "; product = " << device->productID << ") with context" << context << std::endl;
 	}
 }
 
@@ -219,7 +220,7 @@ void onDeviceRemoved(struct Gamepad_device * device, void * context)
 {
 	if (verbose)
 	{
-		console() << "Device ID " << device->deviceID << " removed with context " << context << std::endl;
+		//console() << "Device ID " << device->deviceID << " removed with context " << context << std::endl;
 	}
 }
 
