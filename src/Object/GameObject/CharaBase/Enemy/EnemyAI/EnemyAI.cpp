@@ -5,7 +5,7 @@ AILevel1::AILevel1(CharaBase* _enemy, CharaBase* _player) :
 	EnemyAIBase(_enemy, _player)
 {
 	
-	HP = 1;
+	HP = 2;
 	enemy->transform.position.x = 3;
 	enemy->transform.position.y = 3;
 
@@ -14,8 +14,7 @@ AILevel1::AILevel1(CharaBase* _enemy, CharaBase* _player) :
 	c_Easing::apply(enemy->transform.position.z,
 		150, EasingFunction::CubicIn,50);
 	terget_change_count = 0;
-	aiterget = ci::Vec2f(ci::randFloat(-7.f, 7.f), ci::randFloat(-7.f, 7.f));
-	
+	changeTarget();
 }
 
 void AILevel1::stert()
@@ -25,34 +24,23 @@ void AILevel1::stert()
 
 void AILevel1::update()
 {
-	//ci::app::console() << << std::endl;
-	//
+	
 	if (!is_terget) {
 		enemy->transform.position.z += player->getSpeed().z;
 		return;
 	}
-
 	if(!c_Easing::isEnd(enemy->transform.position.z))return;
-	goPositon(aiterget.xyx());
+	
+	goPositon(aiterget.xyx(),0.1f);
 	terget_change_count++;
 	if (terget_change_count > 60 * 1
 		|| aiterget.distanceSquared(enemy->transform.position.xy()) < 1) {
 		terget_change_count = 0;
-		aiterget = ci::Vec2f(ci::randFloat(-7.f, 7.f), ci::randFloat(-7.f, 7.f));
+		changeTarget();
 
 	}
-	float difference = enemy->transform.position.z - player->transform.position.z;
-	if (difference > 3.f) {
-		enemy->transform.position.z += 0.8;
-		return;
-	}
-	if (difference < 3.f
-		&& HP > 0) {
-		enemy->transform.position.z += 1.5f;
-		return;
-	}
-	enemy->transform.position.z += 0.8f;
-
+	tergetMove();
+	
 }
 
 AILevel2::AILevel2(CharaBase* _enemy, CharaBase* _player) :
@@ -64,6 +52,7 @@ AILevel2::AILevel2(CharaBase* _enemy, CharaBase* _player) :
 		100, EasingFunction::CircOut, 50);
 	c_Easing::apply(enemy->transform.position.z,
 		400, EasingFunction::ExpoIn, 50);
+	changeTarget();
 }
 
 void AILevel2::stert()
@@ -78,6 +67,17 @@ void AILevel2::update()
 		return;
 	}
 	if (!c_Easing::isEnd(enemy->transform.position.z))return;
+	
+	terget_change_count++;
+	if (terget_change_count > 60 * 1
+		|| aiterget.distanceSquared(enemy->transform.position.xy()) < 1) {
+		terget_change_count = 0;
+		changeTarget();
+		enemy->goToRolling(aiterget);
+	}
+
+
+	tergetMove();
 
 }
 
@@ -90,6 +90,7 @@ AILevel3::AILevel3(CharaBase* _enemy, CharaBase* _player) :
 		100, EasingFunction::CircOut, 50);
 	c_Easing::apply(enemy->transform.position.z,
 		500, EasingFunction::ExpoIn, 50);
+
 }
 
 void AILevel3::stert()

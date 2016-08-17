@@ -2,7 +2,7 @@
 
 Enemy::Enemy()
 {
-	
+	is_hit = false;
 }
 
 Enemy::~Enemy()
@@ -16,7 +16,14 @@ Enemy::~Enemy()
 void Enemy::update()
 {
 	ai->update();
-	matrix = signpostmanager->getMatrix(transform.position);
+	damage();
+
+	
+	end_move_pos = transform.position;
+	move();
+	/*roll();
+	dash();
+	*/updateStageMatrix();
 }
 
 void Enemy::draw()
@@ -48,4 +55,18 @@ void Enemy::setTarget(const bool & _is_terget)
 bool Enemy::isEnd()
 {
 	return ai->HP <= 0;
+}
+
+void Enemy::damage()
+{
+
+	if (player->getStatus() == CharaStatus::DASH) {
+		if (player->transform.position.distanceSquared(
+			transform.position) < 1 * 1) {
+			if (!is_hit)ai->HP--;
+			is_hit = true;
+			return;
+		}
+	}
+	is_hit = false;
 }

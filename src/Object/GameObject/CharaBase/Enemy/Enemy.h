@@ -23,8 +23,10 @@ public:
 	void setAI();
 
 private:
+	void damage();
 	std::shared_ptr<EnemyAIBase> ai;
 	std::shared_ptr<CharaBase> player;
+	bool is_hit;
 };
 
 template<class T>

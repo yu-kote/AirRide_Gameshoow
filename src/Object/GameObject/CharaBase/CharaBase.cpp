@@ -158,6 +158,11 @@ void CharaBase::draw()
 
 }
 
+ci::Vec3f CharaBase::getWorldPoisition()
+{
+	return matrix* ci::Vec3f::zero();
+}
+
 CharaStatus CharaBase::getStatus()
 {
 	return status;
