@@ -21,9 +21,13 @@ namespace ar {
 		void setIsActive(const bool& is_active_) { is_active = is_active_; }
 		bool getIsActive() { return is_active; }
 
-		virtual void setup() = 0;
-		virtual void update() = 0;
-		virtual void draw() = 0;
+		virtual void setup() {};
+		virtual void update() {};
+		virtual void laterUpdate() {};
+		virtual void draw() {};
+		virtual void transDraw() {};
+		virtual void laterDraw() {};
+		virtual void transLaterDraw() {};
 
 		void componentsUpdate();
 

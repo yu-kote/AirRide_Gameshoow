@@ -1,10 +1,10 @@
 #pragma once
 #include "cinder/gl/Light.h"        // ライティング
 #include "cinder/gl/Material.h"     // マテリアル(材質)
-#include "../Component.h"
+#include "../GameObject.h"
 
 namespace ar {
-	class Light : public Component
+	class Light : public ar::GameObject
 	{
 	public:
 		Light();
@@ -13,8 +13,8 @@ namespace ar {
 
 		void setup()override;
 		void update()override;
-		void drawBegin()override;
-		void drawEnd()override;
+		void draw()override;
+		void laterDraw()override;
 
 		void Off();
 		void On();

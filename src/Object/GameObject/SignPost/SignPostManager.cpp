@@ -1,5 +1,4 @@
 #include "SignPostManager.h"
-#include "../../Component/Components/Light.h"
 #include "../../Component/Components/Material.h"
 
 
@@ -21,7 +20,6 @@ void ar::SignPostManager::setup()
 		+ signposts.back().getDirection().length();
 
 
-	addComponent<ar::Light>();
 	addComponent<ar::Material>(ar::Material(
 		gl::Material(ColorA(0.6f, 1.0f, 0.6f, 1.0f),      // Ambient
 			ColorA(0.6f, 1.0f, 0.6f, 1.0f),      // Diffuse
