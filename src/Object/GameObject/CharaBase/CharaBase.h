@@ -43,6 +43,8 @@ public:
 	void goToRolling(ci::Vec2f);
 	void rolling(ci::Vec2f, RollDirection);
 	void attack();
+	void moveDirection(ci::Vec2f, float);
+
 
 
 protected:
