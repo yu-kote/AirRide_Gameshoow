@@ -160,7 +160,7 @@ void CharaBase::draw()
 
 ci::Vec3f CharaBase::getWorldPoisition()
 {
-	return matrix* ci::Vec3f::zero();
+	return matrix * ci::Vec3f::zero();
 }
 
 CharaStatus CharaBase::getStatus()
@@ -203,4 +203,21 @@ void CharaBase::attack()
 {
 	status = CharaStatus::DASH;
 	dash_count = 0;
+}
+
+void CharaBase::moveDirection(ci::Vec2f _direction, float _speed)
+{
+	start_move_pos.z = transform.position.z;
+	end_move_pos.z = transform.position.z;
+
+	if (_direction.lengthSquared() > 0) {
+		_direction.normalize();
+		_direction *= _speed;
+		start_move_pos = transform.position;
+		end_move_pos += ci::Vec3f(_direction.x, _direction.y, 0.0f);
+		move_count = 0.0f;
+
+		move_direction = _direction;
+	}
+
 }

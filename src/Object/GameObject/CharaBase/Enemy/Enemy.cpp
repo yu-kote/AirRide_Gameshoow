@@ -20,10 +20,9 @@ void Enemy::update()
 
 	
 	end_move_pos = transform.position;
+
 	move();
-	/*roll();
-	dash();
-	*/updateStageMatrix();
+	updateStageMatrix();
 }
 
 void Enemy::draw()

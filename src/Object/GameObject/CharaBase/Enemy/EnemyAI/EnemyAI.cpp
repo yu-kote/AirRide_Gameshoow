@@ -4,15 +4,15 @@
 AILevel1::AILevel1(CharaBase* _enemy, CharaBase* _player) :
 	EnemyAIBase(_enemy, _player)
 {
-	
-	HP = 2;
+
+	HP = 0;
 	enemy->transform.position.x = 3;
 	enemy->transform.position.y = 3;
 
 	c_Easing::apply(enemy->transform.position.z,
 		100, EasingFunction::CircOut, 50);
 	c_Easing::apply(enemy->transform.position.z,
-		150, EasingFunction::CubicIn,50);
+		150, EasingFunction::CubicIn, 50);
 	terget_change_count = 0;
 	changeTarget();
 }
@@ -24,14 +24,14 @@ void AILevel1::stert()
 
 void AILevel1::update()
 {
-	
+
 	if (!is_terget) {
 		enemy->transform.position.z += player->getSpeed().z;
 		return;
 	}
-	if(!c_Easing::isEnd(enemy->transform.position.z))return;
-	
-	goPositon(aiterget.xyx(),0.1f);
+	if (!c_Easing::isEnd(enemy->transform.position.z))return;
+
+	goPositon(aiterget.xyx(), 0.1f);
 	terget_change_count++;
 	if (terget_change_count > 60 * 1
 		|| aiterget.distanceSquared(enemy->transform.position.xy()) < 1) {
@@ -40,7 +40,7 @@ void AILevel1::update()
 
 	}
 	tergetMove();
-	
+
 }
 
 AILevel2::AILevel2(CharaBase* _enemy, CharaBase* _player) :
@@ -67,15 +67,18 @@ void AILevel2::update()
 		return;
 	}
 	if (!c_Easing::isEnd(enemy->transform.position.z))return;
-	
+
 	terget_change_count++;
 	if (terget_change_count > 60 * 1
 		|| aiterget.distanceSquared(enemy->transform.position.xy()) < 1) {
 		terget_change_count = 0;
 		changeTarget();
-		enemy->goToRolling(aiterget);
 	}
 
+	enemy->moveDirection(aiterget, 0.1f);
+	//enemy->goToRolling(ci::Vec2f::zero());
+	//ci::app::console() << (int)enemy->getStatus() << std::endl;
+	//ci::app::console() << enemy->transform.position << std::endl;
 
 	tergetMove();
 
