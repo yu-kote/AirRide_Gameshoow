@@ -185,6 +185,13 @@ void CharaBase::goToRolling(ci::Vec2f _terget)
 
 }
 
+void CharaBase::moving(ci::Vec2f _terget)
+{
+	move_count = 0.0f;
+	start_move_pos = transform.position;
+	end_move_pos = ci::Vec3f(_terget.x, _terget.y, transform.position.z);
+}
+
 void CharaBase::rolling(ci::Vec2f _terget, RollDirection roll_direction)
 {
 	status = CharaStatus::ROLL;
