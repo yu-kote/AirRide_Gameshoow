@@ -23,11 +23,11 @@ void Player::setup()
 	addComponent<ar::Color>();
 
 	status = CharaStatus::NORMAL;
-	speed = ci::Vec3f(0.0f, 0.0f, 1.0f);
+	speed = 0.0f;
 
 	move_count = 0.0f;
-	start_move_pos = ci::Vec3f::zero();
-	end_move_pos = ci::Vec3f::zero();
+	start_move_pos = ci::Vec2f::zero();
+	end_move_pos = ci::Vec2f::zero();
 
 	roll_angle = 0.0f;
 	roll_count = 0.0f;
@@ -37,8 +37,8 @@ void Player::setup()
 	move_direction = ci::Vec2f::zero();
 
 	dash_count = 0.0f;
-	start_dash_pos = ci::Vec3f(0.0f, 0.0f, 3.0f);
-	end_dash_pos = ci::Vec3f(0.0f, 0.0f, 1.0f);
+	start_dash_pos = 0.0f;
+	end_dash_pos = 0.0f;
 
 	window_size_camera_to_player = ci::Vec2f(40.0f, 40.0f);
 	pos_to_ratio = ci::Vec2f::zero();
@@ -55,8 +55,8 @@ void Player::setup()
 
 	min_hand_normal_z_range = -0.5;
 	max_hand_normal_z_range = 0.5f;
-	min_hand_normal_xy_range = -M_PI / 3.0f;
-	max_hand_normal_xy_range = M_PI / 3.0f;
+	min_hand_normal_xy_range = (float)-M_PI / 3.0f;
+	max_hand_normal_xy_range = (float)M_PI / 3.0f;
 	min_dot_product_range = 1.0f;
 	max_dot_product_range = 0.5f;
 	dash_range = 50.0f;
@@ -104,9 +104,6 @@ void Player::operationKey()
 
 void Player::debugMove()
 {
-	start_move_pos.z = transform.position.z;
-	end_move_pos.z = transform.position.z;
-
 	if (status != CharaStatus::NORMAL)
 		return;
 
@@ -130,8 +127,8 @@ void Player::debugMove()
 	if (_direction.lengthSquared() > 0) {
 		_direction.normalize();
 		_direction *= 0.1f;
-		start_move_pos = transform.position;
-		end_move_pos += ci::Vec3f(_direction.x, _direction.y, 0.0f);
+		start_move_pos = ci::Vec2f(transform.position.x, transform.position.y);
+		end_move_pos += _direction;
 		move_count = 0.0f;
 
 		move_direction = _direction;
@@ -189,16 +186,15 @@ void Player::moveDestination()
 	if (status != CharaStatus::NORMAL)
 		return;
 	/* destination : 移動先 */
-	ci::Vec3f destination_pos =
-		ci::Vec3f(window_size_camera_to_player.x * pos_to_ratio.x,
-			window_size_camera_to_player.y * pos_to_ratio.y,
-			transform.position.z);
+	ci::Vec2f destination_pos =
+		ci::Vec2f(window_size_camera_to_player.x * pos_to_ratio.x,
+			window_size_camera_to_player.y * pos_to_ratio.y);
 
 	// 前のフレームのプレイヤーの行き先と今現在の行き先を比べて違った場合、更新する
 	if (end_move_pos == destination_pos)
 		return;
 
-	start_move_pos = transform.position;
+	start_move_pos = ci::Vec2f(transform.position.x, transform.position.y);
 	end_move_pos = destination_pos;
 	move_count = 0.0f;
 }
@@ -284,11 +280,8 @@ void Player::handNormalRotation()
 	////////////////////////////////////////////////////////////////////////////////////
 	// ロール中の移動処理がかけていない
 	////////////////////////////////////////////////////////////////////////////////////
-	start_move_pos = transform.position;
-	end_move_pos = end_move_pos +
-		ci::Vec3f(distance_vec_normal.x * 10.0f,
-			distance_vec_normal.y * 10.0f,
-			0.0f);
+	start_move_pos = ci::Vec2f(transform.position.x, transform.position.y);
+	end_move_pos = end_move_pos + distance_vec_normal * 10.0f;
 	////////////////////////////////////////////////////////////////////////////////////
 	roll_count = 0.0f;
 	status = CharaStatus::ROLL;
