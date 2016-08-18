@@ -1,9 +1,12 @@
 #include "CharaBase.h"
 
-ci::Vec3f QuadOut(float t, ci::Vec3f b, ci::Vec3f e) {
-	return ci::Vec3f(-(e.x - b.x) * t * (t - 2) + b.x,
-		-(e.y - b.y) * t * (t - 2) + b.y,
-		-(e.z - b.z) * t * (t - 2) + b.z);
+ci::Vec2f QuadOut(float t, ci::Vec2f b, ci::Vec2f e) {
+	return ci::Vec2f(-(e.x - b.x) * t * (t - 2) + b.x,
+		-(e.y - b.y) * t * (t - 2) + b.y);
+}
+
+float QuadOut(float t, float b, float e){
+	return -(e - b) * t * (t - 2) + b;
 }
 
 CharaBase::CharaBase()
@@ -41,7 +44,8 @@ void CharaBase::move()
 		move_count = 1.0f;
 
 	// ‰¡ˆÚ“®
-	transform.position = QuadOut(move_count, start_move_pos, end_move_pos);
+	ci::Vec2f move_pos = QuadOut(move_count, start_move_pos, end_move_pos);
+	transform.position = ci::Vec3f(move_pos.x, move_pos.y, transform.position.z);
 
 	// ZŽ²ˆÚ“®
 	transform.position += speed;
@@ -65,8 +69,6 @@ void CharaBase::roll()
 	}
 
 	roll_angle = EasingFunction::QuadOut(roll_count, start_roll_angle, end_roll_angle);
-	start_move_pos.z = transform.position.z;
-	end_move_pos.z = transform.position.z;
 }
 
 void CharaBase::dash()
@@ -82,40 +84,18 @@ void CharaBase::dash()
 	}
 
 	speed = QuadOut(dash_count, start_dash_pos, end_dash_pos);
-	start_move_pos.z = transform.position.z;
-	end_move_pos.z = transform.position.z;
 }
 
 void CharaBase::collisionToWindow()
 {
 	if (transform.position.x < -window_size.x / 2.0f)
-	{
 		transform.position.x = -window_size.x / 2.0f;
-
-		/*if (status == CharaStatus::ROLL)
-			end_move_pos.x = -window_size.x / 2.0f;*/
-	}
 	if (transform.position.x > window_size.x / 2.0f)
-	{
 		transform.position.x = window_size.x / 2.0f;
-
-		/*if (status == CharaStatus::ROLL)
-			end_move_pos.x = window_size.x / 2.0f;*/
-	}
 	if (transform.position.y < -window_size.y / 2.0f)
-	{
 		transform.position.y = -window_size.y / 2.0f;
-
-		/*if (status == CharaStatus::ROLL)
-			end_move_pos.y = -window_size.y / 2.0f;*/
-	}
 	if (transform.position.y > window_size.y / 2.0f)
-	{
 		transform.position.y = window_size.y / 2.0f;
-
-		/*if (status == CharaStatus::ROLL)
-			end_move_pos.y = window_size.y / 2.0f;*/
-	}
 }
 
 void CharaBase::updateStageMatrix()
@@ -132,20 +112,21 @@ void CharaBase::setup()
 	addComponent<ar::Color>();
 
 	status = CharaStatus::NORMAL;
-	speed = ci::Vec3f::zero();
+	speed = 0.0f;
 
 	move_count = 0.0f;
-	start_move_pos = ci::Vec3f::zero();
-	end_move_pos = ci::Vec3f::zero();
+	start_move_pos = ci::Vec2f::zero();
+	end_move_pos = ci::Vec2f::zero();
 
+	max_roll_angle = (float)M_PI * 2.0f * 4.0f;
 	roll_angle = 0.0f;
 	roll_count = 0.0f;
 	start_roll_angle = 0.0f;
 	end_roll_angle = 0.0f;
 
 	dash_count = 0.0f;
-	start_dash_pos = ci::Vec3f::zero();
-	end_dash_pos = ci::Vec3f::zero();
+	start_dash_pos = 0.0f;
+	end_dash_pos = 0.0f;
 }
 
 void CharaBase::update()
@@ -168,7 +149,7 @@ CharaStatus CharaBase::getStatus()
 	return status;
 }
 
-ci::Vec3f CharaBase::getSpeed()
+float CharaBase::getSpeed()
 {
 	return speed;
 }
@@ -188,8 +169,8 @@ void CharaBase::goToRolling(ci::Vec2f _terget)
 void CharaBase::moving(ci::Vec2f _terget)
 {
 	move_count = 0.0f;
-	start_move_pos = transform.position;
-	end_move_pos = ci::Vec3f(_terget.x, _terget.y, transform.position.z);
+	start_move_pos = ci::Vec2f(transform.position.x, transform.position.y);
+	end_move_pos = _terget;
 }
 
 void CharaBase::rolling(ci::Vec2f _terget, RollDirection roll_direction)
@@ -202,8 +183,8 @@ void CharaBase::rolling(ci::Vec2f _terget, RollDirection roll_direction)
 	else if (roll_direction == RollDirection::RIGHT)
 		end_roll_angle = -max_roll_angle;
 
-	start_move_pos = transform.position;
-	end_move_pos = ci::Vec3f(_terget.x, _terget.y, transform.position.z);
+	start_move_pos = ci::Vec2f(transform.position.x, transform.position.y);
+	end_move_pos = _terget;
 }
 
 void CharaBase::attack()
@@ -214,17 +195,13 @@ void CharaBase::attack()
 
 void CharaBase::moveDirection(ci::Vec2f _direction, float _speed)
 {
-	start_move_pos.z = transform.position.z;
-	end_move_pos.z = transform.position.z;
-
 	if (_direction.lengthSquared() > 0) {
 		_direction.normalize();
 		_direction *= _speed;
-		start_move_pos = transform.position;
-		end_move_pos += ci::Vec3f(_direction.x, _direction.y, 0.0f);
+		start_move_pos = ci::Vec2f(transform.position.x, transform.position.y);
+		end_move_pos += _direction;
 		move_count = 0.0f;
 
 		move_direction = _direction;
 	}
-
 }
