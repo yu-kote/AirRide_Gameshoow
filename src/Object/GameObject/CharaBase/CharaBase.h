@@ -37,7 +37,7 @@ public:
 	};
 
 	CharaStatus getStatus();
-	ci::Vec3f getSpeed();
+	float getSpeed();
 
 
 	void goToRolling(ci::Vec2f);
@@ -71,15 +71,15 @@ protected:
 	ci::Vec3f window_size;
 
 	CharaStatus status;
-	ci::Vec3f speed;
+	float speed;
 
 	float move_count;
-	ci::Vec3f start_move_pos;
-	ci::Vec3f end_move_pos;
+	ci::Vec2f start_move_pos;
+	ci::Vec2f end_move_pos;
 
 	ci::Quatf roll_quat;
 	ci::Vec3f roll_quat_normal;
-	const float max_roll_angle = M_PI * 2.0f * 4.0f;
+	float max_roll_angle;
 	float roll_angle;
 	float roll_count;
 	float start_roll_angle;
@@ -88,8 +88,8 @@ protected:
 	ci::Vec2f move_direction;
 
 	float dash_count;
-	ci::Vec3f start_dash_pos;
-	ci::Vec3f end_dash_pos;
+	float start_dash_pos;
+	float end_dash_pos;
 
 private:
 
@@ -97,4 +97,5 @@ private:
 };
 
 
-ci::Vec3f QuadOut(float t, ci::Vec3f b, ci::Vec3f e);
+ci::Vec2f QuadOut(float t, ci::Vec3f b, ci::Vec3f e);
+float QuadOut(float t, float b, float e);
