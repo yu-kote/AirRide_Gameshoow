@@ -16,12 +16,10 @@ Enemy::~Enemy()
 void Enemy::update()
 {
 	ai->update();
-	damage();
-
 	
-	end_move_pos = transform.position;
 
 	move();
+	damage();
 	updateStageMatrix();
 }
 

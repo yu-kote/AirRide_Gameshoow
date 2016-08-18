@@ -5,7 +5,7 @@ AILevel1::AILevel1(CharaBase* _enemy, CharaBase* _player) :
 	EnemyAIBase(_enemy, _player)
 {
 
-	HP = 0;
+	HP = 2;
 	enemy->transform.position.x = 3;
 	enemy->transform.position.y = 3;
 
@@ -26,20 +26,21 @@ void AILevel1::update()
 {
 
 	if (!is_terget) {
-		enemy->transform.position.z += player->getSpeed().z;
+		//enemy->transform.position.z += player->getSpeed();
 		return;
 	}
 	if (!c_Easing::isEnd(enemy->transform.position.z))return;
 
-	goPositon(aiterget.xyx(), 0.1f);
-	terget_change_count++;
+	tergetMove();
+	enemy->moving(ci::Vec2f::zero());
+	//goPositon(aiterget.xyx(), 0.1f);
+	/*terget_change_count++;
 	if (terget_change_count > 60 * 1
 		|| aiterget.distanceSquared(enemy->transform.position.xy()) < 1) {
 		terget_change_count = 0;
 		changeTarget();
 
-	}
-	tergetMove();
+	}*/
 
 }
 
@@ -63,19 +64,19 @@ void AILevel2::stert()
 void AILevel2::update()
 {
 	if (!is_terget) {
-		enemy->transform.position.z += player->getSpeed().z;
+		enemy->transform.position.z += player->getSpeed();
 		return;
 	}
 	if (!c_Easing::isEnd(enemy->transform.position.z))return;
 
-	terget_change_count++;
+	/*terget_change_count++;
 	if (terget_change_count > 60 * 1
 		|| aiterget.distanceSquared(enemy->transform.position.xy()) < 1) {
 		terget_change_count = 0;
 		changeTarget();
 	}
 
-	enemy->moveDirection(aiterget, 0.1f);
+	enemy->moveDirection(aiterget, 0.1f);*/
 	//enemy->goToRolling(ci::Vec2f::zero());
 	//ci::app::console() << (int)enemy->getStatus() << std::endl;
 	//ci::app::console() << enemy->transform.position << std::endl;
@@ -103,11 +104,14 @@ void AILevel3::stert()
 
 void AILevel3::update()
 {
-	//
 	if (!is_terget) {
-		enemy->transform.position.z += player->getSpeed().z;
+		enemy->transform.position.z += player->getSpeed();
 		return;
 	}
+	if (!c_Easing::isEnd(enemy->transform.position.z))return;
+
+
+	tergetMove();
 }
 
 AILevel4::AILevel4(CharaBase* _enemy, CharaBase* _player) :
@@ -128,11 +132,11 @@ void AILevel4::stert()
 
 void AILevel4::update()
 {
-	//
 	if (!is_terget) {
-		enemy->transform.position.z += player->getSpeed().z;
+		enemy->transform.position.z += player->getSpeed();
 		return;
 	}
+	if (!c_Easing::isEnd(enemy->transform.position.z))return;
 
-
+	tergetMove();
 }
