@@ -43,12 +43,8 @@ void CharaBase::move()
 	if (move_count >= 1.0f)
 		move_count = 1.0f;
 
-	// ‰¡ˆÚ“®
 	ci::Vec2f move_pos = QuadOut(move_count, start_move_pos, end_move_pos);
-	transform.position = ci::Vec3f(move_pos.x, move_pos.y, transform.position.z);
-
-	// ZŽ²ˆÚ“®
-	transform.position += speed;
+	transform.position = ci::Vec3f(move_pos.x, move_pos.y, transform.position.z + speed);
 }
 
 void CharaBase::moveRollAxis()
@@ -112,7 +108,7 @@ void CharaBase::setup()
 	addComponent<ar::Color>();
 
 	status = CharaStatus::NORMAL;
-	speed = 0.0f;
+	speed = 1.0f;
 
 	move_count = 0.0f;
 	start_move_pos = ci::Vec2f::zero();
@@ -125,8 +121,8 @@ void CharaBase::setup()
 	end_roll_angle = 0.0f;
 
 	dash_count = 0.0f;
-	start_dash_pos = 0.0f;
-	end_dash_pos = 0.0f;
+	start_dash_pos = 3.0f;
+	end_dash_pos = 1.0f;
 }
 
 void CharaBase::update()

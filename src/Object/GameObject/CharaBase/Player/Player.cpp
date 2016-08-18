@@ -23,13 +23,14 @@ void Player::setup()
 	addComponent<ar::Color>();
 
 	status = CharaStatus::NORMAL;
-	speed = 0.0f;
+	speed = 1.0f;
 
 	move_count = 0.0f;
 	start_move_pos = ci::Vec2f::zero();
 	end_move_pos = ci::Vec2f::zero();
 
 	roll_angle = 0.0f;
+	max_roll_angle = (float)M_PI * 2.0f * 4.0f;
 	roll_count = 0.0f;
 	start_roll_angle = 0.0f;
 	end_roll_angle = 0.0f;
@@ -37,8 +38,8 @@ void Player::setup()
 	move_direction = ci::Vec2f::zero();
 
 	dash_count = 0.0f;
-	start_dash_pos = 0.0f;
-	end_dash_pos = 0.0f;
+	start_dash_pos = 3.0f;
+	end_dash_pos = 1.0f;
 
 	window_size_camera_to_player = ci::Vec2f(40.0f, 40.0f);
 	pos_to_ratio = ci::Vec2f::zero();
@@ -109,16 +110,16 @@ void Player::debugMove()
 
 	ci::Vec2f _direction = ci::Vec2f::zero();
 	if (env.isPress(ci::app::KeyEvent::KEY_j)) {
-		_direction.x = 3;
+		_direction.x = 1;
 	}
 	if (env.isPress(ci::app::KeyEvent::KEY_l)) {
-		_direction.x = -3;
+		_direction.x = -1;
 	}
 	if (env.isPress(ci::app::KeyEvent::KEY_i)) {
-		_direction.y = 3;
+		_direction.y = 1;
 	}
 	if (env.isPress(ci::app::KeyEvent::KEY_k)) {
-		_direction.y = -3;
+		_direction.y = -1;
 	}
 	if (env.isPush(ci::app::KeyEvent::KEY_z)) {
 		goToRolling(transform.position.xy() + _direction.safeNormalized()*4);
@@ -126,12 +127,11 @@ void Player::debugMove()
 
 	if (_direction.lengthSquared() > 0) {
 		_direction.normalize();
-		_direction *= 0.1f;
 		start_move_pos = ci::Vec2f(transform.position.x, transform.position.y);
-		end_move_pos += _direction;
+		end_move_pos = ci::Vec2f(transform.position.x, transform.position.y) + _direction;
 		move_count = 0.0f;
 
-		move_direction = _direction;
+		move_direction = _direction / 10.0f;
 	}
 
 
