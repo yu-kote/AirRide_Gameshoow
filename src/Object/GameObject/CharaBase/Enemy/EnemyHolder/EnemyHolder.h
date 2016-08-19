@@ -20,6 +20,7 @@ public:
 	void setSignPostManager(std::shared_ptr<ar::SignPostManager>);
 	void setPlayer(std::shared_ptr<CharaBase>);
 	int getRanking();
+	std::vector<Enemy>& getEnemys();
 
 private:
 	std::vector<Enemy> enemys;
