@@ -160,7 +160,8 @@ void CharaBase::rolling(ci::Vec2f _terget)
 		return;
 
 	status = CharaStatus::ROLL;
-	roll_count = 0;
+	move_count = 0.0f;
+	roll_count = 0.0f;
 
 	if (transform.position.x < _terget.x)
 		end_roll_angle = max_roll_angle;
