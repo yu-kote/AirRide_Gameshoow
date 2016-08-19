@@ -3,6 +3,7 @@
 Enemy::Enemy()
 {
 	is_hit = false;
+	
 }
 
 Enemy::~Enemy()
@@ -16,7 +17,7 @@ Enemy::~Enemy()
 void Enemy::update()
 {
 	ai->update();
-	
+
 
 	move();
 	damage();
@@ -29,6 +30,9 @@ void Enemy::draw()
 
 	ci::gl::pushMatrices();
 	ci::gl::multModelView(matrix);
+
+	ci::gl::multModelView(ci::Matrix44f::createRotation(transform.angle));
+
 
 	ci::gl::drawColorCube(ci::Vec3f::zero(), ci::Vec3f::one());
 	ci::gl::popMatrices();
@@ -57,12 +61,17 @@ bool Enemy::isEnd()
 void Enemy::damage()
 {
 
-	if (player->getStatus() == CharaStatus::DASH) {
-		if (player->transform.position.distanceSquared(
-			transform.position) < 1 * 1) {
-			if (!is_hit)ai->HP--;
-			is_hit = true;
-			return;
+	if (player->isAttack()) {
+		if (!isInvincible()) {
+			if (player->transform.position.distanceSquared(
+				transform.position) <
+				(player->getCollisionCirclerad() + collision_circle_rad)
+				*(player->getCollisionCirclerad() + collision_circle_rad)
+				) {
+				if (!is_hit)ai->HP--;
+				is_hit = true;
+				return;
+			}
 		}
 	}
 	is_hit = false;

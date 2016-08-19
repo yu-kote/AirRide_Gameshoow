@@ -50,35 +50,94 @@ float* UIBase::selectUIState(int state)
 		return &size.y;
 		break;
 	case 4:
-		return reinterpret_cast<float*>(&color.x);
+		return &color.x;
 		break;
 	case 5:
-		return reinterpret_cast<float*>(&color.y);
+		return &color.y;
 		break;
 	case 6:
-		return reinterpret_cast<float*>(&color.z);
+		return &color.z;
 		break;
 	case 7:
-		return reinterpret_cast<float*>(&color.w);
+		return &color.w;
 		break;
 	}
 	return reinterpret_cast<float*>(&pos.x);
 }
 
-
-
 UIBase::UIBase(des::Vec2f _pos, des::Vec2f _size, des::Vec4d _color)
 	: pos(_pos), size(_size), color(_color) {
 	fncPushBack(easing_function);
-	start = false;
+	is_active = false;
+	start = 0;
 	end = false;
+	end_count = 0;
 }
 
-void UIBase::easingUpdate() {
+void UIBase::update() {
+	if (is_active) {
+		EaseInUpdate();
+		EaseOutUpdate();
+		EaseUpdate();
+	}
 }
 
-void UIBase::EaseInApply(std::string s, float e, std::function<float(float, float, float)> ease, float time)
+void UIBase::EaseInApply(std::string start, float end, std::function<float(float, float, float)> ease, float time)
 {
-	c_Easing::apply(*selectUIState(UIState::get()[s]),e,ease,time);
+	ease_in_buf.push_back(EasingBuf(start, end, ease, time));
+}
+
+void UIBase::EaseOutApply(std::string start, float end, std::function<float(float, float, float)> ease, float time)
+{
+	ease_end_buf.push_back(EasingBuf(start, end, ease, time));
+}
+
+void UIBase::EaseUpdateApply(std::string start, float end, std::function<float(float, float, float)> ease, float time)
+{
+	ease_update_buf.push_back(EasingBuf(start, end, ease, time));
+}
+
+void UIBase::EaseUpdate()
+{
+	/*for (int i = 0; i != ease_update_buf.size(); i++) {
+		c_Easing::apply(*selectUIState(UIState::get()[ease_update_buf[i].start]),
+			ease_update_buf[i].end, ease_update_buf[i].ease, ease_update_buf[i].time);
+	}*/
+}
+
+void UIBase::EaseInUpdate()
+{
+	start++;
+	if (start == 1) {
+		for (int i = 0; i != ease_in_buf.size(); i++) {
+			c_Easing::apply(*selectUIState(UIState::get()[ease_in_buf[i].start]),
+				ease_in_buf[i].end, ease_in_buf[i].ease, ease_in_buf[i].time);
+		}
+	}
+}
+
+void UIBase::EaseOutUpdate()
+{
+	if (end) {
+		end_count++;
+		if (end_count == 1) {
+			for (int i = 0; i != ease_end_buf.size(); i++) {
+				c_Easing::apply(*selectUIState(UIState::get()[ease_end_buf[i].start]),
+					ease_end_buf[i].end, ease_end_buf[i].ease, ease_end_buf[i].time);
+			}
+			for (int i = 0; i != ease_update_buf.size(); i++) {
+				c_Easing::clear(*selectUIState(UIState::get()[ease_update_buf[i].start]));
+			}
+		}
+		for(int i = 0; i != ease_end_buf.size(); i++) {
+			if (c_Easing::isEnd(*selectUIState(UIState::get()[ease_end_buf[i].start]))) {
+				is_active = false;
+				start = 0;
+				end_count = 0;
+				end = false;
+			}
+		}
+	}
+
 }
 
