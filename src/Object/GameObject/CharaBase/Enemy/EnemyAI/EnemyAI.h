@@ -28,7 +28,7 @@ public:
 	void update() override;
 
 private:
-
+	int roll_count;
 };
 
 
@@ -43,7 +43,7 @@ public:
 	void update() override;
 
 private:
-
+	int avoid_count;
 };
 
 
@@ -58,7 +58,7 @@ public:
 	void update() override;
 
 private:
-
+	int avoid_count;
 };
 
 

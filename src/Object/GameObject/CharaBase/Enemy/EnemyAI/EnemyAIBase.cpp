@@ -31,6 +31,17 @@ void EnemyAIBase::goPositon(ci::Vec3f _terget, float _speed)
 
 }
 
+void EnemyAIBase::tergetMotion()
+{
+	terget_change_count++;
+	if (terget_change_count > 60 * 1
+		|| aiterget.distanceSquared(enemy->transform.position.xy()) < 1) {
+		terget_change_count = 0;
+		changeTarget();
+
+	}
+}
+
 void EnemyAIBase::changeTarget()
 {
 	aiterget = (ci::Matrix22f::createRotation(ci::randFloat(0, M_PI * 2))
@@ -43,12 +54,52 @@ void EnemyAIBase::tergetMove()
 {
 	float difference = enemy->transform.position.z - player->transform.position.z;
 	if (difference > 7.f) {
-		enemy->transform.position.z += 0.8;
+		enemy->setSpeed(0.8f);
 		return;
 	}
 	if (difference < 7.f
 		&& HP > 0) {
-		enemy->transform.position.z += 1.6f;
+		enemy->setSpeed(1.5f);
 		return;
 	}
+}
+
+bool EnemyAIBase::avoidPlayerDashByRoll()
+{
+	float difference = enemy->transform.position.z - player->transform.position.z;
+	if (difference > 9)return false;
+	if (player->isAttack()) {
+		if (hit2d()) {
+			enemy->setSpeed(1.5f);
+			return enemy->isRolling(-enemy->transform.position.xy());
+
+		}
+	}
+
+	return false;
+}
+
+bool EnemyAIBase::avoidPlayerDashByDash()
+{
+	float difference = enemy->transform.position.z - player->transform.position.z;
+	if (difference > 9)return false;
+	if (player->isAttack()) {
+		if (hit2d()) {
+			enemy->setSpeed(1);
+			return enemy->isAttacking();
+		}
+	}
+
+
+	return false;
+}
+
+bool EnemyAIBase::hit2d()
+{
+
+
+	return player->transform.position.xy().distanceSquared
+		(enemy->transform.position.xy()) <
+		(player->getCollisionCirclerad() + enemy->getCollisionCirclerad()) *
+		(player->getCollisionCirclerad() + enemy->getCollisionCirclerad());
 }
