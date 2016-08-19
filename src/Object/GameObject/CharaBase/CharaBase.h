@@ -43,6 +43,7 @@ public:
 
 		start_speed = speed + distance_speed;
 		end_speed = speed;
+		this->speed = speed;
 	}
 
 	float getCollisionCirclerad() const { return collision_circle_rad; }
