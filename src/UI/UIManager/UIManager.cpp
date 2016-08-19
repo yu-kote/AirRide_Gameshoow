@@ -3,7 +3,7 @@ std::shared_ptr<UIBase> selectUIType(const int& type) {
 	switch (type)
 	{
 	case 0:
-		return std::make_shared<CollisionUI>(des::Vec2f(0, 0), des::Vec2f(0, 0),des::Vec4d(1,1,1,1));
+		return std::make_shared<CollisionUI>(des::Vec2f(0, 0), des::Vec2f(0, 0), des::Vec4d(1, 1, 1, 1));
 		break;
 	case 1:
 		return std::make_shared<FontUI>(des::Vec2f(0, 0), des::Vec2f(0, 0), des::Vec4d(1, 1, 1, 1));
@@ -125,7 +125,8 @@ UIManager::UIManager() {
 	//種類データをjsonデータで取得するためのコンストラクタ
 	UIType::UIType();
 	UIObjects::UIObjects();
-
+	UIState::UIState();
+	EasingType::EasingType();
 	//jsonデータのファイル読み込み
 	std::ifstream fs;
 	fs.open("../assets/UI/UI.json", std::ios::binary);
@@ -133,14 +134,16 @@ UIManager::UIManager() {
 	picojson::value val;
 	fs >> val;
 	fs.close();
-	
-		
+
+
 	for (auto it = UIObjects::get().begin(); it != UIObjects::get().end(); it++) {
 
 		//jsonデータのオブジェクトネームとUIタイプに応じて
 		//uiにinsert
 		picojson::object data(val.get<picojson::object>()["UI"].get<picojson::object>());
 		ui_data[*it] = selectUIType(UIType::get()[data[(*it)].get<picojson::object>()["UIType"].get<std::string>()]);
+		//テクスチャのパスをセット
+		ui_data[(*it)]->setTexturePath(data[(*it)].get<picojson::object>()["TexturePath"].get<std::string>());
 		
 		//初期Posをjsonからセット
 		ui_data[(*it)]->setPos(static_cast<const float>(data[(*it)].get<picojson::object>()["Pos_x"].get<double>()),
@@ -149,24 +152,68 @@ UIManager::UIManager() {
 		//初期Sizeをjsonからセット
 		ui_data[(*it)]->setSize(static_cast<const float>(data[(*it)].get<picojson::object>()["Size_x"].get<double>()),
 			static_cast<const float>(data[(*it)].get<picojson::object>()["Size_y"].get<double>()));
-		
+
 		//開始イージングをjsonからセット
 		picojson::array ease_in_array = data[(*it)].get<picojson::object>()["EaseIn"].get<picojson::array>();
 		for (auto ary = ease_in_array.begin(); ary != ease_in_array.end(); ary++) {
 			picojson::object& EaseInArray = ary->get<picojson::object>();
 			ui_data[(*it)]->EaseInApply(
 				EaseInArray["UIState"].get<std::string>(),
-				(float)(EaseInArray["Change"].get<double>()), 
-				selectEasing(EasingType::get()[EaseInArray["EasingType"].get<std::string>()]), 
+				(float)(EaseInArray["Change"].get<double>()),
+				selectEasing(EasingType::get()[EaseInArray["EasingType"].get<std::string>()]),
 				(float)EaseInArray["Frame"].get<double>());
 		}
 
+		//終了イージングをjsonからセット
+		picojson::array ease_out_array = data[(*it)].get<picojson::object>()["EaseOut"].get<picojson::array>();
+		for (auto ary = ease_out_array.begin(); ary != ease_out_array.end(); ary++) {
+			picojson::object& EaseInArray = ary->get<picojson::object>();
+			ui_data[(*it)]->EaseOutApply(
+				EaseInArray["UIState"].get<std::string>(),
+				(float)(EaseInArray["Change"].get<double>()),
+				selectEasing(EasingType::get()[EaseInArray["EasingType"].get<std::string>()]),
+				(float)EaseInArray["Frame"].get<double>());
+		}
+
+		//開始イージングをjsonからセット
+		picojson::array ease_update_array = data[(*it)].get<picojson::object>()["EaseUpdate"].get<picojson::array>();
+		for (auto ary = ease_update_array.begin(); ary != ease_update_array.end(); ary++) {
+			picojson::object& EaseInArray = ary->get<picojson::object>();
+			ui_data[(*it)]->EaseUpdateApply(
+				EaseInArray["UIState"].get<std::string>(),
+				(float)(EaseInArray["Change"].get<double>()),
+				selectEasing(EasingType::get()[EaseInArray["EasingType"].get<std::string>()]),
+				(float)EaseInArray["Frame"].get<double>());
+		}
+
+		//CollisionUIの場合のjsonのセット
+		if (data[(*it)].get<picojson::object>()["UIType"].get<std::string>() == "CollisionUI") {
+			picojson::array ease_collision_array = data[(*it)].get<picojson::object>()["EaseCollision"].get<picojson::array>();
+			for (auto ary = ease_collision_array.begin(); ary != ease_collision_array.end(); ary++) {
+				picojson::object& EaseCollisionArray = ary->get<picojson::object>();
+				ui_data[(*it)]->EaseCollisionApply(
+					EaseCollisionArray["UIState"].get<std::string>(),
+					(float)(EaseCollisionArray["Change"].get<double>()),
+					selectEasing(EasingType::get()[EaseCollisionArray["EasingType"].get<std::string>()]),
+					(float)EaseCollisionArray["Frame"].get<double>());
+			}
+		}
+
+		//GaugeUIの場合のjsonのセット
+		if (data[(*it)].get<picojson::object>()["UIType"].get<std::string>() == "GaugeUI") {
+			//Gaugeテクスチャのパスをセット
+			ui_data[(*it)]->setGaugeTexturePath(data[(*it)].get<picojson::object>()["GaugeTexturePath"].get<std::string>());
+
+			//Gauge初期Posをjsonからセット
+			ui_data[(*it)]->setGaugePos(static_cast<const float>(data[(*it)].get<picojson::object>()["GaugePos_x"].get<double>()),
+				static_cast<const float>(data[(*it)].get<picojson::object>()["GaugePos_y"].get<double>()));
+
+			//Gauge初期Sizeをjsonからセット
+			ui_data[(*it)]->setGaugeSize(static_cast<const float>(data[(*it)].get<picojson::object>()["GaugeSize_x"].get<double>()),
+				static_cast<const float>(data[(*it)].get<picojson::object>()["GaugeSize_y"].get<double>()));
+
+		}
 	}
-
-	
 }
 
-void UIManager::update() {
-	
-	
-}
+

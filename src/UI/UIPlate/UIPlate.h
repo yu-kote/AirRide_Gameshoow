@@ -6,12 +6,12 @@
 #include "cinder/gl/Texture.h" 
 #include "../UIManager/UIManager.h"
 #include "cinder/Camera.h"
-
+#include "../Texture.h"
 class UIPlate : public UIManager
 {
 private:
-	ci::gl::Texture texture;
 	ci::CameraOrtho camera_o;
+	ci::gl::Texture tex;
 public:
 	UIPlate() {
 		camera_o = ci::CameraOrtho(0, 800,
@@ -20,7 +20,12 @@ public:
 		camera_o.setEyePoint(ci::Vec3f(0.0f, 0.0f, 0.0f));
 		camera_o.setCenterOfInterestPoint(ci::Vec3f(0.0f, 0.0f, -1000.0f));
 	};
-	void update();
-	void draw();
+	void titleSetup();
+	void titleUpdate();
+	void titleDraw();
+
+	void gameMainSetup();
+	void gameMainUpdate();
+	void gameMainDraw();
 	
 };
