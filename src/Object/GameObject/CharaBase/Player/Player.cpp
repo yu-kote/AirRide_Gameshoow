@@ -14,31 +14,11 @@ void Player::setup()
 {
 	LEAPHANDS.Setup();
 
+	init();
+
 	operation_type = OperationType::KEY;
 
-	transform.position = ci::Vec3f(0.0f, 0.0f, 0.0f);
-	transform.angle = ci::Vec3f(0.0f, 0.0f, 0.0f);
-	transform.scale = ci::Vec3f(0.0f, 0.0f, 1.0f);
-
-	addComponent<ar::Color>();
-
-	status = CharaStatus::NORMAL;
-	speed = 1.0f;
-
-	move_count = 0.0f;
-	start_move_pos = ci::Vec2f::zero();
-	end_move_pos = ci::Vec2f::zero();
-
-	max_roll_angle = (float)M_PI * 2.0f * 4.0f;
-	roll_count = 0.0f;
-	start_roll_angle = 0.0f;
-	end_roll_angle = 0.0f;
-
 	move_direction = ci::Vec2f::zero();
-
-	dash_count = 0.0f;
-	start_speed = 3.0f;
-	end_speed = 1.0f;
 
 	window_size_camera_to_player = ci::Vec2f(40.0f, 40.0f);
 	pos_to_ratio = ci::Vec2f::zero();
@@ -46,11 +26,6 @@ void Player::setup()
 	before_pos_to_ratio = ci::Vec2f::zero();
 	before_hand_normal = ci::Vec3f::zero();
 	before_hand_pos = ci::Vec3f::zero();
-
-
-	window_size = ci::Vec3f(10.0f * 100.0f / 171.0f * 2.0f,
-		10.0f * 100.0f / 171.0f * 2.0f,
-		0.0f);
 
 
 	min_hand_normal_z_range = -0.5;
@@ -145,7 +120,7 @@ void Player::debugRoll()
 	if (move_direction.lengthSquared() <= 0)
 		return;
 
-	rolling(move_direction * 50.0f);
+	isRolling(move_direction * 50.0f);
 }
 
 void Player::debugDash()
@@ -153,7 +128,7 @@ void Player::debugDash()
 	if (status != CharaStatus::NORMAL)
 		return;
 
-	attack();
+	isAttack();
 }
 
 void Player::operationLeap()

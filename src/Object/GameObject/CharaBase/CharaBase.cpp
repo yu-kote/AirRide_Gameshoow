@@ -13,6 +13,109 @@ CharaBase::CharaBase() {}
 
 CharaBase::~CharaBase() {}
 
+void CharaBase::init()
+{
+	addComponent<ar::Color>();
+
+	window_size = ci::Vec3f(10.0f * 100.0f / 171.0f * 2.0f,
+		10.0f * 100.0f / 171.0f * 2.0f,
+		0.0f);
+
+	transform.position = ci::Vec3f(0.0f, 0.0f, 0.0f);
+	transform.angle = ci::Vec3f(0.0f, 0.0f, 0.0f);
+	transform.scale = ci::Vec3f(1.0f, 1.0f, 1.0f);
+
+	status = CharaStatus::NORMAL;
+	speed = 1.0f;
+
+	collision_circle_rad = 1.0f;
+
+	move_count = 0.0f;
+	start_move_pos = ci::Vec2f::zero();
+	end_move_pos = ci::Vec2f::zero();
+
+	max_roll_angle = (float)M_PI * 2.0f * 4.0f;
+	roll_count = 0.0f;
+	start_roll_angle = 0.0f;
+	end_roll_angle = 0.0f;
+
+	dash_count = 0.0f;
+	start_speed = 3.0f;
+	end_speed = 1.0f;
+
+	clash_count = 0.0f;
+	clash_speed = 0.2f;
+
+	interval_count = 1.0f;
+	interval_takes_time = 2.0f;
+}
+
+void CharaBase::setup()
+{
+	init();
+}
+
+void CharaBase::update() {}
+
+void CharaBase::draw() {}
+
+ci::Vec3f CharaBase::getWorldPoisition()
+{
+	return matrix * ci::Vec3f::zero();
+}
+
+void CharaBase::moving(ci::Vec2f _terget)
+{
+	if (status != CharaStatus::NORMAL)
+		return;
+
+	move_count = 0.0f;
+	start_move_pos = ci::Vec2f(transform.position.x, transform.position.y);
+	end_move_pos = _terget;
+}
+
+bool CharaBase::isRolling(ci::Vec2f _terget)
+{
+	if (status != CharaStatus::NORMAL)
+		return false;
+
+	status = CharaStatus::ROLL;
+	move_count = 0.0f;
+	roll_count = 0.0f;
+
+	if (transform.position.x < _terget.x)
+		end_roll_angle = max_roll_angle;
+	else if (transform.position.x > _terget.x)
+		end_roll_angle = -max_roll_angle;
+
+	start_move_pos = ci::Vec2f(transform.position.x, transform.position.y);
+	end_move_pos = _terget;
+
+	return true;
+}
+
+bool CharaBase::isAttacking()
+{
+	if (status != CharaStatus::NORMAL)
+		return false;
+
+	if (!isAction())
+		return false;
+
+	status = CharaStatus::DASH;
+	dash_count = 0;
+	interval_count = 0.0f;
+
+	return true;
+}
+
+void CharaBase::HitObstacle()
+{
+	status = CharaStatus::CLASH;
+	speed = clash_speed;
+	clash_count = 0.0f;
+}
+
 void CharaBase::debugCourseOutStop()
 {
 
@@ -108,95 +211,12 @@ void CharaBase::updateStageMatrix()
 	matrix = signpostmanager->getMatrix(transform.position);
 }
 
-void CharaBase::setup()
+void CharaBase::interval()
 {
-	transform.position = ci::Vec3f(0.0f, 0.0f, 0.0f);
-	transform.angle = ci::Vec3f(0.0f, 0.0f, 0.0f);
-	transform.scale = ci::Vec3f(1.0f, 1.0f, 1.0f);
-
-	addComponent<ar::Color>();
-
-	status = CharaStatus::NORMAL;
-	speed = 1.0f;
-
-	collision_circle_rad = 1.0f;
-
-	move_count = 0.0f;
-	start_move_pos = ci::Vec2f::zero();
-	end_move_pos = ci::Vec2f::zero();
-
-	max_roll_angle = (float)M_PI * 2.0f * 4.0f;
-	roll_count = 0.0f;
-	start_roll_angle = 0.0f;
-	end_roll_angle = 0.0f;
-
-	dash_count = 0.0f;
-	start_speed = 3.0f;
-	end_speed = 1.0f;
-
-	clash_count = 0.0f;
-	clash_speed = 0.2f;
-}
-
-void CharaBase::update() {}
-
-void CharaBase::draw() {}
-
-ci::Vec3f CharaBase::getWorldPoisition()
-{
-	return matrix * ci::Vec3f::zero();
-}
-
-void CharaBase::moving(ci::Vec2f _terget)
-{
-	move_count = 0.0f;
-	start_move_pos = ci::Vec2f(transform.position.x, transform.position.y);
-	end_move_pos = _terget;
-}
-
-void CharaBase::rolling(ci::Vec2f _terget)
-{
-	if (status != CharaStatus::NORMAL)
+	if (interval_count >= 1.0f)
 		return;
 
-	status = CharaStatus::ROLL;
-	move_count = 0.0f;
-	roll_count = 0.0f;
-
-	if (transform.position.x < _terget.x)
-		end_roll_angle = max_roll_angle;
-	else if (transform.position.x > _terget.x)
-		end_roll_angle = -max_roll_angle;
-
-	start_move_pos = ci::Vec2f(transform.position.x, transform.position.y);
-	end_move_pos = _terget;
-}
-
-void CharaBase::attack()
-{
-	if (status != CharaStatus::NORMAL)
-		return;
-
-	status = CharaStatus::DASH;
-	dash_count = 0;
-}
-
-void CharaBase::moveDirection(ci::Vec2f _direction, float _speed)
-{
-	if (_direction.lengthSquared() > 0) {
-		_direction.normalize();
-		_direction *= _speed;
-		start_move_pos = ci::Vec2f(transform.position.x, transform.position.y);
-		end_move_pos += _direction;
-		move_count = 0.0f;
-
-		move_direction = _direction;
-	}
-}
-
-void CharaBase::HitObstacle()
-{
-	status = CharaStatus::CLASH;
-	speed = clash_speed;
-	clash_count = 0.0f;
+	interval_count += TIME.getDeltaTime() / interval_takes_time;
+	if (interval_count >= 1.0f)
+		interval_count = 0.0f;
 }
