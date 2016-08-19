@@ -6,14 +6,6 @@
 #include "../SignPost/SignPostManager.h"
 #include "../Obstacle/ObstacleManager.h"
 
-enum class CharaStatus
-{
-	NORMAL,
-	ROLL,
-	DASH,
-	CLASH
-};
-
 
 class CharaBase : public ar::GameObject
 {
@@ -22,9 +14,19 @@ public:
 	CharaBase();
 	~CharaBase();
 
+	void init();
 	virtual void setup() override;
 	virtual void update() override;
 	virtual void draw() override;
+
+
+	enum class CharaStatus
+	{
+		NORMAL,
+		ROLL,
+		DASH,
+		CLASH
+	};
 
 
 	ci::Vec3f getWorldPoisition();
@@ -57,10 +59,15 @@ public:
 		move_count = 0.0f;
 	}
 
+	void setIntervalTakesTime(const float &interval_takes_time) { this->interval_takes_time = interval_takes_time; }
+
+	bool isAttack() { return dash_count <= 0.3f; }
+	bool isInvincible() { return clash_count < 1.0f; }
+	bool isAction() { return interval_count == 1.0f; }
+
 	void moving(ci::Vec2f);
-	void rolling(ci::Vec2f);
-	void attack();
-	void moveDirection(ci::Vec2f, float);
+	bool isRolling(ci::Vec2f);
+	bool isAttacking();
 
 	void HitObstacle();
 
@@ -74,6 +81,7 @@ protected:
 	void collisionToWindow();
 	void clash();
 	void updateStageMatrix();
+	void interval();
 
 
 	std::shared_ptr<ar::SignPostManager> signpostmanager;
@@ -85,19 +93,14 @@ protected:
 	float speed;
 
 	float collision_circle_rad;
-
 	float move_count;
 	ci::Vec2f start_move_pos;
 	ci::Vec2f end_move_pos;
 
-	ci::Quatf roll_quat;
-	ci::Vec3f roll_quat_normal;
 	float max_roll_angle;
 	float roll_count;
 	float start_roll_angle;
 	float end_roll_angle;
-
-	ci::Vec2f move_direction;
 
 	float dash_count;
 	float start_speed;
@@ -105,8 +108,9 @@ protected:
 
 	float clash_count;
 	float clash_speed;
-	float start_clash_angle;
-	float end_clash_angle;
+
+	float interval_count;
+	float interval_takes_time;
 
 private:
 

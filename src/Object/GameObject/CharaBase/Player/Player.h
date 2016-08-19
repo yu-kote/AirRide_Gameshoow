@@ -39,6 +39,8 @@ private:
 
 	OperationType operation_type;
 
+	ci::Vec2f move_direction;
+
 	// camera‚©‚çŒ©‚½ƒvƒŒƒCƒ„[‚Ì‰f‚é”ÍˆÍ
 	ci::Vec2f window_size_camera_to_player;
 	ci::Vec2f pos_to_ratio;
