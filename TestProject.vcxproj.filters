@@ -120,6 +120,9 @@
     <Filter Include="Header Files\Object\Component\Components\Texture">
       <UniqueIdentifier>{2e6c9dc1-9158-48c5-ae63-6a0cf79dc7a1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Object\GameObject\Skydome">
+      <UniqueIdentifier>{5a168fd9-c777-4ab4-98f5-ad97044a5bfb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\MainApp.cpp">
@@ -241,6 +244,9 @@
     </ClCompile>
     <ClCompile Include="..\src\Object\GameObject\Obstacle\ObstaclePopArea.cpp">
       <Filter>Header Files\Object\GameObject\Obstacle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\Skydome\Skydome.cpp">
+      <Filter>Header Files\Object\GameObject\Skydome</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -414,6 +420,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Object\Component\Components\Texture.h">
       <Filter>Header Files\Object\Component\Components\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\Skydome\Skydome.h">
+      <Filter>Header Files\Object\GameObject\Skydome</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
