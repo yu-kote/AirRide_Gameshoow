@@ -17,6 +17,8 @@ public:
 
 private:
 
+	void changeOperationType();
+
 	void operationKey();
 
 	void debugMove();
