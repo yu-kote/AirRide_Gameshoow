@@ -10,7 +10,7 @@ public:
 		enemy = _enemy;
 		player = _player;
 		is_terget = false;
-		HP = 2;
+		HP = 1;
 		terget_change_count = 0;
 	}
 	virtual void stert() {};
@@ -28,9 +28,14 @@ protected:
 
 	ci::Vec2f aiterget;
 	int terget_change_count;
-
+	
+	void tergetMotion();
 	void changeTarget();
 	void tergetMove();
+	bool avoidPlayerDashByRoll();
+	bool avoidPlayerDashByDash();
+
+	bool hit2d();
 
 	
 };

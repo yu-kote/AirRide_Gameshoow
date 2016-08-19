@@ -2,7 +2,7 @@
 
 void Skydome::setup()
 {
-	addComponent<ar::Texture("Skydome")>();
+	addComponent<ar::Texture("‰_ŠC.bmp")>();
 	transform.scale = ci::Vec3f::one() * 500;
 }
 
