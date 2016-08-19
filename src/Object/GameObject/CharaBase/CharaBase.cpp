@@ -5,19 +5,13 @@ ci::Vec2f QuadOut(float t, ci::Vec2f b, ci::Vec2f e) {
 		-(e.y - b.y) * t * (t - 2) + b.y);
 }
 
-float QuadOut(float t, float b, float e){
+float QuadOut(float t, float b, float e) {
 	return -(e - b) * t * (t - 2) + b;
 }
 
-CharaBase::CharaBase()
-{
+CharaBase::CharaBase() {}
 
-}
-
-CharaBase::~CharaBase()
-{
-
-}
+CharaBase::~CharaBase() {}
 
 void CharaBase::debugCourseOutStop()
 {
@@ -38,6 +32,7 @@ void CharaBase::move()
 {
 	roll();
 	dash();
+	clash();
 
 	move_count += TIME.getDeltaTime();
 	if (move_count >= 1.0f)
@@ -45,11 +40,6 @@ void CharaBase::move()
 
 	ci::Vec2f move_pos = QuadOut(move_count, start_move_pos, end_move_pos);
 	transform.position = ci::Vec3f(move_pos.x, move_pos.y, transform.position.z + speed);
-}
-
-void CharaBase::moveRollAxis()
-{
-
 }
 
 void CharaBase::roll()
@@ -64,7 +54,7 @@ void CharaBase::roll()
 		status = CharaStatus::NORMAL;
 	}
 
-	roll_angle = EasingFunction::QuadOut(roll_count, start_roll_angle, end_roll_angle);
+	transform.angle.z = EasingFunction::QuadOut(roll_count, start_roll_angle, end_roll_angle);
 }
 
 void CharaBase::dash()
@@ -79,17 +69,36 @@ void CharaBase::dash()
 		status = CharaStatus::NORMAL;
 	}
 
-	speed = QuadOut(dash_count, start_dash_pos, end_dash_pos);
+	speed = QuadOut(dash_count, start_speed, end_speed);
+}
+
+void CharaBase::clash()
+{
+	if (status != CharaStatus::CLASH)
+		return;
+
+	clash_count += TIME.getDeltaTime();
+	if (clash_count >= 1.0f)
+	{
+		clash_count = 1.0f;
+		status = CharaStatus::NORMAL;
+	}
+
+	//transform.angle.z = std::sin(clash_count / 2.0f * M_PI * 4.0f ) * ((float)M_PI / 4.0f);
+	transform.angle.z = clash_count;
 }
 
 void CharaBase::collisionToWindow()
 {
 	if (transform.position.x < -window_size.x / 2.0f)
 		transform.position.x = -window_size.x / 2.0f;
+
 	if (transform.position.x > window_size.x / 2.0f)
 		transform.position.x = window_size.x / 2.0f;
+
 	if (transform.position.y < -window_size.y / 2.0f)
 		transform.position.y = -window_size.y / 2.0f;
+
 	if (transform.position.y > window_size.y / 2.0f)
 		transform.position.y = window_size.y / 2.0f;
 }
@@ -110,56 +119,32 @@ void CharaBase::setup()
 	status = CharaStatus::NORMAL;
 	speed = 1.0f;
 
+	collision_circle_rad = 1.0f;
+
 	move_count = 0.0f;
 	start_move_pos = ci::Vec2f::zero();
 	end_move_pos = ci::Vec2f::zero();
 
 	max_roll_angle = (float)M_PI * 2.0f * 4.0f;
-	roll_angle = 0.0f;
 	roll_count = 0.0f;
 	start_roll_angle = 0.0f;
 	end_roll_angle = 0.0f;
 
 	dash_count = 0.0f;
-	start_dash_pos = 3.0f;
-	end_dash_pos = 1.0f;
+	start_speed = 3.0f;
+	end_speed = 1.0f;
+
+	clash_count = 0.0f;
+	clash_speed = 0.2f;
 }
 
-void CharaBase::update()
-{
+void CharaBase::update() {}
 
-}
-
-void CharaBase::draw()
-{
-
-}
+void CharaBase::draw() {}
 
 ci::Vec3f CharaBase::getWorldPoisition()
 {
 	return matrix * ci::Vec3f::zero();
-}
-
-CharaStatus CharaBase::getStatus()
-{
-	return status;
-}
-
-float CharaBase::getSpeed()
-{
-	return speed;
-}
-
-void CharaBase::goToRolling(ci::Vec2f _terget)
-{
-	if (start_move_pos.x > _terget.x) {
-		rolling(_terget, RollDirection::LEFT);
-	}
-	else
-	{
-		rolling(_terget, RollDirection::RIGHT);
-	}
-
 }
 
 void CharaBase::moving(ci::Vec2f _terget)
@@ -169,14 +154,17 @@ void CharaBase::moving(ci::Vec2f _terget)
 	end_move_pos = _terget;
 }
 
-void CharaBase::rolling(ci::Vec2f _terget, RollDirection roll_direction)
+void CharaBase::rolling(ci::Vec2f _terget)
 {
+	if (status != CharaStatus::NORMAL)
+		return;
+
 	status = CharaStatus::ROLL;
 	roll_count = 0;
 
-	if (roll_direction == RollDirection::LEFT)
+	if (transform.position.x < _terget.x)
 		end_roll_angle = max_roll_angle;
-	else if (roll_direction == RollDirection::RIGHT)
+	else if (transform.position.x > _terget.x)
 		end_roll_angle = -max_roll_angle;
 
 	start_move_pos = ci::Vec2f(transform.position.x, transform.position.y);
@@ -185,6 +173,9 @@ void CharaBase::rolling(ci::Vec2f _terget, RollDirection roll_direction)
 
 void CharaBase::attack()
 {
+	if (status != CharaStatus::NORMAL)
+		return;
+
 	status = CharaStatus::DASH;
 	dash_count = 0;
 }
@@ -200,4 +191,11 @@ void CharaBase::moveDirection(ci::Vec2f _direction, float _speed)
 
 		move_direction = _direction;
 	}
+}
+
+void CharaBase::HitObstacle()
+{
+	status = CharaStatus::CLASH;
+	speed = clash_speed;
+	clash_count = 0.0f;
 }
