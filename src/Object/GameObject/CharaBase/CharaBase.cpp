@@ -103,7 +103,7 @@ bool CharaBase::isAttacking()
 		return false;
 
 	status = CharaStatus::DASH;
-	dash_count = 0;
+	dash_count = 0.0f;
 	interval_count = 0.0f;
 
 	return true;
@@ -136,6 +136,7 @@ void CharaBase::move()
 	roll();
 	dash();
 	clash();
+	interval();
 
 	move_count += TIME.getDeltaTime();
 	if (move_count >= 1.0f)
@@ -218,5 +219,5 @@ void CharaBase::interval()
 
 	interval_count += TIME.getDeltaTime() / interval_takes_time;
 	if (interval_count >= 1.0f)
-		interval_count = 0.0f;
+		interval_count = 1.0f;
 }

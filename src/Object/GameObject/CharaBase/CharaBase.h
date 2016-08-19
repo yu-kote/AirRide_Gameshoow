@@ -62,8 +62,21 @@ public:
 	void setIntervalTakesTime(const float &interval_takes_time) { this->interval_takes_time = interval_takes_time; }
 
 	bool isAttack() { return dash_count <= 0.3f; }
-	bool isInvincible() { return clash_count < 1.0f; }
 	bool isAction() { return interval_count == 1.0f; }
+	bool isInvincible()
+	{
+		switch (status)
+		{
+		case CharaStatus::CLASH:
+			return clash_count < 1.0f;
+		case CharaStatus::ROLL:
+			return roll_count < 1.0f;
+		default:
+			return false;
+		}
+
+		return false;
+	}
 
 	void moving(ci::Vec2f);
 	bool isRolling(ci::Vec2f);
