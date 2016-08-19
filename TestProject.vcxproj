@@ -155,6 +155,7 @@
     <ClInclude Include="..\src\Object\Component\Component.h" />
     <ClInclude Include="..\src\Object\Component\Components\Color.h" />
     <ClInclude Include="..\src\Object\Component\Components\Material.h" />
+    <ClInclude Include="..\src\Object\Component\Components\Texture.h" />
     <ClInclude Include="..\src\Object\Component\Components\Transform.h" />
     <ClInclude Include="..\src\Object\GameObject\Camera\Camera.h" />
     <ClInclude Include="..\src\Object\GameObject\CharaBase\CharaBase.h" />
@@ -185,6 +186,9 @@
     <ClInclude Include="..\src\Share\FrameTimer.h" />
     <ClInclude Include="..\src\Share\Interface\Interface.h" />
     <ClInclude Include="..\src\Share\Time.h" />
+    <ClInclude Include="..\src\TaskManager\ObjDataManager.h" />
+    <ClInclude Include="..\src\TaskManager\SoundManager.h" />
+    <ClInclude Include="..\src\TaskManager\TextureManager.h" />
     <ClInclude Include="..\src\UI\myLib\DesLib.h" />
     <ClInclude Include="..\src\UI\picojson.h" />
     <ClInclude Include="..\src\UI\Types\EasingType.h" />
