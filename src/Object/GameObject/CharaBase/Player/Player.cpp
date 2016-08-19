@@ -47,7 +47,6 @@ void Player::update()
 	move();
 
 	// cameraÇ©ÇÁÇÕÇ›èoÇ»Ç¢ÇÊÇ§Ç…Ç∑ÇÈ
-	//collisionToWindow();
 	debugCourseOutStop();
 
 	// stageçsóÒÇ…ïœä∑
@@ -72,8 +71,10 @@ void Player::draw()
 void Player::operationKey()
 {
 	debugMove();
+
 	if (env.isPush(ci::app::KeyEvent::KEY_SPACE))
 		debugRoll();
+
 	if (env.isPush(ci::app::KeyEvent::KEY_b))
 		debugDash();
 
@@ -128,7 +129,7 @@ void Player::debugDash()
 	if (status != CharaStatus::NORMAL)
 		return;
 
-	isAttack();
+	isAttacking();
 }
 
 void Player::operationLeap()
