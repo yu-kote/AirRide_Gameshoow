@@ -67,6 +67,11 @@ int EnemyHolder::getRanking()
 	return 0;
 }
 
+std::vector<Enemy>& EnemyHolder::getEnemys()
+{
+	return enemys;
+}
+
 
 void EnemyHolder::targetChange()
 {

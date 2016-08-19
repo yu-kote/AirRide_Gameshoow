@@ -21,6 +21,8 @@ public:
 
 	template<class T>
 	void setAI();
+	void inObstacleArea();
+
 
 private:
 	void damage();
