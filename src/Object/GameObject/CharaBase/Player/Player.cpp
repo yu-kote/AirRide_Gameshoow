@@ -29,7 +29,6 @@ void Player::setup()
 	start_move_pos = ci::Vec2f::zero();
 	end_move_pos = ci::Vec2f::zero();
 
-	roll_angle = 0.0f;
 	max_roll_angle = (float)M_PI * 2.0f * 4.0f;
 	roll_count = 0.0f;
 	start_roll_angle = 0.0f;
@@ -38,8 +37,8 @@ void Player::setup()
 	move_direction = ci::Vec2f::zero();
 
 	dash_count = 0.0f;
-	start_dash_pos = 3.0f;
-	end_dash_pos = 1.0f;
+	start_speed = 3.0f;
+	end_speed = 1.0f;
 
 	window_size_camera_to_player = ci::Vec2f(40.0f, 40.0f);
 	pos_to_ratio = ci::Vec2f::zero();
@@ -69,7 +68,6 @@ void Player::update()
 		operationLeap();
 	else if (operation_type == OperationType::KEY)
 		operationKey();
-	
 
 	move();
 
@@ -87,7 +85,7 @@ void Player::draw()
 
 	ci::gl::pushMatrices();
 	ci::gl::multModelView(matrix);
-	ci::Matrix44f mrotate = ci::Matrix44f::createRotation(ci::Vec3f(0.0f, 0.0f, roll_angle));
+	ci::Matrix44f mrotate = ci::Matrix44f::createRotation(transform.angle);
 	ci::gl::multModelView(mrotate);
 
 	ci::gl::drawCube(ci::Vec3f::zero(), ci::Vec3f::one());
@@ -99,8 +97,13 @@ void Player::draw()
 void Player::operationKey()
 {
 	debugMove();
-	debugRoll();
-	debugDash();
+	if (env.isPush(ci::app::KeyEvent::KEY_SPACE))
+		debugRoll();
+	if (env.isPush(ci::app::KeyEvent::KEY_b))
+		debugDash();
+
+	if (env.isPush(ci::app::KeyEvent::KEY_RETURN))
+		HitObstacle();
 }
 
 void Player::debugMove()
@@ -121,9 +124,6 @@ void Player::debugMove()
 	if (env.isPress(ci::app::KeyEvent::KEY_k)) {
 		_direction.y = -1;
 	}
-	if (env.isPush(ci::app::KeyEvent::KEY_z)) {
-		goToRolling(transform.position.xy() + _direction.safeNormalized()*4);
-	}
 
 	if (_direction.lengthSquared() > 0) {
 		_direction.normalize();
@@ -142,24 +142,15 @@ void Player::debugRoll()
 	if (status != CharaStatus::NORMAL)
 		return;
 
-	if (!env.isPush(ci::app::KeyEvent::KEY_SPACE))
-		return;
-
 	if (move_direction.lengthSquared() <= 0)
 		return;
 
-	if (move_direction.x > 0)
-		rolling(move_direction * 50.0f, RollDirection::RIGHT);
-	else
-		rolling(move_direction * 50.0f, RollDirection::LEFT);
+	rolling(move_direction * 50.0f);
 }
 
 void Player::debugDash()
 {
 	if (status != CharaStatus::NORMAL)
-		return;
-
-	if (!env.isPush(ci::app::KeyEvent::KEY_b))
 		return;
 
 	attack();
