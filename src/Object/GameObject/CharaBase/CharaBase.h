@@ -4,12 +4,14 @@
 #include "../../../Share/Easing/Easing.h"
 #include "../../../Share/Time.h"
 #include "../SignPost/SignPostManager.h"
+#include "../Obstacle/ObstacleManager.h"
 
 enum class CharaStatus
 {
 	NORMAL,
 	ROLL,
-	DASH
+	DASH,
+	CLASH
 };
 
 
@@ -30,38 +32,46 @@ public:
 	void setSignPostManager(std::shared_ptr<ar::SignPostManager> signpostmanager) { this->signpostmanager = signpostmanager; }
 	ci::Matrix44f getMatrix() const { return matrix; }
 
-	enum class RollDirection
-	{
-		LEFT,
-		RIGHT
-	};
+	CharaStatus getStatus() { return status; }
+	float getSpeed() const { return speed; }
+	void setSpeed(const float speed) {
 
-	CharaStatus getStatus();
-	float getSpeed();
+		if (status != CharaStatus::NORMAL)
+			return;
 
+		float distance_speed = start_speed - end_speed;
 
-	void goToRolling(ci::Vec2f);
+		start_speed = speed + distance_speed;
+		end_speed = speed;
+	}
+
+	float getCollisionCirclerad() const { return collision_circle_rad; }
+	void setPosition(const ci::Vec2f &position) {
+
+		if (status != CharaStatus::NORMAL)
+			return;
+
+		start_move_pos = position;
+		end_move_pos = position;
+		move_count = 0.0f;
+	}
 
 	void moving(ci::Vec2f);
-	void rolling(ci::Vec2f, RollDirection);
+	void rolling(ci::Vec2f);
 	void attack();
 	void moveDirection(ci::Vec2f, float);
 
-
+	void HitObstacle();
 
 protected:
 
 	void debugCourseOutStop();
 
-
 	void move();
-
-	// ç°ÇÃÇ∆Ç±ÇÎégÇÌÇ»Ç¢
-	void moveRollAxis();
-
 	void roll();
 	void dash();
 	void collisionToWindow();
+	void clash();
 	void updateStageMatrix();
 
 
@@ -73,6 +83,8 @@ protected:
 	CharaStatus status;
 	float speed;
 
+	float collision_circle_rad;
+
 	float move_count;
 	ci::Vec2f start_move_pos;
 	ci::Vec2f end_move_pos;
@@ -80,7 +92,6 @@ protected:
 	ci::Quatf roll_quat;
 	ci::Vec3f roll_quat_normal;
 	float max_roll_angle;
-	float roll_angle;
 	float roll_count;
 	float start_roll_angle;
 	float end_roll_angle;
@@ -88,14 +99,18 @@ protected:
 	ci::Vec2f move_direction;
 
 	float dash_count;
-	float start_dash_pos;
-	float end_dash_pos;
+	float start_speed;
+	float end_speed;
+
+	float clash_count;
+	float clash_speed;
+	float start_clash_angle;
+	float end_clash_angle;
 
 private:
-
 
 };
 
 
-ci::Vec2f QuadOut(float t, ci::Vec3f b, ci::Vec3f e);
+ci::Vec2f QuadOut(float t, ci::Vec2f b, ci::Vec2f e);
 float QuadOut(float t, float b, float e);
