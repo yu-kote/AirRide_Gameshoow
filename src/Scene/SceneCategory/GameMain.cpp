@@ -9,6 +9,7 @@
 #include "../../Object/GameObject/CharaBase/Enemy/Enemy.h"
 #include "../../Object/GameObject/CharaBase/Enemy/EnemyHolder/EnemyHolder.h"
 #include "../../Share/Interface/Interface.h"
+#include "../../Object/GameObject/Skydome/Skydome.h"
 
 GameMain::GameMain()
 {
@@ -18,12 +19,14 @@ void GameMain::setup()
 {
 	entities.setObject<ar::Light>();
 	entities.setObject<ar::Camera>();
+	//entities.setObject<Skydome>();
 
 	////////////////////////////////////////////
 
 	entities.setObject<ar::SignPostManager>();
 	entities.setObject<ar::ObstacleManager>();
 	entities.getObject<ar::ObstacleManager>()->setSignpostManager(entities.getObject<ar::SignPostManager>());
+	
 
 	entities.setObject<Player>();
 	entities.setObject<EnemyHolder>();

@@ -1,7 +1,7 @@
-#pragma once
+#pragma once 
 #include "../../GameObject/GameObject.h"
-#include "cinder/gl/Texture.h"  
-#include "cinder/imageIo.h"
+#include "../../Component/Components/Texture.h"
+
 
 class Skydome : public ar::GameObject
 {
@@ -12,11 +12,11 @@ public:
 
 	void setTerget(std::shared_ptr<ar::GameObject>);
 
+
 private:
 	ar::GameObject* terget;
 
-	ci::gl::TextureRef tex;
+
+
 	ci::Vec3f pos;
 };
-
-
