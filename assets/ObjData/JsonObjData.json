@@ -1,0 +1,22 @@
+{
+  "TextureData": [
+    "mapのキー",
+    "ファイル名",
+
+    "obstacle",
+    "ObjData/outUVkirai2.png"
+  ],
+
+  "ObjData": {
+    "mapのキー": "ファイル名",
+
+    "obstacle": "ObjData/kirai.obj",
+    "player": "ObjData/player01.obj"
+
+  },
+
+  "SoundData": {
+    "mapのキー": "ファイル名",
+    "": ""
+  }
+}

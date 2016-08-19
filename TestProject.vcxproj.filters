@@ -114,6 +114,12 @@
     <Filter Include="Header Files\Object\GameObject\Light">
       <UniqueIdentifier>{216a7c27-5384-4a4f-b9e6-eb08fac34ea1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\TaskManager">
+      <UniqueIdentifier>{3bfe8aa6-f90d-4eed-ad99-49100d59057c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Component\Components\Texture">
+      <UniqueIdentifier>{2e6c9dc1-9158-48c5-ae63-6a0cf79dc7a1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\MainApp.cpp">
@@ -396,6 +402,18 @@
     </ClInclude>
     <ClInclude Include="..\src\Object\GameObject\Light\Light.h">
       <Filter>Header Files\Object\GameObject\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\TaskManager\TextureManager.h">
+      <Filter>Header Files\TaskManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\TaskManager\SoundManager.h">
+      <Filter>Header Files\TaskManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\TaskManager\ObjDataManager.h">
+      <Filter>Header Files\TaskManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\Component\Components\Texture.h">
+      <Filter>Header Files\Object\Component\Components\Texture</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
