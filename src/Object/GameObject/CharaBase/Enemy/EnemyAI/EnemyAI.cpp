@@ -5,9 +5,10 @@ AILevel1::AILevel1(CharaBase* _enemy, CharaBase* _player) :
 	EnemyAIBase(_enemy, _player)
 {
 
-	HP = 2;
+
 	enemy->transform.position.x = 3;
 	enemy->transform.position.y = 3;
+	enemy->setPosition(enemy->transform.position.xy());
 
 	c_Easing::apply(enemy->transform.position.z,
 		100, EasingFunction::CircOut, 50);
@@ -15,6 +16,7 @@ AILevel1::AILevel1(CharaBase* _enemy, CharaBase* _player) :
 		150, EasingFunction::CubicIn, 50);
 	terget_change_count = 0;
 	changeTarget();
+
 }
 
 void AILevel1::stert()
@@ -26,21 +28,15 @@ void AILevel1::update()
 {
 
 	if (!is_terget) {
-		//enemy->transform.position.z += player->getSpeed();
+		enemy->setSpeed(player->getSpeed());
 		return;
 	}
 	if (!c_Easing::isEnd(enemy->transform.position.z))return;
+	
 
+	enemy->moving(aiterget);
+	tergetMotion();
 	tergetMove();
-	enemy->moving(ci::Vec2f::zero());
-	//goPositon(aiterget.xyx(), 0.1f);
-	/*terget_change_count++;
-	if (terget_change_count > 60 * 1
-		|| aiterget.distanceSquared(enemy->transform.position.xy()) < 1) {
-		terget_change_count = 0;
-		changeTarget();
-
-	}*/
 
 }
 
@@ -49,38 +45,39 @@ AILevel2::AILevel2(CharaBase* _enemy, CharaBase* _player) :
 {
 	enemy->transform.position.x = -3;
 	enemy->transform.position.y = 3;
+	enemy->setPosition(enemy->transform.position.xy());
 	c_Easing::apply(enemy->transform.position.z,
 		100, EasingFunction::CircOut, 50);
 	c_Easing::apply(enemy->transform.position.z,
-		400, EasingFunction::ExpoIn, 50);
+		200, EasingFunction::ExpoIn, 50);
 	changeTarget();
+
+	roll_count = 2;
 }
 
 void AILevel2::stert()
 {
-	Params->addParam("Enemy2", &HP);
+	Params->addParam("Enemy2 HP", &HP).group("ENEMY2");
+	Params->addParam("Enemy2 avoid_count", &roll_count).group("ENEMY2");
+
 }
 
 void AILevel2::update()
 {
 	if (!is_terget) {
-		enemy->transform.position.z += player->getSpeed();
+		enemy->setSpeed(player->getSpeed());
 		return;
 	}
 	if (!c_Easing::isEnd(enemy->transform.position.z))return;
 
-	/*terget_change_count++;
-	if (terget_change_count > 60 * 1
-		|| aiterget.distanceSquared(enemy->transform.position.xy()) < 1) {
-		terget_change_count = 0;
-		changeTarget();
+	if (roll_count > 0) {
+		if (avoidPlayerDashByRoll()) {
+			roll_count--;
+		}
 	}
+	enemy->moving(aiterget);
 
-	enemy->moveDirection(aiterget, 0.1f);*/
-	//enemy->goToRolling(ci::Vec2f::zero());
-	//ci::app::console() << (int)enemy->getStatus() << std::endl;
-	//ci::app::console() << enemy->transform.position << std::endl;
-
+	tergetMotion();
 	tergetMove();
 
 }
@@ -90,27 +87,39 @@ AILevel3::AILevel3(CharaBase* _enemy, CharaBase* _player) :
 {
 	enemy->transform.position.x = 3;
 	enemy->transform.position.y = -3;
+	enemy->setPosition(enemy->transform.position.xy());
+
 	c_Easing::apply(enemy->transform.position.z,
 		100, EasingFunction::CircOut, 50);
 	c_Easing::apply(enemy->transform.position.z,
-		500, EasingFunction::ExpoIn, 50);
-
+		250, EasingFunction::ExpoIn, 50);
+	avoid_count = 2;
+	enemy->setIntervalTakesTime(3.f);
 }
 
 void AILevel3::stert()
 {
-	Params->addParam("Enemy3", &HP);
+	Params->addParam("Enemy3 HP", &HP).group("ENEMY3");
+	//Params->addParam("Enemy3 avoid_count", &avoid_count).group("ENEMY3");
+
 }
 
 void AILevel3::update()
 {
 	if (!is_terget) {
-		enemy->transform.position.z += player->getSpeed();
+		enemy->setSpeed(player->getSpeed());
 		return;
 	}
 	if (!c_Easing::isEnd(enemy->transform.position.z))return;
 
+	if (avoidPlayerDashByDash())
+	{
+		//avoid_count--;
+	}
 
+
+	enemy->moving(aiterget);
+	tergetMotion();
 	tergetMove();
 }
 
@@ -119,24 +128,42 @@ AILevel4::AILevel4(CharaBase* _enemy, CharaBase* _player) :
 {
 	enemy->transform.position.x = -3;
 	enemy->transform.position.y = -3;
+	enemy->setPosition(enemy->transform.position.xy());
+
 	c_Easing::apply(enemy->transform.position.z,
 		100, EasingFunction::CircOut, 50);
 	c_Easing::apply(enemy->transform.position.z,
-		600, EasingFunction::ExpoIn, 50);
+		300, EasingFunction::ExpoIn, 50);
+	avoid_count = 1;
+	enemy->setIntervalTakesTime(3.f);
 }
 
 void AILevel4::stert()
 {
-	Params->addParam("Enemy4", &HP);
+	Params->addParam("Enemy4 HP", &HP).group("ENEMY4");
+	Params->addParam("Enemy4 avoid_count", &avoid_count).group("ENEMY4");
+
 }
 
 void AILevel4::update()
 {
 	if (!is_terget) {
-		enemy->transform.position.z += player->getSpeed();
+		enemy->setSpeed(player->getSpeed());
 		return;
 	}
 	if (!c_Easing::isEnd(enemy->transform.position.z))return;
+	if (!avoidPlayerDashByDash()) {
+		if (avoid_count > 0) {
+			if (avoidPlayerDashByRoll())
+			{
+				avoid_count--;
+			}
 
+		}
+	}
+
+
+	enemy->moving(aiterget);
+	tergetMotion();
 	tergetMove();
 }
