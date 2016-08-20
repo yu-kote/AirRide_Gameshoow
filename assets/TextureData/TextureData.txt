@@ -1,1 +1,1 @@
-skydome ‰_ŠC.bmp
+Skydome TextureData/Skydome.png
