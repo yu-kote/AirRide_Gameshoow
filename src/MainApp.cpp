@@ -11,6 +11,10 @@
 #include "Share/Easing/Easing.h"
 #include "Share/Interface/Interface.h"
 #include "Share/Time.h"
+#include "TaskManager/TextureManager.h"
+#include "TaskManager/SoundManager.h"
+#include "TaskManager/ObjDataManager.h"
+
 
 using namespace ci;
 using namespace ci::app;
@@ -63,8 +67,11 @@ void DesignApp::mouseUp(MouseEvent event)
 
 void DesignApp::setup()
 {
-	Interface::single();
+	TextureGet.setup();
+	SoundGet.setup();
+	ObjDataGet.setup();
 
+	Interface::single();
 	env.padSetup();
 
 	scene.setup();
