@@ -1,19 +1,31 @@
 #include "Skydome.h"
+#include "../../Component/Components/Material.h"
+#include "cinder/gl/Material.h"
 
-void Skydome::setup()
+using namespace ci;
+using namespace ci::app;
+
+void ar::Skydome::setup()
 {
-	addComponent<ar::Texture("‰_ŠC.bmp")>();
+	addComponent<ar::Texture>(ar::Texture("Skydome"));
+	addComponent<ar::Material>(ar::Material(ar::Material(
+		gl::Material(ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Ambient
+					 ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Diffuse
+					 ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Specular
+					 80.0f,                               // Shininess
+					 ColorA(0.5f, 0.5f, 0.5f, 1.0f)))));	  // Emission
+
 	transform.scale = ci::Vec3f::one() * 500;
 }
 
-void Skydome::update()
+void ar::Skydome::update()
 {
-	if (terget != nullptr)return;
-	transform.position = (*terget).transform.position;
+	if (target == nullptr)return;
+	transform.position = (*target).getWorldPoisition();
 
 }
 
-void Skydome::draw()
+void ar::Skydome::draw()
 {
 	glCullFace(GL_FRONT);
 
@@ -22,4 +34,9 @@ void Skydome::draw()
 
 	glCullFace(GL_BACK);
 
+}
+
+void ar::Skydome::setTerget(std::shared_ptr<CharaBase> target_)
+{
+	target = target_.get();
 }
