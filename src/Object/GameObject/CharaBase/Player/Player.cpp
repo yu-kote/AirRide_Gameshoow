@@ -35,10 +35,15 @@ void Player::setup()
 	min_dot_product_range = 1.0f;
 	max_dot_product_range = 0.5f;
 	dash_range = 50.0f;
+
+	start_clash_speed = 0.5f;
+	end_clash_speed = 0.5f;
 }
 
 void Player::update()
 {
+	changeOperationType();
+
 	if (operation_type == OperationType::LEAPMOTION)
 		operationLeap();
 	else if (operation_type == OperationType::KEY)
@@ -68,6 +73,21 @@ void Player::draw()
 	ci::gl::pushMatrices();
 }
 
+void Player::changeOperationType()
+{
+	if (LEAPHANDS.IsHandExist() && operation_type == OperationType::KEY)
+	{
+		operation_type = OperationType::LEAPMOTION;
+		return;
+	}
+
+	if (!LEAPHANDS.IsHandExist())
+	{
+		operation_type = OperationType::KEY;
+		return;
+	}
+}
+
 void Player::operationKey()
 {
 	debugMove();
@@ -79,7 +99,7 @@ void Player::operationKey()
 		debugDash();
 
 	if (env.isPush(ci::app::KeyEvent::KEY_RETURN))
-		HitObstacle();
+		HitObstacle(0.5f);
 }
 
 void Player::debugMove()
@@ -147,25 +167,6 @@ void Player::operationLeap()
 	handPosZDistance();
 }
 
-void Player::moveDestination()
-{
-	// ロール、ダッシュ状態では普通の横移動はしないではじく
-	if (status != CharaStatus::NORMAL)
-		return;
-	/* destination : 移動先 */
-	ci::Vec2f destination_pos =
-		ci::Vec2f(window_size_camera_to_player.x * pos_to_ratio.x,
-			window_size_camera_to_player.y * pos_to_ratio.y);
-
-	// 前のフレームのプレイヤーの行き先と今現在の行き先を比べて違った場合、更新する
-	if (end_move_pos == destination_pos)
-		return;
-
-	start_move_pos = ci::Vec2f(transform.position.x, transform.position.y);
-	end_move_pos = destination_pos;
-	move_count = 0.0f;
-}
-
 void Player::UpdateLeapHands()
 {
 	pos_to_ratio = LEAPHANDS.GetHandCenterPosToRatio();
@@ -178,11 +179,22 @@ void Player::UpdateLeapHands()
 	}
 }
 
-void Player::handNormalRotation()
+void Player::moveDestination()
 {
-	if (status != CharaStatus::NORMAL)
+	/* destination : 移動先 */
+	ci::Vec2f destination_pos =
+		ci::Vec2f(window_size_camera_to_player.x * pos_to_ratio.x,
+			window_size_camera_to_player.y * pos_to_ratio.y);
+
+	// 前のフレームのプレイヤーの行き先と今現在の行き先を比べて違った場合、更新する
+	if (end_move_pos == destination_pos)
 		return;
 
+	moving(destination_pos);
+}
+
+void Player::handNormalRotation()
+{
 	// LeapMotion が hand を認識していないときはじく
 	if (!LEAPHANDS.IsHandExist())
 		return;
@@ -213,7 +225,7 @@ void Player::handNormalRotation()
 		std::sqrtf((LEAPHANDS.GetHandNormal().x * LEAPHANDS.GetHandNormal().x) + (LEAPHANDS.GetHandNormal().y * LEAPHANDS.GetHandNormal().y));
 
 	// 外積公式 |a| * |b| * sinθ
-	float cross_product = vec_a_to_b * std::sin(theta);
+	//float cross_product = vec_a_to_b * std::sin(theta);
 
 	// ロールする方向
 	ci::Vec2f distance_vec_normal = pos_to_ratio - before_pos_to_ratio;
@@ -221,52 +233,39 @@ void Player::handNormalRotation()
 	// とりまノーマライズ
 	(distance_vec_normal).normalize();
 
-	// 今現在の位置と移動先の位置のノーマライズしたベクトルと真下のベクトルとの角度
-	float direction_theta = std::atan2(distance_vec_normal.x - 0.0f, distance_vec_normal.y - (-1.0f));
+	//// 今現在の位置と移動先の位置のノーマライズしたベクトルと真下のベクトルとの角度
+	//float direction_theta = std::atan2(distance_vec_normal.x - 0.0f, distance_vec_normal.y - (-1.0f));
 
-	// 手が反時計回りしたとき
-	if (cross_product < 0.0f)
-	{
-		// 移動先が右方向の場合はじく
-		if (direction_theta > 0.0f)
-			return;
+	//// 手が反時計回りしたとき
+	//if (cross_product < 0.0f)
+	//{
+	//	// 移動先が右方向の場合はじく
+	//	if (direction_theta > 0.0f)
+	//		return;
 
-		end_roll_angle = max_roll_angle;
-	}
-	// 手が時計回りしたとき
-	else if (cross_product >= 0.0f)
-	{
-		// 移動先が左方向の場合はじく
-		if (direction_theta <= 0.0f)
-			return;
+	//	end_roll_angle = max_roll_angle;
+	//}
+	//// 手が時計回りしたとき
+	//else if (cross_product >= 0.0f)
+	//{
+	//	// 移動先が左方向の場合はじく
+	//	if (direction_theta <= 0.0f)
+	//		return;
 
-		end_roll_angle = -max_roll_angle;
-	}
+	//	end_roll_angle = -max_roll_angle;
+	//}
 
 
-	////////////////////////////////////////////////////////////////////////////////////
-	// ロール中の移動処理がかけていない
-	////////////////////////////////////////////////////////////////////////////////////
-	start_move_pos = ci::Vec2f(transform.position.x, transform.position.y);
-	end_move_pos = end_move_pos + distance_vec_normal * 10.0f;
-	////////////////////////////////////////////////////////////////////////////////////
-	roll_count = 0.0f;
-	status = CharaStatus::ROLL;
+	isRolling(distance_vec_normal * 10.0f);
 }
 
 void Player::handPosZDistance()
 {
-	if (status != CharaStatus::NORMAL)
-		return;
-
 	float distance_z = LEAPHANDS.GetHandCenterPos().z - before_hand_pos.z;
-
-	ci::app::console() << LEAPHANDS.GetHandCenterPos().z << std::endl;
 
 	// 手のz軸に対しての移動量が満たなかった場合はじく
 	if (distance_z < dash_range)
 		return;
 
-	dash_count = 0.0f;
-	status = CharaStatus::DASH;
+	isAttacking();
 }
