@@ -5,6 +5,9 @@
 #include "../../../Share/Time.h"
 #include "../SignPost/SignPostManager.h"
 #include "../Obstacle/ObstacleManager.h"
+#include "../../../TaskManager/ObjDataManager.h"
+#include "../../../TaskManager/TextureManager.h"
+#include "../../../TaskManager/SoundManager.h"
 
 
 class CharaBase : public ar::GameObject
@@ -97,7 +100,6 @@ protected:
 	void clash();
 	void updateStageMatrix();
 	void interval();
-
 
 	std::shared_ptr<ar::SignPostManager> signpostmanager;
 	ci::Matrix44f matrix;
