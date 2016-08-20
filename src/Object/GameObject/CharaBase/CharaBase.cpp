@@ -28,7 +28,7 @@ void CharaBase::init()
 	status = CharaStatus::NORMAL;
 	speed = 1.0f;
 
-	collision_circle_rad = 1.0f;
+	collision_circle_rad = 0.5f;
 
 	move_count = 0.0f;
 	start_move_pos = ci::Vec2f::zero();
