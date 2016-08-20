@@ -82,7 +82,7 @@ public:
 	bool isRolling(ci::Vec2f);
 	bool isAttacking();
 
-	void HitObstacle();
+	void HitObstacle(const float &clash_speed);
 
 protected:
 
@@ -120,7 +120,8 @@ protected:
 	float end_speed;
 
 	float clash_count;
-	float clash_speed;
+	float start_clash_speed;
+	float end_clash_speed;
 
 	float interval_count;
 	float interval_takes_time;
