@@ -19,17 +19,19 @@ void GameMain::setup()
 {
 	entities.setObject<ar::Light>();
 	entities.setObject<ar::Camera>();
-	//entities.setObject<Skydome>();
 
-	////////////////////////////////////////////
+	///////////////////////////////////////////////
 
+	entities.setObject<ar::Skydome>();
 	entities.setObject<ar::SignPostManager>();
 	entities.setObject<ar::ObstacleManager>();
 	entities.getObject<ar::ObstacleManager>()->setSignpostManager(entities.getObject<ar::SignPostManager>());
-	
+
 
 	entities.setObject<Player>();
 	entities.setObject<EnemyHolder>();
+
+	//////////////////////////////////////////////
 
 	entities.getObject<Player>()->setSignPostManager(entities.getObject<ar::SignPostManager>());
 
@@ -37,19 +39,21 @@ void GameMain::setup()
 	entities.getObject<EnemyHolder>()->setPlayer(entities.getObject<Player>());
 
 	entities.getObject<ar::Camera>()->setChara(entities.getObject<Player>());
+	entities.getObject <ar::Skydome>()->setTerget(entities.getObject<Player>());
 
 	entities.setupGameObject();
 }
 
 void GameMain::draw()
 {
-	//ui.draw();
+
 	entities.drawGameObject();
 	entities.transDrawGameObject();
 
 	// ƒ‰ƒCƒg‚ª‚È‚¢•`‰æ
 	entities.laterDrawGameObject();
 	entities.transLaterDrawGameObject();
+	//ui.titleSetup();
 }
 
 void GameMain::update()
