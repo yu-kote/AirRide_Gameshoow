@@ -36,6 +36,8 @@ void Player::setup()
 	max_dot_product_range = 0.5f;
 	dash_range = 50.0f;
 
+	max_clash_count = 1.0f;
+	clash_speed = 0.5f;
 	start_clash_speed = 0.5f;
 	end_clash_speed = 0.5f;
 }
@@ -99,7 +101,7 @@ void Player::operationKey()
 		debugDash();
 
 	if (env.isPush(ci::app::KeyEvent::KEY_RETURN))
-		HitObstacle(0.5f);
+		HitObstacle(clash_speed);
 }
 
 void Player::debugMove()
