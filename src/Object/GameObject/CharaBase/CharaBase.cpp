@@ -44,6 +44,8 @@ void CharaBase::init()
 	end_speed = 1.0f;
 
 	clash_count = 0.0f;
+	max_clash_count = 2.0f;
+	clash_speed = 3.0f;
 	start_clash_speed = 2.5f;
 	end_clash_speed = 0.5f;
 
@@ -187,7 +189,7 @@ void CharaBase::clash()
 	if (status != CharaStatus::CLASH)
 		return;
 
-	clash_count += TIME.getDeltaTime();
+	clash_count += TIME.getDeltaTime() / max_clash_count;
 	if (clash_count >= 1.0f)
 	{
 		clash_count = 1.0f;
@@ -196,7 +198,7 @@ void CharaBase::clash()
 	}
 
 	speed = QuadOut(clash_count, start_clash_speed, end_clash_speed);
-	transform.angle.z = std::sin(clash_count * (float)M_PI * 4.0f ) * ((float)M_PI / 4.0f);
+	transform.angle.z = std::sin(clash_count * max_clash_count * (float)M_PI * 4.0f ) * ((float)M_PI / 4.0f);
 
 	if (clash_count >= 1.0f)
 		speed = end_speed;
