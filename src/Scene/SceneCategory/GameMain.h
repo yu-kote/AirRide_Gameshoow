@@ -9,6 +9,9 @@ class GameMain :public SceneBase {
 public:
 
 	GameMain();
+	
+	// overrideをつけるのはいいけど
+	// これ以上継承しないのであればfinalをつけてあげよう
 	void setup() override;
 	void draw() override;
 	void update() override;
