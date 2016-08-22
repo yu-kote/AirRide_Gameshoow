@@ -134,7 +134,7 @@ void Player::debugMove()
 	if (_direction.lengthSquared() > 0) {
 		_direction.normalize();
 		start_move_pos = ci::Vec2f(transform.position.x, transform.position.y);
-		end_move_pos = ci::Vec2f(transform.position.x, transform.position.y) + _direction;
+		end_move_pos = ci::Vec2f(transform.position.x, transform.position.y) + _direction * 2.0f;
 		move_count = 0.0f;
 
 		move_direction = _direction / 10.0f;

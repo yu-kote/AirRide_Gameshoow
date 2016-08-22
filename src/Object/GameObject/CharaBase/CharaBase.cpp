@@ -35,7 +35,7 @@ void CharaBase::init()
 	end_move_pos = ci::Vec2f::zero();
 
 	max_roll_angle = (float)M_PI * 2.0f * 4.0f;
-	roll_count = 0.0f;
+	roll_count = 1.0f;
 	start_roll_angle = 0.0f;
 	end_roll_angle = 0.0f;
 
@@ -109,6 +109,10 @@ bool CharaBase::isAttacking()
 	dash_count = 0.0f;
 	interval_count = 0.0f;
 
+	// ƒ_ƒbƒVƒ…Žž‚É‰ñ‚é‚ç‚µ‚¢
+	roll_count = 0.0f;
+	end_roll_angle = -max_roll_angle;
+
 	return true;
 }
 
@@ -121,6 +125,8 @@ void CharaBase::HitObstacle(const float &clash_speed)
 	start_move_pos = transform.position.xy();
 	end_move_pos = transform.position.xy();
 	move_count = 0.0f;
+	roll_count = 1.0f;
+	transform.angle.z = 0.0f;
 }
 
 void CharaBase::debugCourseOutStop()
@@ -155,7 +161,7 @@ void CharaBase::move()
 
 void CharaBase::roll()
 {
-	if (status != CharaStatus::ROLL)
+	if (roll_count == 1.0f)
 		return;
 
 	roll_count += TIME.getDeltaTime();

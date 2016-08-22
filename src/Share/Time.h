@@ -25,7 +25,7 @@ public:
 
 	const float& getDeltaTime() const { return delta_time; }
 
-	const float& getFrameNum() const { return frame_num; }
+	const int& getFrameNum() const { return frame_num; }
 
 	bool isIntervalTime(const int &interval_time) { return (frame_num % interval_time) == 0; }
 
