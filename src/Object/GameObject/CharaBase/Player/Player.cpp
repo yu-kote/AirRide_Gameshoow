@@ -67,10 +67,15 @@ void Player::draw()
 	ci::gl::popMatrices();
 
 	ci::gl::pushMatrices();
+	ci::gl::multModelView(matrix);
+	ci::Matrix44f mtranslate = ci::Matrix44f::createTranslation(ci::Vec3f(0.0f, 1.0f, 0.0f));
+	ci::gl::multModelView(mtranslate);
 	ci::Matrix44f mrotate = ci::Matrix44f::createRotation(transform.angle);
+	ci::gl::multModelView(mrotate);
+	mtranslate = ci::Matrix44f::createTranslation(ci::Vec3f(0.0f, -1.0f, 0.0f));
+	ci::gl::multModelView(mtranslate);
 	ci::Matrix44f mscale = ci::Matrix44f::createScale(transform.scale);
-	ci::Matrix44f mtransform = matrix * mrotate * mscale;
-	ci::gl::multModelView(mtransform);
+	ci::gl::multModelView(mscale);
 
 	ci::gl::draw(ObjDataGet.find("Player"));
 
