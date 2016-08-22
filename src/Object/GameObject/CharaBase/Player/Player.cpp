@@ -67,10 +67,15 @@ void Player::draw()
 	ci::gl::popMatrices();
 
 	ci::gl::pushMatrices();
+	ci::gl::multModelView(matrix);
+	ci::Matrix44f mtranslate = ci::Matrix44f::createTranslation(ci::Vec3f(0.0f, 1.0f, 0.0f));
+	ci::gl::multModelView(mtranslate);
 	ci::Matrix44f mrotate = ci::Matrix44f::createRotation(transform.angle);
+	ci::gl::multModelView(mrotate);
+	mtranslate = ci::Matrix44f::createTranslation(ci::Vec3f(0.0f, -1.0f, 0.0f));
+	ci::gl::multModelView(mtranslate);
 	ci::Matrix44f mscale = ci::Matrix44f::createScale(transform.scale);
-	ci::Matrix44f mtransform = matrix * mrotate * mscale;
-	ci::gl::multModelView(mtransform);
+	ci::gl::multModelView(mscale);
 
 	ci::gl::draw(ObjDataGet.find("Player"));
 
@@ -129,7 +134,7 @@ void Player::debugMove()
 	if (_direction.lengthSquared() > 0) {
 		_direction.normalize();
 		start_move_pos = ci::Vec2f(transform.position.x, transform.position.y);
-		end_move_pos = ci::Vec2f(transform.position.x, transform.position.y) + _direction;
+		end_move_pos = ci::Vec2f(transform.position.x, transform.position.y) + _direction * 2.0f;
 		move_count = 0.0f;
 
 		move_direction = _direction / 10.0f;
