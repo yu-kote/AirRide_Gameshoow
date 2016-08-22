@@ -28,7 +28,7 @@ void CharaBase::init()
 	status = CharaStatus::NORMAL;
 	speed = 1.0f;
 
-	collision_circle_rad = 1.0f;
+	collision_circle_rad = 0.5f;
 
 	move_count = 0.0f;
 	start_move_pos = ci::Vec2f::zero();
@@ -44,7 +44,8 @@ void CharaBase::init()
 	end_speed = 1.0f;
 
 	clash_count = 0.0f;
-	clash_speed = 0.2f;
+	start_clash_speed = 2.5f;
+	end_clash_speed = 0.5f;
 
 	interval_count = 1.0f;
 	interval_takes_time = 2.0f;
@@ -109,11 +110,15 @@ bool CharaBase::isAttacking()
 	return true;
 }
 
-void CharaBase::HitObstacle()
+void CharaBase::HitObstacle(const float &clash_speed)
 {
 	status = CharaStatus::CLASH;
 	speed = clash_speed;
+	start_clash_speed = clash_speed;
 	clash_count = 0.0f;
+	start_move_pos = transform.position.xy();
+	end_move_pos = transform.position.xy();
+	move_count = 0.0f;
 }
 
 void CharaBase::debugCourseOutStop()
@@ -155,6 +160,7 @@ void CharaBase::roll()
 	if (roll_count >= 1.0f)
 	{
 		roll_count = 1.0f;
+		transform.angle.z = 0.0f;
 		status = CharaStatus::NORMAL;
 	}
 
@@ -185,11 +191,15 @@ void CharaBase::clash()
 	if (clash_count >= 1.0f)
 	{
 		clash_count = 1.0f;
+		speed = end_speed;
 		status = CharaStatus::NORMAL;
 	}
 
-	//transform.angle.z = std::sin(clash_count / 2.0f * M_PI * 4.0f ) * ((float)M_PI / 4.0f);
-	transform.angle.z = clash_count;
+	speed = QuadOut(clash_count, start_clash_speed, end_clash_speed);
+	transform.angle.z = std::sin(clash_count * (float)M_PI * 4.0f ) * ((float)M_PI / 4.0f);
+
+	if (clash_count >= 1.0f)
+		speed = end_speed;
 }
 
 void CharaBase::collisionToWindow()

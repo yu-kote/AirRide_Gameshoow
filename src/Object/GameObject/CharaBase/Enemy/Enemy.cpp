@@ -58,6 +58,12 @@ bool Enemy::isEnd()
 	return ai->HP <= 0;
 }
 
+void Enemy::inObstacleArea()
+{
+	isRolling(transform.position.xy().inverse());
+
+}
+
 void Enemy::damage()
 {
 
