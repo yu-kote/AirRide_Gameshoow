@@ -9,6 +9,8 @@ namespace ar {
 		// ‹@—‹‚Ì”¼Œa
 		Obstacle(const ci::Vec3f& position_, float radius_);
 
+		Obstacle() {}
+
 		void setup();
 		void update();
 		void draw();

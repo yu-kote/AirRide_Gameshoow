@@ -1,8 +1,12 @@
 #pragma once
 #include "ObstaclePopArea.h"
+#include "Obstacle.h"
 #include "../GameObject.h"
-#include "../SignPost/SignPostManager.h"
+//#include "../CharaBase/Player/Player.h"
+//#include "../CharaBase/Enemy/EnemyHolder/EnemyHolder.h"
 
+class Player;
+class EnemyHolder;
 
 namespace ar {
 	class ObstacleManager : public GameObject {
@@ -15,17 +19,25 @@ namespace ar {
 		void draw()override;
 		void transDraw()override;
 
-		void setSignpostManager(std::shared_ptr<ar::SignPostManager> signpostmanager_);
-
-		ci::Vec3f getNearObstacle(ci::Vec3f target_);
 
 	private:
-
 		std::list<ObstaclePopArea> pop_areas;
 
-		std::shared_ptr<SignPostManager> signpostmanager;
 
 		void loadObstacleArea();
 
+	public:
+		ar::Obstacle getNearestObstacle(ci::Vec3f target_);
+
+		void setPlayer(std::shared_ptr<Player> player_) { player = player_; }
+		void setEnemyHolder(std::shared_ptr<EnemyHolder> enemy_holder_) { enemy_holder = enemy_holder_; }
+
+
+		void isEnemysInObstacleArea();
+	private:
+		std::shared_ptr<Player> player;
+		std::shared_ptr<EnemyHolder> enemy_holder;
+
+		bool sphereToSphere(ci::Vec3f pos1_, float radius1_, ci::Vec3f pos2_, float radius2_);
 	};
 }
