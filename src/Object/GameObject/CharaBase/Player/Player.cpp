@@ -16,6 +16,8 @@ void Player::setup()
 
 	init();
 
+	transform.scale = ci::Vec3f(0.07f, 0.07f, 0.07f);
+
 	operation_type = OperationType::KEY;
 
 	move_direction = ci::Vec2f::zero();
@@ -65,15 +67,12 @@ void Player::draw()
 	ci::gl::popMatrices();
 
 	ci::gl::pushMatrices();
-	ci::gl::multModelView(matrix);
 	ci::Matrix44f mrotate = ci::Matrix44f::createRotation(transform.angle);
-	ci::gl::multModelView(mrotate);
-	ci::Matrix44f rox90 = ci::Matrix44f::createRotation(ci::Vec3f(M_PI / 2.0f, 0.0f, 0.0f));
-	ci::gl::multModelView(rox90);
+	ci::Matrix44f mscale = ci::Matrix44f::createScale(transform.scale);
+	ci::Matrix44f mtransform = matrix * mrotate * mscale;
+	ci::gl::multModelView(mtransform);
 
 	ci::gl::draw(ObjDataGet.find("Player"));
-
-	//ci::gl::drawCube(ci::Vec3f::zero(), ci::Vec3f::one());
 
 	ci::gl::popMatrices();
 	ci::gl::pushMatrices();
