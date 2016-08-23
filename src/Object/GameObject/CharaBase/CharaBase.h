@@ -5,6 +5,9 @@
 #include "../../../Share/Time.h"
 #include "../SignPost/SignPostManager.h"
 #include "../Obstacle/ObstacleManager.h"
+#include "../../../TaskManager/ObjDataManager.h"
+#include "../../../TaskManager/TextureManager.h"
+#include "../../../TaskManager/SoundManager.h"
 
 
 class CharaBase : public ar::GameObject
@@ -58,6 +61,8 @@ public:
 		end_move_pos = position;
 		move_count = 0.0f;
 	}
+	float getClashSpeed() const { return clash_speed; }
+	void setClashSpeed(const float &clash_speed) { this->clash_speed = clash_speed; }
 
 	void setIntervalTakesTime(const float &interval_takes_time) { this->interval_takes_time = interval_takes_time; }
 
@@ -96,7 +101,6 @@ protected:
 	void updateStageMatrix();
 	void interval();
 
-
 	std::shared_ptr<ar::SignPostManager> signpostmanager;
 	ci::Matrix44f matrix;
 
@@ -120,6 +124,8 @@ protected:
 	float end_speed;
 
 	float clash_count;
+	float max_clash_count;
+	float clash_speed;
 	float start_clash_speed;
 	float end_clash_speed;
 

@@ -125,6 +125,7 @@
     <ClCompile Include="..\src\Object\GameObject\Obstacle\ObstaclePopArea.cpp" />
     <ClCompile Include="..\src\Object\GameObject\SignPost\SignPost.cpp" />
     <ClCompile Include="..\src\Object\GameObject\SignPost\SignPostManager.cpp" />
+    <ClCompile Include="..\src\Object\GameObject\Skydome\Skydome.cpp" />
     <ClCompile Include="..\src\Object\Object.cpp" />
     <ClCompile Include="..\src\Scene\SceneCategory\GameMain.cpp" />
     <ClCompile Include="..\src\Scene\SceneCategory\Result.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="..\src\Object\GameObject\Obstacle\ObstacleManager.h" />
     <ClInclude Include="..\src\Object\GameObject\SignPost\SignPost.h" />
     <ClInclude Include="..\src\Object\GameObject\SignPost\SignPostManager.h" />
+    <ClInclude Include="..\src\Object\GameObject\Skydome\Skydome.h" />
     <ClInclude Include="..\src\Object\Object.h" />
     <ClInclude Include="..\src\SampleObject.h" />
     <ClInclude Include="..\src\Scene\SceneCategory\GameMain.h" />

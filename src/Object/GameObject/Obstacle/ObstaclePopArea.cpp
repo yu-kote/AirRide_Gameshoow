@@ -43,6 +43,25 @@ void ar::ObstaclePopArea::transDraw()
 	popModelView();
 }
 
+ar::Obstacle ar::ObstaclePopArea::getNearestObstacle(ci::Vec3f target_)
+{
+	float minvec = std::numeric_limits<float>::max();
+	Obstacle nearest_obs;
+	std::for_each(obstacles.begin(), obstacles.end(),
+				  [&](Obstacle obs)
+	{
+		Vec3f vec = target_ - obs.transform.position;
+		float length = vec.length();
+
+		if (length < minvec)
+		{
+			minvec = length;
+			nearest_obs = obs;
+		}
+	});
+	return nearest_obs;
+}
+
 void ar::ObstaclePopArea::obstaclePop(float radius_, int count_)
 {
 	std::random_device rand;
