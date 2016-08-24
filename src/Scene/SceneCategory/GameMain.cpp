@@ -25,8 +25,6 @@ void GameMain::setup()
 	entities.setObject<ar::Skydome>();
 	entities.setObject<ar::SignPostManager>();
 	entities.setObject<ar::ObstacleManager>();
-	entities.getObject<ar::ObstacleManager>()->setSignpostManager(entities.getObject<ar::SignPostManager>());
-
 
 	entities.setObject<Player>();
 	entities.setObject<EnemyHolder>();

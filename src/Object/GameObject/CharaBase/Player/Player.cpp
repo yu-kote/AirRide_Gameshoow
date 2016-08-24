@@ -16,6 +16,8 @@ void Player::setup()
 
 	init();
 
+	transform.scale = ci::Vec3f(0.07f, 0.07f, 0.07f);
+
 	operation_type = OperationType::KEY;
 
 	move_direction = ci::Vec2f::zero();
@@ -36,6 +38,8 @@ void Player::setup()
 	max_dot_product_range = 0.5f;
 	dash_range = 50.0f;
 
+	max_clash_count = 1.0f;
+	clash_speed = 0.5f;
 	start_clash_speed = 0.5f;
 	end_clash_speed = 0.5f;
 }
@@ -64,10 +68,16 @@ void Player::draw()
 
 	ci::gl::pushMatrices();
 	ci::gl::multModelView(matrix);
+	ci::Matrix44f mtranslate = ci::Matrix44f::createTranslation(ci::Vec3f(0.0f, 1.0f, 0.0f));
+	ci::gl::multModelView(mtranslate);
 	ci::Matrix44f mrotate = ci::Matrix44f::createRotation(transform.angle);
 	ci::gl::multModelView(mrotate);
+	mtranslate = ci::Matrix44f::createTranslation(ci::Vec3f(0.0f, -1.0f, 0.0f));
+	ci::gl::multModelView(mtranslate);
+	ci::Matrix44f mscale = ci::Matrix44f::createScale(transform.scale);
+	ci::gl::multModelView(mscale);
 
-	ci::gl::drawCube(ci::Vec3f::zero(), ci::Vec3f::one());
+	ci::gl::draw(ObjDataGet.find("Player"));
 
 	ci::gl::popMatrices();
 	ci::gl::pushMatrices();
@@ -99,7 +109,7 @@ void Player::operationKey()
 		debugDash();
 
 	if (env.isPush(ci::app::KeyEvent::KEY_RETURN))
-		HitObstacle(0.5f);
+		HitObstacle(clash_speed);
 }
 
 void Player::debugMove()
@@ -124,7 +134,7 @@ void Player::debugMove()
 	if (_direction.lengthSquared() > 0) {
 		_direction.normalize();
 		start_move_pos = ci::Vec2f(transform.position.x, transform.position.y);
-		end_move_pos = ci::Vec2f(transform.position.x, transform.position.y) + _direction;
+		end_move_pos = ci::Vec2f(transform.position.x, transform.position.y) + _direction * 2.0f;
 		move_count = 0.0f;
 
 		move_direction = _direction / 10.0f;

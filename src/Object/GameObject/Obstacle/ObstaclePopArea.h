@@ -12,6 +12,7 @@ namespace ar {
 						float pop_range_,
 						float radius_,
 						int count_);
+		ObstaclePopArea() {}
 
 		void update()override;
 		void draw()override;
@@ -19,6 +20,12 @@ namespace ar {
 
 		std::list<Obstacle> getObstacles() {
 			return obstacles;
+		}
+
+		Obstacle getNearestObstacle(ci::Vec3f target_);
+
+		float getPopRange() {
+			return pop_range;
 		}
 
 	private:

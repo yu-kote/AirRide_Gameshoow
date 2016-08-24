@@ -24,25 +24,27 @@ namespace ar
 			using namespace ci::app;
 
 			// ‚±‚ñ‚ÈŠ´‚¶
-			/*ObjLoader charaloder = ObjLoader(loadAsset("ObjData/CharaData" + std::to_string(0) + "/chara.obj"));
-			TriMesh body;
-			charaloder.load(&body,
-			boost::logic::indeterminate, boost::logic::indeterminate,
-			false);*/
+			ObjLoader charaloader = ObjLoader(loadAsset("ObjData/player01.obj"));
+			TriMesh charactormesh;
+			charaloader.load(&charactormesh,
+							 boost::logic::indeterminate, boost::logic::indeterminate,
+							 false);
+			mesh.insert(std::make_pair("Player", charactormesh));
+
 
 
 		}
 
-		ci::TriMesh& find(const int& charanum_, std::string parts_) {
-			if (charamesh.find(parts_ + std::to_string(charanum_)) == charamesh.end())
+		ci::TriMesh& find(std::string key_) {
+			if (mesh.find(key_) == mesh.end())
 				assert(!"Not mesh find");
-			return charamesh.find(parts_ + std::to_string(charanum_))->second;
+			return mesh.find(key_)->second;
 		}
 
 
 	private:
 
-		std::unordered_map<std::string, ci::TriMesh> charamesh;
+		std::unordered_map<std::string, ci::TriMesh> mesh;
 	};
 }
 
