@@ -4,6 +4,8 @@
 #include "../EnemyAI/EnemyAI.h"
 #include "../../../SignPost/SignPostManager.h"
 
+
+
 class EnemyHolder : public ar::GameObject
 {
 public:
@@ -21,6 +23,10 @@ public:
 	void setPlayer(std::shared_ptr<CharaBase>);
 	int getRanking();
 	std::vector<Enemy>& getEnemys();
+
+
+	bool isEndLasstEnemy();
+
 
 private:
 	std::vector<Enemy> enemys;
