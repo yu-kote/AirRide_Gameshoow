@@ -72,6 +72,11 @@ std::vector<Enemy>& EnemyHolder::getEnemys()
 	return enemys;
 }
 
+bool EnemyHolder::isEndLasstEnemy()
+{
+	return enemys.back().isEnd();
+}
+
 
 void EnemyHolder::targetChange()
 {
