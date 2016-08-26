@@ -12,6 +12,7 @@
 #include "../../Object/GameObject/Skydome/Skydome.h"
 #include "../../Object/GameObject/Boss/Boss.h"
 #include "../../Object/GameObject/Boss/Bullet/Bullet.h"
+#include "../../TaskManager/SoundManager.h"
 
 GameMain::GameMain()
 {
@@ -37,6 +38,10 @@ void GameMain::setup()
 
 	//////////////////////////////////////////////
 
+	entities.getObject<ar::ObstacleManager>()->setEnemyHolder(entities.getObject<EnemyHolder>());
+	entities.getObject<ar::ObstacleManager>()->setPlayer(entities.getObject<Player>());
+
+
 	entities.getObject<Player>()->setSignPostManager(entities.getObject<ar::SignPostManager>());
 
 	entities.getObject<EnemyHolder>()->setSignPostManager(entities.getObject<ar::SignPostManager>());
@@ -52,6 +57,12 @@ void GameMain::setup()
 	entities.getObject <Bullets>()->setPlayer(entities.getObject<Player>());
 
 	entities.setupGameObject();
+
+	if (SoundGet.find("RaceBGM")->isEnabled())
+		SoundGet.find("RaceBGM")->stop();
+	else
+		SoundGet.find("RaceBGM")->start();
+	SoundGet.find("RaceBGM")->setLoopEnabled(true);
 }
 
 void GameMain::draw()
@@ -68,6 +79,8 @@ void GameMain::draw()
 
 void GameMain::update()
 {
+
+
 	entities.updateGameObject();
 	entities.laterUpdateGameObject();
 }
