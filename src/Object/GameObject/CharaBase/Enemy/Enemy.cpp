@@ -3,7 +3,7 @@
 Enemy::Enemy()
 {
 	is_hit = false;
-	
+	mesh = &ObjDataGet.find("Player");
 }
 
 Enemy::~Enemy()
@@ -30,11 +30,14 @@ void Enemy::draw()
 
 	ci::gl::pushMatrices();
 	ci::gl::multModelView(matrix);
-
+	
+	ci::gl::translate(0, 1, 0);
 	ci::gl::multModelView(ci::Matrix44f::createRotation(transform.angle));
+	ci::gl::translate(0, -1, 0);
+	ci::gl::scale(0.07f, 0.07f, 0.07f);
 
-
-	ci::gl::drawColorCube(ci::Vec3f::zero(), ci::Vec3f::one());
+	ci::gl::draw(*mesh);
+	//ci::gl::drawColorCube(ci::Vec3f::zero(), ci::Vec3f::one());
 	ci::gl::popMatrices();
 
 	ci::gl::pushMatrices();
@@ -74,9 +77,12 @@ void Enemy::damage()
 				(player->getCollisionCirclerad() + collision_circle_rad)
 				*(player->getCollisionCirclerad() + collision_circle_rad)
 				) {
-				if (!is_hit)ai->HP--;
-				is_hit = true;
-				return;
+				if (!is_hit) {
+					ai->HP--;
+					HitObstacle(2.5f);
+				}
+					is_hit = true;
+					return;
 			}
 		}
 	}

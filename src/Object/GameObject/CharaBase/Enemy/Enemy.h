@@ -4,7 +4,7 @@
 #include "EnemyAI/EnemyAIBase.h"
 #include "EnemyAI/EnemyAI.h"
 #include "../Player/Player.h"
-
+#include "cinder/TriMesh.h"
 
 
 class Enemy : public CharaBase
@@ -29,6 +29,9 @@ private:
 	std::shared_ptr<EnemyAIBase> ai;
 	std::shared_ptr<CharaBase> player;
 	bool is_hit;
+
+	ci::TriMesh* mesh;
+	
 };
 
 template<class T>
