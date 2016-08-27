@@ -19,24 +19,37 @@ void ar::ObstacleManager::setup()
 
 void ar::ObstacleManager::update()
 {
-	std::for_each(pop_areas.begin(), pop_areas.end(),
-				  [](ObstaclePopArea pop_areas_) {pop_areas_.update(); });
+	/*std::for_each(pop_areas.begin(), pop_areas.end(),
+				  [](ObstaclePopArea pop_areas_) {pop_areas_.update(); });*/
+
+
+	auto start = std::chrono::system_clock::now();
 
 	isPlayerHitObstacle();
 	isEnemysInObstacleArea();
+	auto end = std::chrono::system_clock::now();
+	auto d = end - start;
+	auto msec = std::chrono::duration_cast<std::chrono::milliseconds>(d).count();
+	console() << msec << std::endl;
 }
 
 void ar::ObstacleManager::draw()
 {
 	std::for_each(pop_areas.begin(), pop_areas.end(),
-				  [](ObstaclePopArea pop_areas_) {pop_areas_.draw(); });
+				  [&](ObstaclePopArea pop_areas_) {
+		if (sphereToSphere(player->getWorldPoisition(), 200, pop_areas_.transform.position, 1))
+			pop_areas_.draw();
+
+	});
 
 }
 
 void ar::ObstacleManager::transDraw()
 {
-	std::for_each(pop_areas.begin(), pop_areas.end(),
-				  [](ObstaclePopArea pop_areas_) {pop_areas_.transDraw(); });
+	/*std::for_each(pop_areas.begin(), pop_areas.end(),
+				  [](ObstaclePopArea pop_areas_) {
+		pop_areas_.transDraw(); 
+	});*/
 }
 
 
