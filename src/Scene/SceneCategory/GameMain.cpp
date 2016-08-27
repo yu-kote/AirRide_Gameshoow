@@ -39,6 +39,8 @@ void GameMain::setup()
 	//////////////////////////////////////////////
 
 	entities.getObject<Player>()->setSignPostManager(entities.getObject<ar::SignPostManager>());
+	entities.getObject<ar::SignPostManager>()->setPlayer(entities.getObject<Player>());
+
 
 	entities.getObject<EnemyHolder>()->setSignPostManager(entities.getObject<ar::SignPostManager>());
 	entities.getObject<EnemyHolder>()->setPlayer(entities.getObject<Player>());
@@ -62,13 +64,12 @@ void GameMain::setup()
 	if (SoundGet.find("RaceBGM")->isEnabled())
 		SoundGet.find("RaceBGM")->stop();
 	else
-		//SoundGet.find("RaceBGM")->start();
+		SoundGet.find("RaceBGM")->start();
 	SoundGet.find("RaceBGM")->setLoopEnabled(true);
 }
 
 void GameMain::draw()
 {
-
 	entities.drawGameObject();
 	entities.transDrawGameObject();
 
@@ -76,14 +77,22 @@ void GameMain::draw()
 	entities.laterDrawGameObject();
 	entities.transLaterDrawGameObject();
 	//ui.titleSetup();
+
+
 }
 
 void GameMain::update()
 {
 
+	//auto start = std::chrono::system_clock::now();
 
 	entities.updateGameObject();
 	entities.laterUpdateGameObject();
+
+	/*auto end = std::chrono::system_clock::now();
+	auto d = end - start;
+	auto msec = std::chrono::duration_cast<std::chrono::milliseconds>(d).count();
+	console() << msec << std::endl;*/
 }
 
 void GameMain::shift()
