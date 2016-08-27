@@ -38,17 +38,18 @@ void GameMain::setup()
 
 	//////////////////////////////////////////////
 
-	entities.getObject<ar::ObstacleManager>()->setEnemyHolder(entities.getObject<EnemyHolder>());
-	entities.getObject<ar::ObstacleManager>()->setPlayer(entities.getObject<Player>());
-
-
 	entities.getObject<Player>()->setSignPostManager(entities.getObject<ar::SignPostManager>());
 
 	entities.getObject<EnemyHolder>()->setSignPostManager(entities.getObject<ar::SignPostManager>());
 	entities.getObject<EnemyHolder>()->setPlayer(entities.getObject<Player>());
 
+	entities.getObject<ar::ObstacleManager>()->setEnemyHolder(entities.getObject<EnemyHolder>());
+	entities.getObject<ar::ObstacleManager>()->setPlayer(entities.getObject<Player>());
+
 	entities.getObject<ar::Camera>()->setChara(entities.getObject<Player>());
+
 	entities.getObject <ar::Skydome>()->setTerget(entities.getObject<Player>());
+
 	entities.getObject <Boss>()->setSignPostManager(entities.getObject<ar::SignPostManager>());
 	entities.getObject <Boss>()->setEnemyHolder(entities.getObject<EnemyHolder>());
 	entities.getObject <Boss>()->setPlayer(entities.getObject<Player>());
@@ -61,7 +62,7 @@ void GameMain::setup()
 	if (SoundGet.find("RaceBGM")->isEnabled())
 		SoundGet.find("RaceBGM")->stop();
 	else
-		SoundGet.find("RaceBGM")->start();
+		//SoundGet.find("RaceBGM")->start();
 	SoundGet.find("RaceBGM")->setLoopEnabled(true);
 }
 
