@@ -1,1 +1,3 @@
 Skydome TextureData/Skydome.png
+
+Obstacle ObjData/outUVkirai2.png
