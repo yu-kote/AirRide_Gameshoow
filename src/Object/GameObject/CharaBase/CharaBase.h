@@ -38,6 +38,7 @@ public:
 	ci::Matrix44f getMatrix() const { return matrix; }
 
 	CharaStatus getStatus() { return status; }
+	float getDashCount() const { return dash_count; }
 	float getSpeed() const { return speed; }
 	void setSpeed(const float speed) {
 

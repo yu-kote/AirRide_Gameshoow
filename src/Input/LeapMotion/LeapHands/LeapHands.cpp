@@ -51,16 +51,28 @@ ci::Vec2f LeapHands::GetHandCenterPosToRatio() const
 	ratio_y = std::max(-1.0f, ratio_y);
 	ratio_y = std::min(1.0f, ratio_y);
 
-	/*if (ratio_x > 1.0f)
-		ratio_x = 1.0f;
-	if (ratio_x < -1.0f)
-		ratio_x = -1.0f;
-	if (ratio_y > 1.0f)
-		ratio_y = 1.0f;
-	if (ratio_y < -1.0f)
-		ratio_y = -1.0f;*/
-
 	return ci::Vec2f(ratio_x * -1.0f, ratio_y);
+}
+
+ci::Vec2f LeapHands::GetHandCenterPosToRatioLeftUp() const
+{
+	if (frame.hands().count() <= 0)
+		return ci::Vec2f(0.0f, 0.0f);
+
+	const Leap::HandList &hands = frame.hands();
+	Leap::HandList::const_iterator first_hand_itr = hands.begin();
+	const Leap::Hand &hand = *first_hand_itr;
+	ci::Vec3f hand_center_pos = LeapMotion::toVec3f(hand.palmPosition());
+
+	float ratio_x = (hand_center_pos.x - (virtual_window_center_pos.x + virtual_window_size.x / 2.0f)) / virtual_window_size.x * -1.0f;
+	float ratio_y = (hand_center_pos.y - (virtual_window_center_pos.y + virtual_window_size.y / 2.0f)) / virtual_window_size.y * -1.0f;
+
+	ratio_x = std::max(0.0f, ratio_x);
+	ratio_x = std::min(1.0f, ratio_x);
+	ratio_y = std::max(0.0f, ratio_y);
+	ratio_y = std::min(1.0f, ratio_y);
+
+	return ci::Vec2f(ratio_x, ratio_y);
 }
 
 ci::Vec3f LeapHands::GetHandNormal() const

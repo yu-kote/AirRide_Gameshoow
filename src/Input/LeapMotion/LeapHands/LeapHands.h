@@ -33,6 +33,8 @@ public:
 	//仮想で画面を作り掌の中心座標を比で返す
 	//-1.0f ~ 1.0f
 	ci::Vec2f GetHandCenterPosToRatio() const;
+	// 左上原点
+	ci::Vec2f GetHandCenterPosToRatioLeftUp() const;
 	//掌の法線を返す
 	ci::Vec3f GetHandNormal() const;
 	//掌の法線を分解してxy軸に対する値を返す

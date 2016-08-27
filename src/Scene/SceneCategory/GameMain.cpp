@@ -10,6 +10,9 @@
 #include "../../Object/GameObject/CharaBase/Enemy/EnemyHolder/EnemyHolder.h"
 #include "../../Share/Interface/Interface.h"
 #include "../../Object/GameObject/Skydome/Skydome.h"
+#include "../../Object/GameObject/Boss/Boss.h"
+#include "../../Object/GameObject/Boss/Bullet/Bullet.h"
+#include "../../TaskManager/SoundManager.h"
 
 GameMain::GameMain()
 {
@@ -29,7 +32,15 @@ void GameMain::setup()
 	entities.setObject<Player>();
 	entities.setObject<EnemyHolder>();
 
+	entities.setObject<Boss>();
+	entities.setObject<Bullets>();
+
+
 	//////////////////////////////////////////////
+
+	entities.getObject<ar::ObstacleManager>()->setEnemyHolder(entities.getObject<EnemyHolder>());
+	entities.getObject<ar::ObstacleManager>()->setPlayer(entities.getObject<Player>());
+
 
 	entities.getObject<Player>()->setSignPostManager(entities.getObject<ar::SignPostManager>());
 
@@ -38,8 +49,20 @@ void GameMain::setup()
 
 	entities.getObject<ar::Camera>()->setChara(entities.getObject<Player>());
 	entities.getObject <ar::Skydome>()->setTerget(entities.getObject<Player>());
+	entities.getObject <Boss>()->setSignPostManager(entities.getObject<ar::SignPostManager>());
+	entities.getObject <Boss>()->setEnemyHolder(entities.getObject<EnemyHolder>());
+	entities.getObject <Boss>()->setPlayer(entities.getObject<Player>());
+
+	entities.getObject <Bullets>()->setBoss(entities.getObject<Boss>());
+	entities.getObject <Bullets>()->setPlayer(entities.getObject<Player>());
 
 	entities.setupGameObject();
+
+	if (SoundGet.find("RaceBGM")->isEnabled())
+		SoundGet.find("RaceBGM")->stop();
+	else
+		SoundGet.find("RaceBGM")->start();
+	SoundGet.find("RaceBGM")->setLoopEnabled(true);
 }
 
 void GameMain::draw()
@@ -56,6 +79,8 @@ void GameMain::draw()
 
 void GameMain::update()
 {
+
+
 	entities.updateGameObject();
 	entities.laterUpdateGameObject();
 }
