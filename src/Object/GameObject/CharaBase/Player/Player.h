@@ -2,6 +2,7 @@
 #include "../CharaBase.h"
 #include "../../../../Input/LeapMotion/LeapHands/LeapHands.h"
 #include "../../../../Input/InputEvent.h"
+#include "../../../../TaskManager/SoundManager.h"
 
 
 class Player : public CharaBase
