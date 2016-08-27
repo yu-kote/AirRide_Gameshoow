@@ -22,7 +22,11 @@ namespace ar {
 			return obstacles;
 		}
 
+		// ˆê”Ô‹ß‚¢áŠQ•¨‚ğ•Ô‚·
 		Obstacle getNearestObstacle(ci::Vec3f target_);
+
+		// “–‚½‚Á‚½‚©‚Ç‚¤‚©
+		bool isHitObstacle(ci::Vec3f target_, float radius_);
 
 		float getPopRange() {
 			return pop_range;
