@@ -90,6 +90,8 @@ public:
 
 	void HitObstacle(const float &clash_speed);
 
+	void setIsStop(const bool &is_stop) { this->is_stop = is_stop; }
+
 protected:
 
 	void debugCourseOutStop();
@@ -132,6 +134,8 @@ protected:
 
 	float interval_count;
 	float interval_takes_time;
+
+	bool is_stop;
 
 private:
 
