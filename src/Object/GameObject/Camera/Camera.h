@@ -23,6 +23,9 @@ namespace ar {
 		void setCenterOfInterestPoint(ci::Vec3f);
 		void setChara(std::shared_ptr<CharaBase>);
 
+		//ƒJƒƒ‰‚ÌˆÊ’u
+		ci::Vec3f getCenterOfInterestPoint();
+
 	private:
 		ci::CameraPersp camera;
 		CharaBase* chara;

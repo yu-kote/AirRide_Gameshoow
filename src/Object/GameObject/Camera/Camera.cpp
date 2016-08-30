@@ -76,6 +76,11 @@ void ar::Camera::setChara(std::shared_ptr<CharaBase> _chara)
 	chara = _chara.get();
 }
 
+ci::Vec3f ar::Camera::getCenterOfInterestPoint()
+{
+	return camera.getCenterOfInterestPoint();
+}
+
 void ar::Camera::cameraDecision(const ci::Vec3f & position_, const ci::Vec3f & lookpoint_)
 {
 	gl::pushModelView();
