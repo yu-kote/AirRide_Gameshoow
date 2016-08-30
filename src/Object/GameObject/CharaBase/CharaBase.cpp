@@ -51,6 +51,8 @@ void CharaBase::init()
 
 	interval_count = 1.0f;
 	interval_takes_time = 2.0f;
+
+	is_stop = false;
 }
 
 void CharaBase::setup()
@@ -160,6 +162,9 @@ void CharaBase::debugCourseOutStop()
 
 void CharaBase::move()
 {
+	if (is_stop == true)
+		return;
+
 	roll();
 	dash();
 	clash();
