@@ -56,6 +56,11 @@ void Enemy::setTarget(const bool & _is_terget)
 	ai->setTerget(_is_terget);
 }
 
+bool Enemy::getTarget()
+{
+	return ai->getTerget();
+}
+
 bool Enemy::isEnd()
 {
 	return ai->HP <= 0;
@@ -64,6 +69,13 @@ bool Enemy::isEnd()
 void Enemy::inObstacleArea()
 {
 	isRolling(transform.position.xy().inverse());
+
+}
+
+void Enemy::start()
+{
+	ai->go();
+
 
 }
 

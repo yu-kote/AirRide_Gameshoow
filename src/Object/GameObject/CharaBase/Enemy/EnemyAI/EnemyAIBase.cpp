@@ -5,6 +5,11 @@ void EnemyAIBase::setTerget(const bool & _is_terget)
 	is_terget = _is_terget;
 }
 
+bool EnemyAIBase::getTerget()
+{
+	return is_terget;
+}
+
 void EnemyAIBase::outStop()
 {
 	enemy->transform.position.x = std::min(std::max(enemy->transform.position.x, -7.f), 7.f);
