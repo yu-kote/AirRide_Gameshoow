@@ -15,7 +15,7 @@ namespace ar {
 		void update();
 		void draw();
 
-	private:
+	public:
 		// ”¼Œa
 		float radius;
 

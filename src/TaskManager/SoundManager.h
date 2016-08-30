@@ -25,8 +25,8 @@ public:
 
 		gain = ctx->makeNode(new ci::audio::GainNode());
 
-		//bufferPlayerLoad(ci::app::getAssetPath("SoundData/BufferPlayerResource.txt").string());
-		//filePlayerLoad(ci::app::getAssetPath("SoundData/FilePlayerResource.txt").string());
+		bufferPlayerLoad(ci::app::getAssetPath("SoundData/BufferPlayerResource.txt").string());
+		filePlayerLoad(ci::app::getAssetPath("SoundData/FilePlayerResource.txt").string());
 
 		for (auto it = sample_node.begin(); it != sample_node.end(); it++)
 		{
@@ -48,7 +48,7 @@ public:
 	void setGain(const float& value_) {
 		gain->setValue(value_);
 	}
-
+private:
 	void registerFilePlayerNode(std::string key_, std::string filepath_) {
 		ci::audio::SourceFileRef source = ci::audio::load(ci::app::loadAsset(filepath_));
 

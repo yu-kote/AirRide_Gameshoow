@@ -1,0 +1,17 @@
+Attack  SoundData/BufferPlayer/attack.wav
+
+Bomb    SoundData/BufferPlayer/bomb.wav
+
+Charge  SoundData/BufferPlayer/charge.wav
+
+Damage  SoundData/BufferPlayer/damage.wav
+
+Dash    SoundData/BufferPlayer/dash.wav
+
+Flying  SoundData/BufferPlayer/flying.wav
+
+Goal    SoundData/BufferPlayer/goal.wav
+
+Result  SoundData/BufferPlayer/result.wav
+
+Role    SoundData/BufferPlayer/role.wav

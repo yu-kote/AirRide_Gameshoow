@@ -43,7 +43,7 @@ void CharaBase::init()
 	start_speed = 3.0f;
 	end_speed = 1.0f;
 
-	clash_count = 0.0f;
+	clash_count = 1.0f;
 	max_clash_count = 2.0f;
 	clash_speed = 3.0f;
 	start_clash_speed = 2.5f;
@@ -51,6 +51,8 @@ void CharaBase::init()
 
 	interval_count = 1.0f;
 	interval_takes_time = 2.0f;
+
+	is_stop = false;
 }
 
 void CharaBase::setup()
@@ -94,6 +96,8 @@ bool CharaBase::isRolling(ci::Vec2f _terget)
 	start_move_pos = ci::Vec2f(transform.position.x, transform.position.y);
 	end_move_pos = _terget;
 
+	SoundGet.find("Role")->start();
+
 	return true;
 }
 
@@ -113,11 +117,16 @@ bool CharaBase::isAttacking()
 	roll_count = 0.0f;
 	end_roll_angle = -max_roll_angle;
 
+	SoundGet.find("Dash")->start();
+
 	return true;
 }
 
 void CharaBase::HitObstacle(const float &clash_speed)
 {
+	if (clash_count < 1.0f)
+		return;
+
 	status = CharaStatus::CLASH;
 	speed = clash_speed;
 	start_clash_speed = clash_speed;
@@ -127,6 +136,13 @@ void CharaBase::HitObstacle(const float &clash_speed)
 	move_count = 0.0f;
 	roll_count = 1.0f;
 	transform.angle.z = 0.0f;
+
+	if (SoundGet.find("Dash")->isEnabled())
+		SoundGet.find("Dash")->stop();
+	if (SoundGet.find("Role")->isEnabled())
+		SoundGet.find("Role")->stop();
+
+	SoundGet.find("Damage")->start();
 }
 
 void CharaBase::debugCourseOutStop()
@@ -146,6 +162,9 @@ void CharaBase::debugCourseOutStop()
 
 void CharaBase::move()
 {
+	if (is_stop == true)
+		return;
+
 	roll();
 	dash();
 	clash();

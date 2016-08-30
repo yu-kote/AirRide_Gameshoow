@@ -38,6 +38,7 @@ public:
 	ci::Matrix44f getMatrix() const { return matrix; }
 
 	CharaStatus getStatus() { return status; }
+	float getDashCount() const { return dash_count; }
 	float getSpeed() const { return speed; }
 	void setSpeed(const float speed) {
 
@@ -89,6 +90,8 @@ public:
 
 	void HitObstacle(const float &clash_speed);
 
+	void setIsStop(const bool &is_stop) { this->is_stop = is_stop; }
+
 protected:
 
 	void debugCourseOutStop();
@@ -131,6 +134,8 @@ protected:
 
 	float interval_count;
 	float interval_takes_time;
+
+	bool is_stop;
 
 private:
 

@@ -1,5 +1,6 @@
 #include "ObstaclePopArea.h"
 #include <random>
+#include "../../../Share/Share.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -60,6 +61,18 @@ ar::Obstacle ar::ObstaclePopArea::getNearestObstacle(ci::Vec3f target_)
 		}
 	});
 	return nearest_obs;
+}
+
+bool ar::ObstaclePopArea::isHitObstacle(ci::Vec3f target_, float radius_)
+{
+	bool is_hit = false;
+	std::for_each(obstacles.begin(), obstacles.end(),
+				  [&](Obstacle obs)
+	{
+		if (sphereToSphere(target_, radius_, transform.position + obs.transform.position, obs.radius))
+			is_hit = true;
+	});
+	return is_hit;
 }
 
 void ar::ObstaclePopArea::obstaclePop(float radius_, int count_)
