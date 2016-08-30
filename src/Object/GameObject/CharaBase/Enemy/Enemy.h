@@ -17,11 +17,16 @@ public:
 
 	void setPlayer(std::shared_ptr<CharaBase>);
 	void setTarget(const bool&);
+	bool getTarget();
+
+
 	bool isEnd();
 
 	template<class T>
 	void setAI();
 	void inObstacleArea();
+
+	void start();
 
 
 private:

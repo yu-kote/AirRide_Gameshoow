@@ -15,6 +15,8 @@ public:
 	void update()override;
 	void draw()override;
 
+	//ƒ{ƒX‚ªo‚Ä‚¢‚é‚Æ‚«‚Étrue‚ğ•Ô‚µ‚Ü‚·
+	bool getIsExist();
 
 	void setPlayer(std::shared_ptr<CharaBase>);
 	void setEnemyHolder(std::shared_ptr<EnemyHolder>);
