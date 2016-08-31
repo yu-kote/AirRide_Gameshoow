@@ -38,17 +38,20 @@ void GameMain::setup()
 
 	//////////////////////////////////////////////
 
-	entities.getObject<ar::ObstacleManager>()->setEnemyHolder(entities.getObject<EnemyHolder>());
-	entities.getObject<ar::ObstacleManager>()->setPlayer(entities.getObject<Player>());
-
-
 	entities.getObject<Player>()->setSignPostManager(entities.getObject<ar::SignPostManager>());
+	entities.getObject<ar::SignPostManager>()->setPlayer(entities.getObject<Player>());
+
 
 	entities.getObject<EnemyHolder>()->setSignPostManager(entities.getObject<ar::SignPostManager>());
 	entities.getObject<EnemyHolder>()->setPlayer(entities.getObject<Player>());
 
+	entities.getObject<ar::ObstacleManager>()->setEnemyHolder(entities.getObject<EnemyHolder>());
+	entities.getObject<ar::ObstacleManager>()->setPlayer(entities.getObject<Player>());
+
 	entities.getObject<ar::Camera>()->setChara(entities.getObject<Player>());
+
 	entities.getObject <ar::Skydome>()->setTerget(entities.getObject<Player>());
+
 	entities.getObject <Boss>()->setSignPostManager(entities.getObject<ar::SignPostManager>());
 	entities.getObject <Boss>()->setEnemyHolder(entities.getObject<EnemyHolder>());
 	entities.getObject <Boss>()->setPlayer(entities.getObject<Player>());
@@ -67,7 +70,6 @@ void GameMain::setup()
 
 void GameMain::draw()
 {
-
 	entities.drawGameObject();
 	entities.transDrawGameObject();
 
@@ -75,14 +77,22 @@ void GameMain::draw()
 	entities.laterDrawGameObject();
 	entities.transLaterDrawGameObject();
 	//ui.titleSetup();
+
+
 }
 
 void GameMain::update()
 {
 
+	//auto start = std::chrono::system_clock::now();
 
 	entities.updateGameObject();
 	entities.laterUpdateGameObject();
+
+	/*auto end = std::chrono::system_clock::now();
+	auto d = end - start;
+	auto msec = std::chrono::duration_cast<std::chrono::milliseconds>(d).count();
+	console() << msec << std::endl;*/
 }
 
 void GameMain::shift()

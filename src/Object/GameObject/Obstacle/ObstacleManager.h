@@ -33,11 +33,10 @@ namespace ar {
 		void setEnemyHolder(std::shared_ptr<EnemyHolder> enemy_holder_) { enemy_holder = enemy_holder_; }
 
 
+		void isPlayerHitObstacle();
 		void isEnemysInObstacleArea();
 	private:
 		std::shared_ptr<Player> player;
 		std::shared_ptr<EnemyHolder> enemy_holder;
-
-		bool sphereToSphere(ci::Vec3f pos1_, float radius1_, ci::Vec3f pos2_, float radius2_);
 	};
 }

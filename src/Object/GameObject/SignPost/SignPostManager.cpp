@@ -1,5 +1,7 @@
 #include "SignPostManager.h"
 #include "../../Component/Components/Material.h"
+#include "../../../Share/Share.h"
+#include "../../GameObject/CharaBase/Player/Player.h"
 
 
 using namespace ci;
@@ -22,10 +24,10 @@ void ar::SignPostManager::setup()
 
 	addComponent<ar::Material>(ar::Material(
 		gl::Material(ColorA(0.6f, 1.0f, 0.6f, 1.0f),      // Ambient
-			ColorA(0.6f, 1.0f, 0.6f, 1.0f),      // Diffuse
-			ColorA(0.6f, 1.0f, 0.6f, 1.0f),      // Specular
-			80.0f,                               // Shininess
-			ColorA(0.5f, 0.5f, 0.5f, 1.0f))));	  // Emission
+					 ColorA(0.6f, 1.0f, 0.6f, 1.0f),      // Diffuse
+					 ColorA(0.6f, 1.0f, 0.6f, 1.0f),      // Specular
+					 80.0f,                               // Shininess
+					 ColorA(0.5f, 0.5f, 0.5f, 1.0f))));	  // Emission
 }
 
 void ar::SignPostManager::update()
@@ -80,15 +82,16 @@ ci::Vec3f ar::SignPostManager::getStagePos(ci::Vec3f _terget)
 void ar::SignPostManager::ringDraw()
 {
 	for (auto& it : signposts) {
-		it.ringDraw();
+		if (sphereToSphere(player->getWorldPoisition(), 300, it.getPos(), 1))
+			it.ringDraw();
 	}
 }
 
 void ar::SignPostManager::pointDraw()
 {
-	for (auto& it : signposts) {
+	/*for (auto& it : signposts) {
 		it.draw();
-	}
+	}*/
 }
 
 std::vector<ar::SignPost>::iterator
@@ -110,14 +113,14 @@ ar::SignPostManager::getNeerSignPost(ci::Vec3f _terget)
 	return _sign;
 }
 
-std::vector<ar::SignPost>::iterator 
+std::vector<ar::SignPost>::iterator
 ar::SignPostManager::prevIterator(
 	std::vector<ar::SignPost>::iterator _it)
 {
 
 	if (_it == signposts.begin())
 		return signposts.end() - 1;
-	return _it -1;
+	return _it - 1;
 
 }
 
