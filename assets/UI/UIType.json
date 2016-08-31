@@ -1,22 +1,40 @@
 {
 "Objects":
 		[
-		  "タイトル",
+      "R",
+      "I",
+      "D",
+      "E",
+      "O",
+      "N",
+      "T",
+      "H",
+      "E2",
+      "S",
+      "K",
+      "Y",
+      "!",
 		  "スタート",
-		  "オプション",
+      "OK",
       "ダッシュゲージ",
       "プレイヤーポジション",
-      "ポジションバー"
-     
+      "ポジションバー",
+      "制限時間",
+      "三",
+      "二",
+      "一",
+      "GO",
+      "GOAL"
 ],
 
 "UIType":
 		[
 		"CollisionUI",
 		"FontUI",
-		"GaugeUI",
-		"BarCollisionUI",
-		"TextureUI"
+    "GaugeUI",
+    "IncrementTimeUI",
+    "DecrementTimeUI",
+    "ValueUI"
 		],
 "UIState" :
 		[

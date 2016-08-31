@@ -72,6 +72,7 @@ UIBase::UIBase(des::Vec2f _pos, des::Vec2f _size, des::Vec4d _color)
 	start = 0;
 	end = false;
 	end_count = 0;
+	own_ui = UITYPE::NormalUI;
 }
 
 void UIBase::update() {
@@ -99,10 +100,12 @@ void UIBase::EaseUpdateApply(std::string start, float end, std::function<float(f
 
 void UIBase::EaseUpdate()
 {
-	/*for (int i = 0; i != ease_update_buf.size(); i++) {
-		c_Easing::apply(*selectUIState(UIState::get()[ease_update_buf[i].start]),
-			ease_update_buf[i].end, ease_update_buf[i].ease, ease_update_buf[i].time);
-	}*/
+	if (c_Easing::isEnd(pos.x)) {
+		for (int i = 0; i != ease_update_buf.size(); i++) {
+			c_Easing::apply(*selectUIState(UIState::get()[ease_update_buf[i].start]),
+				ease_update_buf[i].end, ease_update_buf[i].ease, ease_update_buf[i].time);
+		}
+	}
 }
 
 void UIBase::EaseInUpdate()
@@ -121,13 +124,17 @@ void UIBase::EaseOutUpdate()
 	if (end) {
 		end_count++;
 		if (end_count == 1) {
-			for (int i = 0; i != ease_end_buf.size(); i++) {
-				c_Easing::apply(*selectUIState(UIState::get()[ease_end_buf[i].start]),
-					ease_end_buf[i].end, ease_end_buf[i].ease, ease_end_buf[i].time);
+			for (int i = 0; i != ease_in_buf.size(); i++) {
+				c_Easing::clear(*selectUIState(UIState::get()[ease_in_buf[i].start]));
 			}
 			for (int i = 0; i != ease_update_buf.size(); i++) {
 				c_Easing::clear(*selectUIState(UIState::get()[ease_update_buf[i].start]));
 			}
+			for (int i = 0; i != ease_end_buf.size(); i++) {
+				c_Easing::apply(*selectUIState(UIState::get()[ease_end_buf[i].start]),
+					ease_end_buf[i].end, ease_end_buf[i].ease, ease_end_buf[i].time);
+			}
+			
 		}
 		for(int i = 0; i != ease_end_buf.size(); i++) {
 			if (c_Easing::isEnd(*selectUIState(UIState::get()[ease_end_buf[i].start]))) {

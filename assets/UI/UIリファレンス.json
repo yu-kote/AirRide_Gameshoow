@@ -1,0 +1,114 @@
+{
+  "UI": {
+    
+    //当たり判定付きUI
+    "スタート": {
+      "UIType": "CollisionUI",
+      "TexturePath": "UI/UITexture/Title/RB.png",
+      "Pos_x": 230,
+      "Pos_y": 250,
+      "Size_x": 50,
+      "Size_y": 60,
+      
+      //開始Easing
+      "EaseIn": [
+         { "UIState": "Pos_x","Change": 220,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Pos_y","Change": 240,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Size_x","Change": 70,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Size_y","Change": 80,"EasingType": "ExpoIn","Frame": 1},
+         
+         //colorは0.0～1.0まで
+         { "UIState": "Color_r","Change": 1,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Color_g","Change": 1,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Color_b","Change": 1,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Color_a","Change": 1,"EasingType": "ExpoIn","Frame": 1}
+
+      ],
+      
+      //終了Easing
+      "EaseOut": [
+        { "UIState": "Pos_x","Change": 700,"EasingType": "ExpoIn","Frame": 40}
+      ],
+      
+      //開始Easingが終わった後に常時ループするEasing
+      "EaseUpdate": [
+        { "UIState": "Pos_x","Change": 70,"EasingType": "ExpoIn","Frame": 1}
+      ],
+      
+      //当たり判定時（クリックなど）任意のタイミングで発動するEasing
+      "EaseCollision": []
+    },
+  
+    //ゲージ系UI
+    "HPゲージ": {
+      "UIType": "GaugeUI",
+      //外枠のテクスチャ
+      "TexturePath": "UI/UITexture/GameMain/DashBar.png",
+      //中のゲージのテクスチャ
+      "GaugeTexturePath": "UI/UITexture/GameMain/DashGauge.png",
+      "Pos_x": 0,
+      "Pos_y": 500,
+      "Size_x": 400,
+      "Size_y": 100,
+
+      //中のゲージの位置調整
+      "GaugePos_x": 17,
+      "GaugePos_y": 551,
+      "GaugeSize_x": 367,
+      "GaugeSize_y": 16,
+
+      "EaseIn": [ ],
+      "EaseOut": [ ],
+      "EaseUpdate": [ ]
+    },
+    
+     //文字表示UI
+    "会話": {
+      "UIType": "FontUI",
+      "FontPath": "UI/UITexture/Font/HGRSGU.TTC",
+      "Pos_x": 10,
+      "Pos_y": 17,
+      "Size": 50,
+      "Text": "今日は寒いなあ・・・",
+      
+      "EaseIn": [ ],
+      "EaseOut": [ ],
+       "EaseUpdate": []
+    },
+    
+     //時間が増えるUI
+     "タイマー": {
+      "UIType": "IncrementTimeUI",
+      "FontPath": "UI/UITexture/Font/HGRSGU.TTC",
+      "Pos_x": 10,
+      "Pos_y": 17,
+      "Size": 50,
+      
+      "EaseIn": [ ],
+      "EaseOut": [ ],
+       "EaseUpdate": []
+    },
+    
+    //最初に時間を設定して、減り続けるUI
+    "残り時間": {
+      "UIType": "DecrementTimeUI",
+      "FontPath": "UI/UITexture/Font/HGRSGU.TTC",
+      "Pos_x": 10,
+      "Pos_y": 17,
+      "Size": 50,
+
+      //ミリ秒
+      "Flame": 0,
+      //秒
+      "Seconds": 30,
+      //分
+      "Minutes": 1,
+      
+      "EaseIn": [ ],
+      "EaseOut": [ ],
+       "EaseUpdate": []
+    }
+  }
+
+}
+ 

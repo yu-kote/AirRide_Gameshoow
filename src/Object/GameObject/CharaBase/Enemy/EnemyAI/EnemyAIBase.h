@@ -1,6 +1,7 @@
 #pragma once
 #include "../../CharaBase.h"
 #include "../../../../../Share/Interface/Interface.h"
+#include "../../../../../Share/Easing/Easing.h"
 #include "cinder/Rand.h"
 
 class EnemyAIBase
@@ -15,7 +16,11 @@ public:
 	}
 	virtual void stert() {};
 	virtual void update() {};
+	virtual void go() { c_Easing::start(enemy->transform.position.z); };
+
 	void setTerget(const bool&);
+	bool getTerget();
+
 	int HP;
 protected:
 	CharaBase* enemy;
