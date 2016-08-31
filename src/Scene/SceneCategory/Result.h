@@ -1,7 +1,10 @@
 #pragma once
 #include "../SceneManager/SceneBase.h"
-
-
+#include "../SceneManager/CreateScene.h"
+#include "../../TaskManager/SoundManager.h"
+#include "../../Object/GameObject/GameObjectEntities.h"
+#include "../../UI/UIPlate/UIPlate.h"
+#include "../SceneCategory/Title.h"
 	class Result :public SceneBase {
 	public:
 
@@ -13,5 +16,5 @@
 		void shutdown() override;
 
 	private:
-
+		UIPlate ui;
 	};
