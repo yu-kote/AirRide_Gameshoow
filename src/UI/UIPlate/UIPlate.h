@@ -7,11 +7,15 @@
 #include "../UIManager/UIManager.h"
 #include "cinder/Camera.h"
 #include "../Texture.h"
+#include "../../Object/GameObject/CharaBase/Player/Player.h"
 class UIPlate : public UIManager
 {
 private:
 	ci::CameraOrtho camera_o;
 	ci::gl::Texture tex;
+	std::unordered_map<std::string,Font> font;
+	std::shared_ptr<Player> player;
+	int game_count;
 public:
 	UIPlate() {
 		camera_o = ci::CameraOrtho(0, 800,
@@ -27,5 +31,9 @@ public:
 	void gameMainSetup();
 	void gameMainUpdate();
 	void gameMainDraw();
+
+	void resultSetup();
+	void resultUpdate();
+	void resultDraw();
 	
 };
