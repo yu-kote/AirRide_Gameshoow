@@ -81,8 +81,6 @@ void Player::draw()
 
 	ci::gl::popMatrices();
 	ci::gl::pushMatrices();
-
-	ci::app::console() << LEAPHANDS.GetHandCenterPos() << std::endl;
 }
 
 void Player::changeOperationType()

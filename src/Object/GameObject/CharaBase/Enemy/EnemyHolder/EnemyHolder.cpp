@@ -26,15 +26,21 @@ void EnemyHolder::setup()
 	target_number = 0;
 	enemys[target_number].setTarget(true);
 
+	is_start = false;
 }
 
 void EnemyHolder::update()
 {
+	if (!is_start) return;
+
+
 	targetChange();
 	for (auto& it : enemys)
 	{
 		it.update();
 	}
+
+
 }
 
 void EnemyHolder::draw()
@@ -43,6 +49,20 @@ void EnemyHolder::draw()
 	{
 		it.draw();
 	}
+}
+
+void EnemyHolder::stop()
+{
+	is_start = false;
+}
+
+void EnemyHolder::start()
+{
+	if (!is_start) {
+		for (auto& it : enemys) it.start();
+		is_start = true;
+	}
+
 }
 
 void EnemyHolder::setSignPostManager(std::shared_ptr<ar::SignPostManager> _spm)
@@ -72,6 +92,32 @@ std::vector<Enemy>& EnemyHolder::getEnemys()
 	return enemys;
 }
 
+std::vector<Enemy*> EnemyHolder::getActiveEnemys()
+{
+	std::vector<Enemy*> _ene;
+	for (auto& it: enemys)
+	{
+		if (it.getTarget()) {
+			_ene.push_back(&it);
+		}
+	}
+
+	return _ene;
+}
+
+std::list<Enemy*> EnemyHolder::getActiveEnemysList()
+{
+	std::list<Enemy*> _ene;
+	for (auto& it : enemys)
+	{
+		if (it.getTarget()) {
+			_ene.push_back(&it);
+		}
+	}
+
+	return _ene;
+}
+
 bool EnemyHolder::isEndLasstEnemy()
 {
 	return enemys.back().isEnd();
@@ -80,10 +126,10 @@ bool EnemyHolder::isEndLasstEnemy()
 
 void EnemyHolder::targetChange()
 {
-	if (target_number == enemys.size()-1)return;
+	if (target_number == enemys.size() - 1)return;
 	if (enemys[target_number].isEnd()) {
 		target_number++;
-		target_number = std::min(target_number, (int)enemys.size()-1);
+		target_number = std::min(target_number, (int)enemys.size() - 1);
 		enemys[target_number].setTarget(true);
 	}
 }

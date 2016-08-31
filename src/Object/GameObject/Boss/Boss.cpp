@@ -79,10 +79,16 @@ void Boss::entry()
 	is_active = true;
 }
 
+
+bool Boss::getIsExist() {
+	return is_active;
+}
+
 bool Boss::isPushBullet()
 {
 	if (!is_active)return false;
 	return pushcount == 0;
+
 }
 
 ci::Vec3f Boss::getWorldpos()

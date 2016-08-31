@@ -15,3 +15,9 @@ Goal    SoundData/BufferPlayer/goal.wav
 Result  SoundData/BufferPlayer/result.wav
 
 Role    SoundData/BufferPlayer/role.wav
+
+Start   SoundData/BufferPlayer/start.wav
+
+Count_1   SoundData/BufferPlayer/count_1.wav
+
+Count_2   SoundData/BufferPlayer/count_2.wav
