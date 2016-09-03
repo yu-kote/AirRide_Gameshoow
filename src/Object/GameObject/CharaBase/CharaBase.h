@@ -8,6 +8,8 @@
 #include "../../../TaskManager/ObjDataManager.h"
 #include "../../../TaskManager/TextureManager.h"
 #include "../../../TaskManager/SoundManager.h"
+#include "../../Component/Components/Material.h"
+#include "../../Component/Components/Texture.h"
 
 
 class CharaBase : public ar::GameObject

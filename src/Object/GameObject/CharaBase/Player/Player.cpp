@@ -12,8 +12,6 @@ Player::~Player()
 
 void Player::setup()
 {
-	LEAPHANDS.Setup();
-
 	init();
 
 	addComponent<ar::Texture>(ar::Texture("Player"));
