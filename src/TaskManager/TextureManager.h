@@ -51,7 +51,10 @@ namespace ar
 		void registerTexture(const std::string& key_, const std::string& filepath_) {
 			ci::DataSourceRef data_source = ci::app::loadAsset(filepath_);
 			ci::ImageSourceRef image_source = loadImage(data_source);
-			texture.insert(std::make_pair(key_, ci::gl::TextureRef(std::make_shared<ci::gl::Texture>(image_source))));
+			auto f = ci::gl::Texture::Format();
+			f.setWrap(GL_REPEAT, GL_REPEAT);
+//			auto t = ci::gl::Texture::create(image_source, f);
+			texture.insert(std::make_pair(key_, ci::gl::TextureRef(std::make_shared<ci::gl::Texture>(image_source, f))));
 		}
 
 	private:

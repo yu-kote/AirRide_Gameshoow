@@ -73,6 +73,7 @@ void GameMain::setup()
 		SoundGet.find("RaceBGM")->start();
 	SoundGet.find("RaceBGM")->setLoopEnabled(true);
 
+
 }
 
 void GameMain::draw()

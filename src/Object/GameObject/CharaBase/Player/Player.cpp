@@ -1,5 +1,7 @@
 #include "Player.h"
 #include "../../../Component/Components/Texture.h"
+#include "../../../Component/Components/Material.h"
+#include "../../../../TaskManager/TextureManager.h"
 
 Player::Player()
 {
@@ -44,8 +46,13 @@ void Player::setup()
 	start_clash_speed = 0.5f;
 	end_clash_speed = 0.5f;
 
-
-//	addComponent<ar::Texture>(ar::Texture("Player"));
+	addComponent<ar::Texture>(ar::Texture("Player"));
+	addComponent<ar::Material>(ar::Material(
+		ci::gl::Material(ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Ambient
+						 ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Diffuse
+						 ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Specular
+					 80.0f,                               // Shininess
+						 ci::ColorA(0.5f, 0.5f, 0.5f, 1.0f))));	  // Emission
 }
 
 void Player::update()
@@ -82,6 +89,7 @@ void Player::draw()
 	ci::gl::multModelView(mscale);
 
 	ci::gl::draw(ObjDataGet.find("Player"));
+
 
 	ci::gl::popMatrices();
 	ci::gl::pushMatrices();

@@ -12,13 +12,7 @@ ar::Particle::Particle(float v_)
 {
 	addComponent<ar::Texture>(ar::Texture("Particle"));
 
-	addComponent<ar::Material>(ar::Material(
-		gl::Material(ColorA(1.0f, 1.0f, 1.0f, 1.0f),					  // Ambient
-					 ColorA(1.0f * v_, 1.0f * v_, 1.0f * v_, 1.0f),       // Diffuse
-					 ColorA(1.0f, 1.0f, 1.0f, 1.0f),					  // Specular
-					 80.0f,												  // Shininess
-					 ColorA(0.7f * v_, 0.7f * v_, 0.7f * v_, 1.0f))));	  // Emission
-
+	
 
 	std::random_device rand;
 	std::mt19937 mt(rand());
@@ -50,14 +44,19 @@ void ar::Particle::draw()
 	drawBegin();
 	pushModelView();
 
-	Quatf quat(Vec3f(0, 0, 1), camera_pos);
+	Quatf quat(Vec3f(0, 0, 1), camera_pos - transform.position);
 
 	gl::rotate(quat.toMatrix44());
 
-	gl::drawCube(Vec3f::zero(), Vec3f(1, 1, 0));
+	gl::drawCube(Vec3f::zero(), Vec3f(0.5f, 0.5f, 0));
 
 	popModelView();
 	drawEnd();
+}
+
+void ar::Particle::transDraw()
+{
+
 }
 
 
@@ -69,7 +68,7 @@ ar::ParticleController::ParticleController(const ci::Vec3f& position_)
 
 	std::uniform_real_distribution<float> material_rand(0.5f, 1.0f);
 
-	int pop_num = 10;
+	int pop_num = 20;
 
 	for (int i = 0; i < pop_num; i++)
 	{
