@@ -94,6 +94,8 @@ public:
 
 	void setIsStop(const bool &is_stop) { this->is_stop = is_stop; }
 
+	float getIntervalCount() const { return interval_count; }
+
 protected:
 
 	void debugCourseOutStop();
