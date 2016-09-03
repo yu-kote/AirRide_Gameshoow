@@ -18,6 +18,8 @@ public:
 
 private:
 
+	void dash() override;
+
 	void changeOperationType();
 
 	void operationKey();
@@ -62,4 +64,6 @@ private:
 
 	// dash‚Åg‚¤”ÍˆÍw’è‚Ì•Ï”
 	float dash_range;
+
+	float hand_exist_count;
 };

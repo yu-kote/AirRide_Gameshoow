@@ -98,7 +98,7 @@ protected:
 
 	void move();
 	void roll();
-	void dash();
+	virtual void dash();
 	void collisionToWindow();
 	void clash();
 	void updateStageMatrix();
