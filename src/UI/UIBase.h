@@ -10,6 +10,15 @@
 #include <iostream>
 #include <functional>
 
+enum class UITYPE{
+	NormalUI,
+	CollisionUI,
+	GaugeUI,
+	FontUI,
+	IncrementTimeUI,
+	DecrementTimeUI
+};
+
 struct EasingBuf
 {
 	EasingBuf(std::string _start, float _end, std::function<float(float, float, float)> _ease, float _time) {
@@ -29,13 +38,11 @@ class UIBase
 protected:
 	des::Vec2f pos;
 	des::Vec2f size;
-
 	des::Vec4f color;
 
 	std::vector<std::function<float(float, float, float)>> easing_function;
 	std::vector<std::function<void()>> ease_out_function;
 	std::string texture_path;
-	std::string font;
 	
 	std::vector<EasingBuf> ease_in_buf;
 	std::vector<EasingBuf> ease_end_buf;
@@ -46,7 +53,9 @@ protected:
 	bool is_active;
 	int end_count;
 	
+	
 public:
+	UITYPE own_ui;
 	UIBase(des::Vec2f _pos, des::Vec2f _size, des::Vec4d _color);
 	//
 	virtual void update();
@@ -63,7 +72,6 @@ public:
 
 	float* selectUIState(int state);
 	
-
 
 	///////////////////////ゲッター///////////////////////////////
 	//コンスト参照にしてないのは動かなかったから
@@ -101,6 +109,9 @@ public:
 	const bool& NextFlag() {
 		return !is_active;
 	}
+	UITYPE getUIType() {
+		return own_ui;
+	}
 	//----------------------------------------------------------
 
 
@@ -112,9 +123,6 @@ public:
 	void setSize(const float& size_x, const float& size_y) {
 		size.x = size_x;
 		size.y = size_y;
-	}
-	void setFont(const std::string& str) {
-		font = str;
 	}
 	void setColor(const double& color_r, const double& color_g, const double& color_b, const double& color_a) {
 		color.x = color_r;
@@ -134,7 +142,9 @@ public:
 	void Active() {
 		is_active = true;
 	}
-	
+	void Idle() {
+		is_active = false;
+	}
 	//---------------------------------------------------------
 
 
@@ -143,19 +153,62 @@ public:
 	virtual bool collisionToUI(des::Vec2f _pos, des::Vec2f _size) { return false; };
 
 	//GaugeUI
-	virtual float getGaugePosX() { return 0.0f; }
-	virtual float getGaugePosY() { return 0.0f; }
-	virtual float getGaugeSizeX() { return 0.0f; }
-	virtual float getGaugeSizeY() { return 0.0f; }
-	virtual std::string getGaugeTexturePath() { return "GaugeUIで定義してください"; }
-	virtual bool isGaugeUI() { return false; }
+	virtual float gaugeGetPosX() { return 0.0f; }
+	virtual float gaugeGetPosY() { return 0.0f; }
+	virtual float gaugeGetSizeX() { return 0.0f; }
+	virtual float gaugeGetSizeY() { return 0.0f; }
+	virtual std::string gaugeGetTexturePath() { return "GaugeUIで定義してください"; }
+	
+	virtual bool gaugeGetIsMax() { return false; }
 
-	virtual void setGaugePos(const float& gauge_pos_x, const float& gauge_pos_y) {}
-	virtual void setGaugeSize(const float& gauge_size_x, const float& gauge_size_y) {}
-	virtual void setGaugeTexturePath(const std::string& path) {}
+	virtual void gaugeSetPos(const float& gauge_pos_x, const float& gauge_pos_y) {}
+	virtual void gaugeSetSize(const float& gauge_size_x, const float& gauge_size_y) {}
+	virtual void gaugeSetTexturePath(const std::string& path) {}
+	//横
 	//変動する値
 	//最大値
-	virtual void changeGauge(float value,float max) {}
+	virtual void gaugeChangeX(float value,float max) {}
+	//縦
+	//変動する値
+	//最大値
+	virtual void gaugeChangeY(float value, float max) {}
+
+	//FontUI
+	virtual std::string fontGetText() {
+		return "何も入力されていません";
+	}
+	virtual std::string fontGetPath() {
+		return "何も入力されていません";
+	}
+	virtual float fontGetSize() {
+		return 0.0f;
+	}
+	virtual void fontSetText(const std::string& text) {}
+	virtual void fontSetText(const float& value) {}
+	virtual void fontSetPath(const std::string& font_path) {}
+	virtual void fontSetSize(const float& size) {}
+
+	//TimeUI
+	virtual std::string timeGetFlame() {
+		return "何も入力されていません";
+	}
+	virtual std::string timeGetSeconds() {
+		return "何も入力されていません";
+	}
+	virtual std::string timeGetMinutes() {
+		return "何も入力されていません";
+	}
+	virtual bool timeZero() {
+		return false;
+	}
+
+	virtual void timeSetFlame(const int& flame) {}
+	virtual void timeSetSeconds(const int& seconds) {}
+	virtual void timeSetMinutes(const int& minutes) {}
+
+	virtual void timeStart() {}
+	virtual void timeStop(){}
+	virtual void timeUpdate(){}
 };
 
 

@@ -14,6 +14,7 @@
 #include "TaskManager/TextureManager.h"
 #include "TaskManager/SoundManager.h"
 #include "TaskManager/ObjDataManager.h"
+#include "Share/Resize.h"
 
 
 using namespace ci;
@@ -38,11 +39,13 @@ public:
 
 	void shutdown();
 
+	void resize()override;
 private:
 
 	SceneManager scene;
 
 	FrameTimer timer;
+	CameraPersp camera;
 };
 
 void DesignApp::keyDown(KeyEvent event)
@@ -67,6 +70,7 @@ void DesignApp::mouseUp(MouseEvent event)
 
 void DesignApp::setup()
 {
+	LEAPHANDS.Setup();
 	TextureGet.setup();
 	SoundGet.setup();
 	ObjDataGet.setup();
@@ -102,6 +106,11 @@ void DesignApp::shutdown()
 {
 	env.padShutDown();
 	scene.shutdown();
+}
+
+void DesignApp::resize()
+{
+	//ResizeGet.resize();
 }
 
 void DesignApp::prepareSettings(Settings* settings)

@@ -5,11 +5,15 @@
 #include "../../../Share/Easing/Easing.h"
 #include "../../../Share/Interface/Interface.h"
 
+#include "../../Component/Components/Material.h"
+#include "../../Component/Components/Texture.h"
+#include "../../../TaskManager/ObjDataManager.h"
+
 void Boss::setup()
 {
 	is_active = false;
 	pushcount = 0;
-	HP = 100;
+	HP = 10;
 	is_hit = false;
 
 	difference = 22.f;
@@ -21,6 +25,14 @@ void Boss::setup()
 	Params->addParam("Boss HP", &HP).group("BOSS");
 	//Params->addParam("Boss minspeed", &minspeed).step(0.1f).group("BOSS");
 
+
+	addComponent<ar::Material>(ar::Material(
+		ci::gl::Material(ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Ambient
+						 ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Diffuse
+						 ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Specular
+						 80.0f,                               // Shininess
+						 ci::ColorA(0.5f, 0.5f, 0.5f, 1.0f))));	  // Emission
+	//addComponent<ar::Texture>(ar::Texture("Boss"));
 }
 
 void Boss::update()
@@ -45,9 +57,10 @@ void Boss::draw()
 
 
 	ci::gl::multModelView(matrix);
-	ci::gl::scale(ci::Vec3f(7, 7, 1));
-	ci::gl::drawColorCube(ci::Vec3f::zero(), ci::Vec3f::one());
-
+	//ci::gl::scale(ci::Vec3f(7, 7, 1));
+	//ci::gl::drawColorCube(ci::Vec3f::zero(), ci::Vec3f::one());
+	ci::gl::scale(ci::Vec3f(0.04f, 0.04f, 0.04f));
+	ci::gl::draw(ObjDataGet.find("Boss"));
 
 	ci::gl::popModelView();
 	ci::gl::pushModelView();
@@ -103,8 +116,8 @@ ci::Matrix44f Boss::getMatrcx()
 
 void Boss::damage()
 {
-	
-	if (player->transform.position.z > transform.position.z){
+
+	if (player->transform.position.z > transform.position.z) {
 		if (is_hit) return;
 		HP--;
 		is_hit = true;

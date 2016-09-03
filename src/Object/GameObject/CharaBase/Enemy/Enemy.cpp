@@ -3,7 +3,7 @@
 Enemy::Enemy()
 {
 	is_hit = false;
-	mesh = &ObjDataGet.find("Player");
+	mesh = &ObjDataGet.find("Enemy");
 }
 
 Enemy::~Enemy()

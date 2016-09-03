@@ -12,9 +12,15 @@ Player::~Player()
 
 void Player::setup()
 {
-	LEAPHANDS.Setup();
-
 	init();
+
+	addComponent<ar::Texture>(ar::Texture("Player"));
+	addComponent<ar::Material>(ar::Material(
+		ci::gl::Material(ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Ambient
+			ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Diffuse
+			ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Specular
+			80.0f,                               // Shininess
+			ci::ColorA(0.5f, 0.5f, 0.5f, 1.0f))));	  // Emission
 
 	transform.scale = ci::Vec3f(0.07f, 0.07f, 0.07f);
 
@@ -36,12 +42,14 @@ void Player::setup()
 	max_hand_normal_xy_range = (float)M_PI / 3.0f;
 	min_dot_product_range = 1.0f;
 	max_dot_product_range = 0.5f;
-	dash_range = 50.0f;
+	dash_range = 30.0f;
 
 	max_clash_count = 1.0f;
 	clash_speed = 0.5f;
 	start_clash_speed = 0.5f;
 	end_clash_speed = 0.5f;
+
+	hand_exist_count = 0.0f;
 }
 
 void Player::update()
@@ -76,11 +84,28 @@ void Player::draw()
 	ci::gl::multModelView(mtranslate);
 	ci::Matrix44f mscale = ci::Matrix44f::createScale(transform.scale);
 	ci::gl::multModelView(mscale);
+	ci::Matrix44f mtranslate2 = ci::Matrix44f::createTranslation(ci::Vec3f(0.0f, 0.0f, -1.0f));
+	ci::gl::multModelView(mtranslate2);
 
 	ci::gl::draw(ObjDataGet.find("Player"));
 
 	ci::gl::popMatrices();
 	ci::gl::pushMatrices();
+}
+
+void Player::dash()
+{
+	if (status != CharaStatus::DASH)
+		return;
+
+	dash_count += TIME.getDeltaTime();
+	if (dash_count >= 1.0f)
+	{
+		dash_count = 1.0f;
+		status = CharaStatus::NORMAL;
+	}
+
+	speed = QuadOut(dash_count, start_speed, end_speed);
 }
 
 void Player::changeOperationType()
@@ -170,6 +195,9 @@ void Player::operationLeap()
 	// 行き先の更新
 	moveDestination();
 
+	if (hand_exist_count < 1.0f)
+		return;
+
 	// Rollの確認処理
 	handNormalRotation();
 
@@ -179,6 +207,11 @@ void Player::operationLeap()
 
 void Player::UpdateLeapHands()
 {
+	if (LEAPHANDS.IsHandExist())
+		hand_exist_count = std::min(3.0f, hand_exist_count + TIME.getDeltaTime());
+	else
+		hand_exist_count = 0.0f;
+
 	pos_to_ratio = LEAPHANDS.GetHandCenterPosToRatio();
 
 	if (TIME.isIntervalTime(interval_frame))
@@ -243,29 +276,6 @@ void Player::handNormalRotation()
 	// とりまノーマライズ
 	(distance_vec_normal).normalize();
 
-	//// 今現在の位置と移動先の位置のノーマライズしたベクトルと真下のベクトルとの角度
-	//float direction_theta = std::atan2(distance_vec_normal.x - 0.0f, distance_vec_normal.y - (-1.0f));
-
-	//// 手が反時計回りしたとき
-	//if (cross_product < 0.0f)
-	//{
-	//	// 移動先が右方向の場合はじく
-	//	if (direction_theta > 0.0f)
-	//		return;
-
-	//	end_roll_angle = max_roll_angle;
-	//}
-	//// 手が時計回りしたとき
-	//else if (cross_product >= 0.0f)
-	//{
-	//	// 移動先が左方向の場合はじく
-	//	if (direction_theta <= 0.0f)
-	//		return;
-
-	//	end_roll_angle = -max_roll_angle;
-	//}
-
-
 	isRolling(distance_vec_normal * 10.0f);
 }
 
@@ -277,5 +287,19 @@ void Player::handPosZDistance()
 	if (distance_z < dash_range)
 		return;
 
-	isAttacking();
+	ci::Vec3f hand_distance = before_hand_pos - LEAPHANDS.GetHandCenterPos();
+	float distance = std::sqrtf((hand_distance.x * hand_distance.x) +
+		(hand_distance.y * hand_distance.y) +
+		(hand_distance.z * hand_distance.z));
+
+	if (distance < dash_range * 3.0f)
+		return;
+
+	if (!isAttacking())
+		return;
+
+	ci::Vec2f dash_move = before_hand_pos.xy() - LEAPHANDS.GetHandCenterPos().xy();
+	(dash_move).normalize();
+
+	moving(transform.position.xy() + dash_move * 10000.0f);
 }

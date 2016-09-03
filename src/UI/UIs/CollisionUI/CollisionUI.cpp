@@ -11,7 +11,7 @@ void CollisionUI::update()
 	if (is_active) {
 		EaseInUpdate();
 		
-				EaseOutUpdate();
+	    EaseOutUpdate();
 
 		EaseUpdate();
 

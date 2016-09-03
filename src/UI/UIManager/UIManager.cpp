@@ -12,10 +12,10 @@ std::shared_ptr<UIBase> selectUIType(const int& type) {
 		return std::make_shared<GaugeUI>(des::Vec2f(0, 0), des::Vec2f(0, 0), des::Vec4d(1, 1, 1, 1));
 		break;
 	case 3:
-		return std::make_shared<BarCollisionUI>(des::Vec2f(0, 0), des::Vec2f(0, 0), des::Vec4d(1, 1, 1, 1));
+		return std::make_shared<IncrementTimeUI>(des::Vec2f(0, 0), des::Vec2f(0, 0), des::Vec4d(1, 1, 1, 1));
 		break;
 	case 4:
-		return std::make_shared<TextureUI>(des::Vec2f(0, 0), des::Vec2f(0, 0), des::Vec4d(1, 1, 1, 1));
+		return std::make_shared<DecrementTimeUI>(des::Vec2f(0, 0), des::Vec2f(0, 0), des::Vec4d(1, 1, 1, 1));
 		break;
 	}
 	return std::make_shared<CollisionUI>(des::Vec2f(0, 0), des::Vec2f(0, 0), des::Vec4d(1, 1, 1, 1));
@@ -142,17 +142,29 @@ UIManager::UIManager() {
 		//uiにinsert
 		picojson::object data(val.get<picojson::object>()["UI"].get<picojson::object>());
 		ui_data[*it] = selectUIType(UIType::get()[data[(*it)].get<picojson::object>()["UIType"].get<std::string>()]);
-		//テクスチャのパスをセット
-		ui_data[(*it)]->setTexturePath(data[(*it)].get<picojson::object>()["TexturePath"].get<std::string>());
 		
+		if (ui_data[(*it)]->getUIType() == UITYPE::NormalUI ||
+			ui_data[(*it)]->getUIType() == UITYPE::CollisionUI || 
+			ui_data[(*it)]->getUIType() == UITYPE::GaugeUI) {
+			//テクスチャのパスをセット
+			ui_data[(*it)]->setTexturePath(data[(*it)].get<picojson::object>()["TexturePath"].get<std::string>());
+		}
+		else {
+			ui_data[(*it)]->fontSetPath(data[(*it)].get<picojson::object>()["FontPath"].get<std::string>());
+		}
 		//初期Posをjsonからセット
 		ui_data[(*it)]->setPos(static_cast<const float>(data[(*it)].get<picojson::object>()["Pos_x"].get<double>()),
 			static_cast<const float>(data[(*it)].get<picojson::object>()["Pos_y"].get<double>()));
-
-		//初期Sizeをjsonからセット
-		ui_data[(*it)]->setSize(static_cast<const float>(data[(*it)].get<picojson::object>()["Size_x"].get<double>()),
-			static_cast<const float>(data[(*it)].get<picojson::object>()["Size_y"].get<double>()));
-
+		if (ui_data[(*it)]->getUIType() == UITYPE::NormalUI ||
+			ui_data[(*it)]->getUIType() == UITYPE::CollisionUI ||
+			ui_data[(*it)]->getUIType() == UITYPE::GaugeUI) {
+			//初期Sizeをjsonからセット
+			ui_data[(*it)]->setSize(static_cast<const float>(data[(*it)].get<picojson::object>()["Size_x"].get<double>()),
+				static_cast<const float>(data[(*it)].get<picojson::object>()["Size_y"].get<double>()));
+		}
+		else {
+			ui_data[(*it)]->fontSetSize(static_cast<const float>(data[(*it)].get<picojson::object>()["Size"].get<double>()));
+		}
 		//開始イージングをjsonからセット
 		picojson::array ease_in_array = data[(*it)].get<picojson::object>()["EaseIn"].get<picojson::array>();
 		for (auto ary = ease_in_array.begin(); ary != ease_in_array.end(); ary++) {
@@ -202,16 +214,28 @@ UIManager::UIManager() {
 		//GaugeUIの場合のjsonのセット
 		if (data[(*it)].get<picojson::object>()["UIType"].get<std::string>() == "GaugeUI") {
 			//Gaugeテクスチャのパスをセット
-			ui_data[(*it)]->setGaugeTexturePath(data[(*it)].get<picojson::object>()["GaugeTexturePath"].get<std::string>());
+			ui_data[(*it)]->gaugeSetTexturePath(data[(*it)].get<picojson::object>()["GaugeTexturePath"].get<std::string>());
 
 			//Gauge初期Posをjsonからセット
-			ui_data[(*it)]->setGaugePos(static_cast<const float>(data[(*it)].get<picojson::object>()["GaugePos_x"].get<double>()),
+			ui_data[(*it)]->gaugeSetPos(static_cast<const float>(data[(*it)].get<picojson::object>()["GaugePos_x"].get<double>()),
 				static_cast<const float>(data[(*it)].get<picojson::object>()["GaugePos_y"].get<double>()));
 
 			//Gauge初期Sizeをjsonからセット
-			ui_data[(*it)]->setGaugeSize(static_cast<const float>(data[(*it)].get<picojson::object>()["GaugeSize_x"].get<double>()),
+			ui_data[(*it)]->gaugeSetSize(static_cast<const float>(data[(*it)].get<picojson::object>()["GaugeSize_x"].get<double>()),
 				static_cast<const float>(data[(*it)].get<picojson::object>()["GaugeSize_y"].get<double>()));
 
+		}
+
+		//FontUIの場合のTextをセット
+		if (ui_data[(*it)]->getUIType() == UITYPE::FontUI) {
+			ui_data[(*it)]->fontSetText(data[(*it)].get<picojson::object>()["Text"].get<std::string>());
+		}
+
+		//FontUIの場合のTextをセット
+		if (ui_data[(*it)]->getUIType() == UITYPE::DecrementTimeUI) {
+			ui_data[(*it)]->timeSetFlame(data[(*it)].get<picojson::object>()["Flame"].get<double>());
+			ui_data[(*it)]->timeSetSeconds(data[(*it)].get<picojson::object>()["Seconds"].get<double>());
+			ui_data[(*it)]->timeSetMinutes(data[(*it)].get<picojson::object>()["Minutes"].get<double>());
 		}
 	}
 }
