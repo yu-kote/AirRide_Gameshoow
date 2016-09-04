@@ -40,6 +40,7 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
+#include "cinder/app/AppNative.h"
 
 // for isnan/isinf
 #if __cplusplus>=201103L
