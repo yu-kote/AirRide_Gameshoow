@@ -8,6 +8,8 @@
 #include "../../../TaskManager/ObjDataManager.h"
 #include "../../../TaskManager/TextureManager.h"
 #include "../../../TaskManager/SoundManager.h"
+#include "../../Component/Components/Material.h"
+#include "../../Component/Components/Texture.h"
 
 
 class CharaBase : public ar::GameObject
@@ -92,13 +94,15 @@ public:
 
 	void setIsStop(const bool &is_stop) { this->is_stop = is_stop; }
 
+	float getIntervalCount() const { return interval_count; }
+
 protected:
 
 	void debugCourseOutStop();
 
 	void move();
 	void roll();
-	void dash();
+	virtual void dash();
 	void collisionToWindow();
 	void clash();
 	void updateStageMatrix();

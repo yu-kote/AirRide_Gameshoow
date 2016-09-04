@@ -13,6 +13,7 @@ namespace ar
 
 		void update();
 		void draw();
+		void transDraw()override;
 
 		void setCameraPos(const ci::Vec3f& camera_pos_) {
 			camera_pos = camera_pos_;

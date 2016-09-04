@@ -89,9 +89,9 @@ bool CharaBase::isRolling(ci::Vec2f _terget)
 	roll_count = 0.0f;
 
 	if (transform.position.x < _terget.x)
-		end_roll_angle = max_roll_angle;
-	else if (transform.position.x > _terget.x)
 		end_roll_angle = -max_roll_angle;
+	else if (transform.position.x > _terget.x)
+		end_roll_angle = max_roll_angle;
 
 	start_move_pos = ci::Vec2f(transform.position.x, transform.position.y);
 	end_move_pos = _terget;
