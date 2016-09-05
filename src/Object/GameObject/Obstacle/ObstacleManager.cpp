@@ -20,8 +20,11 @@ void ar::ObstacleManager::setup()
 
 void ar::ObstacleManager::update()
 {
-	std::for_each(pop_areas.begin(), pop_areas.end(),
-				  [](ObstaclePopArea pop_areas_) {pop_areas_.update(); });
+	for (auto& it : pop_areas) {
+		it.update();
+	}
+	/*std::for_each(pop_areas.begin(), pop_areas.end(),
+				  [](ObstaclePopArea pop_areas_) {pop_areas_.update(); });*/
 
 
 	auto start = std::chrono::system_clock::now();
@@ -83,14 +86,22 @@ std::shared_ptr<ar::Obstacle> ar::ObstacleManager::getNearestObstacle(ci::Vec3f 
 
 void ar::ObstacleManager::isPlayerHitObstacle()
 {
-	std::for_each(pop_areas.begin(), pop_areas.end(),
+	/*std::for_each(pop_areas.begin(), pop_areas.end(),
 				  [&](ObstaclePopArea pop_area_)
 	{
 		if (pop_area_.isHitObstacle(player->getWorldPoisition(), player->getCollisionCirclerad()))
 		{
 			player->HitObstacle(player->getClashSpeed());
 		}
-	});
+	});*/
+
+	for (auto& it : pop_areas)
+	{
+		if (it.isHitObstacle(player->getWorldPoisition(), player->getCollisionCirclerad()))
+		{
+			player->HitObstacle(player->getClashSpeed());
+		}
+	}
 }
 
 void ar::ObstacleManager::isEnemysInObstacleArea()

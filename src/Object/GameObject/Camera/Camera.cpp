@@ -1,6 +1,7 @@
 #include "Camera.h"
 #include "../../../Share/Share.h"
 #include "../../../Input/InputEvent.h"
+#include "../../../Share/Resize.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -28,6 +29,10 @@ void ar::Camera::setup()
 
 void ar::Camera::update()
 {
+	ResizeGet.setPerspCameraResize = [&]()
+	{
+		camera.setAspectRatio(getWindowAspectRatio());
+	};
 
 	if (camera_run) {
 		Vec3f camera_pos = chara->getMatrix()
