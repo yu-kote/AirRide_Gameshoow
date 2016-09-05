@@ -12,12 +12,12 @@ namespace ar
 		}
 
 		void resize() {
-			setResizeCamera();
+			setPerspCameraResize();
 			setOrthoCameraResize();
 		}
 
 
-		std::function<void()> setResizeCamera = []() {};
+		std::function<void()> setPerspCameraResize = []() {};
 		std::function<void()> setOrthoCameraResize = []() {};
 	};
 }

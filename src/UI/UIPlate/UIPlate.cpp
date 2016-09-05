@@ -1,5 +1,8 @@
 #include "UIPlate.h"
 #include "../src/Input/LeapMotion/LeapHands/LeapHands.h"
+#include "../../Share/Resize.h"
+#include "../../Share/Share.h"
+
 void UIPlate::titleSetup()
 {
 	for (auto it = UIObjects::get().begin(); it != UIObjects::get().end(); it++) {
@@ -28,7 +31,7 @@ void UIPlate::titleSetup()
 	ui_data["Y"]->Active();
 	ui_data["!"]->Active();
 	ui_data["スタート"]->Active();
-	
+
 }
 
 void UIPlate::titleUpdate()
@@ -37,6 +40,25 @@ void UIPlate::titleUpdate()
 		ui_data[(*it)]->update();
 	}
 
+
+	ResizeGet.setPerspCameraResize = [&]()
+	{
+		float width = 800 + (getWindowSize().x - WIDTH);
+		float height = 600 + (getWindowSize().y - HEIGHT);
+		float offsetx = 170;
+		float offsety = -60;
+
+		if (getWindowSize().x == WIDTH)
+			camera_o.setOrtho(0, 800,
+							  600, 0,
+							  1, 10);
+		else
+			camera_o.setOrtho(-width / 4 + offsetx,
+							  width / 2 + offsetx,//getWindowCenter().x + width,
+							  height + offsety,
+							  0 + offsety,
+							  1, 10);
+	};
 }
 
 void UIPlate::titleDraw()
@@ -176,7 +198,7 @@ void UIPlate::gameMainUpdate() {
 		ui_data["制限時間"]->timeStart();
 	}
 
-	switch (enemyholder->getRanking()) 
+	switch (enemyholder->getRanking())
 	{
 	case 0:
 		break;
@@ -221,8 +243,8 @@ void UIPlate::gameMainUpdate() {
 		ui_data["5位"]->Active();
 		break;
 	}
-	
-	
+
+
 	ui_data["制限時間"]->timeUpdate();
 
 
@@ -232,7 +254,7 @@ void UIPlate::gameMainUpdate() {
 	ui_data["ダッシュゲージ"]->gaugeChangeX(0, 500.f);
 	ui_data["OK"]->Idle();
 	if (ui_data["ダッシュゲージ"]->gaugeGetIsMax()) {
-	ui_data["OK"]->Active();
+		ui_data["OK"]->Active();
 	}
 
 }
