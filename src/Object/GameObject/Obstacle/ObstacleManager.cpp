@@ -3,6 +3,8 @@
 #include "../GameObjectEntities.h"
 //#include "../CharaBase/Player/Player.h"
 #include "../CharaBase/Enemy/EnemyHolder/EnemyHolder.h"
+#include "../Boss/Boss.h"
+
 #include "../Camera/Camera.h"
 
 
@@ -16,6 +18,7 @@ ar::ObstacleManager::ObstacleManager()
 void ar::ObstacleManager::setup()
 {
 	loadObstacleArea();
+	is_bombclear = false;
 }
 
 void ar::ObstacleManager::update()
@@ -31,12 +34,24 @@ void ar::ObstacleManager::update()
 
 	isPlayerHitObstacle();
 	isEnemysInObstacleArea();
+
 	auto end = std::chrono::system_clock::now();
 	auto d = end - start;
 	auto msec = std::chrono::duration_cast<std::chrono::milliseconds>(d).count();
 	//console() << msec << std::endl;
-
 	setCameraPos(camera_pos);
+
+
+	if (is_bombclear == false)
+		if (boss->getIsExist())
+		{
+			for (auto& it : pop_areas)
+			{
+				it.destory();
+			}
+			pop_areas.clear();
+			is_bombclear = true;
+		}
 }
 
 void ar::ObstacleManager::draw()

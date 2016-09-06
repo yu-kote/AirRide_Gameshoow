@@ -53,6 +53,11 @@ void ar::ObstaclePopArea::transDraw()
 	popModelView();
 }
 
+void ar::ObstaclePopArea::destory()
+{
+	obstacles.clear();
+}
+
 void ar::ObstaclePopArea::setCameraPos(const ci::Vec3f & camera_pos_)
 {
 	std::for_each(obstacles.begin(), obstacles.end(),
