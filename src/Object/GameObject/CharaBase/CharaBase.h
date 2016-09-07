@@ -67,6 +67,7 @@ public:
 	float getClashSpeed() const { return clash_speed; }
 	void setClashSpeed(const float &clash_speed) { this->clash_speed = clash_speed; }
 
+	float getIntervalCount() const { return interval_count; }
 	void setIntervalTakesTime(const float &interval_takes_time) { this->interval_takes_time = interval_takes_time; }
 
 	bool isAttack() { return dash_count <= 0.3f; }
