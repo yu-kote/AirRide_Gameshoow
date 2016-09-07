@@ -84,7 +84,14 @@ void EnemyHolder::setPlayer(std::shared_ptr<CharaBase> _player)
 
 int EnemyHolder::getRanking()
 {
-	return 0;
+	int rank = 1;
+	for (auto& it:enemys)
+	{
+		if (it.transform.position.z > player->transform.position.z) {
+			rank++;
+		}
+	}
+	return rank;
 }
 
 std::vector<Enemy>& EnemyHolder::getEnemys()
