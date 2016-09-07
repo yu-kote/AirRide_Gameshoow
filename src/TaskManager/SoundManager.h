@@ -94,6 +94,13 @@ private:
 	}
 
 
+	void allStop() {
+		for (auto& it : sample_node)
+		{
+			it.second->stop();
+		}
+	}
+
 private:
 
 	// ­‚µ‚¸‚Â“Ç‚İ‚Ş‚â‚Â‚ªfileplayer
