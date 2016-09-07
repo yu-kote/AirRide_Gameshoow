@@ -34,7 +34,7 @@ public:
 	//一応リストバージョンも用意
 	std::list<Enemy*> getActiveEnemysList();
 
-
+	
 
 
 

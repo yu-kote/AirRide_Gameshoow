@@ -31,13 +31,10 @@ void Enemy::draw()
 	ci::gl::pushMatrices();
 	ci::gl::multModelView(matrix);
 	
-	ci::gl::translate(0, 1, 0);
 	ci::gl::multModelView(ci::Matrix44f::createRotation(transform.angle));
-	ci::gl::translate(0, -1, 0);
+	ci::gl::translate(0,0,1);
 	ci::gl::scale(0.07f, 0.07f, 0.07f);
-
 	ci::gl::draw(*mesh);
-	//ci::gl::drawColorCube(ci::Vec3f::zero(), ci::Vec3f::one());
 	ci::gl::popMatrices();
 
 	ci::gl::pushMatrices();
