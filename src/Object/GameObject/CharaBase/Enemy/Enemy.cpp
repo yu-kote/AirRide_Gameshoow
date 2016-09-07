@@ -12,6 +12,13 @@ Enemy::~Enemy()
 
 }
 
+void Enemy::setup()
+{
+	init();
+
+	collision_circle_rad = 1.0f;
+}
+
 
 
 void Enemy::update()
@@ -31,9 +38,8 @@ void Enemy::draw()
 	ci::gl::pushMatrices();
 	ci::gl::multModelView(matrix);
 	
-	ci::gl::translate(0, 1, 0);
-	ci::gl::multModelView(ci::Matrix44f::createRotation(transform.angle));
-	ci::gl::translate(0, -1, 0);
+	ci::Matrix44f mrotate = ci::Matrix44f::createRotation(transform.angle);
+	ci::gl::multModelView(mrotate);
 	ci::gl::scale(0.07f, 0.07f, 0.07f);
 
 	ci::gl::draw(*mesh);

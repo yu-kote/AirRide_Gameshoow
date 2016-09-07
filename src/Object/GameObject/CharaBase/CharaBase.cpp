@@ -34,7 +34,7 @@ void CharaBase::init()
 	start_move_pos = ci::Vec2f::zero();
 	end_move_pos = ci::Vec2f::zero();
 
-	max_roll_angle = (float)M_PI * 2.0f * 4.0f;
+	max_roll_angle = (float)M_PI * 2.0f * 3.0f;
 	roll_count = 1.0f;
 	start_roll_angle = 0.0f;
 	end_roll_angle = 0.0f;

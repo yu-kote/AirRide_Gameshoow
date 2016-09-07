@@ -276,7 +276,7 @@ void Player::handNormalRotation()
 	// とりまノーマライズ
 	(distance_vec_normal).normalize();
 
-	isRolling(distance_vec_normal * 10.0f);
+	isRolling(distance_vec_normal * 4.0f);
 }
 
 void Player::handPosZDistance()
