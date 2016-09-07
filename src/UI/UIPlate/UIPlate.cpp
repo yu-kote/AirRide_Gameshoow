@@ -1,4 +1,7 @@
 #include "UIPlate.h"
+#include "../src/Input/LeapMotion/LeapHands/LeapHands.h"
+#include "../../Share/Resize.h"
+#include "../../Share/Share.h"
 
 void UIPlate::titleSetup()
 {
@@ -37,10 +40,30 @@ void UIPlate::titleUpdate()
 		ui_data[(*it)]->update();
 	}
 
+
+	ResizeGet.setPerspCameraResize = [&]()
+	{
+		float width = 800 + (getWindowSize().x - WIDTH);
+		float height = 600 + (getWindowSize().y - HEIGHT);
+		float offsetx = 170;
+		float offsety = -60;
+
+		if (getWindowSize().x == WIDTH)
+			camera_o.setOrtho(0, 800,
+							  600, 0,
+							  1, 10);
+		else
+			camera_o.setOrtho(-width / 4 + offsetx,
+							  width / 2 + offsetx,//getWindowCenter().x + width,
+							  height + offsety,
+							  0 + offsety,
+							  1, 10);
+	};
 }
 
 void UIPlate::titleDraw()
 {
+	ci::gl::disableDepthRead();
 	ci::gl::enableAlphaBlending();
 	ci::gl::setMatrices(camera_o);
 	for (auto it = UIObjects::get().begin(); it != UIObjects::get().end(); it++) {
@@ -115,6 +138,7 @@ void UIPlate::titleDraw()
 		}
 	}
 	ci::gl::disableAlphaBlending();
+	ci::gl::enableDepthRead();
 }
 
 
@@ -141,15 +165,15 @@ void UIPlate::gameMainSetup()
 		}
 	}
 	game_count = 0;
-	ui_data["プレイヤーポジション"]->Active();
-	//ui_data["ダッシュゲージ"]->Active();
-	ui_data["ポジションバー"]->Active();
+	ui_data["ダッシュゲージ"]->Active();
 
 	ui_data["三"]->Active();
+	ui_data["5位"]->Active();
+	ui_data["Rank"]->Active();
 	SoundGet.find("Count_1")->start();
 	player->setIsStop(true);
 }
-float a = 0;
+
 void UIPlate::gameMainUpdate() {
 	game_count++;
 	if (game_count == 60) {
@@ -174,24 +198,69 @@ void UIPlate::gameMainUpdate() {
 		ui_data["制限時間"]->timeStart();
 	}
 
+	switch (enemyholder->getRanking())
+	{
+	case 0:
+		break;
+	case 1:
+		ui_data["2位"]->setEnd();
+		ui_data["3位"]->setEnd();
+		ui_data["4位"]->setEnd();
+		ui_data["5位"]->setEnd();
+
+		ui_data["1位"]->Active();
+		break;
+	case 2:
+		ui_data["1位"]->setEnd();
+		ui_data["3位"]->setEnd();
+		ui_data["4位"]->setEnd();
+		ui_data["5位"]->setEnd();
+
+		ui_data["2位"]->Active();
+		break;
+	case 3:
+		ui_data["2位"]->setEnd();
+		ui_data["1位"]->setEnd();
+		ui_data["4位"]->setEnd();
+		ui_data["5位"]->setEnd();
+
+		ui_data["3位"]->Active();
+		break;
+	case 4:
+		ui_data["2位"]->setEnd();
+		ui_data["3位"]->setEnd();
+		ui_data["1位"]->setEnd();
+		ui_data["5位"]->setEnd();
+
+		ui_data["4位"]->Active();
+		break;
+	case 5:
+		ui_data["2位"]->setEnd();
+		ui_data["3位"]->setEnd();
+		ui_data["4位"]->setEnd();
+		ui_data["1位"]->setEnd();
+
+		ui_data["5位"]->Active();
+		break;
+	}
+
+
 	ui_data["制限時間"]->timeUpdate();
 
 
 	for (auto it = UIObjects::get().begin(); it != UIObjects::get().end(); it++) {
 		ui_data[(*it)]->update();
 	}
-	a += 2.0f;
-	//ui_data["ダッシュゲージ"]->gaugeChangeX(a, 500.f);
+	ui_data["ダッシュゲージ"]->gaugeChangeX(0, 500.f);
 	ui_data["OK"]->Idle();
-	//if (ui_data["ダッシュゲージ"]->gaugeGetIsMax()) {
-	//	ui_data["ダッシュゲージ"]->setColor(0.5,0.8,0.8,1);
-	ui_data["OK"]->Active();
-	//}
+	if (ui_data["ダッシュゲージ"]->gaugeGetIsMax()) {
+		ui_data["OK"]->Active();
+	}
 
 }
 
 void UIPlate::gameMainDraw() {
-
+	ci::gl::disableDepthRead();
 	ci::gl::enableAlphaBlending();
 	ci::gl::setMatrices(camera_o);
 	for (auto it = UIObjects::get().begin(); it != UIObjects::get().end(); it++) {
@@ -265,6 +334,7 @@ void UIPlate::gameMainDraw() {
 		}
 	}
 	ci::gl::disableAlphaBlending();
+	ci::gl::enableDepthRead();
 }
 
 void UIPlate::resultSetup()
@@ -282,7 +352,6 @@ void UIPlate::resultSetup()
 		}
 	}
 	ui_data["GOAL"]->Active();
-	ui_data["GOAL"]->setEnd();
 
 }
 

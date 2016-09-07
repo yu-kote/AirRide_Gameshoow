@@ -110,7 +110,7 @@ void DesignApp::shutdown()
 
 void DesignApp::resize()
 {
-	//ResizeGet.resize();
+	ResizeGet.resize();
 }
 
 void DesignApp::prepareSettings(Settings* settings)

@@ -12,7 +12,7 @@ ar::Particle::Particle(float v_)
 {
 	addComponent<ar::Texture>(ar::Texture("Particle"));
 
-	
+
 
 	std::random_device rand;
 	std::mt19937 mt(rand());
@@ -22,7 +22,8 @@ ar::Particle::Particle(float v_)
 	vec = vec_;
 
 	std::uniform_int_distribution<int> exist_time_rand(10, 70);
-	exist_time = exist_time_rand(mt);
+	//exist_time = exist_time_rand(mt);
+	exist_time = 500;
 
 	is_erase = false;
 	//camera_pos = ci::Vec3f(0, 0, 1);

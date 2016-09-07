@@ -45,7 +45,7 @@ public:
 	float fontGetSize() {
 		return size.x;
 	}
-	bool timeZero() {
+	bool timeOver() {
 		return time_zero;
 	}
 

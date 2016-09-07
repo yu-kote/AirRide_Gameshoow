@@ -60,6 +60,8 @@ void GameMain::setup()
 	entities.getObject <Bullets>()->setBoss(entities.getObject<Boss>());
 	entities.getObject <Bullets>()->setPlayer(entities.getObject<Player>());
 
+	entities.getObject<ar::ObstacleManager>()->setBoss(entities.getObject<Boss>());
+
 	entities.setupGameObject();
 
 	ui.player = entities.getObject<Player>();

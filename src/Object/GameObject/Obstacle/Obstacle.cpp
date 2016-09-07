@@ -35,14 +35,16 @@ void ar::Obstacle::update()
 	{
 		if (count == 0)
 			particle.push_back(std::make_shared<ParticleController>(ParticleController(transform.position)));
+		
+		std::for_each(particle.begin(), particle.end(),
+					  [](std::shared_ptr<ParticleController> ptc_) {ptc_->update(); });
+
 		count++;
 		if (count > respawn_count)
 		{
 			is_erase = true;
 			particle.clear();
 		}
-		std::for_each(particle.begin(), particle.end(),
-					  [](std::shared_ptr<ParticleController> ptc_) {ptc_->update(); });
 	}
 }
 
