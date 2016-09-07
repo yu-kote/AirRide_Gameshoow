@@ -6,12 +6,15 @@
 class UIType {
 private:
 	static std::unordered_map<std::string, int> ui_type;
-	
 public:
+	static bool is_loop;
 	UIType() 
 	{
+		is_loop = false;
+	}
+	static void setup() {
 		std::ifstream fs;
-		fs.open("../assets/UI/UIType.json", std::ios::binary);
+		fs.open(ci::app::getAssetPath("UI/UIType.json").string(), std::ios::binary);
 		assert(fs);
 		picojson::value val;
 		fs >> val;
@@ -26,11 +29,10 @@ public:
 			ui_type[it->get<std::string>()] = i;
 			i++;
 		}
-
-
-
 	}
-
+	static void erase() {
+		ui_type.clear();
+	}
 
 	static std::unordered_map<std::string, int>& get() {
 		return ui_type;

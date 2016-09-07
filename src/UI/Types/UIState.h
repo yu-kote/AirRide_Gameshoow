@@ -10,8 +10,11 @@ private:
 public:
 	UIState()
 	{
+		
+	}
+	static void setup() {
 		std::ifstream fs;
-		fs.open("../assets/UI/UIType.json", std::ios::binary);
+		fs.open(ci::app::getAssetPath("UI/UIType.json").string(), std::ios::binary);
 		assert(fs);
 		picojson::value val;
 		fs >> val;
@@ -26,12 +29,10 @@ public:
 			ui_state[it->get<std::string>()] = i;
 			i++;
 		}
-
-
-
 	}
-
-
+	static void erase() {
+		ui_state.clear();
+	}
 	static std::unordered_map<std::string, int>& get() {
 		return ui_state;
 	}

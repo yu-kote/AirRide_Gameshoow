@@ -1,5 +1,5 @@
 #include "GameMain.h"
-
+#include "../SceneCategory/Result.h"
 
 #include "../../Object/GameObject/Light/Light.h"
 #include "../../Object/GameObject/Camera/Camera.h"
@@ -76,6 +76,8 @@ void GameMain::setup()
 	SoundGet.find("RaceBGM")->setLoopEnabled(true);
 
 
+
+
 }
 
 void GameMain::draw()
@@ -98,28 +100,29 @@ void GameMain::draw()
 
 void GameMain::update()
 {
-	if (!is_setup)
-	{
-		//setup();
-		is_setup = true;
-	}
-
-	//auto start = std::chrono::system_clock::now();
 
 	entities.updateGameObject();
 	entities.laterUpdateGameObject();
 
 	ui.gameMainUpdate();
-
-	/*auto end = std::chrono::system_clock::now();
-	auto d = end - start;
-	auto msec = std::chrono::duration_cast<std::chrono::milliseconds>(d).count();
-	console() << msec << std::endl;*/
 }
 
 void GameMain::shift()
 {
+	if (env.isPress(KeyEvent::KEY_RETURN)) {
+		SoundGet.find("RaceBGM")->disable();
+		ui.ui_data["ResultChange1"]->setEnd();
+	}
+	if (!ui.ui_data["ResultChange1"]->isActive()) {
+		ui.gameMainShift();
+		UIType::erase();
+		UIObjects::erase();
+		UIState::erase();
+		EasingType::erase();
+		Scene::createScene<Result>(new Result());
+	}
 }
+
 
 void GameMain::shutdown()
 {

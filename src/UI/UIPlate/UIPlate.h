@@ -18,6 +18,7 @@ private:
 	ci::gl::Texture tex;
 	std::unordered_map<std::string, Font> font;
 	int game_count;
+	int rank_in;
 public:
 	UIPlate() {
 		camera_o = ci::CameraOrtho(0, 800,
@@ -33,6 +34,7 @@ public:
 	void gameMainSetup();
 	void gameMainUpdate();
 	void gameMainDraw();
+	void gameMainShift();
 
 	void resultSetup();
 	void resultUpdate();
