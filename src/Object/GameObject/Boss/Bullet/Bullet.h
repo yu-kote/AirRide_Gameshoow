@@ -1,6 +1,7 @@
 #pragma once
 #include "../../GameObject.h"
 #include "cinder/gl/Texture.h"
+#include "cinder/gl/Material.h"
 
 
 class Boss;

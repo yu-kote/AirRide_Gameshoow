@@ -38,7 +38,7 @@ void Bullets::update()
 		for (auto& it : bullets) {
 			dif = player->getWorldPoisition().distanceSquared(
 				it.transform.position);
-			if (dif < 1 * 1) {
+			if (dif < 1.5 * 1.5) {
 				player->HitObstacle(0.5f);
 			}
 		}
