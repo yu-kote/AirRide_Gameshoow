@@ -8,9 +8,11 @@ private:
 	static std::unordered_map<std::string, int> ui_type;
 public:
 	static bool is_loop;
+	static bool is_ending;
 	UIType() 
 	{
 		is_loop = false;
+		is_ending = false;
 	}
 	static void setup() {
 		std::ifstream fs;

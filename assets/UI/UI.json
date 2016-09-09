@@ -4141,7 +4141,7 @@
       "TexturePath": "UI/UITexture/GameMain/back_result02.png",
       "Pos_x": 1400,
       "Pos_y": 0,
-      "Size_x": 1150,
+      "Size_x": 1500,
       "Size_y": 600,
       "EaseIn": [
       ],
@@ -4159,7 +4159,7 @@
       "TexturePath": "UI/UITexture/GameMain/back_result02.png",
       "Pos_x": -220,
       "Pos_y": 0,
-      "Size_x": 1150,
+      "Size_x": 1500,
       "Size_y": 600,
       "EaseIn": [
       ],
@@ -4173,93 +4173,135 @@
     
     "ƒŠƒUƒ‹ƒg": {
       "UIType": "CollisionUI",
-      "TexturePath": "UI/UITexture/Result/rank.png",
+      "TexturePath": "UI/UITexture/Result/result.png",
       "Pos_x": 2000,
       "Pos_y": 50,
       "Size_x": 400,
       "Size_y": 50,
       "EaseIn": [
-        { "UIState": "Pos_x","Change": 200,"EasingType": "BackOut","Frame": 120}
+        { "UIState": "Pos_x","Change": 200,"EasingType": "BackOut","Frame": 80}
       ],
       "EaseOut": [
+        { "UIState": "Pos_x","Change": -1500,"EasingType": "BackIn","Frame": 60}
       ],
       "EaseUpdate": [
       ],
       "EaseCollision": []
     },
 
+    "ResultTime": {
+      "UIType": "FontUI",
+      "FontPath": "UI/UITexture/Font/HGRSGU.TTC",
+      "Pos_x": 2000,
+      "Pos_y": 150,
+      "Size": 60,
+      "Text": "",
+      "EaseIn": [
+        { "UIState": "Pos_x","Change": 200,"EasingType": "BackOut","Frame": 80}
+      ],
+      "EaseOut": [
+        { "UIState": "Pos_x","Change": -1500,"EasingType": "BackIn","Frame": 60}
+      ],
+      "EaseUpdate": [ ]
+    },
+
     "Rank1": {
       "UIType": "FontUI",
       "FontPath": "UI/UITexture/Font/HGRSGU.TTC",
-      "Pos_x": 200,
-      "Pos_y": 100,
-      "Size": 50,
+      "Pos_x": 2000,
+      "Pos_y": 230,
+      "Size": 55,
       "Text" : "",
-      "EaseIn": [ ],
-      "EaseOut": [ ],
+      "EaseIn": [
+        { "UIState": "Pos_x","Change": 200,"EasingType": "BackOut","Frame": 100}
+      ],
+      "EaseOut": [
+        { "UIState": "Pos_x","Change": -1500,"EasingType": "BackIn","Frame": 60}
+      ],
       "EaseUpdate": [ ]
     },
     "Rank2": {
       "UIType": "FontUI",
       "FontPath": "UI/UITexture/Font/HGRSGU.TTC",
-      "Pos_x": 200,
-      "Pos_y": 150,
-      "Size": 50,
+      "Pos_x": 2000,
+      "Pos_y": 310,
+      "Size": 55,
      "Text" : "",
 
-      "EaseIn": [ ],
-      "EaseOut": [ ],
+      "EaseIn": [
+        { "UIState": "Pos_x","Change": 200,"EasingType": "BackOut","Frame": 120}
+      ],
+      "EaseOut": [
+        { "UIState": "Pos_x","Change": -1500,"EasingType": "BackIn","Frame": 60}
+      ],
       "EaseUpdate": [ ]
     },
     "Rank3": {
       "UIType": "FontUI",
       "FontPath": "UI/UITexture/Font/HGRSGU.TTC",
-      "Pos_x": 200,
-      "Pos_y": 200,
-      "Size": 50,
+      "Pos_x": 2000,
+      "Pos_y": 390,
+      "Size": 55,
      "Text" : "",
 
-      "EaseIn": [ ],
-      "EaseOut": [ ],
+      "EaseIn": [
+        { "UIState": "Pos_x","Change": 200,"EasingType": "BackOut","Frame": 140}
+      ],
+      "EaseOut": [
+        { "UIState": "Pos_x","Change": -1500,"EasingType": "BackIn","Frame": 60}
+      ],
       "EaseUpdate": [ ]
     },
     "Rank4": {
       "UIType": "FontUI",
       "FontPath": "UI/UITexture/Font/HGRSGU.TTC",
-      "Pos_x": 200,
-      "Pos_y": 250,
-      "Size": 50,
+      "Pos_x": 2000,
+      "Pos_y": 470,
+      "Size": 55,
       "Text" : "",
 
-      "EaseIn": [ ],
-      "EaseOut": [ ],
+      "EaseIn": [
+        { "UIState": "Pos_x","Change": 200,"EasingType": "BackOut","Frame": 160}
+      ],
+      "EaseOut": [
+        { "UIState": "Pos_x","Change": -1500,"EasingType": "BackIn","Frame": 60}
+      ],
       "EaseUpdate": [ ]
     },
     "Rank5": {
       "UIType": "FontUI",
       "FontPath": "UI/UITexture/Font/HGRSGU.TTC",
-      "Pos_x": 200,
-      "Pos_y": 300,
-      "Size": 50,
+      "Pos_x": 2000,
+      "Pos_y": 550,
+      "Size": 55,
       "Text" : "",
 
-      "EaseIn": [ ],
-      "EaseOut": [ ],
+      "EaseIn": [
+        { "UIState": "Pos_x","Change": 200,"EasingType": "BackOut","Frame": 180}
+      ],
+      "EaseOut": [
+        { "UIState": "Pos_x","Change": -1500,"EasingType": "BackIn","Frame": 60}
+      ],
       "EaseUpdate": [ ]
     },
 
-    "ResultTime": {
-      "UIType": "FontUI",
-      "FontPath": "UI/UITexture/Font/HGRSGU.TTC",
-      "Pos_x": 200,
-      "Pos_y": 350,
-      "Size": 50,
-      "Text" : "",
-      "EaseIn": [ ],
-      "EaseOut": [ ],
-       "EaseUpdate": []
+    
+    
+    "‚¨”æ‚ê": {
+      "UIType": "CollisionUI",
+      "TexturePath": "UI/UITexture/Result/ending.png",
+      "Pos_x": 100,
+      "Pos_y": 250,
+      "Size_x": 600,
+      "Size_y": 100,
+      "EaseIn": [
+      ],
+      "EaseOut": [
+      ],
+      "EaseUpdate": [
+      ],
+      "EaseCollision": []
     }
   }
-
 }
  

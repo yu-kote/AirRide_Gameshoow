@@ -37,6 +37,7 @@ public:
 	void gameMainShift();
 
 	void resultSetup();
+	void endingSetup();
 	void resultUpdate();
 	void resultDraw();
 

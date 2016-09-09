@@ -10,7 +10,6 @@ Title::Title()
 
 void Title::setup()
 {
-	
 	color_r = 0.0f;
 	color_g = 0.0f;
 	color_b = 0.0f;

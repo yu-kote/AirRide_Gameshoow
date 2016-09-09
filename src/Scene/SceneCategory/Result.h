@@ -13,9 +13,12 @@ public:
 	void update() override;
 	void shift() override;
 	void shutdown() override;
-	
+	void ending();
+	des::Vec3f color;
 private:
 	UIPlate ui;
 	ar::GameObjectEntities entities;
 	int game_count;
+	int end_count;
+	bool end;
 };

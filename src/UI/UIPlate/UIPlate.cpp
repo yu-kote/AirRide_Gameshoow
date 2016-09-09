@@ -2,6 +2,7 @@
 #include "../src/Input/LeapMotion/LeapHands/LeapHands.h"
 #include "../../Share/Resize.h"
 #include "../../Share/Share.h"
+#include "../../Share/Interface/Interface.h"
 std::string addZero(const int& value) {
 	if (value < 10) {
 		return "0" + std::to_string(value);
@@ -48,23 +49,18 @@ void UIPlate::titleUpdate()
 
 	ResizeGet.setPerspCameraResize = [&]()
 	{
-		float width = 800 + (getWindowSize().x - WIDTH);
-		float height = 600 + (getWindowSize().y - HEIGHT);
-		float offsetx = 170;
-		float offsety = -60;
 
-		if (getWindowSize().x == WIDTH)
-			camera_o.setOrtho(0, 800,
-				600, 0,
-				1, 10);
-		else
-			camera_o.setOrtho(-width / 4 + offsetx,
-				width / 2 + offsetx,//getWindowCenter().x + width,
-				height + offsety,
-				0 + offsety,
-				1, 10);
+		float left = -(getWindowSize().x - WIDTH)/2;
+		float right =  800 + (getWindowSize().x - WIDTH)/2 ;
+		float bottom = -(getWindowSize().y - WIDTH) / 2;
+		float top = 800 + (getWindowSize().y - WIDTH) / 2;
+		camera_o.setOrtho(left, right,
+			600, 0,
+			1, 10);
+
 	};
 }
+
 
 void UIPlate::titleDraw()
 {
@@ -206,7 +202,7 @@ void UIPlate::gameMainUpdate() {
 		ui_data["経過時間"]->timeStart();
 		ui_data["制限時間"]->timeStart();
 	}
-
+	
 	switch (enemyholder->getRanking())
 	{
 	case 0:
@@ -263,7 +259,7 @@ void UIPlate::gameMainUpdate() {
 	for (auto it = UIObjects::get().begin(); it != UIObjects::get().end(); it++) {
 		ui_data[(*it)]->update();
 	}
-	ui_data["ダッシュゲージ"]->gaugeChangeX(player->getDashCount(), 1.0f);
+	ui_data["ダッシュゲージ"]->gaugeChangeX(player->getIntervalCount(), 1.0f);
 	ui_data["OK"]->Idle();
 	if (ui_data["ダッシュゲージ"]->gaugeGetIsMax()) {
 		ui_data["OK"]->Active();
@@ -401,7 +397,7 @@ void UIPlate::gameMainShift()
 			}
 			out_file << rank;
 		}
-		
+
 	}
 }
 
@@ -450,29 +446,47 @@ void UIPlate::resultSetup()
 		ui_data["Rank4"]->Active();
 		ui_data["Rank5"]->Active();
 		ui_data["ResultTime"]->Active();
+		ui_data["リザルト"]->Active();
 		ui_data["Rank1"]->fontSetText("1st " + std::to_string(time[0].minutes) + "'" + addZero(time[0].seconds) + "''" + addZero(time[0].flame));
 		ui_data["Rank2"]->fontSetText("2nd " + std::to_string(time[1].minutes) + "'" + addZero(time[1].seconds) + "''" + addZero(time[1].flame));
 		ui_data["Rank3"]->fontSetText("3rd " + std::to_string(time[2].minutes) + "'" + addZero(time[2].seconds) + "''" + addZero(time[2].flame));
 		ui_data["Rank4"]->fontSetText("4th " + std::to_string(time[3].minutes) + "'" + addZero(time[3].seconds) + "''" + addZero(time[3].flame));
 		ui_data["Rank5"]->fontSetText("5th " + std::to_string(time[4].minutes) + "'" + addZero(time[4].seconds) + "''" + addZero(time[4].flame));
 		ui_data["ResultTime"]->fontSetText(u8"今回のタイム　" + std::to_string(time[5].minutes) + "'" + addZero(time[5].seconds) + "''" + addZero(time[5].flame));
+		ui_data["ResultTime"]->setColor(0.5, 0.5, 1, 1);
 		ui_data["ResultChange2"]->Active();
 		ui_data["ResultChange2"]->setEnd();
+	}
+}
+
+void UIPlate::endingSetup()
+{
+	setup();
+	game_count = 0;
+	for (auto it = UIObjects::get().begin(); it != UIObjects::get().end(); it++) {
+		if (ui_data[(*it)]->getUIType() == UITYPE::FontUI ||
+			ui_data[(*it)]->getUIType() == UITYPE::IncrementTimeUI ||
+			ui_data[(*it)]->getUIType() == UITYPE::DecrementTimeUI) {
+			font[(*it)] = Font(ui_data[(*it)]->fontGetPath(), ui_data[(*it)]->fontGetSize());
+			continue;
+		}
+		TEX.set((*it), ui_data[(*it)]->getTexturePath());
+		if (ui_data[(*it)]->getUIType() == UITYPE::GaugeUI) {
+			TEX.set(ui_data[(*it)]->gaugeGetTexturePath(), ui_data[(*it)]->gaugeGetTexturePath());
+		}
 	}
 }
 
 void UIPlate::resultUpdate()
 {
 	game_count++;
+	ui_data["ResultTime"]->setColor(0, 0, 0.5 + std::sinf(game_count/4)/2, 1);
 	for (auto it = UIObjects::get().begin(); it != UIObjects::get().end(); it++) {
 		ui_data[(*it)]->update();
 	}
-	if (!ui_data["ResultChange2"]->isActive()) {
-		ui_data["リザルト"]->Active();
-	}
 	switch (rank_in) {
-	case 1: 
-		ui_data["Rank1"]->setColor(1.0f, 0.5f, std::sinf(game_count),1.0f);
+	case 1:
+		ui_data["Rank1"]->setColor(1.0f, 0.5f, std::sinf(game_count), 1.0f);
 		break;
 	case 2:
 		ui_data["Rank2"]->setColor(std::sinf(game_count), std::sinf(game_count), std::sinf(game_count), 1.0f);
