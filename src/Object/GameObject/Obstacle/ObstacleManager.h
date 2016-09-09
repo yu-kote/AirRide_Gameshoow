@@ -8,6 +8,7 @@
 
 class Player;
 class EnemyHolder;
+class Boss;
 //class Camera;
 
 namespace ar {
@@ -34,6 +35,7 @@ namespace ar {
 
 		void setPlayer(std::shared_ptr<Player> player_) { player = player_; }
 		void setEnemyHolder(std::shared_ptr<EnemyHolder> enemy_holder_) { enemy_holder = enemy_holder_; }
+		void setBoss(std::shared_ptr<Boss> boss_) { boss = boss_; }
 
 
 		void isPlayerHitObstacle();
@@ -43,6 +45,9 @@ namespace ar {
 	private:
 		std::shared_ptr<Player> player;
 		std::shared_ptr<EnemyHolder> enemy_holder;
+
+		std::shared_ptr<Boss> boss;
+		bool is_bombclear;
 
 		//std::shared_ptr<Camera> camera;
 	};

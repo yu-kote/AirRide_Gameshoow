@@ -22,11 +22,14 @@ ar::ObstaclePopArea::ObstaclePopArea(const ci::Vec3f& position_, float pop_range
 
 void ar::ObstaclePopArea::update()
 {
-	std::for_each(obstacles.begin(), obstacles.end(),
-				  [](std::shared_ptr<Obstacle> obs) {obs->update(); });
+	for (auto it : obstacles) {
+		it->update();
+	}
+	/*std::for_each(obstacles.begin(), obstacles.end(),
+				  [](std::shared_ptr<Obstacle> obs) {obs->update(); });*/
 
-	respawnObstacle();
 	eraseObstacle();
+	//respawnObstacle();
 
 }
 
@@ -48,6 +51,11 @@ void ar::ObstaclePopArea::transDraw()
 
 	gl::disableAlphaBlending();
 	popModelView();
+}
+
+void ar::ObstaclePopArea::destory()
+{
+	obstacles.clear();
 }
 
 void ar::ObstaclePopArea::setCameraPos(const ci::Vec3f & camera_pos_)
@@ -86,6 +94,7 @@ bool ar::ObstaclePopArea::isHitObstacle(ci::Vec3f target_, float radius_)
 		{
 			is_hit = true;
 			obs->bomb();
+			//console() << obstacles.size() << std::endl;
 		}
 	});
 	return is_hit;
@@ -106,10 +115,31 @@ void ar::ObstaclePopArea::obstaclePop()
 
 void ar::ObstaclePopArea::eraseObstacle()
 {
-	std::remove_if(obstacles.begin(), obstacles.end(),
+	if (obstacles.size() == 0)
+		return;
+
+	for (auto it = obstacles.begin(); it != obstacles.end(); it++)
+	{
+		if ((*it)->is_erase)
+		{
+			obstacles.erase(it);
+			//obstaclePop();
+			//console() << it->is_erase << std::endl;
+			return;
+		}
+	}
+
+
+	/*std::remove_if(obstacles.begin(), obstacles.end(),
 				   [&](std::shared_ptr<ar::Obstacle> obs_) {
 		return obs_->is_erase;
-	});
+	});*/
+	/*std::for_each(obstacles.begin(), obstacles.end(),
+				  [&](std::shared_ptr<ar::Obstacle> obs_)
+	{
+		if (obs_->is_erase)
+			obstacles.clear();
+	});*/
 	/*obstacles.remove_if([&](std::shared_ptr<ar::Obstacle> obs_) {
 		return obs_->is_erase; });*/
 
@@ -139,3 +169,5 @@ void ar::ObstaclePopArea::respawnObstacle()
 void ar::ObstaclePopArea::testObstaclePopArea()
 {
 }
+
+

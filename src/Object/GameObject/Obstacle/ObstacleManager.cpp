@@ -3,6 +3,8 @@
 #include "../GameObjectEntities.h"
 //#include "../CharaBase/Player/Player.h"
 #include "../CharaBase/Enemy/EnemyHolder/EnemyHolder.h"
+#include "../Boss/Boss.h"
+
 #include "../Camera/Camera.h"
 
 
@@ -16,24 +18,40 @@ ar::ObstacleManager::ObstacleManager()
 void ar::ObstacleManager::setup()
 {
 	loadObstacleArea();
+	is_bombclear = false;
 }
 
 void ar::ObstacleManager::update()
 {
-	std::for_each(pop_areas.begin(), pop_areas.end(),
-				  [](ObstaclePopArea pop_areas_) {pop_areas_.update(); });
+	for (auto& it : pop_areas) {
+		it.update();
+	}
+	/*std::for_each(pop_areas.begin(), pop_areas.end(),
+				  [](ObstaclePopArea pop_areas_) {pop_areas_.update(); });*/
 
 
 	auto start = std::chrono::system_clock::now();
 
 	isPlayerHitObstacle();
 	isEnemysInObstacleArea();
+
 	auto end = std::chrono::system_clock::now();
 	auto d = end - start;
 	auto msec = std::chrono::duration_cast<std::chrono::milliseconds>(d).count();
 	//console() << msec << std::endl;
-
 	setCameraPos(camera_pos);
+
+
+	if (is_bombclear == false)
+		if (boss->getIsExist())
+		{
+			for (auto& it : pop_areas)
+			{
+				it.destory();
+			}
+			pop_areas.clear();
+			is_bombclear = true;
+		}
 }
 
 void ar::ObstacleManager::draw()
@@ -83,14 +101,22 @@ std::shared_ptr<ar::Obstacle> ar::ObstacleManager::getNearestObstacle(ci::Vec3f 
 
 void ar::ObstacleManager::isPlayerHitObstacle()
 {
-	std::for_each(pop_areas.begin(), pop_areas.end(),
+	/*std::for_each(pop_areas.begin(), pop_areas.end(),
 				  [&](ObstaclePopArea pop_area_)
 	{
 		if (pop_area_.isHitObstacle(player->getWorldPoisition(), player->getCollisionCirclerad()))
 		{
 			player->HitObstacle(player->getClashSpeed());
 		}
-	});
+	});*/
+
+	for (auto& it : pop_areas)
+	{
+		if (it.isHitObstacle(player->getWorldPoisition(), player->getCollisionCirclerad()))
+		{
+			player->HitObstacle(player->getClashSpeed());
+		}
+	}
 }
 
 void ar::ObstacleManager::isEnemysInObstacleArea()

@@ -12,6 +12,7 @@ class Enemy : public CharaBase
 public:
 	Enemy();
 	~Enemy();
+	void setup() override;
 	void update() override;
 	void draw() override;
 

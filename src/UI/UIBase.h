@@ -198,7 +198,7 @@ public:
 	virtual std::string timeGetMinutes() {
 		return "‰½‚à“ü—Í‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ";
 	}
-	virtual bool timeZero() {
+	virtual bool timeOver() {
 		return false;
 	}
 

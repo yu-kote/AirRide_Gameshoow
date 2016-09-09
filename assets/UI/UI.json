@@ -3798,45 +3798,27 @@
       "EaseOut": [ ],
       "EaseUpdate": [ ]
     },
-    "プレイヤーポジション": {
-      "UIType": "CollisionUI",
-      "TexturePath": "UI/UITexture/GameMain/player.png",
-      "Pos_x": 730,
-      "Pos_y": 530,
-      "Size_x": 60,
-      "Size_y": 60,
-
-      "EaseIn": [ ],
-      "EaseOut": [ ],
-      "EaseUpdate": [ ],
-      "EaseCollision": [ ]
-    },
-    "ポジションバー": {
-      "UIType": "CollisionUI",
-      "TexturePath": "UI/UITexture/GameMain/PositionBar.png",
-      "Pos_x": 550,
-      "Pos_y": 230,
-      "Size_x": 170,
-      "Size_y": 350,
-
-      "EaseIn": [ ],
-      "EaseOut": [ ],
-      "EaseUpdate": [ ],
-      "EaseCollision": [ ]
-    },
      "OK": {
       "UIType": "CollisionUI",
       "TexturePath": "UI/UITexture/GameMain/ok.png",
-      "Pos_x": 10,
-      "Pos_y": 517,
+      "Pos_x": 150,
+      "Pos_y": 530,
       "Size_x": 100,
       "Size_y": 30,
 
       "EaseIn": [ ],
       "EaseOut": [ ],
        "EaseUpdate": [
-                            { "UIState": "Color_a","Change": 0,"EasingType": "ExpoIn","Frame": 1},
-                            { "UIState": "Color_a","Change": 1,"EasingType": "ExpoIn","Frame": 1}
+         { "UIState": "Pos_x","Change": 135,"EasingType": "ExpoIn","Frame": 15},
+         { "UIState": "Pos_y","Change": 515,"EasingType": "ExpoIn","Frame": 15},
+         { "UIState": "Size_x","Change": 130,"EasingType": "ExpoIn","Frame": 15},
+         { "UIState": "Size_y","Change": 60,"EasingType": "ExpoIn","Frame": 15},
+
+         { "UIState": "Pos_x","Change": 150,"EasingType": "ExpoOut","Frame": 15},
+         { "UIState": "Pos_y","Change": 530,"EasingType": "ExpoOut","Frame": 15},
+         { "UIState": "Size_x","Change":100,"EasingType": "ExpoOut","Frame": 15},
+         { "UIState": "Size_y","Change": 30,"EasingType": "ExpoOut","Frame": 15}
+
                             ],
       "EaseCollision": [ ]
     },
@@ -3861,84 +3843,71 @@
     },
     
     "三": {
-      "UIType": "FontUI",
-      "FontPath": "UI/UITexture/Font/HGRSGU.TTC",
-      "Pos_x": 250,
-      "Pos_y": 40,
-      "Size": 500,
-      "Text": "3",
-
-
-      "EaseIn": [
-         { "UIState": "Color_r","Change": 1,"EasingType": "ExpoIn","Frame": 1},
-        { "UIState": "Color_g","Change": 1,"EasingType": "ExpoIn","Frame": 1},
-        { "UIState": "Pos_x","Change": 250,"EasingType": "ExpoIn","Frame": 60},
-        { "UIState": "Pos_x","Change": 2500,"EasingType": "ExpoIn","Frame": 1}
-      ],
-      "EaseOut": [
-        
-      ],
-       "EaseUpdate": []
-    },
-    
-    "二": {
-     "UIType": "FontUI",
-      "FontPath": "UI/UITexture/Font/HGRSGU.TTC",
-      "Pos_x": 250,
-      "Pos_y": 40,
-      "Size": 500,
-      "Text": "2",
-
+    "UIType": "CollisionUI",
+      "TexturePath": "UI/UITexture/GameMain/3.png",
+      "Pos_x": 300,
+      "Pos_y": 200,
+      "Size_x": 200,
+      "Size_y": 200,
 
       "EaseIn": [
-         { "UIState": "Color_r","Change": 1,"EasingType": "ExpoIn","Frame": 1},
-        { "UIState": "Color_g","Change": 1,"EasingType": "ExpoIn","Frame": 1},
-        { "UIState": "Pos_x","Change": 250,"EasingType": "ExpoIn","Frame": 60},
-        { "UIState": "Pos_x","Change": 2500,"EasingType": "ExpoIn","Frame": 1}
-      ],
-      "EaseOut": [
-       
-      ],
-       "EaseUpdate": []
-    },
-
-    "一": {
-      "UIType": "FontUI",
-      "FontPath": "UI/UITexture/Font/HGRSGU.TTC",
-      "Pos_x": 250,
-      "Pos_y": 40,
-      "Size": 500,
-      "Text": "1",
-
-
-      "EaseIn": [
-         { "UIState": "Color_r","Change": 1,"EasingType": "ExpoIn","Frame": 1},
-        { "UIState": "Color_g","Change": 1,"EasingType": "ExpoIn","Frame": 1},
-        { "UIState": "Pos_x","Change": 250,"EasingType": "ExpoIn","Frame": 60},
-        { "UIState": "Pos_x","Change": 2500,"EasingType": "ExpoIn","Frame": 1}
-      ],
-      "EaseOut": [
-       
-      ],
-       "EaseUpdate": []
-    },
-
-    "GO": {
-      "UIType": "FontUI",
-      "FontPath": "UI/UITexture/Font/HGRSGU.TTC",
-      "Pos_x": 100,
-      "Pos_y": 40,
-      "Size": 500,
-      "Text": "GO",
-
-
-      "EaseIn": [
-       { "UIState": "Color_r","Change": 1,"EasingType": "ExpoIn","Frame": 1},
-        { "UIState": "Pos_x","Change": 100,"EasingType": "ExpoIn","Frame": 60},
+        { "UIState": "Pos_x","Change": 300,"EasingType": "ExpoIn","Frame": 60},
         { "UIState": "Pos_x","Change": 2500,"EasingType": "ExpoIn","Frame": 1}
       ],
       "EaseOut": [ ],
-       "EaseUpdate": []
+       "EaseUpdate": [],
+      "EaseCollision": [ ]
+    },
+    
+    "二": {
+     "UIType": "CollisionUI",
+      "TexturePath": "UI/UITexture/GameMain/2.png",
+      "Pos_x": 300,
+      "Pos_y": 200,
+      "Size_x": 200,
+      "Size_y": 200,
+
+      "EaseIn": [
+        { "UIState": "Pos_x","Change": 300,"EasingType": "ExpoIn","Frame": 60},
+        { "UIState": "Pos_x","Change": 2500,"EasingType": "ExpoIn","Frame": 1}
+      ],
+      "EaseOut": [ ],
+       "EaseUpdate": [],
+      "EaseCollision": [ ]
+    },
+
+    "一": {
+     "UIType": "CollisionUI",
+      "TexturePath": "UI/UITexture/GameMain/1.png",
+      "Pos_x": 300,
+      "Pos_y": 200,
+      "Size_x": 200,
+      "Size_y": 200,
+
+      "EaseIn": [
+        { "UIState": "Pos_x","Change": 300,"EasingType": "ExpoIn","Frame": 60},
+        { "UIState": "Pos_x","Change": 2500,"EasingType": "ExpoIn","Frame": 1}
+      ],
+      "EaseOut": [ ],
+       "EaseUpdate": [],
+      "EaseCollision": [ ]
+    },
+
+    "GO": {
+     "UIType": "CollisionUI",
+      "TexturePath": "UI/UITexture/GameMain/go.png",
+      "Pos_x": 180,
+      "Pos_y": 200,
+      "Size_x": 450,
+      "Size_y": 200,
+
+      "EaseIn": [
+        { "UIState": "Pos_x","Change": 180,"EasingType": "ExpoIn","Frame": 60},
+        { "UIState": "Pos_x","Change": 2500,"EasingType": "ExpoIn","Frame": 1}
+      ],
+      "EaseOut": [ ],
+       "EaseUpdate": [],
+      "EaseCollision": [ ]
     },
 
     "GOAL": {
@@ -3959,6 +3928,212 @@
          { "UIState": "Pos_x","Change": 2500,"EasingType": "ExpoIn","Frame": 120}
       ],
        "EaseUpdate": []
+    },
+
+    "1位": {
+      "UIType": "CollisionUI",
+      "TexturePath": "UI/UITexture/GameMain/1st.png",
+      "Pos_x": 650,
+      "Pos_y": 540,
+      "Size_x": 100,
+      "Size_y": 40,
+      "EaseIn": [
+        { "UIState": "Pos_x","Change": 665,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Pos_y","Change": 535,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Size_x","Change": 110,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Size_y","Change": 50,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Color_a","Change": 1,"EasingType": "ExpoIn","Frame": 1},
+
+         { "UIState": "Pos_x","Change": 670,"EasingType": "ExpoIn","Frame": 12},
+         { "UIState": "Pos_y","Change": 540,"EasingType": "ExpoIn","Frame": 12},
+         { "UIState": "Size_x","Change": 100,"EasingType": "ExpoIn","Frame": 12},
+         { "UIState": "Size_y","Change": 40,"EasingType": "ExpoIn","Frame": 12},
+         { "UIState": "Color_a","Change": 1,"EasingType": "ExpoIn","Frame": 12},
+
+         { "UIState": "Pos_x","Change": 670,"EasingType": "ExpoIn","Frame": 40},
+         { "UIState": "Pos_y","Change": 540,"EasingType": "ExpoIn","Frame": 40},
+         { "UIState": "Size_x","Change": 100,"EasingType": "ExpoIn","Frame": 40},
+         { "UIState": "Size_y","Change": 40,"EasingType": "ExpoIn","Frame": 40}
+      ],
+      "EaseOut": [],
+      "EaseUpdate": [
+        { "UIState": "Pos_x","Change": 665,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Pos_y","Change": 535,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Size_x","Change": 110,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Size_y","Change": 50,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Color_a","Change": 1,"EasingType": "ExpoIn","Frame": 1},
+
+         { "UIState": "Pos_x","Change": 670,"EasingType": "ExpoIn","Frame": 8},
+         { "UIState": "Pos_y","Change": 540,"EasingType": "ExpoIn","Frame": 8},
+         { "UIState": "Size_x","Change": 100,"EasingType": "ExpoIn","Frame": 8},
+         { "UIState": "Size_y","Change": 40,"EasingType": "ExpoIn","Frame": 8},
+         { "UIState": "Color_a","Change": 1,"EasingType": "ExpoIn","Frame": 8},
+
+         { "UIState": "Pos_x","Change": 670,"EasingType": "ExpoIn","Frame": 40},
+         { "UIState": "Pos_y","Change": 540,"EasingType": "ExpoIn","Frame": 40},
+         { "UIState": "Size_x","Change": 100,"EasingType": "ExpoIn","Frame": 40},
+         { "UIState": "Size_y","Change": 40,"EasingType": "ExpoIn","Frame": 40}
+      ],
+      "EaseCollision": []
+    },
+    
+    "2位": {
+      "UIType": "CollisionUI",
+      "TexturePath": "UI/UITexture/GameMain/2nd.png",
+      "Pos_x": 650,
+      "Pos_y": 540,
+      "Size_x": 100,
+      "Size_y": 40,
+      "EaseIn": [
+      ],
+      "EaseOut": [],
+      "EaseUpdate": [
+        { "UIState": "Pos_x","Change": 665,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Pos_y","Change": 535,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Size_x","Change": 110,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Size_y","Change": 50,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Color_a","Change": 1,"EasingType": "ExpoIn","Frame": 1},
+
+         { "UIState": "Pos_x","Change": 670,"EasingType": "ExpoIn","Frame": 8},
+         { "UIState": "Pos_y","Change": 540,"EasingType": "ExpoIn","Frame": 8},
+         { "UIState": "Size_x","Change": 100,"EasingType": "ExpoIn","Frame": 8},
+         { "UIState": "Size_y","Change": 40,"EasingType": "ExpoIn","Frame": 8},
+         { "UIState": "Color_a","Change": 1,"EasingType": "ExpoIn","Frame": 8},
+
+         { "UIState": "Pos_x","Change": 670,"EasingType": "ExpoIn","Frame": 40},
+         { "UIState": "Pos_y","Change": 540,"EasingType": "ExpoIn","Frame": 40},
+         { "UIState": "Size_x","Change": 100,"EasingType": "ExpoIn","Frame": 40},
+         { "UIState": "Size_y","Change": 40,"EasingType": "ExpoIn","Frame": 40}
+      ],
+      "EaseCollision": []
+    },
+    
+    "3位": {
+      "UIType": "CollisionUI",
+      "TexturePath": "UI/UITexture/GameMain/3rd.png",
+      "Pos_x": 650,
+      "Pos_y": 540,
+      "Size_x": 100,
+      "Size_y": 40,
+      "EaseIn": [
+      ],
+      "EaseOut": [
+        { "UIState": "Pos_x","Change": -1000,"EasingType": "ExpoIn","Frame": 40}
+      ],
+      "EaseUpdate": [
+        { "UIState": "Pos_x","Change": 665,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Pos_y","Change": 535,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Size_x","Change": 110,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Size_y","Change": 50,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Color_a","Change": 1,"EasingType": "ExpoIn","Frame": 1},
+
+         { "UIState": "Pos_x","Change": 670,"EasingType": "ExpoIn","Frame": 8},
+         { "UIState": "Pos_y","Change": 540,"EasingType": "ExpoIn","Frame": 8},
+         { "UIState": "Size_x","Change": 100,"EasingType": "ExpoIn","Frame": 8},
+         { "UIState": "Size_y","Change": 40,"EasingType": "ExpoIn","Frame": 8},
+         { "UIState": "Color_a","Change": 1,"EasingType": "ExpoIn","Frame": 8},
+
+         { "UIState": "Pos_x","Change": 670,"EasingType": "ExpoIn","Frame": 40},
+         { "UIState": "Pos_y","Change": 540,"EasingType": "ExpoIn","Frame": 40},
+         { "UIState": "Size_x","Change": 100,"EasingType": "ExpoIn","Frame": 40},
+         { "UIState": "Size_y","Change": 40,"EasingType": "ExpoIn","Frame": 40}
+      ],
+      "EaseCollision": []
+    },
+
+    "4位": {
+      "UIType": "CollisionUI",
+      "TexturePath": "UI/UITexture/GameMain/4th.png",
+      "Pos_x": 650,
+      "Pos_y": 540,
+      "Size_x": 100,
+      "Size_y": 40,
+      "EaseIn": [
+        { "UIState": "Pos_x","Change": 665,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Pos_y","Change": 535,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Size_x","Change": 110,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Size_y","Change": 50,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Color_a","Change": 1,"EasingType": "ExpoIn","Frame": 1},
+
+         { "UIState": "Pos_x","Change": 670,"EasingType": "ExpoIn","Frame": 12},
+         { "UIState": "Pos_y","Change": 540,"EasingType": "ExpoIn","Frame": 12},
+         { "UIState": "Size_x","Change": 100,"EasingType": "ExpoIn","Frame": 12},
+         { "UIState": "Size_y","Change": 40,"EasingType": "ExpoIn","Frame": 12},
+         { "UIState": "Color_a","Change": 1,"EasingType": "ExpoIn","Frame": 12},
+
+         { "UIState": "Pos_x","Change": 670,"EasingType": "ExpoIn","Frame": 40},
+         { "UIState": "Pos_y","Change": 540,"EasingType": "ExpoIn","Frame": 40},
+         { "UIState": "Size_x","Change": 100,"EasingType": "ExpoIn","Frame": 40},
+         { "UIState": "Size_y","Change": 40,"EasingType": "ExpoIn","Frame": 40}
+      ],
+      "EaseOut": [],
+      "EaseUpdate": [
+        { "UIState": "Pos_x","Change": 665,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Pos_y","Change": 535,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Size_x","Change": 110,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Size_y","Change": 50,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Color_a","Change": 1,"EasingType": "ExpoIn","Frame": 1},
+
+         { "UIState": "Pos_x","Change": 670,"EasingType": "ExpoIn","Frame": 8},
+         { "UIState": "Pos_y","Change": 540,"EasingType": "ExpoIn","Frame": 8},
+         { "UIState": "Size_x","Change": 100,"EasingType": "ExpoIn","Frame": 8},
+         { "UIState": "Size_y","Change": 40,"EasingType": "ExpoIn","Frame": 8},
+         { "UIState": "Color_a","Change": 1,"EasingType": "ExpoIn","Frame": 8},
+
+         { "UIState": "Pos_x","Change": 670,"EasingType": "ExpoIn","Frame": 40},
+         { "UIState": "Pos_y","Change": 540,"EasingType": "ExpoIn","Frame": 40},
+         { "UIState": "Size_x","Change": 100,"EasingType": "ExpoIn","Frame": 40},
+         { "UIState": "Size_y","Change": 40,"EasingType": "ExpoIn","Frame": 40}
+      ],
+      "EaseCollision": []
+    },
+
+    "5位": {
+      "UIType": "CollisionUI",
+      "TexturePath": "UI/UITexture/GameMain/5th.png",
+      "Pos_x": 670,
+      "Pos_y": 540,
+      "Size_x": 100,
+      "Size_y": 40,
+      "EaseIn": [
+      ],
+      "EaseOut": [],
+      "EaseUpdate": [
+        { "UIState": "Pos_x","Change": 665,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Pos_y","Change": 535,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Size_x","Change": 110,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Size_y","Change": 50,"EasingType": "ExpoIn","Frame": 1},
+         { "UIState": "Color_a","Change": 1,"EasingType": "ExpoIn","Frame": 1},
+
+         { "UIState": "Pos_x","Change": 670,"EasingType": "ExpoIn","Frame": 8},
+         { "UIState": "Pos_y","Change": 540,"EasingType": "ExpoIn","Frame": 8},
+         { "UIState": "Size_x","Change": 100,"EasingType": "ExpoIn","Frame": 8},
+         { "UIState": "Size_y","Change": 40,"EasingType": "ExpoIn","Frame": 8},
+         { "UIState": "Color_a","Change": 1,"EasingType": "ExpoIn","Frame": 8},
+
+         { "UIState": "Pos_x","Change": 670,"EasingType": "ExpoIn","Frame": 40},
+         { "UIState": "Pos_y","Change": 540,"EasingType": "ExpoIn","Frame": 40},
+         { "UIState": "Size_x","Change": 100,"EasingType": "ExpoIn","Frame": 40},
+         { "UIState": "Size_y","Change": 40,"EasingType": "ExpoIn","Frame": 40}
+      ],
+      "EaseCollision": []
+    },
+
+    "Rank": {
+      "UIType": "CollisionUI",
+      "TexturePath": "UI/UITexture/GameMain/rank.png",
+      "Pos_x": 670,
+      "Pos_y": 510,
+      "Size_x": 125,
+      "Size_y": 30,
+      "EaseIn": [
+      ],
+      "EaseOut": [
+        { "UIState": "Pos_x","Change": -1000,"EasingType": "ExpoIn","Frame": 40}
+      ],
+      "EaseUpdate": [
+      ],
+      "EaseCollision": []
     }
 
   }
