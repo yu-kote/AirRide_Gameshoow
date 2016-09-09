@@ -72,6 +72,12 @@ Bullet::Bullet(ci::Vec3f _pos)
 	transform.position = _pos;
 	mesh = &ObjDataGet.find("obstacle");
 	tex = TextureGet.find("Obstacle");
+
+	mt = ci::gl::Material(ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Ambient
+						  ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Diffuse
+						  ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Specular
+						  80.0f,                               // Shininess
+						  ci::ColorA(0.5f, 0.5f, 0.5f, 1.0f));	  // Emission
 }
 
 void Bullet::update()
@@ -85,10 +91,10 @@ void Bullet::draw()
 	ci::gl::translate(transform.position);
 	ci::gl::scale(0.03f, 0.03f, 0.03f);
 
+	mt.apply();
 	tex->enableAndBind();
 
 	ci::gl::draw(*mesh);
-	//ci::gl::drawColorCube(ci::Vec3f::zero(), ci::Vec3f::one());
 
 	tex->disable();
 

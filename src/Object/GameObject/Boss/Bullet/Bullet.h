@@ -21,6 +21,7 @@ private:
 	int count;
 	ci::TriMesh* mesh;
 	ci::gl::TextureRef tex;
+	ci::gl::Material mt;
 };
 
 
