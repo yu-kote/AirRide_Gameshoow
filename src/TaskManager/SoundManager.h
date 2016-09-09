@@ -7,6 +7,50 @@
 
 #include <unordered_map>
 
+class Sound {
+public:
+
+	ci::audio::SamplePlayerNodeRef player_node;
+
+	ci::audio::GainNodeRef gain;
+
+	Sound(ci::audio::SamplePlayerNodeRef node_, ci::audio::Context* ctx_) {
+		gain = ctx_->makeNode(new ci::audio::GainNode());
+
+		player_node = node_;
+		gain->setValue(1.0f);
+
+		player_node >> gain >> ctx_->getOutput();
+	}
+
+	void add(ci::audio::SamplePlayerNodeRef node_) {
+		player_node = node_;
+	}
+
+
+public:
+
+	void start() {
+		player_node->start();
+	}
+	void stop() {
+		player_node->stop();
+	}
+	void disable() {
+		player_node->disable();
+	}
+	bool isEnabled() {
+		return player_node->isEnabled();
+	}
+	void setLoopEnabled(bool is_loop_) {
+		player_node->setLoopEnabled(is_loop_);
+	}
+
+	void setGain(float value_) {
+		gain->setValue(value_);
+	}
+};
+
 class SoundManager {
 public:
 
@@ -22,32 +66,18 @@ public:
 	}
 
 	void setup() {
-
-		gain = ctx->makeNode(new ci::audio::GainNode());
-
 		bufferPlayerLoad(ci::app::getAssetPath("SoundData/BufferPlayerResource.txt").string());
 		filePlayerLoad(ci::app::getAssetPath("SoundData/FilePlayerResource.txt").string());
 
-		for (auto it = sample_node.begin(); it != sample_node.end(); it++)
-		{
-			it->second >> gain >> ctx->getOutput();
-		}
-
-		gain->setValue(1.0f);
 	}
 
-	ci::audio::SamplePlayerNodeRef find(const std::string& key_) {
-		if (sample_node.find(key_) == sample_node.end())
-		{
+	std::shared_ptr<Sound> find(const std::string& key_)
+	{
+		if (sound.find(key_) == sound.end())
 			assert(!"Not sound name");
-		}
-		return sample_node.find(key_)->second;
+		return sound.find(key_)->second;
 	}
 
-
-	void setGain(const float& value_) {
-		gain->setValue(value_);
-	}
 private:
 	void registerFilePlayerNode(std::string key_, std::string filepath_) {
 		ci::audio::SourceFileRef source = ci::audio::load(ci::app::loadAsset(filepath_));
@@ -55,7 +85,7 @@ private:
 		ci::audio::FilePlayerNodeRef fileplayer = ctx->makeNode(new ci::audio::FilePlayerNode());
 		fileplayer->setSourceFile(source);
 
-		sample_node.insert(std::make_pair(key_, fileplayer));
+		sound.insert(std::make_pair(key_, std::make_shared<Sound>(Sound(fileplayer, ctx))));
 	}
 
 	void registerBufferPlayerNode(std::string key_, std::string filepath_) {
@@ -64,7 +94,7 @@ private:
 		ci::audio::BufferPlayerNodeRef bufferplayer = ctx->makeNode(new ci::audio::BufferPlayerNode());
 		bufferplayer->loadBuffer(source);
 
-		sample_node.insert(std::make_pair(key_, bufferplayer));
+		sound.insert(std::make_pair(key_, std::make_shared<Sound>(Sound(bufferplayer, ctx))));
 	}
 
 	void filePlayerLoad(std::string filename_) {
@@ -95,7 +125,7 @@ private:
 
 
 	void allStop() {
-		for (auto& it : sample_node)
+		for (auto& it : sound)
 		{
 			it.second->stop();
 		}
@@ -105,12 +135,13 @@ private:
 
 	// 少しずつ読み込むやつがfileplayer
 	// 一気に読み込むやつがbufferplayer
-	// 親クラス
-	std::unordered_map<std::string, ci::audio::SamplePlayerNodeRef> sample_node;
-	ci::audio::GainNodeRef gain;
+
+	std::unordered_map<std::string, std::shared_ptr<Sound>> sound;
 	ci::audio::Context* ctx;
 
 };
 
 
 #define SoundGet SoundManager::get()
+
+

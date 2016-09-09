@@ -32,7 +32,7 @@ void Boss::setup()
 						 ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Specular
 						 80.0f,                               // Shininess
 						 ci::ColorA(0.5f, 0.5f, 0.5f, 1.0f))));	  // Emission
-	//addComponent<ar::Texture>(ar::Texture("Boss"));
+	addComponent<ar::Texture>(ar::Texture("Boss"));
 }
 
 void Boss::update()
@@ -59,7 +59,8 @@ void Boss::draw()
 	ci::gl::multModelView(matrix);
 	//ci::gl::scale(ci::Vec3f(7, 7, 1));
 	//ci::gl::drawColorCube(ci::Vec3f::zero(), ci::Vec3f::one());
-	ci::gl::scale(ci::Vec3f(0.04f, 0.04f, 0.04f));
+	ci::gl::rotate(ci::Vec3f(0, 0, 180));
+	ci::gl::scale(ci::Vec3f(0.035f, 0.035f, 0.035f));
 	ci::gl::draw(ObjDataGet.find("Boss"));
 
 	ci::gl::popModelView();
