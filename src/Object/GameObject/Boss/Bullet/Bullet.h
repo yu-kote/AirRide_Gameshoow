@@ -1,6 +1,7 @@
 #pragma once
 #include "../../GameObject.h"
- 
+#include "cinder/gl/Texture.h"
+
 
 class Boss;
 class CharaBase;
@@ -19,6 +20,8 @@ public:
 private:
 	int count;
 	ci::TriMesh* mesh;
+	ci::gl::TextureRef tex;
+	ci::gl::Material mt;
 };
 
 

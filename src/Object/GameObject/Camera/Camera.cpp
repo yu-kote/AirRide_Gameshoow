@@ -25,6 +25,9 @@ void ar::Camera::setup()
 	camera.setCenterOfInterestPoint(camera_pos);
 	camera_run = true;
 	Params->addParam("camera_run", &camera_run);
+
+	camera.setAspectRatio(getWindowAspectRatio());
+
 }
 
 void ar::Camera::update()
