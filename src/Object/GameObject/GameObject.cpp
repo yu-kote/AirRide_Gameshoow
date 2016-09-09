@@ -2,13 +2,11 @@
 
 ar::GameObject::GameObject()
 {
-	is_active = true;
 }
 
 ar::GameObject::GameObject(const std::string & name_) :
 	Object(name_)
 {
-	is_active = true;
 }
 
 void ar::GameObject::pushModelView()

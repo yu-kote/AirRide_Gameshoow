@@ -18,9 +18,6 @@ namespace ar {
 		GameObject();
 		GameObject(const std::string& name_);
 
-		void setIsActive(const bool& is_active_) { is_active = is_active_; }
-		bool getIsActive() { return is_active; }
-
 		virtual void setup() {};
 		virtual void update() {};
 		virtual void laterUpdate() {};
@@ -47,7 +44,6 @@ namespace ar {
 		Transform transform;
 
 	private:
-		bool is_active;
 
 	public:
 
