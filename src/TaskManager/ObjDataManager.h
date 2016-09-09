@@ -25,10 +25,10 @@ namespace ar
 
 			// ‚±‚ñ‚ÈŠ´‚¶
 			
-			set("Player", "ObjData/player01.obj");
+			set("Player", "ObjData/player.obj");
 			set("obstacle", "ObjData/kirai.obj");
-			set("Enemy", "ObjData/enemy02.obj");
-			set("Boss", "ObjData/boss01.obj");
+			set("Enemy", "ObjData/enemy.obj");
+			set("Boss", "ObjData/boss.obj");
 
 			
 		}
