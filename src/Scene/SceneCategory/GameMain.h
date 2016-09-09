@@ -1,6 +1,6 @@
 #pragma once
 #include "../SceneManager/SceneBase.h"
-
+#include "../SceneManager/CreateScene.h"
 #include "../../Object/GameObject/GameObjectEntities.h"
 #include "../../UI/UIPlate/UIPlate.h"
 
@@ -14,7 +14,6 @@ public:
 	void update() override;
 	void shift() override;
 	void shutdown() override;
-
 private:
 	ar::GameObjectEntities entities;
 

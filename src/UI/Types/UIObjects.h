@@ -8,8 +8,10 @@ private:
 public:
 	UIObjects()
 	{
+	}
+	static void setup() {
 		std::ifstream fs;
-		fs.open("../assets/UI/UIType.json", std::ios::binary);
+		fs.open(ci::app::getAssetPath("UI/UIType.json").string(), std::ios::binary);
 		assert(fs);
 		picojson::value val;
 		fs >> val;
@@ -19,13 +21,14 @@ public:
 		picojson::object objects_data(val.get<picojson::object>());
 		picojson::array& objects_array = objects_data["Objects"].get<picojson::array>();
 
-		
+
 		for (auto it = objects_array.begin(); it != objects_array.end(); it++) {
 			ui_objects.push_back(it->get<std::string>());
 		}
-		
 	}
-
+	static void erase() {
+		ui_objects.clear();
+	}
 
 	static std::vector<std::string>& get() {
 		return ui_objects;

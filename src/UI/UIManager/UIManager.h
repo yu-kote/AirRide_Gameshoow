@@ -13,5 +13,6 @@ class UIManager
 public:
 	std::unordered_map<std::string, std::shared_ptr<UIBase>> ui_data;
 	std::function<float(float, float, float)> selectEasing(int state);
+	void setup();
 	UIManager();
 };

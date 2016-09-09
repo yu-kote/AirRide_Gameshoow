@@ -3,11 +3,9 @@
 #include "../../Input/InputEvent.h"
 #include "../../Input/LeapMotion/LeapHands/LeapHands.h"
 
-using namespace ci;
-using namespace ci::app;
-
 Title::Title()
 {
+	setup();
 }
 
 void Title::setup()
@@ -20,7 +18,6 @@ void Title::setup()
 	c_Easing::apply(color_b, 1.0f, EasingFunction::ExpoIn, 60);
 	update_count = 0;
 	end_count = 0;
-	end_flag = false;
 }
 
 void Title::update()
@@ -28,6 +25,9 @@ void Title::update()
 	if (c_Easing::isEnd(color_b)) {
 		update_count++;
 		if (update_count == 1) {
+			end_flag = false;
+			next_count = 0;
+			ui.setup();
 			ui.titleSetup();
 			entities.setupGameObject();
 			if (SoundGet.find("TitleBGM")->isEnabled())
@@ -50,41 +50,76 @@ void Title::update()
 
 void Title::draw()
 {
-	ci::gl::clear(ColorA(color_r, color_g, color_b, 1.0f));
-	ui.titleDraw();
-	entities.drawGameObject();
+	if (!UIType::is_loop) {
+		ci::gl::clear(ColorA(color_r, color_g, color_b, 1.0f));
+		ui.titleDraw();
+		entities.drawGameObject();
+	}
+	else {
+		setup();
+		UIType::is_loop = false;
+	}
 }
 
 void Title::shift()
 {
-	if (env.isPush(KeyEvent::KEY_RETURN))
-	{
-		ui.ui_data["R"]->setEnd();
-		ui.ui_data["I"]->setEnd();
-		ui.ui_data["D"]->setEnd();
-		ui.ui_data["E"]->setEnd();
-		ui.ui_data["O"]->setEnd();
-		ui.ui_data["N"]->setEnd();
-		ui.ui_data["T"]->setEnd();
-		ui.ui_data["H"]->setEnd();
-		ui.ui_data["E2"]->setEnd();
-		ui.ui_data["S"]->setEnd();
-		ui.ui_data["K"]->setEnd();
-		ui.ui_data["Y"]->setEnd();
-		ui.ui_data["!"]->setEnd();
-		ui.ui_data["スタート"]->setEnd();
-		SoundGet.find("TitleBGM")->disable();
-		SoundGet.find("Start")->start();
+	
+	if (update_count >= 1) {
+		if (env.isPress(KeyEvent::KEY_RETURN) ||
+			LEAPHANDS.IsHandExist())
+		{
+			ui.ui_data["開始ゲージ"]->Active();
+			next_count += 1;
+		}
+		else {
+			ui.ui_data["開始ゲージ"]->setEnd();
+			next_count = 0;
+		}
+		
 
-		end_flag = true;
+		ui.ui_data["開始ゲージ"]->gaugeChangeX(next_count, 60);
 	}
 	if (end_flag == true) {
 		end_count++;
 	}
-	if (end_count >= 60) {
-		//gl::popMatrices();
-		Scene::createScene<GameMain>(new GameMain());
+	if (update_count >= 1) {
+		if (ui.ui_data["開始ゲージ"]->gaugeGetIsMax()) {
+			ui.ui_data["R"]->setEnd();
+			ui.ui_data["I"]->setEnd();
+			ui.ui_data["D"]->setEnd();
+			ui.ui_data["E"]->setEnd();
+			ui.ui_data["O"]->setEnd();
+			ui.ui_data["N"]->setEnd();
+			ui.ui_data["T"]->setEnd();
+			ui.ui_data["H"]->setEnd();
+			ui.ui_data["E2"]->setEnd();
+			ui.ui_data["S"]->setEnd();
+			ui.ui_data["K"]->setEnd();
+			ui.ui_data["Y"]->setEnd();
+			ui.ui_data["!"]->setEnd();
+			ui.ui_data["スタート"]->setEnd();
+			end_flag = true;
+			if (next_count == 61 &&
+				end_count == 1) {
+				SoundGet.find("TitleBGM")->disable();
+				SoundGet.find("Start")->start();
+			}
+
+		}
 	}
+	
+	if (end_count >= 60) {
+		c_Easing::clear(color_r);
+		c_Easing::clear(color_g);
+		c_Easing::clear(color_b);
+		UIType::erase();
+		UIObjects::erase();
+		UIState::erase();
+		EasingType::erase();
+		Scene::createScene<GameMain>(new GameMain());
+		
+	}
+	
 }
 
 void Title::shutdown()

@@ -144,6 +144,12 @@ void UIBase::EaseOutUpdate()
 				end = false;
 			}
 		}
+		if (ease_end_buf.size() == 0) {
+			is_active = false;
+			start = 0;
+			end_count = 0;
+			end = false;
+		}
 	}
 
 }
