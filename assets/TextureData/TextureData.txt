@@ -2,6 +2,10 @@ Skydome TextureData/Skydome.png
 
 Obstacle ObjData/outUVkirai2.png
 
-Player ObjData/player0UV.png
+Player ObjData/playerUV.png
+
+Enemy ObjData/enemyUV.png
+
+Boss ObjData/bossUV.png
 
 Particle TextureData/particle.png

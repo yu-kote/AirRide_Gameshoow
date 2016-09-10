@@ -2,6 +2,7 @@
 #include "../../Component/Components/Material.h"
 #include "../../../TaskManager/ObjDataManager.h"
 #include "../../Component/Components/Texture.h"
+#include "../../../TaskManager/SoundManager.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -16,6 +17,8 @@ ar::Obstacle::Obstacle(const ci::Vec3f& position_, float radius_)
 	is_erase = false;
 	respawn_count = 200;
 	count = 0;
+
+	//SoundGet.setGain("Bomb", 5.0f);
 }
 
 void ar::Obstacle::setup()
@@ -34,8 +37,11 @@ void ar::Obstacle::update()
 	if (is_bomb)
 	{
 		if (count == 0)
+		{
 			particle.push_back(std::make_shared<ParticleController>(ParticleController(transform.position)));
-		
+			SoundGet.find("Bomb")->start();
+		}
+
 		std::for_each(particle.begin(), particle.end(),
 					  [](std::shared_ptr<ParticleController> ptc_) {ptc_->update(); });
 

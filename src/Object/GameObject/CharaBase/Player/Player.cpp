@@ -133,8 +133,8 @@ void Player::operationKey()
 	if (env.isPush(ci::app::KeyEvent::KEY_b))
 		debugDash();
 
-	if (env.isPush(ci::app::KeyEvent::KEY_RETURN))
-		HitObstacle(clash_speed);
+	//if (env.isPush(ci::app::KeyEvent::KEY_RETURN))
+	//	HitObstacle(clash_speed);
 }
 
 void Player::debugMove()

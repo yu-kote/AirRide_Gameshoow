@@ -2,7 +2,14 @@
 #include "../src/Input/LeapMotion/LeapHands/LeapHands.h"
 #include "../../Share/Resize.h"
 #include "../../Share/Share.h"
-
+#include "../../Share/Interface/Interface.h"
+#include "../../Scene/SceneCategory/Result.h"
+std::string addZero(const int& value) {
+	if (value < 10) {
+		return "0" + std::to_string(value);
+	}
+	return std::to_string(value);
+}
 void UIPlate::titleSetup()
 {
 	for (auto it = UIObjects::get().begin(); it != UIObjects::get().end(); it++) {
@@ -17,6 +24,17 @@ void UIPlate::titleSetup()
 			TEX.set(ui_data[(*it)]->gaugeGetTexturePath(), ui_data[(*it)]->gaugeGetTexturePath());
 		}
 	}
+
+	float left = -(getWindowSize().x - WIDTH) / 2;
+	float right = 800 + (getWindowSize().x - WIDTH) / 2;
+	float bottom = -(getWindowSize().y - WIDTH) / 2;
+	float top = 800 + (getWindowSize().y - WIDTH) / 2;
+	camera_o.setOrtho(left, right,
+		600, 0,
+		1, 10);
+
+	tuto_count = 0;
+	change_counnt = 0;
 	ui_data["R"]->Active();
 	ui_data["I"]->Active();
 	ui_data["D"]->Active();
@@ -31,7 +49,6 @@ void UIPlate::titleSetup()
 	ui_data["Y"]->Active();
 	ui_data["!"]->Active();
 	ui_data["スタート"]->Active();
-
 }
 
 void UIPlate::titleUpdate()
@@ -40,26 +57,18 @@ void UIPlate::titleUpdate()
 		ui_data[(*it)]->update();
 	}
 
-
 	ResizeGet.setPerspCameraResize = [&]()
 	{
-		float width = 800 + (getWindowSize().x - WIDTH);
-		float height = 600 + (getWindowSize().y - HEIGHT);
-		float offsetx = 170;
-		float offsety = -60;
-
-		if (getWindowSize().x == WIDTH)
-			camera_o.setOrtho(0, 800,
-							  600, 0,
-							  1, 10);
-		else
-			camera_o.setOrtho(-width / 4 + offsetx,
-							  width / 2 + offsetx,//getWindowCenter().x + width,
-							  height + offsety,
-							  0 + offsety,
-							  1, 10);
+		float left = -(getWindowSize().x - WIDTH) / 2;
+		float right = 800 + (getWindowSize().x - WIDTH) / 2;
+		float bottom = -(getWindowSize().y - WIDTH) / 2;
+		float top = 800 + (getWindowSize().y - WIDTH) / 2;
+		camera_o.setOrtho(left, right,
+			600, 0,
+			1, 10);
 	};
 }
+
 
 void UIPlate::titleDraw()
 {
@@ -73,11 +82,11 @@ void UIPlate::titleDraw()
 
 				ci::gl::translate(0.0f, 0.0f, -3.0f);
 				gl::drawString(ui_data[(*it)]->fontGetText(),
-							   Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
-							   Color(ui_data[(*it)]->getColorR(),
-									 ui_data[(*it)]->getColorG(),
-									 ui_data[(*it)]->getColorB()),
-							   font[(*it)]);
+					Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
+					Color(ui_data[(*it)]->getColorR(),
+						ui_data[(*it)]->getColorG(),
+						ui_data[(*it)]->getColorB()),
+					font[(*it)]);
 
 				ci::gl::popModelView();
 				continue;
@@ -88,11 +97,11 @@ void UIPlate::titleDraw()
 
 				ci::gl::translate(0.0f, 0.0f, -3.0f);
 				gl::drawString(ui_data[(*it)]->timeGetMinutes() + ":" + ui_data[(*it)]->timeGetSeconds() + ":" + ui_data[(*it)]->timeGetFlame(),
-							   Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
-							   Color(ui_data[(*it)]->getColorR(),
-									 ui_data[(*it)]->getColorG(),
-									 ui_data[(*it)]->getColorB()),
-							   font[(*it)]);
+					Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
+					Color(ui_data[(*it)]->getColorR(),
+						ui_data[(*it)]->getColorG(),
+						ui_data[(*it)]->getColorB()),
+					font[(*it)]);
 
 				ci::gl::popModelView();
 				continue;
@@ -102,6 +111,7 @@ void UIPlate::titleDraw()
 
 			ci::gl::translate(0.0f, 0.0f, -3.0f);
 			ci::gl::color(ui_data[(*it)]->getColorR(), ui_data[(*it)]->getColorG(), ui_data[(*it)]->getColorB(), ui_data[(*it)]->getColorA());
+
 			TEX.get((*it)).enableAndBind();
 
 			ci::gl::drawSolidRect(
@@ -141,6 +151,96 @@ void UIPlate::titleDraw()
 	ci::gl::enableDepthRead();
 }
 
+void UIPlate::tuto1()
+{
+	if (!ui_data["ダッシュ説明"]->isActive()) {
+		if (!ui_data["回避説明"]->isActive()) {
+			tuto_count++;
+			if (tuto_count == 1) {
+				ui_data["操作説明"]->Active();
+				ui_data["操作説明"]->fontSetText(u8"操作説明");
+				ui_data["操作説明"]->setColor(1, 1, 0, 1);
+				ui_data["動き説明"]->Active();
+				ui_data["動き説明"]->fontSetText(u8"このゲームは、手を上下左右に動かすと\n    機体を移動させる事ができます。");
+				ui_data["動き説明"]->setColor(0, 0, 0, 0);
+				ui_data["動き手"]->Active();
+			}
+			if (tuto_count == 600) {
+				ui_data["動き説明"]->setEnd();
+				ui_data["動き手"]->setEnd();
+
+			}
+
+			if (tuto_count == 680) {
+				tuto_count = 0;
+				ui_data["回避説明"]->Active();
+			}
+
+		}
+	}
+}
+
+void UIPlate::tuto2()
+{
+	if (!ui_data["ダッシュ説明"]->isActive()) {
+		if (!ui_data["動き説明"]->isActive()) {
+			tuto_count++;
+			if (tuto_count == 1) {
+
+				ui_data["回避説明"]->fontSetText(u8"手を回しながら動かすと、回避をすることができます。\n  回避を使うと障害物などを避ける事ができます。");
+				ui_data["回避説明"]->setColor(0, 0, 0, 0);
+				ui_data["回避手"]->Active();
+				ui_data["回避手2"]->Active();
+			}
+			if (tuto_count == 700) {
+				ui_data["回避説明"]->setEnd();
+				ui_data["回避手"]->setEnd();
+				ui_data["回避手2"]->setEnd();
+			}
+			if (tuto_count == 780) {
+				tuto_count = 0;
+				ui_data["ダッシュ説明"]->Active();
+			}
+		}
+	}
+}
+
+void UIPlate::tuto3()
+{
+	if (!ui_data["回避説明"]->isActive()) {
+		if (!ui_data["動き説明"]->isActive()) {
+			tuto_count++;
+			if (tuto_count == 1) {
+
+				ui_data["ダッシュ説明"]->fontSetText(u8"手を素早く前に突き出すと、ダッシュができます。\n    敵の後ろでダッシュをすると敵を倒す事ができます。");
+				ui_data["ダッシュ説明"]->setColor(0, 0, 0, 0);
+				ui_data["ダッシュ手"]->Active();
+			}
+			if (tuto_count == 600) {
+				ui_data["ダッシュ説明"]->setEnd();
+				ui_data["ダッシュ手"]->setEnd();
+				ui_data["操作説明"]->setEnd();
+			}
+			if (tuto_count == 680) {
+				ui_data["ゲーム説明"]->Active();
+				ui_data["ゲーム説明"]->fontSetText(u8"ダッシュで目の前の敵を倒し、\n １位を目指しましょう！\n それではゲームを始めます。");
+			}
+		}
+	}
+}
+
+void UIPlate::tuto4(bool &end_flag)
+{
+	if (ui_data["ゲーム説明"]->isActive()) {
+		change_counnt++;
+		if (change_counnt == 500) {
+			ui_data["ゲーム説明"]->setEnd();
+			SoundGet.find("TitleBGM")->disable();
+			end_flag = true;
+		}
+	}
+}
+
 
 
 
@@ -152,6 +252,7 @@ void UIPlate::titleDraw()
 
 void UIPlate::gameMainSetup()
 {
+	setup();
 	for (auto it = UIObjects::get().begin(); it != UIObjects::get().end(); it++) {
 		if (ui_data[(*it)]->getUIType() == UITYPE::FontUI ||
 			ui_data[(*it)]->getUIType() == UITYPE::IncrementTimeUI ||
@@ -165,39 +266,53 @@ void UIPlate::gameMainSetup()
 		}
 	}
 	game_count = 0;
+	goal_count = 0;
+	boss_count = 0;
+	ui_data["GameMainChange"]->Active();
+	ui_data["GameMainChange"]->setEnd();
 	ui_data["ダッシュゲージ"]->Active();
-
-	ui_data["三"]->Active();
+	ui_data["ResultChange1"]->Active();
 	ui_data["5位"]->Active();
 	ui_data["Rank"]->Active();
-	SoundGet.find("Count_1")->start();
 	player->setIsStop(true);
 }
 
 void UIPlate::gameMainUpdate() {
-	game_count++;
-	if (game_count == 60) {
-		ui_data["二"]->Active();
-		SoundGet.find("Count_1")->stop();
-		SoundGet.find("Count_1")->start();
+	if (!ui_data["GameMainChange"]->isActive()) {
+		game_count++;
+		if (game_count == 1) {
+			ui_data["三"]->Active();
+			SoundGet.find("Count_1")->start();
+		}
+		if (game_count == 60) {
+			ui_data["二"]->Active();
+			SoundGet.find("Count_1")->stop();
+			SoundGet.find("Count_1")->start();
+		}
+		if (game_count == 120) {
+			ui_data["一"]->Active();
+			SoundGet.find("Count_1")->stop();
+			SoundGet.find("Count_1")->start();
+		}
+		if (game_count == 180) {
+			ui_data["GO"]->Active();
+			SoundGet.find("Count_1")->stop();
+			SoundGet.find("Count_2")->start();
+			player->setIsStop(false);
+			enemyholder->start();
+		}
+		if (game_count == 240) {
+			ui_data["制限時間"]->Active();
+			ui_data["経過時間"]->Active();
+			ui_data["経過時間"]->timeStart();
+			ui_data["制限時間"]->timeStart();
+			if (SoundGet.find("RaceBGM")->isEnabled())
+				SoundGet.find("RaceBGM")->stop();
+			else
+				SoundGet.find("RaceBGM")->start();
+			SoundGet.find("RaceBGM")->setLoopEnabled(true);
+		}
 	}
-	if (game_count == 120) {
-		ui_data["一"]->Active();
-		SoundGet.find("Count_1")->stop();
-		SoundGet.find("Count_1")->start();
-	}
-	if (game_count == 180) {
-		ui_data["GO"]->Active();
-		SoundGet.find("Count_1")->stop();
-		SoundGet.find("Count_2")->start();
-		player->setIsStop(false);
-		enemyholder->start();
-	}
-	if (game_count == 240) {
-		ui_data["制限時間"]->Active();
-		ui_data["制限時間"]->timeStart();
-	}
-
 	switch (enemyholder->getRanking())
 	{
 	case 0:
@@ -246,12 +361,15 @@ void UIPlate::gameMainUpdate() {
 
 
 	ui_data["制限時間"]->timeUpdate();
+	ui_data["経過時間"]->timeUpdate();
+	if (ui_data["制限時間"]->timeOver()) {
 
+	}
 
 	for (auto it = UIObjects::get().begin(); it != UIObjects::get().end(); it++) {
 		ui_data[(*it)]->update();
 	}
-	ui_data["ダッシュゲージ"]->gaugeChangeX(0, 500.f);
+	ui_data["ダッシュゲージ"]->gaugeChangeX(player->getIntervalCount(), 1.0f);
 	ui_data["OK"]->Idle();
 	if (ui_data["ダッシュゲージ"]->gaugeGetIsMax()) {
 		ui_data["OK"]->Active();
@@ -270,11 +388,11 @@ void UIPlate::gameMainDraw() {
 
 				ci::gl::translate(0.0f, 0.0f, -1.0f);
 				gl::drawString(ui_data[(*it)]->fontGetText(),
-							   Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
-							   Color(ui_data[(*it)]->getColorR(),
-									 ui_data[(*it)]->getColorG(),
-									 ui_data[(*it)]->getColorB()),
-							   font[(*it)]);
+					Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
+					Color(ui_data[(*it)]->getColorR(),
+						ui_data[(*it)]->getColorG(),
+						ui_data[(*it)]->getColorB()),
+					font[(*it)]);
 
 				ci::gl::popModelView();
 				continue;
@@ -285,12 +403,12 @@ void UIPlate::gameMainDraw() {
 				ci::gl::pushModelView();
 
 				ci::gl::translate(0.0f, 0.0f, -3.0f);
-				gl::drawString(ui_data[(*it)]->timeGetMinutes() + ":" + ui_data[(*it)]->timeGetSeconds() + ":" + ui_data[(*it)]->timeGetFlame(),
-							   Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
-							   Color(ui_data[(*it)]->getColorR(),
-									 ui_data[(*it)]->getColorG(),
-									 ui_data[(*it)]->getColorB()),
-							   font[(*it)]);
+				gl::drawString(ui_data[(*it)]->timeGetMinutes() + "'" + ui_data[(*it)]->timeGetSeconds() + "''" + ui_data[(*it)]->timeGetFlame(),
+					Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
+					Color(ui_data[(*it)]->getColorR(),
+						ui_data[(*it)]->getColorG(),
+						ui_data[(*it)]->getColorB()),
+					font[(*it)]);
 
 				ci::gl::popModelView();
 				continue;
@@ -330,15 +448,136 @@ void UIPlate::gameMainDraw() {
 				TEX.get(ui_data[(*it)]->gaugeGetTexturePath()).disable();
 			}
 			ci::gl::popModelView();
-
 		}
 	}
 	ci::gl::disableAlphaBlending();
 	ci::gl::enableDepthRead();
+	ci::gl::popModelView();
+}
+
+void UIPlate::gameMainTimeWrite()
+{
+	{
+		ui_data["経過時間"]->timeStop();
+		{
+			std::ifstream file(ci::app::getAssetPath("UI/SaveData/SaveData.txt").string());
+			assert(file);
+			int count;
+			int rank = 0;
+			struct Time {
+				int minutes;
+				int seconds;
+				int flame;
+			};
+			Time time[7];
+			time[5].minutes = std::stoi(ui_data["経過時間"]->timeGetMinutes());
+			time[5].seconds = std::stoi(ui_data["経過時間"]->timeGetSeconds());
+			time[5].flame = std::stoi(ui_data["経過時間"]->timeGetFlame());
+			file >> count;
+			for (int i = 0; i < count; i++) {
+				file >> time[i].minutes;
+				file >> time[i].seconds;
+				file >> time[i].flame;
+			}
+			for (int i = 0; i < count; i++) {
+				int top_score = (time[i].minutes * 3600) + (time[i].seconds * 60) + time[i].flame;
+				int now_score = (time[5].minutes * 3600) + (time[5].seconds * 60) + time[5].flame;
+				if (top_score >= now_score) {
+					if (rank > 0) {
+						std::swap(time[6].minutes, time[i].minutes);
+						std::swap(time[6].seconds, time[i].seconds);
+						std::swap(time[6].flame, time[i].flame);
+						continue;
+					}
+					time[6].minutes = time[i].minutes;
+					time[6].seconds = time[i].seconds;
+					time[6].flame = time[i].flame;
+					time[i].minutes = time[5].minutes;
+					time[i].seconds = time[5].seconds;
+					time[i].flame = time[5].flame;
+					rank = i + 1;
+				}
+			}
+			std::ofstream out_file(ci::app::getAssetPath("UI/SaveData/SaveData.txt").string());
+			out_file << 5 << std::endl;
+			for (int i = 0; i < 6; i++) {
+				out_file << time[i].minutes << ' ' << time[i].seconds << ' ' << time[i].flame << std::endl;
+			}
+			out_file << rank;
+		}
+
+	}
+}
+
+void UIPlate::gameMainShift() {
+	goal_count++;
+	if (goal_count == 1) {
+		SoundGet.find("BattleBGM")->disable();
+		SoundGet.find("Goal")->start();
+		ui_data["Goal"]->Active();
+		ui_data["Goal2"]->Active();
+	}
+	if (goal_count == 150) {
+		ui_data["Goal"]->setEnd();
+		ui_data["Goal2"]->setEnd();
+	}
+	if (goal_count == 180) {
+		ui_data["ResultChange1"]->setEnd();
+	}
+}
+
+void UIPlate::gameMainBossActive()
+{
+	if (boss->getIsExist()) {
+		ui_data["制限時間"]->Idle();
+		boss_count++;
+		if (boss_count <= 30) {
+			SoundGet.find("RaceBGM")->gain->setValue(1.0f - ((static_cast<float>(boss_count) / 30)));
+		}
+		if (boss_count == 30) {
+			SoundGet.find("Boss")->start();
+			ui_data["ボス出現"]->Active();
+			ui_data["ボス出現"]->setEnd();
+		}
+		if (boss_count == 300) {
+			if (SoundGet.find("BattleBGM")->isEnabled())
+				SoundGet.find("BattleBGM")->stop();
+			else
+				SoundGet.find("BattleBGM")->start();
+			SoundGet.find("BattleBGM")->setLoopEnabled(true);
+		}
+	}
+}
+
+void UIPlate::gameMainTimeUp()
+{
+	if (!boss->getIsExist()) {
+		if (ui_data["制限時間"]->timeOver()) {
+			boss_count++;
+			if (boss_count == 1) {
+				SoundGet.find("RaceBGM")->disable();
+				SoundGet.find("TimeUp")->start();
+				ui_data["タイムアップ"]->Active();
+				ui_data["TimeUpChange"]->Active();
+				ui_data["TimeUpChange"]->setColor(1, 1, 1, 0);
+				ui_data["TimeUpChange"]->setEnd();
+			}
+			if (!ui_data["TimeUpChange"]->isActive()) {
+				UIType::is_ending = true;
+				UIType::erase();
+				UIObjects::erase();
+				UIState::erase();
+				EasingType::erase();
+				Scene::createScene<Result>(new Result());
+			}
+		}
+	}
 }
 
 void UIPlate::resultSetup()
 {
+	setup();
+	game_count = 0;
 	for (auto it = UIObjects::get().begin(); it != UIObjects::get().end(); it++) {
 		if (ui_data[(*it)]->getUIType() == UITYPE::FontUI ||
 			ui_data[(*it)]->getUIType() == UITYPE::IncrementTimeUI ||
@@ -351,16 +590,118 @@ void UIPlate::resultSetup()
 			TEX.set(ui_data[(*it)]->gaugeGetTexturePath(), ui_data[(*it)]->gaugeGetTexturePath());
 		}
 	}
-	ui_data["GOAL"]->Active();
 
+	float left = -(getWindowSize().x - WIDTH) / 2;
+	float right = 800 + (getWindowSize().x - WIDTH) / 2;
+	float bottom = -(getWindowSize().y - WIDTH) / 2;
+	float top = 800 + (getWindowSize().y - WIDTH) / 2;
+	camera_o.setOrtho(left, right,
+		600, 0,
+		1, 10);
+
+	{
+		std::ifstream file(ci::app::getAssetPath("UI/SaveData/SaveData.txt").string());
+		assert(file);
+		int count;
+		struct Time {
+			int minutes;
+			int seconds;
+			int flame;
+		};
+		Time time[6];
+		time[5].minutes = std::stoi(ui_data["経過時間"]->timeGetMinutes());
+		time[5].seconds = std::stoi(ui_data["経過時間"]->timeGetSeconds());
+		time[5].flame = std::stoi(ui_data["経過時間"]->timeGetFlame());
+		file >> count;
+		count += 1;
+		for (int i = 0; i < count; i++) {
+			file >> time[i].minutes;
+			file >> time[i].seconds;
+			file >> time[i].flame;
+		}
+		file >> rank_in;
+		ui_data["Rank1"]->Active();
+		ui_data["Rank2"]->Active();
+		ui_data["Rank3"]->Active();
+		ui_data["Rank4"]->Active();
+		ui_data["Rank5"]->Active();
+		ui_data["ResultTime"]->Active();
+		ui_data["リザルト"]->Active();
+		ui_data["Rank1"]->fontSetText("1st " + std::to_string(time[0].minutes) + "'" + addZero(time[0].seconds) + "''" + addZero(time[0].flame));
+		ui_data["Rank2"]->fontSetText("2nd " + std::to_string(time[1].minutes) + "'" + addZero(time[1].seconds) + "''" + addZero(time[1].flame));
+		ui_data["Rank3"]->fontSetText("3rd " + std::to_string(time[2].minutes) + "'" + addZero(time[2].seconds) + "''" + addZero(time[2].flame));
+		ui_data["Rank4"]->fontSetText("4th " + std::to_string(time[3].minutes) + "'" + addZero(time[3].seconds) + "''" + addZero(time[3].flame));
+		ui_data["Rank5"]->fontSetText("5th " + std::to_string(time[4].minutes) + "'" + addZero(time[4].seconds) + "''" + addZero(time[4].flame));
+		ui_data["ResultTime"]->fontSetText(u8"今回のタイム　" + std::to_string(time[5].minutes) + "'" + addZero(time[5].seconds) + "''" + addZero(time[5].flame));
+		ui_data["ResultTime"]->setColor(0.5, 0.5, 1, 1);
+		ui_data["ResultChange2"]->Active();
+		ui_data["ResultChange2"]->setEnd();
+	}
+}
+
+void UIPlate::endingSetup()
+{
+	setup();
+
+	float left = -(getWindowSize().x - WIDTH) / 2;
+	float right = 800 + (getWindowSize().x - WIDTH) / 2;
+	float bottom = -(getWindowSize().y - WIDTH) / 2;
+	float top = 800 + (getWindowSize().y - WIDTH) / 2;
+	camera_o.setOrtho(left, right,
+		600, 0,
+		1, 10);
+
+	game_count = 0;
+	for (auto it = UIObjects::get().begin(); it != UIObjects::get().end(); it++) {
+		if (ui_data[(*it)]->getUIType() == UITYPE::FontUI ||
+			ui_data[(*it)]->getUIType() == UITYPE::IncrementTimeUI ||
+			ui_data[(*it)]->getUIType() == UITYPE::DecrementTimeUI) {
+			font[(*it)] = Font(ui_data[(*it)]->fontGetPath(), ui_data[(*it)]->fontGetSize());
+			continue;
+		}
+		TEX.set((*it), ui_data[(*it)]->getTexturePath());
+		if (ui_data[(*it)]->getUIType() == UITYPE::GaugeUI) {
+			TEX.set(ui_data[(*it)]->gaugeGetTexturePath(), ui_data[(*it)]->gaugeGetTexturePath());
+		}
+	}
 }
 
 void UIPlate::resultUpdate()
 {
+
+	float left = -(getWindowSize().x - WIDTH) / 2;
+	float right = 800 + (getWindowSize().x - WIDTH) / 2;
+	float bottom = -(getWindowSize().y - WIDTH) / 2;
+	float top = 800 + (getWindowSize().y - WIDTH) / 2;
+	camera_o.setOrtho(left, right,
+		600, 0,
+		1, 10);
+
+	game_count++;
+	ui_data["ResultTime"]->setColor(0, 0, 0.5 + std::sinf(game_count / 4) / 2, 1);
 	for (auto it = UIObjects::get().begin(); it != UIObjects::get().end(); it++) {
 		ui_data[(*it)]->update();
 	}
+	switch (rank_in) {
+	case 1:
+		ui_data["Rank1"]->setColor(1.0f, 0.5f, std::sinf(game_count), 1.0f);
+		break;
+	case 2:
+		ui_data["Rank2"]->setColor(std::sinf(game_count), std::sinf(game_count), std::sinf(game_count), 1.0f);
+		break;
+	case 3:
+		ui_data["Rank3"]->setColor(std::sinf(game_count), std::sinf(game_count), std::sinf(game_count), 1.0f);
+		break;
+	case 4:
+		ui_data["Rank4"]->setColor(std::sinf(game_count), std::sinf(game_count), std::sinf(game_count), 1.0f);
+		break;
+	case 5:
+		ui_data["Rank5"]->setColor(std::sinf(game_count), std::sinf(game_count), std::sinf(game_count), 1.0f);
+		break;
+	}
 }
+
+
 
 void UIPlate::resultDraw()
 {
@@ -373,11 +714,11 @@ void UIPlate::resultDraw()
 
 				ci::gl::translate(0.0f, 0.0f, -1.0f);
 				gl::drawString(ui_data[(*it)]->fontGetText(),
-							   Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
-							   Color(ui_data[(*it)]->getColorR(),
-									 ui_data[(*it)]->getColorG(),
-									 ui_data[(*it)]->getColorB()),
-							   font[(*it)]);
+					Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
+					Color(ui_data[(*it)]->getColorR(),
+						ui_data[(*it)]->getColorG(),
+						ui_data[(*it)]->getColorB()),
+					font[(*it)]);
 
 				ci::gl::popModelView();
 				continue;
@@ -389,11 +730,11 @@ void UIPlate::resultDraw()
 
 				ci::gl::translate(0.0f, 0.0f, -3.0f);
 				gl::drawString(ui_data[(*it)]->timeGetMinutes() + ":" + ui_data[(*it)]->timeGetSeconds() + ":" + ui_data[(*it)]->timeGetFlame(),
-							   Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
-							   Color(ui_data[(*it)]->getColorR(),
-									 ui_data[(*it)]->getColorG(),
-									 ui_data[(*it)]->getColorB()),
-							   font[(*it)]);
+					Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
+					Color(ui_data[(*it)]->getColorR(),
+						ui_data[(*it)]->getColorG(),
+						ui_data[(*it)]->getColorB()),
+					font[(*it)]);
 
 				ci::gl::popModelView();
 				continue;
@@ -438,3 +779,4 @@ void UIPlate::resultDraw()
 	}
 	ci::gl::disableAlphaBlending();
 }
+

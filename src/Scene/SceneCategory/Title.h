@@ -17,14 +17,15 @@ public:
 
 private:
 	ar::GameObjectEntities entities;
-
 	UIPlate ui;
 	float color_r;
 	float color_g;
 	float color_b;
 	int update_count;
 	int end_count;
+	int next_count;
 	bool end_flag;
+	bool tutorial;
 
 };
 

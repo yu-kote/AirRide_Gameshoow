@@ -1,5 +1,5 @@
 #include "GameMain.h"
-
+#include "../SceneCategory/Result.h"
 
 #include "../../Object/GameObject/Light/Light.h"
 #include "../../Object/GameObject/Camera/Camera.h"
@@ -66,16 +66,8 @@ void GameMain::setup()
 
 	ui.player = entities.getObject<Player>();
 	ui.enemyholder = entities.getObject<EnemyHolder>();
+	ui.boss = entities.getObject<Boss>();
 	ui.gameMainSetup();
-
-
-	if (SoundGet.find("RaceBGM")->isEnabled())
-		SoundGet.find("RaceBGM")->stop();
-	else
-		SoundGet.find("RaceBGM")->start();
-	SoundGet.find("RaceBGM")->setLoopEnabled(true);
-
-
 }
 
 void GameMain::draw()
@@ -98,28 +90,28 @@ void GameMain::draw()
 
 void GameMain::update()
 {
-	if (!is_setup)
-	{
-		//setup();
-		is_setup = true;
-	}
-
-	//auto start = std::chrono::system_clock::now();
-
+	ui.gameMainUpdate();
 	entities.updateGameObject();
 	entities.laterUpdateGameObject();
-
-	ui.gameMainUpdate();
-
-	/*auto end = std::chrono::system_clock::now();
-	auto d = end - start;
-	auto msec = std::chrono::duration_cast<std::chrono::milliseconds>(d).count();
-	console() << msec << std::endl;*/
+	ui.gameMainBossActive();
+	ui.gameMainTimeUp();
 }
 
 void GameMain::shift()
 {
+	if (env.isPress(KeyEvent::KEY_RETURN)) {
+		ui.gameMainShift();
+	}
+	if (!ui.ui_data["ResultChange1"]->isActive()) {
+		ui.gameMainTimeWrite();
+		UIType::erase();
+		UIObjects::erase();
+		UIState::erase();
+		EasingType::erase();
+		Scene::createScene<Result>(new Result());
+	}
 }
+
 
 void GameMain::shutdown()
 {

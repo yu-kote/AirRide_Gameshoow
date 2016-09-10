@@ -21,3 +21,6 @@ Start   SoundData/BufferPlayer/start.wav
 Count_1   SoundData/BufferPlayer/count_1.wav
 
 Count_2   SoundData/BufferPlayer/count_2.wav
+
+Boss	SoundData/BufferPlayer/boss.wav
+

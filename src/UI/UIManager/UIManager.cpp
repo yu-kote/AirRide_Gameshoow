@@ -122,14 +122,20 @@ std::function<float(float, float, float)> UIManager::selectEasing(int state) {
 }
 
 UIManager::UIManager() {
+	
+}
+
+
+
+void UIManager::setup() {
 	//種類データをjsonデータで取得するためのコンストラクタ
-	UIType::UIType();
-	UIObjects::UIObjects();
-	UIState::UIState();
-	EasingType::EasingType();
+	UIType::setup();
+	UIObjects::setup();
+	UIState::setup();
+	EasingType::setup();
 	//jsonデータのファイル読み込み
 	std::ifstream fs;
-	fs.open("../assets/UI/UI.json", std::ios::binary);
+	fs.open(ci::app::getAssetPath("UI/UI.json").string(), std::ios::binary);
 	assert(fs);
 	picojson::value val;
 	fs >> val;
@@ -142,9 +148,9 @@ UIManager::UIManager() {
 		//uiにinsert
 		picojson::object data(val.get<picojson::object>()["UI"].get<picojson::object>());
 		ui_data[*it] = selectUIType(UIType::get()[data[(*it)].get<picojson::object>()["UIType"].get<std::string>()]);
-		
+
 		if (ui_data[(*it)]->getUIType() == UITYPE::NormalUI ||
-			ui_data[(*it)]->getUIType() == UITYPE::CollisionUI || 
+			ui_data[(*it)]->getUIType() == UITYPE::CollisionUI ||
 			ui_data[(*it)]->getUIType() == UITYPE::GaugeUI) {
 			//テクスチャのパスをセット
 			ui_data[(*it)]->setTexturePath(data[(*it)].get<picojson::object>()["TexturePath"].get<std::string>());
@@ -239,5 +245,3 @@ UIManager::UIManager() {
 		}
 	}
 }
-
-
