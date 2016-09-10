@@ -18,6 +18,7 @@ void Title::setup()
 	c_Easing::apply(color_b, 1.0f, EasingFunction::ExpoIn, 60);
 	update_count = 0;
 	end_count = 0;
+	tutorial = false;
 }
 
 void Title::update()
@@ -45,7 +46,12 @@ void Title::update()
 		c_Easing::apply(color_g, 0.0f, EasingFunction::ExpoIn, 60);
 		c_Easing::apply(color_b, 0.0f, EasingFunction::ExpoIn, 60);
 	}
-
+	if (tutorial) {
+		ui.tuto4(end_flag);
+		ui.tuto1();
+		ui.tuto2();
+		ui.tuto3();
+	}
 }
 
 void Title::draw()
@@ -65,20 +71,27 @@ void Title::shift()
 {
 	
 	if (update_count >= 1) {
-		if (env.isPress(KeyEvent::KEY_RETURN) ||
-			LEAPHANDS.IsHandExist())
-		{
-			ui.ui_data["開始ゲージ"]->Active();
-			next_count += 1;
+		if (tutorial == false) {
+			if (env.isPress(KeyEvent::KEY_RETURN) ||
+				LEAPHANDS.IsHandExist())
+			{
+				ui.ui_data["開始ゲージ"]->Active();
+				next_count += 1;
+			}
+			else {
+				ui.ui_data["開始ゲージ"]->Idle();
+				next_count = 0;
+			}
+
+
+			ui.ui_data["開始ゲージ"]->gaugeChangeX(next_count, 60);
 		}
 		else {
-			ui.ui_data["開始ゲージ"]->setEnd();
-			next_count = 0;
+			ui.ui_data["開始ゲージ"]->Idle();
+			ui.ui_data["開始ゲージ"]->gaugeChangeX(0, 60);
 		}
-		
-
-		ui.ui_data["開始ゲージ"]->gaugeChangeX(next_count, 60);
 	}
+	
 	if (end_flag == true) {
 		end_count++;
 	}
@@ -97,18 +110,15 @@ void Title::shift()
 			ui.ui_data["K"]->setEnd();
 			ui.ui_data["Y"]->setEnd();
 			ui.ui_data["!"]->setEnd();
+			ui.ui_data["開始ゲージ"]->Idle();
 			ui.ui_data["スタート"]->setEnd();
-			end_flag = true;
-			if (next_count == 61 &&
-				end_count == 1) {
-				SoundGet.find("TitleBGM")->disable();
-				SoundGet.find("Start")->start();
-			}
+			tutorial = true;
+			SoundGet.find("Start")->start();
 
 		}
 	}
 	
-	if (end_count >= 60) {
+	if (end_count >= 100) {
 		c_Easing::clear(color_r);
 		c_Easing::clear(color_g);
 		c_Easing::clear(color_b);
@@ -116,8 +126,7 @@ void Title::shift()
 		UIObjects::erase();
 		UIState::erase();
 		EasingType::erase();
-		Scene::createScene<GameMain>(new GameMain());
-		
+		Scene::createScene<GameMain>(new GameMain());	
 	}
 	
 }

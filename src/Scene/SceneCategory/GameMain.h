@@ -16,7 +16,7 @@ public:
 	void shutdown() override;
 private:
 	ar::GameObjectEntities entities;
-
+	int end_count;
 	bool is_setup = false;
 	UIPlate ui;
 };

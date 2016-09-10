@@ -66,18 +66,8 @@ void GameMain::setup()
 
 	ui.player = entities.getObject<Player>();
 	ui.enemyholder = entities.getObject<EnemyHolder>();
+	ui.boss = entities.getObject<Boss>();
 	ui.gameMainSetup();
-
-
-	if (SoundGet.find("RaceBGM")->isEnabled())
-		SoundGet.find("RaceBGM")->stop();
-	else
-		SoundGet.find("RaceBGM")->start();
-	SoundGet.find("RaceBGM")->setLoopEnabled(true);
-
-
-
-
 }
 
 void GameMain::draw()
@@ -100,21 +90,20 @@ void GameMain::draw()
 
 void GameMain::update()
 {
-
+	ui.gameMainUpdate();
 	entities.updateGameObject();
 	entities.laterUpdateGameObject();
-
-	ui.gameMainUpdate();
+	ui.gameMainBossActive();
+	ui.gameMainTimeUp();
 }
 
 void GameMain::shift()
 {
 	if (env.isPress(KeyEvent::KEY_RETURN)) {
-		SoundGet.find("RaceBGM")->disable();
-		ui.ui_data["ResultChange1"]->setEnd();
+		ui.gameMainShift();
 	}
 	if (!ui.ui_data["ResultChange1"]->isActive()) {
-		ui.gameMainShift();
+		ui.gameMainTimeWrite();
 		UIType::erase();
 		UIObjects::erase();
 		UIState::erase();
