@@ -81,9 +81,16 @@ ci::Vec3f ar::SignPostManager::getStagePos(ci::Vec3f _terget)
 
 void ar::SignPostManager::ringDraw()
 {
+	int count = 0;
 	for (auto& it : signposts) {
-		if (sphereToSphere(player->getWorldPoisition(), 300, it.getPos(), 1))
-			it.ringDraw();
+		if (sphereToSphere(player->getWorldPoisition(), 350, it.getPos(), 1))
+		{
+			//if (count % 2 == 0)
+			{
+				it.ringDraw();
+			}
+		}
+		count++;
 	}
 }
 
