@@ -27,5 +27,9 @@ private:
 	bool end_flag;
 	bool tutorial;
 
+	void gameSetup();
+	void gameUpdate();
+	void gameDraw();
+
 };
 
