@@ -25,6 +25,7 @@ private:
 	int end_count;
 	int next_count;
 	bool end_flag;
+	bool tutorial;
 
 };
 

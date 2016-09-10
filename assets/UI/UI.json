@@ -267,7 +267,7 @@
 
       ],
       "EaseOut": [
-        { "UIState": "Pos_x","Change": 1000,"EasingType": "ExpoIn","Frame": 40}
+        { "UIState": "Pos_x","Change": 1500,"EasingType": "ExpoIn","Frame": 40}
       ],
       "EaseUpdate": [
         { "UIState": "Pos_x","Change": 70,"EasingType": "ExpoIn","Frame": 1},
@@ -556,7 +556,7 @@
          { "UIState": "Size_y","Change": 50,"EasingType": "ExpoIn","Frame": 383}
       ],
       "EaseOut": [
-        { "UIState": "Pos_x","Change": 1000,"EasingType": "ExpoIn","Frame": 40}
+        { "UIState": "Pos_x","Change": 1500,"EasingType": "ExpoIn","Frame": 40}
       ],
       "EaseUpdate": [
         { "UIState": "Pos_x","Change": 120,"EasingType": "ExpoIn","Frame": 1},
@@ -845,7 +845,7 @@
          { "UIState": "Size_y","Change": 60,"EasingType": "ExpoIn","Frame": 355}
       ],
       "EaseOut": [
-        { "UIState": "Pos_x","Change": 1000,"EasingType": "ExpoIn","Frame": 40}
+        { "UIState": "Pos_x","Change": 1500,"EasingType": "ExpoIn","Frame": 40}
       ],
       "EaseUpdate": [
         { "UIState": "Pos_x","Change": 150,"EasingType": "ExpoIn","Frame": 1},
@@ -1134,7 +1134,7 @@
          { "UIState": "Size_y","Change": 40,"EasingType": "ExpoIn","Frame": 327}
       ],
       "EaseOut": [
-        { "UIState": "Pos_x","Change": 1000,"EasingType": "ExpoIn","Frame": 40}
+        { "UIState": "Pos_x","Change": 1500,"EasingType": "ExpoIn","Frame": 40}
       ],
       "EaseUpdate": [
         { "UIState": "Pos_x","Change": 200,"EasingType": "ExpoIn","Frame": 1},
@@ -1423,7 +1423,7 @@
          { "UIState": "Size_y","Change": 40,"EasingType": "ExpoIn","Frame": 299}
       ],
       "EaseOut": [
-        { "UIState": "Pos_x","Change": 1000,"EasingType": "ExpoIn","Frame": 40}
+        { "UIState": "Pos_x","Change": 1500,"EasingType": "ExpoIn","Frame": 40}
       ],
       "EaseUpdate": [
         { "UIState": "Pos_x","Change": 270,"EasingType": "ExpoIn","Frame": 1},
@@ -1712,7 +1712,7 @@
          { "UIState": "Size_y","Change": 40,"EasingType": "ExpoIn","Frame": 271}
       ],
       "EaseOut": [
-        { "UIState": "Pos_x","Change": 1000,"EasingType": "ExpoIn","Frame": 40}
+        { "UIState": "Pos_x","Change": 1500,"EasingType": "ExpoIn","Frame": 40}
       ],
       "EaseUpdate": [
         { "UIState": "Pos_x","Change": 320,"EasingType": "ExpoIn","Frame": 1},
@@ -2001,7 +2001,7 @@
          { "UIState": "Size_y","Change": 60,"EasingType": "ExpoIn","Frame": 243}
       ],
       "EaseOut": [
-        { "UIState": "Pos_x","Change": 1000,"EasingType": "ExpoIn","Frame": 40}
+        { "UIState": "Pos_x","Change": 1500,"EasingType": "ExpoIn","Frame": 40}
       ],
       "EaseUpdate": [
         { "UIState": "Pos_x","Change": 380,"EasingType": "ExpoIn","Frame": 1},
@@ -2290,7 +2290,7 @@
          { "UIState": "Size_y","Change": 60,"EasingType": "ExpoIn","Frame": 215}
       ],
       "EaseOut": [
-        { "UIState": "Pos_x","Change": 1000,"EasingType": "ExpoIn","Frame": 40}
+        { "UIState": "Pos_x","Change": 1500,"EasingType": "ExpoIn","Frame": 40}
       ],
       "EaseUpdate": [
         { "UIState": "Pos_x","Change": 430,"EasingType": "ExpoIn","Frame": 1},
@@ -2579,7 +2579,7 @@
          { "UIState": "Size_y","Change": 40,"EasingType": "ExpoIn","Frame": 187}
       ],
       "EaseOut": [
-        { "UIState": "Pos_x","Change": 1000,"EasingType": "ExpoIn","Frame": 40}
+        { "UIState": "Pos_x","Change": 1500,"EasingType": "ExpoIn","Frame": 40}
       ],
       "EaseUpdate": [
         { "UIState": "Pos_x","Change": 480,"EasingType": "ExpoIn","Frame": 1},
@@ -2868,7 +2868,7 @@
          { "UIState": "Size_y","Change": 60,"EasingType": "ExpoIn","Frame": 159}
       ],
       "EaseOut": [
-        { "UIState": "Pos_x","Change": 1000,"EasingType": "ExpoIn","Frame": 40}
+        { "UIState": "Pos_x","Change": 1500,"EasingType": "ExpoIn","Frame": 40}
       ],
       "EaseUpdate": [
         { "UIState": "Pos_x","Change": 540,"EasingType": "ExpoIn","Frame": 1},
@@ -3157,7 +3157,7 @@
          { "UIState": "Size_y","Change": 60,"EasingType": "ExpoIn","Frame": 131}
       ],
       "EaseOut": [
-        { "UIState": "Pos_x","Change": 1000,"EasingType": "ExpoIn","Frame": 40}
+        { "UIState": "Pos_x","Change": 1500,"EasingType": "ExpoIn","Frame": 40}
       ],
       "EaseUpdate": [
         { "UIState": "Pos_x","Change": 590,"EasingType": "ExpoIn","Frame": 1},
@@ -3446,7 +3446,7 @@
          { "UIState": "Size_y","Change": 60,"EasingType": "ExpoIn","Frame": 103}
       ],
       "EaseOut": [
-        { "UIState": "Pos_x","Change": 1000,"EasingType": "ExpoIn","Frame": 40}
+        { "UIState": "Pos_x","Change": 1500,"EasingType": "ExpoIn","Frame": 40}
       ],
       "EaseUpdate": [
         { "UIState": "Pos_x","Change": 640,"EasingType": "ExpoIn","Frame": 1},
@@ -3735,7 +3735,7 @@
          { "UIState": "Size_y","Change": 60,"EasingType": "ExpoIn","Frame": 75}
       ],
       "EaseOut": [
-        { "UIState": "Pos_x","Change": 1000,"EasingType": "ExpoIn","Frame": 40}
+        { "UIState": "Pos_x","Change": 1500,"EasingType": "ExpoIn","Frame": 40}
       ],
       "EaseUpdate": [
         { "UIState": "Pos_x","Change": 690,"EasingType": "ExpoIn","Frame": 1},
@@ -3780,22 +3780,309 @@
 
     "開始ゲージ": {
       "UIType": "GaugeUI",
-      "TexturePath": "UI/UITexture/GameMain/DashBar.png",
-      "GaugeTexturePath": "UI/UITexture/GameMain/DashGauge.png",
+      "TexturePath": "UI/UITexture/Title/gage_start.png",
+      "GaugeTexturePath": "UI/UITexture/Title/gage_start02.png",
       "Pos_x": 0,
-      "Pos_y": 500,
+      "Pos_y": 523,
       "Size_x": 400,
-      "Size_y": 100,
+      "Size_y": 50,
 
       "GaugePos_x": 17,
       "GaugePos_y": 551,
-      "GaugeSize_x": 367,
+      "GaugeSize_x": 366,
       "GaugeSize_y": 16,
 
       "EaseIn": [ ],
       "EaseOut": [
+        { "UIState": "Pos_x","Change": -1000,"EasingType": "ExpoIn","Frame": 40}
       ],
       "EaseUpdate": [ ]
+    },
+    
+    "操作説明": {
+      "UIType": "FontUI",
+      "FontPath": "UI/UITexture/Font/HGRSGU.TTC",
+      "Pos_x": -1500,
+      "Pos_y": 50,
+      "Size": 70,
+      "Text" : "",
+
+      "EaseIn": [
+        { "UIState": "Pos_x","Change": 280,"EasingType": "ExpoIn","Frame": 80}
+
+      ],
+      "EaseOut": [
+       { "UIState": "Pos_x","Change": -1500,"EasingType": "ExpoIn","Frame": 80}
+      ],
+      "EaseUpdate": [ ]
+    },
+    
+    "動き説明": {
+      "UIType": "FontUI",
+      "FontPath": "UI/UITexture/Font/HGRSGU.TTC",
+      "Pos_x": 1500,
+      "Pos_y": 120,
+      "Size": 40,
+      "Text" : "",
+
+      "EaseIn": [
+       { "UIState": "Pos_x","Change": 150,"EasingType": "ExpoIn","Frame": 80}
+      ],
+      "EaseOut": [
+       { "UIState": "Pos_x","Change": -1500,"EasingType": "ExpoIn","Frame": 80}
+      ],
+      "EaseUpdate": [ ]
+    },
+
+    "動き手": {
+      "UIType": "CollisionUI",
+      "TexturePath": "UI/UITexture/Tutorial/hand01.png",
+      "Pos_x": 1500,
+      "Pos_y": 285,
+      "Size_x": 75,
+      "Size_y": 150,
+      "EaseIn": [
+        { "UIState": "Pos_x","Change": 335,"EasingType": "ExpoIn","Frame": 80},
+        { "UIState": "Pos_y","Change": 285,"EasingType": "ExpoIn","Frame": 80},
+
+        { "UIState": "Pos_x","Change": 500,"EasingType": "ExpoInOut","Frame": 80},
+        { "UIState": "Pos_y","Change": 200,"EasingType": "ExpoInOut","Frame": 80},
+        
+        { "UIState": "Pos_x","Change": 600,"EasingType": "ExpoInOut","Frame": 80},
+        { "UIState": "Pos_y","Change": 380,"EasingType": "ExpoInOut","Frame": 80},
+        
+        { "UIState": "Pos_x","Change": 100,"EasingType": "ExpoInOut","Frame": 80},
+        { "UIState": "Pos_y","Change": 200,"EasingType": "ExpoInOut","Frame": 80},
+        
+        { "UIState": "Pos_x","Change": 100,"EasingType": "ExpoInOut","Frame": 80},
+        { "UIState": "Pos_y","Change": 380,"EasingType": "ExpoInOut","Frame": 80},
+        
+        { "UIState": "Pos_x","Change": 335,"EasingType": "ExpoInOut","Frame": 80},
+        { "UIState": "Pos_y","Change": 285,"EasingType": "ExpoInOut","Frame": 80}
+      ],
+      "EaseOut": [
+        { "UIState": "Pos_x","Change": -1500,"EasingType": "ExpoIn","Frame": 80}
+      ],
+      "EaseUpdate": [
+      ],
+      "EaseCollision": []
+    },
+
+    "回避説明": {
+      "UIType": "FontUI",
+      "FontPath": "UI/UITexture/Font/HGRSGU.TTC",
+      "Pos_x": 1500,
+      "Pos_y": 120,
+      "Size": 40,
+      "Text" : "",
+
+      "EaseIn": [
+       { "UIState": "Pos_x","Change": 50,"EasingType": "ExpoIn","Frame": 80}
+      ],
+      "EaseOut": [
+       { "UIState": "Pos_x","Change": -1500,"EasingType": "ExpoIn","Frame": 80}
+      ],
+      "EaseUpdate": [ ]
+    },
+
+    "回避手": {
+      "UIType": "CollisionUI",
+      "TexturePath": "UI/UITexture/Tutorial/hand02.png",
+      "Pos_x": 1500,
+      "Pos_y": 285,
+      "Size_x": 75,
+      "Size_y": 150,
+      "EaseIn": [
+        { "UIState": "Pos_x","Change": 100,"EasingType": "ExpoIn","Frame": 80},
+        { "UIState": "Pos_y","Change": 285,"EasingType": "ExpoIn","Frame": 80},
+        { "UIState": "Size_x","Change": 0,"EasingType": "ExpoInOut","Frame": 80},
+
+
+        { "UIState": "Pos_x","Change": 600,"EasingType": "ExpoIn","Frame": 80},
+        { "UIState": "Size_x","Change": 75,"EasingType": "ExpoInOut","Frame": 75},
+        { "UIState": "Pos_y","Change": 285,"EasingType": "ExpoInOut","Frame": 80},
+        { "UIState": "Size_x","Change": 75,"EasingType": "ExpoInOut","Frame": 5},
+        
+        { "UIState": "Pos_x","Change": 600,"EasingType": "ExpoIn","Frame": 80},
+        { "UIState": "Size_x","Change": 75,"EasingType": "ExpoInOut","Frame": 80},
+        { "UIState": "Pos_y","Change": 285,"EasingType": "ExpoInOut","Frame": 80},
+        
+        { "UIState": "Pos_x","Change": 600,"EasingType": "ExpoIn","Frame": 1},
+        { "UIState": "Pos_y","Change": 285,"EasingType": "ExpoIn","Frame": 1},
+        { "UIState": "Size_x","Change": 0,"EasingType": "ExpoInOut","Frame": 1},
+        
+        { "UIState": "Pos_x","Change": 100,"EasingType": "ExpoIn","Frame": 80},
+        { "UIState": "Size_x","Change": 75,"EasingType": "ExpoInOut","Frame": 75},
+        { "UIState": "Pos_y","Change": 285,"EasingType": "ExpoInOut","Frame": 80},
+        { "UIState": "Size_x","Change": 75,"EasingType": "ExpoInOut","Frame": 5}
+      ],
+      "EaseOut": [
+        { "UIState": "Pos_x","Change": -1500,"EasingType": "ExpoIn","Frame": 80}
+      ],
+      "EaseUpdate": [
+      ],
+      "EaseCollision": []
+    },
+
+    "回避手2": {
+      "UIType": "CollisionUI",
+      "TexturePath": "UI/UITexture/Tutorial/hand01.png",
+      "Pos_x": 1500,
+      "Pos_y": 285,
+      "Size_x": 75,
+      "Size_y": 150,
+      "EaseIn": [
+        { "UIState": "Pos_x","Change": 100,"EasingType": "ExpoIn","Frame": 80},
+        { "UIState": "Pos_y","Change": 285,"EasingType": "ExpoIn","Frame": 80},
+        { "UIState": "Size_x","Change": 75,"EasingType": "ExpoInOut","Frame": 80},
+
+
+        { "UIState": "Pos_x","Change": 600,"EasingType": "ExpoIn","Frame": 80},
+        { "UIState": "Size_x","Change": 0,"EasingType": "ExpoInOut","Frame": 75},
+        { "UIState": "Pos_y","Change": 285,"EasingType": "ExpoInOut","Frame": 80},
+        { "UIState": "Size_x","Change": 0,"EasingType": "ExpoInOut","Frame": 5},
+        
+        { "UIState": "Pos_x","Change": 600,"EasingType": "ExpoIn","Frame": 80},
+        { "UIState": "Size_x","Change": 0,"EasingType": "ExpoInOut","Frame": 80},
+        { "UIState": "Pos_y","Change": 285,"EasingType": "ExpoInOut","Frame": 80},
+        
+        { "UIState": "Pos_x","Change": 600,"EasingType": "ExpoIn","Frame": 1},
+        { "UIState": "Pos_y","Change": 285,"EasingType": "ExpoIn","Frame": 1},
+        { "UIState": "Size_x","Change": 75,"EasingType": "ExpoInOut","Frame": 1},
+        
+        { "UIState": "Pos_x","Change": 100,"EasingType": "ExpoIn","Frame": 80},
+        { "UIState": "Size_x","Change": 0,"EasingType": "ExpoIn","Frame": 75},
+        { "UIState": "Pos_y","Change": 285,"EasingType": "ExpoInOut","Frame": 80},
+        { "UIState": "Size_x","Change": 0,"EasingType": "ExpoInOut","Frame": 5}
+      ],
+      "EaseOut": [
+        { "UIState": "Pos_x","Change": -1500,"EasingType": "ExpoIn","Frame": 80}
+      ],
+      "EaseUpdate": [
+      ],
+      "EaseCollision": []
+    },
+
+    "ダッシュ説明": {
+      "UIType": "FontUI",
+      "FontPath": "UI/UITexture/Font/HGRSGU.TTC",
+      "Pos_x": 1500,
+      "Pos_y": 120,
+      "Size": 40,
+      "Text" : "",
+
+      "EaseIn": [
+       { "UIState": "Pos_x","Change": 50,"EasingType": "ExpoIn","Frame": 80}
+      ],
+      "EaseOut": [
+       { "UIState": "Pos_x","Change": -1500,"EasingType": "ExpoIn","Frame": 80}
+      ],
+      "EaseUpdate": [ ]
+    },
+
+    "ダッシュ手": {
+      "UIType": "CollisionUI",
+      "TexturePath": "UI/UITexture/Tutorial/hand03.png",
+      "Pos_x": 1500,
+      "Pos_y": 285,
+      "Size_x": 100,
+      "Size_y": 100,
+      "EaseIn": [
+        { "UIState": "Pos_x","Change": 500,"EasingType": "ExpoIn","Frame": 80},
+        { "UIState": "Pos_y","Change": 450,"EasingType": "ExpoIn","Frame": 80},
+        
+        { "UIState": "Pos_x","Change": 550,"EasingType": "ExpoIn","Frame": 70},
+        { "UIState": "Pos_y","Change": 500,"EasingType": "ExpoIn","Frame": 70},
+
+        { "UIState": "Pos_x","Change": 100,"EasingType": "ExpoIn","Frame": 10},
+        { "UIState": "Pos_y","Change": 200,"EasingType": "ExpoIn","Frame": 10},
+        
+        { "UIState": "Pos_x","Change": 100,"EasingType": "ExpoIn","Frame": 70},
+        { "UIState": "Pos_y","Change": 200,"EasingType": "ExpoIn","Frame": 70},
+
+        { "UIState": "Pos_x","Change": 500,"EasingType": "ExpoIn","Frame": 1},
+        { "UIState": "Pos_y","Change": 450,"EasingType": "ExpoIn","Frame": 1},
+
+        { "UIState": "Pos_x","Change": 500,"EasingType": "ExpoIn","Frame": 80},
+        { "UIState": "Pos_y","Change": 450,"EasingType": "ExpoIn","Frame": 80},
+        
+        { "UIState": "Pos_x","Change": 550,"EasingType": "ExpoIn","Frame": 70},
+        { "UIState": "Pos_y","Change": 500,"EasingType": "ExpoIn","Frame": 70},
+
+        { "UIState": "Pos_x","Change": 100,"EasingType": "ExpoIn","Frame": 10},
+        { "UIState": "Pos_y","Change": 200,"EasingType": "ExpoIn","Frame": 10}
+      ],
+      "EaseOut": [
+        { "UIState": "Pos_x","Change": -1500,"EasingType": "ExpoIn","Frame": 80}
+      ],
+      "EaseUpdate": [
+      ],
+      "EaseCollision": []
+    },
+    "ゲーム説明": {
+      "UIType": "FontUI",
+      "FontPath": "UI/UITexture/Font/HGRSGU.TTC",
+      "Pos_x": 1500,
+      "Pos_y": 220,
+      "Size": 50,
+      "Text" : "",
+
+      "EaseIn": [
+       { "UIState": "Pos_x","Change": 120,"EasingType": "ExpoIn","Frame": 80}
+      ],
+      "EaseOut": [
+       { "UIState": "Pos_x","Change": -1500,"EasingType": "ExpoIn","Frame": 80}
+      ],
+      "EaseUpdate": [ ]
+    },
+    "GameMainChange": {
+      "UIType": "CollisionUI",
+      "TexturePath": "UI/UITexture/GameMain/GameChange.png",
+      "Pos_x": 0,
+      "Pos_y": 0,
+      "Size_x": 800,
+      "Size_y": 600,
+      "EaseIn": [
+      ],
+      "EaseOut": [
+         { "UIState": "Color_a","Change": 0,"EasingType": "BackOut","Frame": 240}
+      ],
+      "EaseUpdate": [
+      ],
+      "EaseCollision": []
+    },
+    
+    "TimeUpChange": {
+      "UIType": "CollisionUI",
+      "TexturePath": "UI/UITexture/GameMain/GameChange.png",
+      "Pos_x": 0,
+      "Pos_y": 0,
+      "Size_x": 800,
+      "Size_y": 600,
+      "EaseIn": [
+      ],
+      "EaseOut": [
+         { "UIState": "Color_a","Change": 1,"EasingType": "BackOut","Frame": 180}
+      ],
+      "EaseUpdate": [
+      ],
+      "EaseCollision": []
+    },
+    
+    "タイムアップ": {
+      "UIType": "CollisionUI",
+      "TexturePath": "UI/UITexture/GameMain/time_up01.png",
+      "Pos_x": 100,
+      "Pos_y": 250,
+      "Size_x": 600,
+      "Size_y": 100,
+      "EaseIn": [
+      ],
+      "EaseOut": [
+      ],
+      "EaseUpdate": [
+      ],
+      "EaseCollision": []
     },
 
     "ダッシュゲージ": {
@@ -3841,6 +4128,50 @@
       "EaseCollision": [ ]
     },
     
+     "Goal": {
+      "UIType": "CollisionUI",
+      "TexturePath": "UI/UITexture/GameMain/goal.png",
+      "Pos_x": 210,
+      "Pos_y": 300,
+      "Size_x": 320,
+      "Size_y": 0,
+
+      "EaseIn": [
+         { "UIState": "Pos_y","Change": 250,"EasingType": "BackIn","Frame": 30},
+         { "UIState": "Size_y","Change": 100,"EasingType": "BackIn","Frame": 30},
+         { "UIState": "Pos_y","Change": 250,"EasingType": "BackIn","Frame": 120},
+         { "UIState": "Size_y","Change": 100,"EasingType": "BackIn","Frame": 120}
+      ],
+      "EaseOut": [
+        { "UIState": "Pos_y","Change": 300,"EasingType": "BackIn","Frame": 30},
+         { "UIState": "Size_y","Change": 0,"EasingType": "BackIn","Frame": 30}
+      ],
+       "EaseUpdate": [],
+      "EaseCollision": [ ]
+    },
+
+     "Goal2": {
+      "UIType": "CollisionUI",
+      "TexturePath": "UI/UITexture/GameMain/back_result.png",
+      "Pos_x": 530,
+      "Pos_y": 300,
+      "Size_x": 150,
+      "Size_y": 0,
+
+      "EaseIn": [
+        { "UIState": "Pos_y","Change": 250,"EasingType": "BackIn","Frame": 30},
+         { "UIState": "Size_y","Change": 100,"EasingType": "BackIn","Frame": 30},
+         { "UIState": "Pos_y","Change": 250,"EasingType": "BackIn","Frame": 120},
+         { "UIState": "Size_y","Change": 100,"EasingType": "BackIn","Frame": 120}
+      ],
+      "EaseOut": [
+        { "UIState": "Pos_y","Change": 300,"EasingType": "BackIn","Frame": 30},
+         { "UIState": "Size_y","Change": 0,"EasingType": "BackIn","Frame": 30}
+      ],
+       "EaseUpdate": [],
+      "EaseCollision": [ ]
+    },
+
      "経過時間": {
       "UIType": "IncrementTimeUI",
       "FontPath": "UI/UITexture/Font/HGRSGU.TTC",
@@ -4136,6 +4467,30 @@
       "EaseCollision": []
     },
 
+    "ボス出現": {
+      "UIType": "CollisionUI",
+      "TexturePath": "UI/UITexture/GameMain/boss.png",
+      "Pos_x": 100,
+      "Pos_y": 275,
+      "Size_x": 600,
+      "Size_y": 50,
+      "EaseIn": [
+      ],
+      "EaseOut": [
+        { "UIState": "Color_a","Change": 1,"EasingType": "ExpoIn","Frame": 1},
+        { "UIState": "Color_a","Change": 0,"EasingType": "ExpoIn","Frame": 30},
+        { "UIState": "Color_a","Change": 1,"EasingType": "ExpoIn","Frame": 30},
+        { "UIState": "Color_a","Change": 0,"EasingType": "ExpoIn","Frame": 30},
+        { "UIState": "Color_a","Change": 1,"EasingType": "ExpoIn","Frame": 30},
+        { "UIState": "Color_a","Change": 0,"EasingType": "ExpoIn","Frame": 30},
+        { "UIState": "Color_a","Change": 1,"EasingType": "ExpoIn","Frame": 30},
+        { "UIState": "Color_a","Change": 0,"EasingType": "ExpoIn","Frame": 30}
+      ],
+      "EaseUpdate": [
+      ],
+      "EaseCollision": []
+    },
+
     "ResultChange1": {
       "UIType": "CollisionUI",
       "TexturePath": "UI/UITexture/GameMain/back_result02.png",
@@ -4197,7 +4552,7 @@
       "Size": 60,
       "Text": "",
       "EaseIn": [
-        { "UIState": "Pos_x","Change": 200,"EasingType": "BackOut","Frame": 80}
+        { "UIState": "Pos_x","Change": 180,"EasingType": "BackOut","Frame": 80}
       ],
       "EaseOut": [
         { "UIState": "Pos_x","Change": -1500,"EasingType": "BackIn","Frame": 60}
@@ -4213,7 +4568,7 @@
       "Size": 55,
       "Text" : "",
       "EaseIn": [
-        { "UIState": "Pos_x","Change": 200,"EasingType": "BackOut","Frame": 100}
+        { "UIState": "Pos_x","Change": 270,"EasingType": "BackOut","Frame": 100}
       ],
       "EaseOut": [
         { "UIState": "Pos_x","Change": -1500,"EasingType": "BackIn","Frame": 60}
@@ -4229,7 +4584,7 @@
      "Text" : "",
 
       "EaseIn": [
-        { "UIState": "Pos_x","Change": 200,"EasingType": "BackOut","Frame": 120}
+        { "UIState": "Pos_x","Change": 270,"EasingType": "BackOut","Frame": 120}
       ],
       "EaseOut": [
         { "UIState": "Pos_x","Change": -1500,"EasingType": "BackIn","Frame": 60}
@@ -4245,7 +4600,7 @@
      "Text" : "",
 
       "EaseIn": [
-        { "UIState": "Pos_x","Change": 200,"EasingType": "BackOut","Frame": 140}
+        { "UIState": "Pos_x","Change": 270,"EasingType": "BackOut","Frame": 140}
       ],
       "EaseOut": [
         { "UIState": "Pos_x","Change": -1500,"EasingType": "BackIn","Frame": 60}
@@ -4261,7 +4616,7 @@
       "Text" : "",
 
       "EaseIn": [
-        { "UIState": "Pos_x","Change": 200,"EasingType": "BackOut","Frame": 160}
+        { "UIState": "Pos_x","Change": 270,"EasingType": "BackOut","Frame": 160}
       ],
       "EaseOut": [
         { "UIState": "Pos_x","Change": -1500,"EasingType": "BackIn","Frame": 60}
@@ -4277,7 +4632,7 @@
       "Text" : "",
 
       "EaseIn": [
-        { "UIState": "Pos_x","Change": 200,"EasingType": "BackOut","Frame": 180}
+        { "UIState": "Pos_x","Change": 270,"EasingType": "BackOut","Frame": 180}
       ],
       "EaseOut": [
         { "UIState": "Pos_x","Change": -1500,"EasingType": "BackIn","Frame": 60}

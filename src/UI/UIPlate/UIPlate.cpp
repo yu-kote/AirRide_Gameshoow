@@ -3,6 +3,7 @@
 #include "../../Share/Resize.h"
 #include "../../Share/Share.h"
 #include "../../Share/Interface/Interface.h"
+#include "../../Scene/SceneCategory/Result.h"
 std::string addZero(const int& value) {
 	if (value < 10) {
 		return "0" + std::to_string(value);
@@ -11,7 +12,6 @@ std::string addZero(const int& value) {
 }
 void UIPlate::titleSetup()
 {
-
 	for (auto it = UIObjects::get().begin(); it != UIObjects::get().end(); it++) {
 		if (ui_data[(*it)]->getUIType() == UITYPE::FontUI ||
 			ui_data[(*it)]->getUIType() == UITYPE::IncrementTimeUI ||
@@ -24,6 +24,17 @@ void UIPlate::titleSetup()
 			TEX.set(ui_data[(*it)]->gaugeGetTexturePath(), ui_data[(*it)]->gaugeGetTexturePath());
 		}
 	}
+
+	float left = -(getWindowSize().x - WIDTH) / 2;
+	float right = 800 + (getWindowSize().x - WIDTH) / 2;
+	float bottom = -(getWindowSize().y - WIDTH) / 2;
+	float top = 800 + (getWindowSize().y - WIDTH) / 2;
+	camera_o.setOrtho(left, right,
+		600, 0,
+		1, 10);
+
+	tuto_count = 0;
+	change_counnt = 0;
 	ui_data["R"]->Active();
 	ui_data["I"]->Active();
 	ui_data["D"]->Active();
@@ -38,7 +49,6 @@ void UIPlate::titleSetup()
 	ui_data["Y"]->Active();
 	ui_data["!"]->Active();
 	ui_data["スタート"]->Active();
-
 }
 
 void UIPlate::titleUpdate()
@@ -49,15 +59,13 @@ void UIPlate::titleUpdate()
 
 	ResizeGet.setPerspCameraResize = [&]()
 	{
-
-		float left = -(getWindowSize().x - WIDTH)/2;
-		float right =  800 + (getWindowSize().x - WIDTH)/2 ;
+		float left = -(getWindowSize().x - WIDTH) / 2;
+		float right = 800 + (getWindowSize().x - WIDTH) / 2;
 		float bottom = -(getWindowSize().y - WIDTH) / 2;
 		float top = 800 + (getWindowSize().y - WIDTH) / 2;
 		camera_o.setOrtho(left, right,
 			600, 0,
 			1, 10);
-
 	};
 }
 
@@ -143,6 +151,96 @@ void UIPlate::titleDraw()
 	ci::gl::enableDepthRead();
 }
 
+void UIPlate::tuto1()
+{
+	if (!ui_data["ダッシュ説明"]->isActive()) {
+		if (!ui_data["回避説明"]->isActive()) {
+			tuto_count++;
+			if (tuto_count == 1) {
+				ui_data["操作説明"]->Active();
+				ui_data["操作説明"]->fontSetText(u8"操作説明");
+				ui_data["操作説明"]->setColor(1, 1, 0, 1);
+				ui_data["動き説明"]->Active();
+				ui_data["動き説明"]->fontSetText(u8"このゲームは、手を上下左右に動かすと\n    機体を移動させる事ができます。");
+				ui_data["動き説明"]->setColor(0, 0, 0, 0);
+				ui_data["動き手"]->Active();
+			}
+			if (tuto_count == 600) {
+				ui_data["動き説明"]->setEnd();
+				ui_data["動き手"]->setEnd();
+
+			}
+
+			if (tuto_count == 680) {
+				tuto_count = 0;
+				ui_data["回避説明"]->Active();
+			}
+
+		}
+	}
+}
+
+void UIPlate::tuto2()
+{
+	if (!ui_data["ダッシュ説明"]->isActive()) {
+		if (!ui_data["動き説明"]->isActive()) {
+			tuto_count++;
+			if (tuto_count == 1) {
+
+				ui_data["回避説明"]->fontSetText(u8"手を回しながら動かすと、回避をすることができます。\n  回避を使うと障害物などを避ける事ができます。");
+				ui_data["回避説明"]->setColor(0, 0, 0, 0);
+				ui_data["回避手"]->Active();
+				ui_data["回避手2"]->Active();
+			}
+			if (tuto_count == 700) {
+				ui_data["回避説明"]->setEnd();
+				ui_data["回避手"]->setEnd();
+				ui_data["回避手2"]->setEnd();
+			}
+			if (tuto_count == 780) {
+				tuto_count = 0;
+				ui_data["ダッシュ説明"]->Active();
+			}
+		}
+	}
+}
+
+void UIPlate::tuto3()
+{
+	if (!ui_data["回避説明"]->isActive()) {
+		if (!ui_data["動き説明"]->isActive()) {
+			tuto_count++;
+			if (tuto_count == 1) {
+
+				ui_data["ダッシュ説明"]->fontSetText(u8"手を素早く前に突き出すと、ダッシュができます。\n    敵の後ろでダッシュをすると敵を倒す事ができます。");
+				ui_data["ダッシュ説明"]->setColor(0, 0, 0, 0);
+				ui_data["ダッシュ手"]->Active();
+			}
+			if (tuto_count == 600) {
+				ui_data["ダッシュ説明"]->setEnd();
+				ui_data["ダッシュ手"]->setEnd();
+				ui_data["操作説明"]->setEnd();
+			}
+			if (tuto_count == 680) {
+				ui_data["ゲーム説明"]->Active();
+				ui_data["ゲーム説明"]->fontSetText(u8"ダッシュで目の前の敵を倒し、\n １位を目指しましょう！\n それではゲームを始めます。");
+			}
+		}
+	}
+}
+
+void UIPlate::tuto4(bool &end_flag)
+{
+	if (ui_data["ゲーム説明"]->isActive()) {
+		change_counnt++;
+		if (change_counnt == 500) {
+			ui_data["ゲーム説明"]->setEnd();
+			SoundGet.find("TitleBGM")->disable();
+			end_flag = true;
+		}
+	}
+}
+
 
 
 
@@ -168,41 +266,53 @@ void UIPlate::gameMainSetup()
 		}
 	}
 	game_count = 0;
+	goal_count = 0;
+	boss_count = 0;
+	ui_data["GameMainChange"]->Active();
+	ui_data["GameMainChange"]->setEnd();
 	ui_data["ダッシュゲージ"]->Active();
 	ui_data["ResultChange1"]->Active();
-	ui_data["三"]->Active();
 	ui_data["5位"]->Active();
 	ui_data["Rank"]->Active();
-	SoundGet.find("Count_1")->start();
 	player->setIsStop(true);
 }
 
 void UIPlate::gameMainUpdate() {
-	game_count++;
-	if (game_count == 60) {
-		ui_data["二"]->Active();
-		SoundGet.find("Count_1")->stop();
-		SoundGet.find("Count_1")->start();
+	if (!ui_data["GameMainChange"]->isActive()) {
+		game_count++;
+		if (game_count == 1) {
+			ui_data["三"]->Active();
+			SoundGet.find("Count_1")->start();
+		}
+		if (game_count == 60) {
+			ui_data["二"]->Active();
+			SoundGet.find("Count_1")->stop();
+			SoundGet.find("Count_1")->start();
+		}
+		if (game_count == 120) {
+			ui_data["一"]->Active();
+			SoundGet.find("Count_1")->stop();
+			SoundGet.find("Count_1")->start();
+		}
+		if (game_count == 180) {
+			ui_data["GO"]->Active();
+			SoundGet.find("Count_1")->stop();
+			SoundGet.find("Count_2")->start();
+			player->setIsStop(false);
+			enemyholder->start();
+		}
+		if (game_count == 240) {
+			ui_data["制限時間"]->Active();
+			ui_data["経過時間"]->Active();
+			ui_data["経過時間"]->timeStart();
+			ui_data["制限時間"]->timeStart();
+			if (SoundGet.find("RaceBGM")->isEnabled())
+				SoundGet.find("RaceBGM")->stop();
+			else
+				SoundGet.find("RaceBGM")->start();
+			SoundGet.find("RaceBGM")->setLoopEnabled(true);
+		}
 	}
-	if (game_count == 120) {
-		ui_data["一"]->Active();
-		SoundGet.find("Count_1")->stop();
-		SoundGet.find("Count_1")->start();
-	}
-	if (game_count == 180) {
-		ui_data["GO"]->Active();
-		SoundGet.find("Count_1")->stop();
-		SoundGet.find("Count_2")->start();
-		player->setIsStop(false);
-		enemyholder->start();
-	}
-	if (game_count == 240) {
-		ui_data["制限時間"]->Active();
-		ui_data["経過時間"]->Active();
-		ui_data["経過時間"]->timeStart();
-		ui_data["制限時間"]->timeStart();
-	}
-	
 	switch (enemyholder->getRanking())
 	{
 	case 0:
@@ -338,7 +448,6 @@ void UIPlate::gameMainDraw() {
 				TEX.get(ui_data[(*it)]->gaugeGetTexturePath()).disable();
 			}
 			ci::gl::popModelView();
-
 		}
 	}
 	ci::gl::disableAlphaBlending();
@@ -346,7 +455,7 @@ void UIPlate::gameMainDraw() {
 	ci::gl::popModelView();
 }
 
-void UIPlate::gameMainShift()
+void UIPlate::gameMainTimeWrite()
 {
 	{
 		ui_data["経過時間"]->timeStop();
@@ -387,7 +496,6 @@ void UIPlate::gameMainShift()
 					time[i].seconds = time[5].seconds;
 					time[i].flame = time[5].flame;
 					rank = i + 1;
-
 				}
 			}
 			std::ofstream out_file(ci::app::getAssetPath("UI/SaveData/SaveData.txt").string());
@@ -398,6 +506,71 @@ void UIPlate::gameMainShift()
 			out_file << rank;
 		}
 
+	}
+}
+
+void UIPlate::gameMainShift() {
+	goal_count++;
+	if (goal_count == 1) {
+		SoundGet.find("BattleBGM")->disable();
+		SoundGet.find("Goal")->start();
+		ui_data["Goal"]->Active();
+		ui_data["Goal2"]->Active();
+	}
+	if (goal_count == 150) {
+		ui_data["Goal"]->setEnd();
+		ui_data["Goal2"]->setEnd();
+	}
+	if (goal_count == 180) {
+		ui_data["ResultChange1"]->setEnd();
+	}
+}
+
+void UIPlate::gameMainBossActive()
+{
+	if (boss->getIsExist()) {
+		ui_data["制限時間"]->Idle();
+		boss_count++;
+		if (boss_count <= 30) {
+			SoundGet.find("RaceBGM")->gain->setValue(1.0f - ((static_cast<float>(boss_count) / 30)));
+		}
+		if (boss_count == 30) {
+			SoundGet.find("Boss")->start();
+			ui_data["ボス出現"]->Active();
+			ui_data["ボス出現"]->setEnd();
+		}
+		if (boss_count == 300) {
+			if (SoundGet.find("BattleBGM")->isEnabled())
+				SoundGet.find("BattleBGM")->stop();
+			else
+				SoundGet.find("BattleBGM")->start();
+			SoundGet.find("BattleBGM")->setLoopEnabled(true);
+		}
+	}
+}
+
+void UIPlate::gameMainTimeUp()
+{
+	if (!boss->getIsExist()) {
+		if (ui_data["制限時間"]->timeOver()) {
+			boss_count++;
+			if (boss_count == 1) {
+				SoundGet.find("RaceBGM")->disable();
+				SoundGet.find("TimeUp")->start();
+				ui_data["タイムアップ"]->Active();
+				ui_data["TimeUpChange"]->Active();
+				ui_data["TimeUpChange"]->setColor(1, 1, 1, 0);
+				ui_data["TimeUpChange"]->setEnd();
+			}
+			if (!ui_data["TimeUpChange"]->isActive()) {
+				UIType::is_ending = true;
+				UIType::erase();
+				UIObjects::erase();
+				UIState::erase();
+				EasingType::erase();
+				Scene::createScene<Result>(new Result());
+			}
+		}
 	}
 }
 
@@ -418,6 +591,13 @@ void UIPlate::resultSetup()
 		}
 	}
 
+	float left = -(getWindowSize().x - WIDTH) / 2;
+	float right = 800 + (getWindowSize().x - WIDTH) / 2;
+	float bottom = -(getWindowSize().y - WIDTH) / 2;
+	float top = 800 + (getWindowSize().y - WIDTH) / 2;
+	camera_o.setOrtho(left, right,
+		600, 0,
+		1, 10);
 
 	{
 		std::ifstream file(ci::app::getAssetPath("UI/SaveData/SaveData.txt").string());
@@ -462,6 +642,15 @@ void UIPlate::resultSetup()
 void UIPlate::endingSetup()
 {
 	setup();
+
+	float left = -(getWindowSize().x - WIDTH) / 2;
+	float right = 800 + (getWindowSize().x - WIDTH) / 2;
+	float bottom = -(getWindowSize().y - WIDTH) / 2;
+	float top = 800 + (getWindowSize().y - WIDTH) / 2;
+	camera_o.setOrtho(left, right,
+		600, 0,
+		1, 10);
+
 	game_count = 0;
 	for (auto it = UIObjects::get().begin(); it != UIObjects::get().end(); it++) {
 		if (ui_data[(*it)]->getUIType() == UITYPE::FontUI ||
@@ -479,8 +668,17 @@ void UIPlate::endingSetup()
 
 void UIPlate::resultUpdate()
 {
+
+	float left = -(getWindowSize().x - WIDTH) / 2;
+	float right = 800 + (getWindowSize().x - WIDTH) / 2;
+	float bottom = -(getWindowSize().y - WIDTH) / 2;
+	float top = 800 + (getWindowSize().y - WIDTH) / 2;
+	camera_o.setOrtho(left, right,
+		600, 0,
+		1, 10);
+
 	game_count++;
-	ui_data["ResultTime"]->setColor(0, 0, 0.5 + std::sinf(game_count/4)/2, 1);
+	ui_data["ResultTime"]->setColor(0, 0, 0.5 + std::sinf(game_count / 4) / 2, 1);
 	for (auto it = UIObjects::get().begin(); it != UIObjects::get().end(); it++) {
 		ui_data[(*it)]->update();
 	}

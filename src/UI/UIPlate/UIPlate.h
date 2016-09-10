@@ -9,7 +9,7 @@
 #include "../Texture.h"
 #include "../../Object/GameObject/CharaBase/Player/Player.h"
 #include "../../Object/GameObject/CharaBase/Enemy/EnemyHolder/EnemyHolder.h"
-
+#include "../../Object/GameObject/Boss/Boss.h"
 
 class UIPlate : public UIManager
 {
@@ -18,7 +18,11 @@ private:
 	ci::gl::Texture tex;
 	std::unordered_map<std::string, Font> font;
 	int game_count;
+	int tuto_count;
+	int change_counnt;
 	int rank_in;
+	int goal_count;
+	int boss_count;
 public:
 	UIPlate() {
 		camera_o = ci::CameraOrtho(0, 800,
@@ -30,11 +34,18 @@ public:
 	void titleSetup();
 	void titleUpdate();
 	void titleDraw();
+	void tuto1();
+	void tuto2();
+	void tuto3();
+	void tuto4(bool &end_flag);
 
 	void gameMainSetup();
 	void gameMainUpdate();
 	void gameMainDraw();
+	void gameMainTimeWrite();
 	void gameMainShift();
+	void gameMainBossActive();
+	void gameMainTimeUp();
 
 	void resultSetup();
 	void endingSetup();
@@ -43,4 +54,5 @@ public:
 
 	std::shared_ptr<Player> player;
 	std::shared_ptr<EnemyHolder> enemyholder;
+	std::shared_ptr<Boss> boss;
 };
