@@ -50,6 +50,8 @@ void Player::setup()
 	end_clash_speed = 0.5f;
 
 	hand_exist_count = 0.0f;
+
+	interval_takes_time = 1.0f;
 }
 
 void Player::update()
@@ -244,16 +246,17 @@ void Player::handNormalRotation()
 		LEAPHANDS.GetHandNormal().z < min_hand_normal_z_range)
 		return;
 
-	float start_theta = std::atan2(LEAPHANDS.GetHandNormal().x - 0.0f, LEAPHANDS.GetHandNormal().y - (-1.0f));
+	float start_theta = std::atan2(before_hand_normal.x - 0.0f, before_hand_normal.y - (-1.0f));
 
+	// 8frame前の法線が-60~60以内にないならはじく
 	if (start_theta < min_hand_normal_xy_range &&
 		start_theta > max_hand_normal_xy_range)
 		return;
 
 	// 6frame前の法線と今現在の法線との内積
-	float dot_product = (before_hand_normal.x * LEAPHANDS.GetHandNormal().x) + (before_hand_normal.y * LEAPHANDS.GetHandNormal().y);
+	float dot_product = std::abs((before_hand_normal.x * LEAPHANDS.GetHandNormal().x) + (before_hand_normal.y * LEAPHANDS.GetHandNormal().y));
 
-	// 6frame前の手の法線と今の法線との内積が [０以上～９０度未満] の場合はじく
+	// 6frame前の手の法線と今の法線との内積が [０以上～５４度未満] の場合はじく
 	if (dot_product <= min_dot_product_range && dot_product > max_dot_product_range)
 		return;
 
@@ -261,8 +264,8 @@ void Player::handNormalRotation()
 	float theta = std::atan2(LEAPHANDS.GetHandNormal().x - before_hand_normal.x, LEAPHANDS.GetHandNormal().y - before_hand_normal.y);
 
 	// |a| * |b|
-	float vec_a_to_b = std::sqrtf((before_hand_normal.x * before_hand_normal.x) + (before_hand_normal.y * before_hand_normal.y)) *
-		std::sqrtf((LEAPHANDS.GetHandNormal().x * LEAPHANDS.GetHandNormal().x) + (LEAPHANDS.GetHandNormal().y * LEAPHANDS.GetHandNormal().y));
+	/*float vec_a_to_b = std::sqrtf((before_hand_normal.x * before_hand_normal.x) + (before_hand_normal.y * before_hand_normal.y)) *
+		std::sqrtf((LEAPHANDS.GetHandNormal().x * LEAPHANDS.GetHandNormal().x) + (LEAPHANDS.GetHandNormal().y * LEAPHANDS.GetHandNormal().y));*/
 
 	// 外積公式 |a| * |b| * sinθ
 	//float cross_product = vec_a_to_b * std::sin(theta);
