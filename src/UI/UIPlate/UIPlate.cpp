@@ -32,9 +32,12 @@ void UIPlate::titleSetup()
 	camera_o.setOrtho(left, right,
 		600, 0,
 		1, 10);
+	for (int i = 0; i < 10; i++) {
+		tuto_count[i] = 0;
+	}
 
-	tuto_count = 0;
 	change_counnt = 0;
+	ui_data["白板"]->Active();
 	ui_data["R"]->Active();
 	ui_data["I"]->Active();
 	ui_data["D"]->Active();
@@ -151,94 +154,213 @@ void UIPlate::titleDraw()
 	ci::gl::enableDepthRead();
 }
 
-void UIPlate::tuto1()
+void UIPlate::tuto1(bool end_flag)
 {
-	if (!ui_data["ダッシュ説明"]->isActive()) {
-		if (!ui_data["回避説明"]->isActive()) {
-			tuto_count++;
-			if (tuto_count == 1) {
-				ui_data["操作説明"]->Active();
-				ui_data["操作説明"]->fontSetText(u8"操作説明");
-				ui_data["操作説明"]->setColor(1, 1, 0, 1);
-				ui_data["動き説明"]->Active();
-				ui_data["動き説明"]->fontSetText(u8"このゲームは、手を上下左右に動かすと\n    機体を移動させる事ができます。");
-				ui_data["動き説明"]->setColor(0, 0, 0, 0);
-				ui_data["動き手"]->Active();
+	if (end_flag == false) {
+		if (!ui_data["黒板"]->isActive()) {
+			ui_data["操作説明"]->Active();
+			ui_data["操作説明"]->setColor(1, 1, 0, 1);
+			ui_data["操作説明"]->fontSetText(u8"操作説明");
+			tuto_count[0]++;
+			if (tuto_count[0] == 1) {
+				ui_data["中央白板"]->Active();
 			}
-			if (tuto_count == 600) {
-				ui_data["動き説明"]->setEnd();
-				ui_data["動き手"]->setEnd();
+		}
 
-			}
-
-			if (tuto_count == 680) {
-				tuto_count = 0;
-				ui_data["回避説明"]->Active();
-			}
-
+		if (tuto_count[0] == 40) {
+			ui_data["動き"]->Active();
+			ui_data["動き"]->setColor(0, 0, 1, 1);
+			ui_data["動き"]->fontSetText(u8"移動方法");
+		}
+		if (tuto_count[0] == 200) {
+			ui_data["動き"]->Idle();
+			ui_data["中央白板"]->setEnd();
+		}
+		if (tuto_count[0] == 280) {
+			ui_data["説明白板"]->Active();
+		}
+		if (tuto_count[0] == 420) {
+			ui_data["動き説明"]->Active();
+			ui_data["動き説明"]->fontSetText(u8"手を動かすと,移動ができます。");
+			ui_data["動き説明"]->setColor(0, 0, 1, 0);
+			ui_data["動き手"]->Active();
+		}
+		if (tuto_count[0] == 1000) {
+			ui_data["動き説明"]->setEnd();
+			ui_data["動き手"]->setEnd();
+			ui_data["説明白板"]->setEnd();
+		}
+		if (tuto_count[0] == 1100) {
+			ui_data["ミッション白板"]->Active();
+		}
+		if (tuto_count[0] == 1160) {
+			ui_data["動き説明2"]->Active();
+			ui_data["動き説明2"]->fontSetText(u8"手を上、下、右、左に動かしてみましょう。");
+		}
+		if (tuto_count[0] == 1200) {
+			ui_data["動き実手"]->Active();
+		}
+	}
+	else if (end_flag == true) {
+		tuto_count[1]++;
+		if (tuto_count[1] == 1) {
+			ui_data["TutorialOK"]->Active();
+			ui_data["TutorialOK"]->setEnd();
+			SoundGet.find("Start")->start();
+			ui_data["動き実手"]->setEnd();
+			ui_data["動き説明2"]->setEnd();
+			ui_data["ミッション白板"]->setEnd();
+			ui_data["黒板"]->Active();
+			ui_data["黒板"]->setEnd();
 		}
 	}
 }
 
-void UIPlate::tuto2()
+void UIPlate::tuto2(bool end_flag)
 {
-	if (!ui_data["ダッシュ説明"]->isActive()) {
-		if (!ui_data["動き説明"]->isActive()) {
-			tuto_count++;
-			if (tuto_count == 1) {
+	if (end_flag == false) {
+		if (!ui_data["黒板"]->isActive()) {
+			tuto_count[2]++;
+			if (tuto_count[2] == 1) {
+				ui_data["中央白板"]->Active();
+			}
+		}
+		if (tuto_count[2] == 40) {
+			ui_data["ダッシュ"]->Active();
+			ui_data["ダッシュ"]->setColor(0, 0, 1, 1);
+			ui_data["ダッシュ"]->fontSetText(u8"ダッシュ(攻撃)");
+		}
+		if (tuto_count[2] == 200) {
+			ui_data["ダッシュ"]->Idle();
+			ui_data["中央白板"]->setEnd();
+		}
+		if (tuto_count[2] == 280) {
+			ui_data["説明白板"]->Active();
+		}
+		if (tuto_count[2] == 420) {
+			ui_data["ダッシュ説明"]->Active();
+			ui_data["ダッシュ説明"]->fontSetText(u8"手を前に突き出すと、攻撃ができます。");
+			ui_data["ダッシュ説明"]->setColor(0, 0, 1, 0);
+			ui_data["ダッシュ手"]->Active();
+		}
+		if (tuto_count[2] == 1000) {
+			ui_data["ダッシュ説明"]->setEnd();
+			ui_data["ダッシュ手"]->setEnd();
+			ui_data["説明白板"]->setEnd();
+		}
+		if (tuto_count[2] >= 1000) {
+			tuto_count[3]++;
+		}
+		if (tuto_count[3] == 100) {
+			ui_data["ミッション白板"]->Active();
+		}
+		if (tuto_count[3] == 160) {
+			ui_data["ダッシュ説明2"]->Active();
+			ui_data["ダッシュ説明2"]->fontSetText(u8"敵の後ろで、手を突き出して攻撃してみましょう。");
+		}
+		if (tuto_count[3] == 200) {
+			ui_data["ダッシュ実手"]->Active();
+		}
 
-				ui_data["回避説明"]->fontSetText(u8"手を回しながら動かすと、回避をすることができます。\n  回避を使うと障害物などを避ける事ができます。");
-				ui_data["回避説明"]->setColor(0, 0, 0, 0);
-				ui_data["回避手"]->Active();
-				ui_data["回避手2"]->Active();
-			}
-			if (tuto_count == 700) {
-				ui_data["回避説明"]->setEnd();
-				ui_data["回避手"]->setEnd();
-				ui_data["回避手2"]->setEnd();
-			}
-			if (tuto_count == 780) {
-				tuto_count = 0;
-				ui_data["ダッシュ説明"]->Active();
-			}
+	}
+	else if (end_flag == true) {
+		tuto_count[4]++;
+		if (tuto_count[4] == 1) {
+			ui_data["TutorialOK"]->Active();
+			ui_data["TutorialOK"]->setEnd();
+			SoundGet.find("Start")->start();
+			ui_data["ダッシュ実手"]->setEnd();
+			ui_data["ダッシュ説明2"]->setEnd();
+			ui_data["ミッション白板"]->setEnd();
+			ui_data["黒板"]->Active();
+			ui_data["黒板"]->setEnd();
 		}
 	}
 }
 
-void UIPlate::tuto3()
+void UIPlate::tuto3(bool end_flag)
 {
-	if (!ui_data["回避説明"]->isActive()) {
-		if (!ui_data["動き説明"]->isActive()) {
-			tuto_count++;
-			if (tuto_count == 1) {
+	if (end_flag == false) {
+		if (!ui_data["黒板"]->isActive()) {
+			tuto_count[5]++;
+			if (tuto_count[5] == 1) {
+				ui_data["中央白板"]->Active();
+			}
+		}
+		if (tuto_count[5] == 40) {
+			ui_data["回避"]->Active();
+			ui_data["回避"]->setColor(0, 0, 1, 1);
+			ui_data["回避"]->fontSetText(u8"ロール(回避)");
+		}
+		if (tuto_count[5] == 200) {
+			ui_data["回避"]->Idle();
+			ui_data["中央白板"]->setEnd();
+		}
+		if (tuto_count[5] == 280) {
+			ui_data["説明白板"]->Active();
+		}
+		if (tuto_count[5] == 420) {
+			ui_data["回避説明"]->Active();
+			ui_data["回避説明"]->fontSetText(u8"手をクルクルしながら移動すると、回避ができます。");
+			ui_data["回避説明"]->setColor(0, 0, 1, 0);
+			ui_data["回避手"]->Active();
+			ui_data["回避手2"]->Active();
+		}
+		if (tuto_count[5] == 1000) {
+			ui_data["回避説明"]->setEnd();
+			ui_data["回避手"]->setEnd();
+			ui_data["説明白板"]->setEnd();
+		}
+		if (tuto_count[5] >= 1000) {
+			tuto_count[6]++;
+		}
+		if (tuto_count[6] == 100) {
+			ui_data["ミッション白板"]->Active();
+		}
+		if (tuto_count[6] == 160) {
+			ui_data["回避説明2"]->Active();
+			ui_data["回避説明2"]->fontSetText(u8"機雷を、ロールで回避してみましょう。");
+		}
+		if (tuto_count[6] == 200) {
+			ui_data["回避実手"]->Active();
+			ui_data["回避実手2"]->Active();
+		}
 
-				ui_data["ダッシュ説明"]->fontSetText(u8"手を素早く前に突き出すと、ダッシュができます。\n    敵の後ろでダッシュをすると敵を倒す事ができます。");
-				ui_data["ダッシュ説明"]->setColor(0, 0, 0, 0);
-				ui_data["ダッシュ手"]->Active();
-			}
-			if (tuto_count == 600) {
-				ui_data["ダッシュ説明"]->setEnd();
-				ui_data["ダッシュ手"]->setEnd();
-				ui_data["操作説明"]->setEnd();
-			}
-			if (tuto_count == 680) {
-				ui_data["ゲーム説明"]->Active();
-				ui_data["ゲーム説明"]->fontSetText(u8"ダッシュで目の前の敵を倒し、\n １位を目指しましょう！\n それではゲームを始めます。");
-			}
+	}
+	else if (end_flag == true) {
+		tuto_count[7]++;
+		if (tuto_count[7] == 1) {
+			ui_data["TutorialOK"]->Active();
+			ui_data["TutorialOK"]->setEnd();
+			SoundGet.find("Start")->start();
+			ui_data["回避実手"]->setEnd();
+			ui_data["回避実手2"]->setEnd();
+			ui_data["回避説明2"]->setEnd();
+			ui_data["ミッション白板"]->setEnd();
+			ui_data["黒板"]->Active();
+			ui_data["黒板"]->setEnd();
+			ui_data["操作説明"]->setEnd();
 		}
 	}
 }
 
 void UIPlate::tuto4(bool &end_flag)
 {
-	if (ui_data["ゲーム説明"]->isActive()) {
+	if (!ui_data["操作説明"]->isActive()) {
+		if (change_counnt == 1) {
+			ui_data["ゲーム説明"]->Active();
+			ui_data["説明白板"]->Active();
+			ui_data["ゲーム説明"]->fontSetText(u8"チュートリアルは以上です。\nゲームを開始します。");
+		}
 		change_counnt++;
-		if (change_counnt == 500) {
+		if (change_counnt == 350) {
 			ui_data["ゲーム説明"]->setEnd();
+			ui_data["説明白板"]->setEnd();
 			SoundGet.find("TitleBGM")->disable();
 			end_flag = true;
 		}
 	}
+
 }
 
 
@@ -362,9 +484,6 @@ void UIPlate::gameMainUpdate() {
 
 	ui_data["制限時間"]->timeUpdate();
 	ui_data["経過時間"]->timeUpdate();
-	if (ui_data["制限時間"]->timeOver()) {
-
-	}
 
 	for (auto it = UIObjects::get().begin(); it != UIObjects::get().end(); it++) {
 		ui_data[(*it)]->update();
@@ -531,6 +650,15 @@ void UIPlate::gameMainBossActive()
 	if (boss->getIsExist()) {
 		ui_data["制限時間"]->Idle();
 		boss_count++;
+		if (boss_count == 1) {
+			ui_data["ボスゲージ"]->Active();
+		}
+		if (boss_count / 10 <= boss->getHp()) {
+			ui_data["ボスゲージ"]->gaugeChangeX(boss_count / 10, boss->getMaxHp());
+		}
+		else {
+			ui_data["ボスゲージ"]->gaugeChangeX(boss->getHp(), boss->getMaxHp());
+		}
 		if (boss_count <= 30) {
 			SoundGet.find("RaceBGM")->gain->setValue(1.0f - ((static_cast<float>(boss_count) / 30)));
 		}
@@ -568,7 +696,36 @@ void UIPlate::gameMainTimeUp()
 				UIObjects::erase();
 				UIState::erase();
 				EasingType::erase();
+				ui_data.clear();
 				Scene::createScene<Result>(new Result());
+			}
+		}
+	}
+}
+
+void UIPlate::gameMainTimeRed()
+{
+	if (std::stoi(ui_data["制限時間"]->timeGetMinutes()) < 1) {
+		if (std::stoi(ui_data["制限時間"]->timeGetSeconds()) < 40) {
+			ui_data["制限時間"]->setColor(1, 1, 0, 1);
+		}
+		if (std::stoi(ui_data["制限時間"]->timeGetSeconds()) < 20) {
+			ui_data["制限時間"]->setColor(1, 0, 0, 1);
+		}
+		if (std::stoi(ui_data["制限時間"]->timeGetSeconds()) < 10) {
+			if (std::stoi(ui_data["制限時間"]->timeGetFlame()) % 20 >= 10) {
+				ui_data["制限時間"]->setColor(1, 1, 1, 1);
+			}
+			else if (std::stoi(ui_data["制限時間"]->timeGetFlame()) % 20 <= 10) {
+				ui_data["制限時間"]->setColor(1, 0, 0, 1);
+			}
+		}
+		if (std::stoi(ui_data["制限時間"]->timeGetSeconds()) < 5) {
+			if (std::stoi(ui_data["制限時間"]->timeGetFlame()) % 10 >= 5) {
+				ui_data["制限時間"]->setColor(1, 1, 1, 1);
+			}
+			else if (std::stoi(ui_data["制限時間"]->timeGetFlame()) % 10 <= 5) {
+				ui_data["制限時間"]->setColor(1, 0, 0, 1);
 			}
 		}
 	}

@@ -94,6 +94,7 @@ void GameMain::update()
 	entities.updateGameObject();
 	entities.laterUpdateGameObject();
 	ui.gameMainBossActive();
+	ui.gameMainTimeRed();
 	ui.gameMainTimeUp();
 }
 

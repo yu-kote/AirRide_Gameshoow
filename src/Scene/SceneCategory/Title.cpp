@@ -53,33 +53,44 @@ void Title::update()
 			SoundGet.find("TitleBGM")->setLoopEnabled(true);
 		}
 		ui.titleUpdate();
+		gameUpdate();
 	}
 	if (end_flag == true &&
 		end_count == 1) {
-		c_Easing::apply(color_r, 0.0f, EasingFunction::ExpoIn, 60);
-		c_Easing::apply(color_g, 0.0f, EasingFunction::ExpoIn, 60);
-		c_Easing::apply(color_b, 0.0f, EasingFunction::ExpoIn, 60);
+		ui.ui_data["黒板"]->Active();
+		ui.ui_data["黒板"]->setEnd();
 	}
 	if (tutorial) {
-		ui.tuto4(end_flag);
-		ui.tuto1();
-		ui.tuto2();
-		ui.tuto3();
+		
+		ui.tuto1(env.isPress(KeyEvent::KEY_0));
+
+		if (env.isPress(KeyEvent::KEY_0)){
+			ui.tuto2(env.isPress(KeyEvent::KEY_9));
+		}
+		if (env.isPress(KeyEvent::KEY_9)) {
+			ui.tuto3(env.isPress(KeyEvent::KEY_8));
+		}
+		if (env.isPress(KeyEvent::KEY_8)) {
+			ui.tuto4(end_flag);
+		}
 	}
 	if (env.isPush(KeyEvent::KEY_BACKSPACE)) {
-		SoundGet.find("TitleBGM")->disable();
+		SoundGet.find("TitleBGM")->stop();
 		SoundGet.find("Start")->start();
 		end_flag = true;
 	}
-	gameUpdate();
+	
 }
 
 void Title::draw()
 {
 	if (!UIType::is_loop) {
 		gameDraw();
-		//ci::gl::clear(ColorA(color_r, color_g, color_b, 1.0f));
 		ui.titleDraw();
+		gl::popMatrices();
+		
+		//ci::gl::clear(ColorA(color_r, color_g, color_b, 1.0f));
+		
 	}
 	else {
 		setup();
@@ -132,6 +143,10 @@ void Title::shift()
 			ui.ui_data["K"]->setEnd();
 			ui.ui_data["Y"]->setEnd();
 			ui.ui_data["!"]->setEnd();
+			ui.ui_data["白板"]->setEnd();
+			ui.ui_data["黒板"]->Active();
+			ui.ui_data["黒板"]->setColor(1,1,1,0);
+			ui.ui_data["黒板"]->setEnd();
 			ui.ui_data["開始ゲージ"]->Idle();
 			ui.ui_data["スタート"]->setEnd();
 			tutorial = true;
