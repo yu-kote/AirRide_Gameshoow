@@ -29,6 +29,8 @@ public:
 
 
 	bool isDead() { return HP <= 0; }
+	int getHp() { return HP; }
+	int getMaxHp() { return HP_max; }
 
 private:
 
@@ -49,6 +51,7 @@ private:
 	int pushcount;
 
 	int HP;
+	int HP_max;
 	int difference;
 	float maxspeed;
 	float minspeed;

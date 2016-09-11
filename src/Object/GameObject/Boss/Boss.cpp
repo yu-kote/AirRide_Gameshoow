@@ -13,7 +13,8 @@ void Boss::setup()
 {
 	is_active = false;
 	pushcount = 0;
-	HP = 10;
+	HP_max = 10;
+	HP = HP_max;
 	is_hit = false;
 
 	difference = 22.f;
