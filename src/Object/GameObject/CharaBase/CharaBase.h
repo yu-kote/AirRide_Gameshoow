@@ -41,6 +41,7 @@ public:
 
 	CharaStatus getStatus() { return status; }
 	float getDashCount() const { return dash_count; }
+	float getCollisionCirclerad() const { return collision_circle_rad; }
 	float getSpeed() const { return speed; }
 	void setSpeed(const float speed) {
 
@@ -53,8 +54,7 @@ public:
 		end_speed = speed;
 		this->speed = speed;
 	}
-
-	float getCollisionCirclerad() const { return collision_circle_rad; }
+	void setIsStop(const bool &is_stop) { this->is_stop = is_stop; }
 	void setPosition(const ci::Vec2f &position) {
 
 		if (status != CharaStatus::NORMAL)
@@ -66,7 +66,6 @@ public:
 	}
 	float getClashSpeed() const { return clash_speed; }
 	void setClashSpeed(const float &clash_speed) { this->clash_speed = clash_speed; }
-
 	float getIntervalCount() const { return interval_count; }
 	void setIntervalTakesTime(const float &interval_takes_time) { this->interval_takes_time = interval_takes_time; }
 
@@ -86,14 +85,14 @@ public:
 
 		return false;
 	}
+	bool isCharaDashing() { return status == CharaStatus::DASH; }
+	bool isCharaRolling() { return status == CharaStatus::ROLL; }
 
 	void moving(ci::Vec2f);
 	bool isRolling(ci::Vec2f);
 	bool isAttacking();
 
 	void HitObstacle(const float &clash_speed);
-
-	void setIsStop(const bool &is_stop) { this->is_stop = is_stop; }
 
 protected:
 
@@ -117,6 +116,7 @@ protected:
 
 	float collision_circle_rad;
 	float move_count;
+	float move_count_takes_time;
 	ci::Vec2f start_move_pos;
 	ci::Vec2f end_move_pos;
 

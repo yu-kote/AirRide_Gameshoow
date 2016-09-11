@@ -99,7 +99,7 @@ void GameMain::update()
 
 void GameMain::shift()
 {
-	if (env.isPress(KeyEvent::KEY_RETURN)) {
+	if (entities.getObject<Boss>()->isDead()) {
 		ui.gameMainShift();
 	}
 	if (!ui.ui_data["ResultChange1"]->isActive()) {
