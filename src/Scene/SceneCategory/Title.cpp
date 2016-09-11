@@ -66,7 +66,11 @@ void Title::update()
 		ui.tuto2();
 		ui.tuto3();
 	}
-
+	if (env.isPush(KeyEvent::KEY_BACKSPACE)) {
+		SoundGet.find("TitleBGM")->disable();
+		SoundGet.find("Start")->start();
+		end_flag = true;
+	}
 	gameUpdate();
 }
 
