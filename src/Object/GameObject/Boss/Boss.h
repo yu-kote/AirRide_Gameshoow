@@ -28,6 +28,7 @@ public:
 	ci::Matrix44f getMatrcx();
 
 
+	bool isDead() { return HP <= 0; }
 
 private:
 

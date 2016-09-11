@@ -31,6 +31,7 @@ void CharaBase::init()
 	collision_circle_rad = 0.5f;
 
 	move_count = 0.0f;
+	move_count_takes_time = 1.0f;
 	start_move_pos = ci::Vec2f::zero();
 	end_move_pos = ci::Vec2f::zero();
 
@@ -170,7 +171,7 @@ void CharaBase::move()
 	clash();
 	interval();
 
-	move_count += TIME.getDeltaTime();
+	move_count += TIME.getDeltaTime() / move_count_takes_time;
 	if (move_count >= 1.0f)
 		move_count = 1.0f;
 

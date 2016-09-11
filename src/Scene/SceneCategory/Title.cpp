@@ -3,6 +3,19 @@
 #include "../../Input/InputEvent.h"
 #include "../../Input/LeapMotion/LeapHands/LeapHands.h"
 
+#include "../../Object/GameObject/Light/Light.h"
+#include "../../Object/GameObject/Camera/Camera.h"
+#include "../../Object/GameObject/SignPost/SignPostManager.h"
+#include "../../Object/GameObject/Obstacle/ObstacleManager.h"
+#include "../../Object/GameObject/CharaBase/Player/Player.h"
+#include "../../Object/GameObject/CharaBase/Enemy/Enemy.h"
+#include "../../Object/GameObject/CharaBase/Enemy/EnemyHolder/EnemyHolder.h"
+#include "../../Share/Interface/Interface.h"
+#include "../../Object/GameObject/Skydome/Skydome.h"
+#include "../../Object/GameObject/Boss/Boss.h"
+#include "../../Object/GameObject/Boss/Bullet/Bullet.h"
+#include "../../TaskManager/SoundManager.h"
+
 Title::Title()
 {
 	setup();
@@ -30,7 +43,9 @@ void Title::update()
 			next_count = 0;
 			ui.setup();
 			ui.titleSetup();
-			entities.setupGameObject();
+
+			gameSetup();
+
 			if (SoundGet.find("TitleBGM")->isEnabled())
 				SoundGet.find("TitleBGM")->stop();
 			else
@@ -38,7 +53,6 @@ void Title::update()
 			SoundGet.find("TitleBGM")->setLoopEnabled(true);
 		}
 		ui.titleUpdate();
-		entities.updateGameObject();
 	}
 	if (end_flag == true &&
 		end_count == 1) {
@@ -52,24 +66,28 @@ void Title::update()
 		ui.tuto2();
 		ui.tuto3();
 	}
+
+	gameUpdate();
 }
 
 void Title::draw()
 {
 	if (!UIType::is_loop) {
-		ci::gl::clear(ColorA(color_r, color_g, color_b, 1.0f));
+		gameDraw();
+		//ci::gl::clear(ColorA(color_r, color_g, color_b, 1.0f));
 		ui.titleDraw();
-		entities.drawGameObject();
 	}
 	else {
 		setup();
 		UIType::is_loop = false;
 	}
+
+	//gl::popMatrices();
+
 }
 
 void Title::shift()
 {
-	
 	if (update_count >= 1) {
 		if (tutorial == false) {
 			if (env.isPress(KeyEvent::KEY_RETURN) ||
@@ -91,7 +109,7 @@ void Title::shift()
 			ui.ui_data["開始ゲージ"]->gaugeChangeX(0, 60);
 		}
 	}
-	
+
 	if (end_flag == true) {
 		end_count++;
 	}
@@ -117,7 +135,7 @@ void Title::shift()
 
 		}
 	}
-	
+
 	if (end_count >= 100) {
 		c_Easing::clear(color_r);
 		c_Easing::clear(color_g);
@@ -126,12 +144,79 @@ void Title::shift()
 		UIObjects::erase();
 		UIState::erase();
 		EasingType::erase();
-		Scene::createScene<GameMain>(new GameMain());	
+
+		Params->clear();
+
+		Scene::createScene<GameMain>(new GameMain());
 	}
-	
+
 }
 
 void Title::shutdown()
 {
 	entities.Alldestroy();
+}
+
+void Title::gameSetup()
+{
+	entities.setObject<ar::Light>();
+	entities.setObject<ar::Camera>();
+
+	///////////////////////////////////////////////
+
+	entities.setObject<ar::Skydome>();
+	entities.setObject<ar::SignPostManager>();
+	//entities.setObject<ar::ObstacleManager>();
+
+	entities.setObject<Player>();
+	//entities.setObject<EnemyHolder>();
+
+	//entities.setObject<Boss>();
+	//entities.setObject<Bullets>();
+
+
+	//////////////////////////////////////////////
+
+	entities.getObject<Player>()->setSignPostManager(entities.getObject<ar::SignPostManager>());
+	entities.getObject<ar::SignPostManager>()->setPlayer(entities.getObject<Player>());
+
+
+	//entities.getObject<EnemyHolder>()->setSignPostManager(entities.getObject<ar::SignPostManager>());
+	//entities.getObject<EnemyHolder>()->setPlayer(entities.getObject<Player>());
+
+	//entities.getObject<ar::ObstacleManager>()->setEnemyHolder(entities.getObject<EnemyHolder>());
+	//entities.getObject<ar::ObstacleManager>()->setPlayer(entities.getObject<Player>());
+
+	entities.getObject<ar::Camera>()->setChara(entities.getObject<Player>());
+
+	entities.getObject <ar::Skydome>()->setTerget(entities.getObject<Player>());
+
+	//entities.getObject <Boss>()->setSignPostManager(entities.getObject<ar::SignPostManager>());
+	//entities.getObject <Boss>()->setEnemyHolder(entities.getObject<EnemyHolder>());
+	//entities.getObject <Boss>()->setPlayer(entities.getObject<Player>());
+
+	//entities.getObject <Bullets>()->setBoss(entities.getObject<Boss>());
+	//entities.getObject <Bullets>()->setPlayer(entities.getObject<Player>());
+
+	//entities.getObject<ar::ObstacleManager>()->setBoss(entities.getObject<Boss>());
+
+	entities.setupGameObject();
+}
+
+void Title::gameUpdate()
+{
+	entities.updateGameObject();
+	entities.laterUpdateGameObject();
+}
+
+void Title::gameDraw()
+{
+	//entities.getObject<ar::ObstacleManager>()->setCameraPos(entities.getObject<ar::Camera>()->getCenterOfInterestPoint());
+
+	entities.drawGameObject();
+	entities.transDrawGameObject();
+
+	// ライトがない描画
+	entities.laterDrawGameObject();
+	entities.transLaterDrawGameObject();
 }

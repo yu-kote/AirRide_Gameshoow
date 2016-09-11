@@ -38,10 +38,10 @@ void Player::setup()
 
 	min_hand_normal_z_range = -0.5;
 	max_hand_normal_z_range = 0.5f;
-	min_hand_normal_xy_range = (float)-M_PI / 3.0f;
+	min_hand_normal_xy_range = (float)M_PI / -3.0f;
 	max_hand_normal_xy_range = (float)M_PI / 3.0f;
 	min_dot_product_range = 1.0f;
-	max_dot_product_range = 0.5f;
+	max_dot_product_range = 0.3f;
 	dash_range = 30.0f;
 
 	max_clash_count = 1.0f;
@@ -132,9 +132,6 @@ void Player::operationKey()
 
 	if (env.isPush(ci::app::KeyEvent::KEY_b))
 		debugDash();
-
-	//if (env.isPush(ci::app::KeyEvent::KEY_RETURN))
-	//	HitObstacle(clash_speed);
 }
 
 void Player::debugMove()
@@ -292,7 +289,7 @@ void Player::handPosZDistance()
 		(hand_distance.y * hand_distance.y) +
 		(hand_distance.z * hand_distance.z));
 
-	if (distance < dash_range * 3.0f)
+	if (distance < dash_range * 1.0f)
 		return;
 
 	if (!isAttacking())

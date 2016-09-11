@@ -38,10 +38,10 @@ void ar::ObstacleManager::update()
 	auto end = std::chrono::system_clock::now();
 	auto d = end - start;
 	auto msec = std::chrono::duration_cast<std::chrono::milliseconds>(d).count();
-	//console() << msec << std::endl;
+
 	setCameraPos(camera_pos);
 
-
+	if (boss == nullptr)return;
 	if (is_bombclear == false)
 		if (boss->getIsExist())
 		{
@@ -121,6 +121,7 @@ void ar::ObstacleManager::isPlayerHitObstacle()
 
 void ar::ObstacleManager::isEnemysInObstacleArea()
 {
+	if (enemy_holder == nullptr) return;
 	std::for_each(pop_areas.begin(), pop_areas.end(),
 				  [&](ObstaclePopArea pop_area_)
 	{
