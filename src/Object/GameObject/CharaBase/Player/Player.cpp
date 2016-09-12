@@ -198,7 +198,7 @@ void Player::operationLeap()
 		return;
 
 	// Rollの確認処理
-	handNormalRotation();
+	//handNormalRotation();
 
 	// Dashの確認処理
 	handPosZDistance();
@@ -292,7 +292,7 @@ void Player::handPosZDistance()
 		(hand_distance.y * hand_distance.y) +
 		(hand_distance.z * hand_distance.z));
 
-	if (distance < dash_range * 1.0f)
+	if (distance < dash_range * 2.0f)
 		return;
 
 	if (!isAttacking())

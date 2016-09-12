@@ -8,7 +8,7 @@ namespace ar {
 
 	class SignPostManager : public GameObject {
 	public:
-		SignPostManager();
+		SignPostManager(bool is_tutorial_ = false);
 
 		void setup();
 		void update();
@@ -35,6 +35,9 @@ namespace ar {
 		std::vector<ar::SignPost>::iterator prevIterator(std::vector<ar::SignPost>::iterator);
 
 		std::shared_ptr<Player> player;
+
+
+		bool is_tutorial;
 
 	};
 }

@@ -36,11 +36,11 @@ void EnemyAIBase::goPositon(ci::Vec3f _terget, float _speed)
 
 }
 
-void EnemyAIBase::tergetMotion()
+void EnemyAIBase::tergetMotion(int _add_count)
 {
 	terget_change_count++;
-	if (terget_change_count > 60 * 1
-		|| aiterget.distanceSquared(enemy->transform.position.xy()) < 1) {
+	if (terget_change_count > _add_count
+		&& aiterget.distanceSquared(enemy->transform.position.xy()) < 1) {
 		terget_change_count = 0;
 		changeTarget();
 
