@@ -74,6 +74,7 @@ void GameMain::draw()
 {
 
 	entities.getObject<ar::ObstacleManager>()->setCameraPos(entities.getObject<ar::Camera>()->getCenterOfInterestPoint());
+	entities.getObject<Boss>()->setCameraPos(entities.getObject<ar::Camera>()->getCenterOfInterestPoint());
 
 	entities.drawGameObject();
 	entities.transDrawGameObject();
@@ -94,6 +95,7 @@ void GameMain::update()
 	entities.updateGameObject();
 	entities.laterUpdateGameObject();
 	ui.gameMainBossActive();
+	ui.gameMainTimeRed();
 	ui.gameMainTimeUp();
 }
 

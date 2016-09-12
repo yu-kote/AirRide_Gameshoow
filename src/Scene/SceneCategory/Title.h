@@ -5,6 +5,8 @@
 #include "../../Object/GameObject/GameObjectEntities.h"
 #include "../../UI/UIPlate/UIPlate.h"
 
+class Player;
+
 class Title :public SceneBase {
 public:
 
@@ -30,6 +32,14 @@ private:
 	void gameSetup();
 	void gameUpdate();
 	void gameDraw();
+
+	bool tutorial_flag[3] = {
+		tutorial_flag[0] = false,
+		tutorial_flag[1] = false,
+		tutorial_flag[2] = false,
+	};
+
+	std::shared_ptr<Player> player;
 
 };
 

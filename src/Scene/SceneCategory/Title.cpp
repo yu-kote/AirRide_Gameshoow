@@ -53,33 +53,63 @@ void Title::update()
 			SoundGet.find("TitleBGM")->setLoopEnabled(true);
 		}
 		ui.titleUpdate();
+		gameUpdate();
+		//bool set1
+		//bool set2
+		//bool set3
+		//↓のif文の中で引数をtrueにする
+		if (ui.getTutoFirtsFlag()) {
+			if (LEAPHANDS.GetHandCenterPosToRatio().y >= 0.13f)
+				tutorial_flag[0] = true;
+		}
+		if (ui.getTutoSecondFlag()) {
+			if (player->isCharaDashing())
+				tutorial_flag[1] = true;
+		}
+		if (ui.getTutoThirdFlag()) {
+			if (player->isCharaRolling())
+				tutorial_flag[2] = true;
+		}
 	}
 	if (end_flag == true &&
 		end_count == 1) {
-		c_Easing::apply(color_r, 0.0f, EasingFunction::ExpoIn, 60);
-		c_Easing::apply(color_g, 0.0f, EasingFunction::ExpoIn, 60);
-		c_Easing::apply(color_b, 0.0f, EasingFunction::ExpoIn, 60);
+		ui.ui_data["黒板"]->Active();
+		ui.ui_data["黒板"]->setEnd();
 	}
+
+	
+
 	if (tutorial) {
-		ui.tuto4(end_flag);
-		ui.tuto1();
-		ui.tuto2();
-		ui.tuto3();
+
+		ui.tuto1(tutorial_flag[0]);
+
+		if (tutorial_flag[0]) {
+			ui.tuto2(tutorial_flag[1]);
+		}
+		if (tutorial_flag[1]) {
+			ui.tuto3(tutorial_flag[2]);
+		}
+		if (tutorial_flag[2]) {
+			ui.tuto4(end_flag);
+		}
 	}
 	if (env.isPush(KeyEvent::KEY_BACKSPACE)) {
-		SoundGet.find("TitleBGM")->disable();
+		SoundGet.find("TitleBGM")->stop();
 		SoundGet.find("Start")->start();
 		end_flag = true;
 	}
-	gameUpdate();
+
 }
 
 void Title::draw()
 {
 	if (!UIType::is_loop) {
 		gameDraw();
-		//ci::gl::clear(ColorA(color_r, color_g, color_b, 1.0f));
 		ui.titleDraw();
+		gl::popMatrices();
+
+		//ci::gl::clear(ColorA(color_r, color_g, color_b, 1.0f));
+
 	}
 	else {
 		setup();
@@ -132,6 +162,10 @@ void Title::shift()
 			ui.ui_data["K"]->setEnd();
 			ui.ui_data["Y"]->setEnd();
 			ui.ui_data["!"]->setEnd();
+			ui.ui_data["白板"]->setEnd();
+			ui.ui_data["黒板"]->Active();
+			ui.ui_data["黒板"]->setColor(1, 1, 1, 0);
+			ui.ui_data["黒板"]->setEnd();
 			ui.ui_data["開始ゲージ"]->Idle();
 			ui.ui_data["スタート"]->setEnd();
 			tutorial = true;
@@ -205,6 +239,8 @@ void Title::gameSetup()
 	//entities.getObject<ar::ObstacleManager>()->setBoss(entities.getObject<Boss>());
 
 	entities.setupGameObject();
+
+	player = entities.getObject<Player>();
 }
 
 void Title::gameUpdate()

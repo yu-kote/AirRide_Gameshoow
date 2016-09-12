@@ -7,9 +7,9 @@
 using namespace ci;
 using namespace ci::app;
 
-ar::SignPostManager::SignPostManager()
+ar::SignPostManager::SignPostManager(bool is_tutorial_)
 {
-
+	is_tutorial = is_tutorial_;
 }
 
 void ar::SignPostManager::setup()
@@ -40,8 +40,6 @@ void ar::SignPostManager::draw()
 	pointDraw();
 	ringDraw();
 }
-
-
 
 ci::Matrix44f ar::SignPostManager::getMatrix(ci::Vec3f _pos)
 {
@@ -134,6 +132,7 @@ ar::SignPostManager::prevIterator(
 
 void ar::SignPostManager::postLoad()
 {
+	//std::ifstream ifstr(getAssetPath("StageInfo/StageVertexTest.txt").string());
 	std::ifstream ifstr(getAssetPath("StageInfo/StageVertexTest.txt").string());
 
 	if (!ifstr.is_open())

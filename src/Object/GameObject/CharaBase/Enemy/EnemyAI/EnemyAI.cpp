@@ -36,7 +36,7 @@ void AILevel1::update()
 	
 
 	enemy->moving(aiterget);
-	tergetMotion();
+	tergetMotion(180);
 	tergetMove();
 
 }
@@ -72,14 +72,14 @@ void AILevel2::update()
 	}
 	if (!c_Easing::isEnd(enemy->transform.position.z))return;
 
-	if (roll_count > 0) {
+	/*if (roll_count > 0) {
 		if (avoidPlayerDashByRoll()) {
 			roll_count--;
 		}
-	}
+	}*/
 	enemy->moving(aiterget);
 
-	tergetMotion();
+	tergetMotion(120);
 	tergetMove();
 
 }
@@ -115,14 +115,14 @@ void AILevel3::update()
 	}
 	if (!c_Easing::isEnd(enemy->transform.position.z))return;
 
-	if (avoidPlayerDashByDash())
-	{
-		//avoid_count--;
-	}
+	//if (avoidPlayerDashByDash())
+	//{
+	//	//avoid_count--;
+	//}
 
 
 	enemy->moving(aiterget);
-	tergetMotion();
+	tergetMotion(60);
 	tergetMove();
 }
 
@@ -157,7 +157,7 @@ void AILevel4::update()
 		return;
 	}
 	if (!c_Easing::isEnd(enemy->transform.position.z))return;
-	if (!avoidPlayerDashByDash()) {
+	/*if (!avoidPlayerDashByDash()) {
 		if (avoid_count > 0) {
 			if (avoidPlayerDashByRoll())
 			{
@@ -166,9 +166,38 @@ void AILevel4::update()
 
 		}
 	}
+*/
+	if (avoid_count > 0) {
+		if (avoidPlayerDashByRoll())
+		{
+			avoid_count--;
+		}
 
-
+	}
+	
 	enemy->moving(aiterget);
-	tergetMotion();
+	tergetMotion(180);
+	tergetMove();
+}
+
+AITutorial::AITutorial(CharaBase* _enemy, CharaBase* _player):
+	EnemyAIBase(_enemy, _player)
+{
+
+	changeTarget();
+	/*enemy->transform.position.x = -3;
+	enemy->transform.position.y = -3;
+	*/
+	enemy->setPosition(aiterget);
+
+
+}
+
+void AITutorial::stert()
+{
+}
+
+void AITutorial::update()
+{
 	tergetMove();
 }

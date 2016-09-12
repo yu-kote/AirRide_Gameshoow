@@ -9,3 +9,5 @@ Enemy ObjData/enemyUV.png
 Boss ObjData/bossUV.png
 
 Particle TextureData/particle.png
+
+Smoke TextureData/smoke.png

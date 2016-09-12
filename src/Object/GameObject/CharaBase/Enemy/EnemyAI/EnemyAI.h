@@ -62,3 +62,15 @@ private:
 };
 
 
+class AITutorial : public EnemyAIBase
+{
+public:
+	AITutorial(CharaBase*, CharaBase*);
+	void stert() override;
+
+	void update() override;
+
+private:
+
+
+};

@@ -1,7 +1,1 @@
-BattleBGM   SoundData/FilePlayer/bgm_battle.wav
-
-RaceBGM     SoundData/FilePlayer/bgm_race.wav
-
-TitleBGM    SoundData/FilePlayer/title.wav
-
 TimeUp    SoundData/FilePlayer/ta_ta_zuban_d01.mp3
