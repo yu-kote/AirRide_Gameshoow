@@ -19,7 +19,7 @@ private:
 	std::unordered_map<std::string, Font> font;
 	bool time_red;
 	int game_count;
-	int tuto_count[10];
+	int tuto_count[14];
 	int change_counnt;
 	int rank_in;
 	int goal_count;
