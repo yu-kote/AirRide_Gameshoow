@@ -34,7 +34,7 @@ protected:
 	ci::Vec2f aiterget;
 	int terget_change_count;
 	
-	void tergetMotion();
+	void tergetMotion(int);
 	void changeTarget();
 	void tergetMove();
 	bool avoidPlayerDashByRoll();
