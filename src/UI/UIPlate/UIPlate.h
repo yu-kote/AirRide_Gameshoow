@@ -24,6 +24,7 @@ private:
 	int rank_in;
 	int goal_count;
 	int boss_count;
+	bool tuto_flags[3];
 public:
 	UIPlate() {
 		camera_o = ci::CameraOrtho(0, 800,
@@ -32,12 +33,25 @@ public:
 		camera_o.setEyePoint(ci::Vec3f(0.0f, 0.0f, 0.0f));
 		camera_o.setCenterOfInterestPoint(ci::Vec3f(0.0f, 0.0f, -1000.0f));
 	};
+
+	const bool& getTutoFirtsFlag() {
+		return tuto_flags[0];
+	}
+	const bool& getTutoSecondFlag() {
+		return tuto_flags[1];
+	}
+	const bool& getTutoThirdFlag() {
+		return tuto_flags[2];
+	}
+
+
+
 	void titleSetup();
 	void titleUpdate();
 	void titleDraw();
-	void tuto1(bool end_flag);
-	void tuto2(bool end_flag);
-	void tuto3(bool end_flag);
+	void tuto1(const bool& end_flag);
+	void tuto2(const bool& end_flag);
+	void tuto3(const bool& end_flag);
 	void tuto4(bool &end_flag);
 
 	void gameMainSetup();

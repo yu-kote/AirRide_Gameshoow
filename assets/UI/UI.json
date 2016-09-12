@@ -4510,7 +4510,7 @@
     
      "Goal": {
       "UIType": "CollisionUI",
-      "TexturePath": "UI/UITexture/GameMain/goal.png",
+      "TexturePath": "UI/UITexture/GameMain/clear.png",
       "Pos_x": 210,
       "Pos_y": 300,
       "Size_x": 320,

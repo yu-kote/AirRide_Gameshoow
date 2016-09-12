@@ -60,20 +60,35 @@ void Title::update()
 		ui.ui_data["•”Â"]->Active();
 		ui.ui_data["•”Â"]->setEnd();
 	}
-	if (tutorial) {
-		
-		ui.tuto1(env.isPress(KeyEvent::KEY_0));
 
-		if (env.isPress(KeyEvent::KEY_0)){
-			ui.tuto2(env.isPress(KeyEvent::KEY_9));
+	//bool set1
+	//bool set2
+	//bool set3
+	//«‚Ìif•¶‚Ì’†‚Åˆø”‚ğtrue‚É‚·‚é
+	if (ui.getTutoFirtsFlag()) {
+		//set1 = true;
+	}
+	if (ui.getTutoSecondFlag()) {
+		//set2 = true;
+	}
+	if (ui.getTutoThirdFlag()) {
+		//set3 = true;
+	}
+
+	/*if (tutorial) {
+		
+		ui.tuto1(set1);
+
+		if (set1)){
+			ui.tuto2(set2));
 		}
-		if (env.isPress(KeyEvent::KEY_9)) {
-			ui.tuto3(env.isPress(KeyEvent::KEY_8));
+		if (set2) {
+			ui.tuto3(set3);
 		}
-		if (env.isPress(KeyEvent::KEY_8)) {
+		if (set3) {
 			ui.tuto4(end_flag);
 		}
-	}
+	}*/
 	if (env.isPush(KeyEvent::KEY_BACKSPACE)) {
 		SoundGet.find("TitleBGM")->stop();
 		SoundGet.find("Start")->start();
