@@ -179,9 +179,6 @@
     <ClCompile Include="..\src\UI\UIBase.cpp">
       <Filter>Ui</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\UI\UIs\GaugeUI\GaugeUI.cpp">
-      <Filter>Ui\UIs</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\UI\UIs\FontUI\FontUI.cpp">
       <Filter>Ui\UIs</Filter>
     </ClCompile>
@@ -278,6 +275,9 @@
     <ClCompile Include="..\src\Object\GameObject\Boss\Smoke\Smoke.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\UI\UIs\GaugeUI\GUI.cpp">
+      <Filter>Ui\UIs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Input\InputEvent.h">
@@ -336,9 +336,6 @@
     </ClInclude>
     <ClInclude Include="..\src\UI\UIBase.h">
       <Filter>Ui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\UI\UIs\GaugeUI\GaugeUI.h">
-      <Filter>Ui\UIs</Filter>
     </ClInclude>
     <ClInclude Include="..\src\UI\UIs\FontUI\FontUI.h">
       <Filter>Ui\UIs</Filter>
@@ -471,6 +468,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Object\GameObject\Boss\Smoke\Smoke.h">
       <Filter>Header Files\Object\GameObject\Boss\Smoke</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UI\UIs\GaugeUI\GUI.h">
+      <Filter>Ui\UIs</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

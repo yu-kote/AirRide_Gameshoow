@@ -152,7 +152,7 @@
     <ClCompile Include="..\src\UI\UIs\CollisionUI\CollisionUI.cpp" />
     <ClCompile Include="..\src\UI\UIs\DecrementTimeUI\DecrementTimeUI.cpp" />
     <ClCompile Include="..\src\UI\UIs\FontUI\FontUI.cpp" />
-    <ClCompile Include="..\src\UI\UIs\GaugeUI\GaugeUI.cpp" />
+    <ClCompile Include="..\src\UI\UIs\GaugeUI\GUI.cpp" />
     <ClCompile Include="..\src\UI\UIs\IncrementTimeUI\IncrementTimeUI.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -218,7 +218,7 @@
     <ClInclude Include="..\src\UI\UIs\CollisionUI\CollisionUI.h" />
     <ClInclude Include="..\src\UI\UIs\DecrementTimeUI\DecrementTimeUI.h" />
     <ClInclude Include="..\src\UI\UIs\FontUI\FontUI.h" />
-    <ClInclude Include="..\src\UI\UIs\GaugeUI\GaugeUI.h" />
+    <ClInclude Include="..\src\UI\UIs\GaugeUI\GUI.h" />
     <ClInclude Include="..\src\UI\UIs\IncrementTimeUI\IncrementTimeUI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
