@@ -35,7 +35,9 @@ void UIPlate::titleSetup()
 	for (int i = 0; i < 10; i++) {
 		tuto_count[i] = 0;
 	}
-
+	for (int i = 0; i < 3; i++) {
+		tuto_flags[i] = false;
+	}
 	change_counnt = 0;
 	ui_data["”’”Â"]->Active();
 	ui_data["R"]->Active();
@@ -154,7 +156,7 @@ void UIPlate::titleDraw()
 	ci::gl::enableDepthRead();
 }
 
-void UIPlate::tuto1(bool end_flag)
+void UIPlate::tuto1(const bool& end_flag)
 {
 	if (end_flag == false) {
 		if (!ui_data["•”Â"]->isActive()) {
@@ -199,6 +201,7 @@ void UIPlate::tuto1(bool end_flag)
 		}
 		if (tuto_count[0] == 1200) {
 			ui_data["“®‚«ŽÀŽè"]->Active();
+			tuto_flags[0] = true;
 		}
 	}
 	else if (end_flag == true) {
@@ -216,7 +219,7 @@ void UIPlate::tuto1(bool end_flag)
 	}
 }
 
-void UIPlate::tuto2(bool end_flag)
+void UIPlate::tuto2(const bool& end_flag)
 {
 	if (end_flag == false) {
 		if (!ui_data["•”Â"]->isActive()) {
@@ -260,6 +263,7 @@ void UIPlate::tuto2(bool end_flag)
 		}
 		if (tuto_count[3] == 200) {
 			ui_data["ƒ_ƒbƒVƒ…ŽÀŽè"]->Active();
+			tuto_flags[1] = true;
 		}
 
 	}
@@ -278,7 +282,7 @@ void UIPlate::tuto2(bool end_flag)
 	}
 }
 
-void UIPlate::tuto3(bool end_flag)
+void UIPlate::tuto3(const bool& end_flag)
 {
 	if (end_flag == false) {
 		if (!ui_data["•”Â"]->isActive()) {
@@ -324,6 +328,7 @@ void UIPlate::tuto3(bool end_flag)
 		if (tuto_count[6] == 200) {
 			ui_data["‰ñ”ðŽÀŽè"]->Active();
 			ui_data["‰ñ”ðŽÀŽè2"]->Active();
+			tuto_flags[2] = true;
 		}
 
 	}
