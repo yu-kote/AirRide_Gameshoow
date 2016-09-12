@@ -20,6 +20,7 @@ public:
 	~CharaBase();
 
 	void init();
+	virtual void restart();
 	virtual void setup() override;
 	virtual void update() override;
 	virtual void draw() override;

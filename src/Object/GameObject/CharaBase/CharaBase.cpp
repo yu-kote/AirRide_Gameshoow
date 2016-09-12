@@ -56,6 +56,33 @@ void CharaBase::init()
 	is_stop = false;
 }
 
+void CharaBase::restart()
+{
+	transform.position = ci::Vec3f(0.0f, 0.0f, 0.0f);
+	transform.angle = ci::Vec3f(0.0f, 0.0f, 0.0f);
+	transform.scale = ci::Vec3f(1.0f, 1.0f, 1.0f);
+
+	status = CharaStatus::NORMAL;
+	speed = 1.0f;
+
+	move_count = 0.0f;
+	start_move_pos = ci::Vec2f::zero();
+	end_move_pos = ci::Vec2f::zero();
+
+	roll_count = 1.0f;
+	start_roll_angle = 0.0f;
+	end_roll_angle = 0.0f;
+
+	dash_count = 0.0f;
+
+	clash_count = 1.0f;
+	clash_speed = 3.0f;
+
+	interval_count = 1.0f;
+
+	is_stop = false;
+}
+
 void CharaBase::setup()
 {
 	init();
