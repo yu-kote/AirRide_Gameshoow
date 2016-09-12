@@ -54,6 +54,22 @@ void Title::update()
 		}
 		ui.titleUpdate();
 		gameUpdate();
+		//bool set1
+		//bool set2
+		//bool set3
+		//«‚Ìif•¶‚Ì’†‚Åˆø”‚ðtrue‚É‚·‚é
+		if (ui.getTutoFirtsFlag()) {
+			if (LEAPHANDS.GetHandCenterPosToRatio().y >= 0.13f)
+				tutorial_flag[0] = true;
+		}
+		if (ui.getTutoSecondFlag()) {
+			if (player->isCharaDashing())
+				tutorial_flag[1] = true;
+		}
+		if (ui.getTutoThirdFlag()) {
+			if (player->isCharaRolling())
+				tutorial_flag[2] = true;
+		}
 	}
 	if (end_flag == true &&
 		end_count == 1) {
@@ -61,22 +77,7 @@ void Title::update()
 		ui.ui_data["•”Â"]->setEnd();
 	}
 
-	//bool set1
-	//bool set2
-	//bool set3
-	//«‚Ìif•¶‚Ì’†‚Åˆø”‚ðtrue‚É‚·‚é
-	if (ui.getTutoFirtsFlag()) {
-		if (LEAPHANDS.GetHandCenterPosToRatio().y >= 0.13f)
-			tutorial_flag[0] = true;
-	}
-	if (ui.getTutoSecondFlag()) {
-		if (player->isCharaDashing())
-			tutorial_flag[1] = true;
-	}
-	if (ui.getTutoThirdFlag()) {
-		if (player->isCharaRolling())
-			tutorial_flag[2] = true;
-	}
+	
 
 	if (tutorial) {
 
