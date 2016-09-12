@@ -167,8 +167,14 @@ void AILevel4::update()
 		}
 	}
 */
-	avoidPlayerDashByRoll();
+	if (avoid_count > 0) {
+		if (avoidPlayerDashByRoll())
+		{
+			avoid_count--;
+		}
 
+	}
+	
 	enemy->moving(aiterget);
 	tergetMotion(180);
 	tergetMove();
