@@ -17,8 +17,9 @@ private:
 	ci::CameraOrtho camera_o;
 	ci::gl::Texture tex;
 	std::unordered_map<std::string, Font> font;
+	bool time_red;
 	int game_count;
-	int tuto_count;
+	int tuto_count[10];
 	int change_counnt;
 	int rank_in;
 	int goal_count;
@@ -34,9 +35,9 @@ public:
 	void titleSetup();
 	void titleUpdate();
 	void titleDraw();
-	void tuto1();
-	void tuto2();
-	void tuto3();
+	void tuto1(bool end_flag);
+	void tuto2(bool end_flag);
+	void tuto3(bool end_flag);
 	void tuto4(bool &end_flag);
 
 	void gameMainSetup();
@@ -46,6 +47,7 @@ public:
 	void gameMainShift();
 	void gameMainBossActive();
 	void gameMainTimeUp();
+	void gameMainTimeRed();
 
 	void resultSetup();
 	void endingSetup();
