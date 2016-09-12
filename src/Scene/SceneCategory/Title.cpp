@@ -66,35 +66,38 @@ void Title::update()
 	//bool set3
 	//↓のif文の中で引数をtrueにする
 	if (ui.getTutoFirtsFlag()) {
-		//set1 = true;
+		if (LEAPHANDS.GetHandCenterPosToRatio().y >= 0.13f)
+			tutorial_flag[0] = true;
 	}
 	if (ui.getTutoSecondFlag()) {
-		//set2 = true;
+		if (player->isCharaDashing())
+			tutorial_flag[1] = true;
 	}
 	if (ui.getTutoThirdFlag()) {
-		//set3 = true;
+		if (player->isCharaRolling())
+			tutorial_flag[2] = true;
 	}
 
-	/*if (tutorial) {
-		
-		ui.tuto1(set1);
+	if (tutorial) {
 
-		if (set1)){
-			ui.tuto2(set2));
+		ui.tuto1(tutorial_flag[0]);
+
+		if (tutorial_flag[0]) {
+			ui.tuto2(tutorial_flag[1]);
 		}
-		if (set2) {
-			ui.tuto3(set3);
+		if (tutorial_flag[1]) {
+			ui.tuto3(tutorial_flag[2]);
 		}
-		if (set3) {
+		if (tutorial_flag[2]) {
 			ui.tuto4(end_flag);
 		}
-	}*/
+	}
 	if (env.isPush(KeyEvent::KEY_BACKSPACE)) {
 		SoundGet.find("TitleBGM")->stop();
 		SoundGet.find("Start")->start();
 		end_flag = true;
 	}
-	
+
 }
 
 void Title::draw()
@@ -103,9 +106,9 @@ void Title::draw()
 		gameDraw();
 		ui.titleDraw();
 		gl::popMatrices();
-		
+
 		//ci::gl::clear(ColorA(color_r, color_g, color_b, 1.0f));
-		
+
 	}
 	else {
 		setup();
@@ -160,7 +163,7 @@ void Title::shift()
 			ui.ui_data["!"]->setEnd();
 			ui.ui_data["白板"]->setEnd();
 			ui.ui_data["黒板"]->Active();
-			ui.ui_data["黒板"]->setColor(1,1,1,0);
+			ui.ui_data["黒板"]->setColor(1, 1, 1, 0);
 			ui.ui_data["黒板"]->setEnd();
 			ui.ui_data["開始ゲージ"]->Idle();
 			ui.ui_data["スタート"]->setEnd();
@@ -235,6 +238,8 @@ void Title::gameSetup()
 	//entities.getObject<ar::ObstacleManager>()->setBoss(entities.getObject<Boss>());
 
 	entities.setupGameObject();
+
+	player = entities.getObject<Player>();
 }
 
 void Title::gameUpdate()
