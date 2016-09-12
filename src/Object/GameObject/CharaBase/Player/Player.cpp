@@ -10,6 +10,45 @@ Player::~Player()
 
 }
 
+void Player::restart()
+{
+	transform.position = ci::Vec3f(0.0f, 0.0f, 0.0f);
+	transform.angle = ci::Vec3f(0.0f, 0.0f, 0.0f);
+	transform.scale = ci::Vec3f(0.07f, 0.07f, 0.07f);
+
+	status = CharaStatus::NORMAL;
+	speed = 1.0f;
+
+	move_count = 0.0f;
+	start_move_pos = ci::Vec2f::zero();
+	end_move_pos = ci::Vec2f::zero();
+
+	roll_count = 1.0f;
+	start_roll_angle = 0.0f;
+	end_roll_angle = 0.0f;
+
+	dash_count = 0.0f;
+
+	clash_count = 1.0f;
+	clash_speed = 3.0f;
+
+	interval_count = 1.0f;
+
+	is_stop = false;
+
+	move_direction = ci::Vec2f::zero();
+
+	pos_to_ratio = ci::Vec2f::zero();
+	before_pos_to_ratio = ci::Vec2f::zero();
+	before_hand_normal = ci::Vec3f::zero();
+	before_hand_pos = ci::Vec3f::zero();
+
+	max_clash_count = 1.0f;
+	clash_speed = 0.5f;
+
+	hand_exist_count = 0.0f;
+}
+
 void Player::setup()
 {
 	init();
