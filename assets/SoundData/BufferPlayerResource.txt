@@ -24,3 +24,8 @@ Count_2   SoundData/BufferPlayer/count_2.wav
 
 Boss	SoundData/BufferPlayer/boss.wav
 
+BattleBGM   SoundData/FilePlayer/bgm_battle.wav
+
+RaceBGM     SoundData/FilePlayer/bgm_race.wav
+
+TitleBGM    SoundData/FilePlayer/title.wav

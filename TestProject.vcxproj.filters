@@ -132,6 +132,9 @@
     <Filter Include="Header Files\Object\GameObject\Obstacle\Particle">
       <UniqueIdentifier>{fd0dd868-4456-40cc-87d0-8f734100c465}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Object\GameObject\Boss\Smoke">
+      <UniqueIdentifier>{5e1dcd4c-ca47-40e3-b71d-2c6896b4032b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\MainApp.cpp">
@@ -268,6 +271,12 @@
     </ClCompile>
     <ClCompile Include="..\src\UI\UIs\IncrementTimeUI\IncrementTimeUI.cpp">
       <Filter>Ui\UIs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\Boss\Smoke\Smoke.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -453,6 +462,15 @@
     </ClInclude>
     <ClInclude Include="..\src\UI\UIs\IncrementTimeUI\IncrementTimeUI.h">
       <Filter>Ui\UIs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Share\Resize.h">
+      <Filter>Header Files\Share</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\stdafx.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\Boss\Smoke\Smoke.h">
+      <Filter>Header Files\Object\GameObject\Boss\Smoke</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
