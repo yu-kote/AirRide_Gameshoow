@@ -5,6 +5,7 @@
 #include "EnemyAI/EnemyAI.h"
 #include "../Player/Player.h"
 #include "cinder/TriMesh.h"
+#include "../../Boss/Smoke/Smoke.h"
 
 
 class Enemy : public CharaBase
@@ -15,6 +16,8 @@ public:
 	void setup() override;
 	void update() override;
 	void draw() override;
+
+	void transDraw()override;
 
 	void setPlayer(std::shared_ptr<CharaBase>);
 	void setTarget(const bool&);
@@ -37,7 +40,34 @@ private:
 	bool is_hit;
 
 	ci::TriMesh* mesh;
-	
+
+private:
+
+	std::list<std::shared_ptr<Smokes>> smokes;
+	void smokeSetup();
+	void smokeUpdate();
+	void smokeDraw();
+	void smokePop();
+
+	enum DamageType {
+		NO_DAMAGE,
+		ONE_STEP,
+		TWO_STEP,
+		THREE_STEP,
+	};
+	std::set<DamageType> damage_type;
+	DamageType current_damage_type;
+
+private:
+
+	ci::gl::Material mt;
+
+	int hit_count;
+	bool is_hit_staging;
+	bool staging_change;
+
+	void hitStagingSetup();
+	void hitStaging();
 };
 
 template<class T>

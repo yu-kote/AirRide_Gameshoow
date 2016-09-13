@@ -10,6 +10,7 @@
 EnemyHolder::EnemyHolder()
 {
 	enemys = std::vector<Enemy>(4);
+	is_start = false;
 }
 
 void EnemyHolder::setup()
@@ -26,7 +27,35 @@ void EnemyHolder::setup()
 	target_number = 0;
 	enemys[target_number].setTarget(true);
 
-	is_start = false;
+	is_tutorial = false;
+}
+
+void EnemyHolder::tutorialSetup()
+{
+	for (auto& it : enemys)
+	{
+		it.setup();
+	}
+	enemys[0].setAI<AITutorial>();
+
+	target_number = 0;
+	enemys[target_number].setTarget(true);
+
+	is_start = true;
+	is_tutorial = true;
+}
+
+int EnemyHolder::remainingEnemy()
+{
+	int remaining_enemy = 0;
+	for (auto& it : enemys)
+	{
+		if (it.isEnd())
+		{
+			remaining_enemy++;
+		}
+	}
+	return 4 - remaining_enemy;
 }
 
 void EnemyHolder::update()
@@ -39,15 +68,24 @@ void EnemyHolder::update()
 	{
 		it.update();
 	}
-
-
 }
 
 void EnemyHolder::draw()
 {
+	if (is_tutorial)
+		enemys[0].draw();
+	else
+		for (auto& it : enemys)
+		{
+			it.draw();
+		}
+}
+
+void EnemyHolder::transDraw()
+{
 	for (auto& it : enemys)
 	{
-		it.draw();
+		it.transDraw();
 	}
 }
 
@@ -62,8 +100,9 @@ void EnemyHolder::start()
 		for (auto& it : enemys) it.start();
 		is_start = true;
 	}
-
 }
+
+
 
 void EnemyHolder::setSignPostManager(std::shared_ptr<ar::SignPostManager> _spm)
 {
@@ -102,7 +141,7 @@ std::vector<Enemy>& EnemyHolder::getEnemys()
 std::vector<Enemy*> EnemyHolder::getActiveEnemys()
 {
 	std::vector<Enemy*> _ene;
-	for (auto& it: enemys)
+	for (auto& it : enemys)
 	{
 		if (it.getTarget()) {
 			_ene.push_back(&it);

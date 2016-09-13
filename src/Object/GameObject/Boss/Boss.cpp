@@ -18,8 +18,8 @@ void Boss::setup()
 	is_hit = false;
 
 	difference = 22.f;
-	maxspeed = 1.3f;
-	minspeed = 0.5f;
+	maxspeed = 1.4f;
+	minspeed = 0.8f;
 	Params->addParam("Boss difference", &difference).group("BOSS");
 	Params->addParam("Boss maxspeed", &maxspeed).step(0.1f).group("BOSS");
 	Params->addParam("Boss minspeed", &minspeed).step(0.1f).group("BOSS");
