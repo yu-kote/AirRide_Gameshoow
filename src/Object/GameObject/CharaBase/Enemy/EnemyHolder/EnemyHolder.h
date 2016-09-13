@@ -17,12 +17,16 @@ public:
 	void setup() override;
 	void update() override;
 	void draw() override;
+	void transDraw();
 
 	//エネミーの動きを止める関数
 	void stop();
 	//エネミーたちを動かす関数
 	void start();
 
+	void tutorialSetup();
+	int remainingEnemy();
+	bool is_tutorial;
 
 	void setSignPostManager(std::shared_ptr<ar::SignPostManager>);
 	void setPlayer(std::shared_ptr<CharaBase>);

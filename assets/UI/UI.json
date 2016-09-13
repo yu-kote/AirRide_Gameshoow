@@ -4086,11 +4086,11 @@
       "Pos_x":100,
       "Pos_y": 200,
       "Size_x": 300,
-      "Size_y": 150,
+      "Size_y": 250,
       "EaseIn": [
       ],
       "EaseOut": [
-        { "UIState": "Color_a","Change": 0,"EasingType": "ExpoIn","Frame": 60}
+        { "UIState": "Pos_x","Change": -1500,"EasingType": "ExpoIn","Frame": 60}
       ],
       "EaseUpdate": [
           {"UIState": "Color_a","Change": 0.3,"EasingType": "QuartOut","Frame": 1},

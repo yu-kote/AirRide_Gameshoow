@@ -1,7 +1,7 @@
 #include "Particle.h"
 #include "../../../Component/Components/Texture.h"
 #include "../../../Component/Components/Material.h"
-#include <random>
+#include <random>s
 
 using namespace ci;
 using namespace ci::app;
@@ -11,8 +11,6 @@ using namespace ci::app;
 ar::Particle::Particle(float v_)
 {
 	addComponent<ar::Texture>(ar::Texture("Particle"));
-
-
 
 	std::random_device rand;
 	std::mt19937 mt(rand());
@@ -47,20 +45,21 @@ void ar::Particle::draw()
 
 	Quatf quat(Vec3f(0, 0, 1), camera_pos - transform.position);
 
+
 	gl::rotate(quat.toMatrix44());
 
 	gl::drawCube(Vec3f::zero(), Vec3f(0.5f, 0.5f, 0));
 
 	popModelView();
 	drawEnd();
+
+
 }
 
 void ar::Particle::transDraw()
 {
 
 }
-
-
 
 ar::ParticleController::ParticleController(const ci::Vec3f& position_)
 {

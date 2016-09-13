@@ -272,11 +272,11 @@
     <ClCompile Include="..\src\stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Object\GameObject\Boss\Smoke\Smoke.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\UI\UIs\GaugeUI\GUI.cpp">
       <Filter>Ui\UIs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\Boss\Smoke\Smoke.cpp">
+      <Filter>Header Files\Object\GameObject\Boss\Smoke</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -471,6 +471,9 @@
     </ClInclude>
     <ClInclude Include="..\src\UI\UIs\GaugeUI\GUI.h">
       <Filter>Ui\UIs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\Camera\CameraPosition.h">
+      <Filter>Header Files\Object\GameObject\Camera</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

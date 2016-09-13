@@ -25,7 +25,7 @@ void UIPlate::titleSetup()
 		}
 	}
 
-	
+
 	for (int i = 0; i < 14; i++) {
 		tuto_count[i] = 0;
 	}
@@ -71,11 +71,11 @@ void UIPlate::titleDraw()
 
 				ci::gl::translate(0.0f, 0.0f, -3.0f);
 				gl::drawString(ui_data[(*it)]->fontGetText(),
-					Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
-					Color(ui_data[(*it)]->getColorR(),
-						ui_data[(*it)]->getColorG(),
-						ui_data[(*it)]->getColorB()),
-					font[(*it)]);
+							   Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
+							   Color(ui_data[(*it)]->getColorR(),
+									 ui_data[(*it)]->getColorG(),
+									 ui_data[(*it)]->getColorB()),
+							   font[(*it)]);
 
 				ci::gl::popModelView();
 				continue;
@@ -86,11 +86,11 @@ void UIPlate::titleDraw()
 
 				ci::gl::translate(0.0f, 0.0f, -3.0f);
 				gl::drawString(ui_data[(*it)]->timeGetMinutes() + ":" + ui_data[(*it)]->timeGetSeconds() + ":" + ui_data[(*it)]->timeGetFlame(),
-					Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
-					Color(ui_data[(*it)]->getColorR(),
-						ui_data[(*it)]->getColorG(),
-						ui_data[(*it)]->getColorB()),
-					font[(*it)]);
+							   Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
+							   Color(ui_data[(*it)]->getColorR(),
+									 ui_data[(*it)]->getColorG(),
+									 ui_data[(*it)]->getColorB()),
+							   font[(*it)]);
 
 				ci::gl::popModelView();
 				continue;
@@ -174,7 +174,8 @@ void UIPlate::tuto1(const bool& end_flag)
 			ui_data["“®‚«ŽÀŽè"]->Active();
 			tuto_flags[0] = true;
 		}
-	}else if (end_flag == true) {
+	}
+	else if (end_flag == true) {
 		tuto_count[1]++;
 		if (tuto_count[1] == 1) {
 			ui_data["TutorialOK"]->Active();
@@ -210,7 +211,8 @@ void UIPlate::tuto2(const bool& end_flag)
 			ui_data["ƒ_ƒbƒVƒ…Žè"]->Active();
 			tuto_flags[1] = true;
 		}
-	}else if (end_flag == true) {
+	}
+	else if (end_flag == true) {
 		tuto_count[3]++;
 		if (tuto_count[3] == 1) {
 			ui_data["TutorialOK"]->Active();
@@ -232,6 +234,7 @@ void UIPlate::tuto3(const bool& end_flag)
 			tuto_count[10]++;
 			if (tuto_count[10] == 60) {
 				player->restart();
+
 			}
 		}
 		if (!ui_data["•”Â"]->isActive()) {
@@ -374,7 +377,7 @@ void UIPlate::gameMainUpdate() {
 		}
 	}
 	if (!boss->getIsExist()) {
-		switch (enemyholder->getRanking())
+		switch (enemyholder->remainingEnemy())
 		{
 		case 0:
 			break;
@@ -446,11 +449,11 @@ void UIPlate::gameMainDraw() {
 
 				ci::gl::translate(0.0f, 0.0f, -1.0f);
 				gl::drawString(ui_data[(*it)]->fontGetText(),
-					Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
-					Color(ui_data[(*it)]->getColorR(),
-						ui_data[(*it)]->getColorG(),
-						ui_data[(*it)]->getColorB()),
-					font[(*it)]);
+							   Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
+							   Color(ui_data[(*it)]->getColorR(),
+									 ui_data[(*it)]->getColorG(),
+									 ui_data[(*it)]->getColorB()),
+							   font[(*it)]);
 
 				ci::gl::popModelView();
 				continue;
@@ -462,11 +465,11 @@ void UIPlate::gameMainDraw() {
 
 				ci::gl::translate(0.0f, 0.0f, -3.0f);
 				gl::drawString(ui_data[(*it)]->timeGetMinutes() + "'" + ui_data[(*it)]->timeGetSeconds() + "''" + ui_data[(*it)]->timeGetFlame(),
-					Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
-					Color(ui_data[(*it)]->getColorR(),
-						ui_data[(*it)]->getColorG(),
-						ui_data[(*it)]->getColorB()),
-					font[(*it)]);
+							   Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
+							   Color(ui_data[(*it)]->getColorR(),
+									 ui_data[(*it)]->getColorG(),
+									 ui_data[(*it)]->getColorB()),
+							   font[(*it)]);
 
 				ci::gl::popModelView();
 				continue;
@@ -692,8 +695,8 @@ void UIPlate::resultSetup()
 	float bottom = -(getWindowSize().y - WIDTH) / 2;
 	float top = 800 + (getWindowSize().y - WIDTH) / 2;
 	camera_o.setOrtho(left, right,
-		600, 0,
-		1, 10);
+					  600, 0,
+					  1, 10);
 
 	{
 		std::ifstream file(ci::app::getAssetPath("UI/SaveData/SaveData.txt").string());
@@ -744,8 +747,8 @@ void UIPlate::endingSetup()
 	float bottom = -(getWindowSize().y - WIDTH) / 2;
 	float top = 800 + (getWindowSize().y - WIDTH) / 2;
 	camera_o.setOrtho(left, right,
-		600, 0,
-		1, 10);
+					  600, 0,
+					  1, 10);
 
 	game_count = 0;
 	for (auto it = UIObjects::get().begin(); it != UIObjects::get().end(); it++) {
@@ -770,8 +773,8 @@ void UIPlate::resultUpdate()
 	float bottom = -(getWindowSize().y - WIDTH) / 2;
 	float top = 800 + (getWindowSize().y - WIDTH) / 2;
 	camera_o.setOrtho(left, right,
-		600, 0,
-		1, 10);
+					  600, 0,
+					  1, 10);
 
 	game_count++;
 	ui_data["ResultTime"]->setColor(0, 0, 0.5 + std::sinf(game_count / 4) / 2, 1);
@@ -810,11 +813,11 @@ void UIPlate::resultDraw()
 
 				ci::gl::translate(0.0f, 0.0f, -1.0f);
 				gl::drawString(ui_data[(*it)]->fontGetText(),
-					Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
-					Color(ui_data[(*it)]->getColorR(),
-						ui_data[(*it)]->getColorG(),
-						ui_data[(*it)]->getColorB()),
-					font[(*it)]);
+							   Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
+							   Color(ui_data[(*it)]->getColorR(),
+									 ui_data[(*it)]->getColorG(),
+									 ui_data[(*it)]->getColorB()),
+							   font[(*it)]);
 
 				ci::gl::popModelView();
 				continue;
@@ -826,11 +829,11 @@ void UIPlate::resultDraw()
 
 				ci::gl::translate(0.0f, 0.0f, -3.0f);
 				gl::drawString(ui_data[(*it)]->timeGetMinutes() + ":" + ui_data[(*it)]->timeGetSeconds() + ":" + ui_data[(*it)]->timeGetFlame(),
-					Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
-					Color(ui_data[(*it)]->getColorR(),
-						ui_data[(*it)]->getColorG(),
-						ui_data[(*it)]->getColorB()),
-					font[(*it)]);
+							   Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
+							   Color(ui_data[(*it)]->getColorR(),
+									 ui_data[(*it)]->getColorG(),
+									 ui_data[(*it)]->getColorB()),
+							   font[(*it)]);
 
 				ci::gl::popModelView();
 				continue;

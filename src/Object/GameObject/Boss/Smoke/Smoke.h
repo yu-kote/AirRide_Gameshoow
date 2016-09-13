@@ -23,8 +23,11 @@ private:
 	int erase_count;
 	int count;
 	ci::Vec3f vec;
+	ci::Vec3f translate_value;
 
 	ci::Vec3f camera_pos;
+	ci::Quatf rotate;
+
 };
 
 

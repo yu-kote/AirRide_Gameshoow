@@ -171,6 +171,7 @@
     <ClInclude Include="..\src\Object\GameObject\Boss\Bullet\Bullet.h" />
     <ClInclude Include="..\src\Object\GameObject\Boss\Smoke\Smoke.h" />
     <ClInclude Include="..\src\Object\GameObject\Camera\Camera.h" />
+    <ClInclude Include="..\src\Object\GameObject\Camera\CameraPosition.h" />
     <ClInclude Include="..\src\Object\GameObject\CharaBase\CharaBase.h" />
     <ClInclude Include="..\src\Object\GameObject\CharaBase\Enemy\Enemy.h" />
     <ClInclude Include="..\src\Object\GameObject\CharaBase\Enemy\EnemyAI\EnemyAI.h" />

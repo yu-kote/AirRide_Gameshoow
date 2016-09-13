@@ -79,6 +79,7 @@ void GameMain::draw()
 	entities.drawGameObject();
 	entities.transDrawGameObject();
 
+
 	// ƒ‰ƒCƒg‚ª‚È‚¢•`‰æ
 	entities.laterDrawGameObject();
 	entities.transLaterDrawGameObject();
