@@ -70,7 +70,7 @@ void Title::update()
 				if (player->isCharaDashing())
 				{
 					tutorial_flag[1] = true;
-					enemyholder->tutorialSetup();
+					
 				}
 			}
 		if (ui.getTutoThirdFlag())

@@ -234,12 +234,13 @@ void UIPlate::tuto3(const bool& end_flag)
 			tuto_count[10]++;
 			if (tuto_count[10] == 60) {
 				player->restart();
-
+				
 			}
 		}
 		if (!ui_data["•”Â"]->isActive()) {
 			tuto_count[4]++;
 			if (tuto_count[4] == 1) {
+				enemyholder->tutorialSetup();
 				ui_data["ƒ~ƒbƒVƒ‡ƒ“”’”Â"]->Active();
 			}
 		}
@@ -373,6 +374,7 @@ void UIPlate::gameMainUpdate() {
 				SoundGet.find("RaceBGM")->stop();
 			else
 				SoundGet.find("RaceBGM")->start();
+			SoundGet.find("RaceBGM")->gain->setValue(1.0f);
 			SoundGet.find("RaceBGM")->setLoopEnabled(true);
 		}
 	}
@@ -565,6 +567,7 @@ void UIPlate::gameMainTimeWrite()
 				out_file << time[i].minutes << ' ' << time[i].seconds << ' ' << time[i].flame << std::endl;
 			}
 			out_file << rank;
+			file.close();
 		}
 
 	}
@@ -690,13 +693,6 @@ void UIPlate::resultSetup()
 		}
 	}
 
-	float left = -(getWindowSize().x - WIDTH) / 2;
-	float right = 800 + (getWindowSize().x - WIDTH) / 2;
-	float bottom = -(getWindowSize().y - WIDTH) / 2;
-	float top = 800 + (getWindowSize().y - WIDTH) / 2;
-	camera_o.setOrtho(left, right,
-					  600, 0,
-					  1, 10);
 
 	{
 		std::ifstream file(ci::app::getAssetPath("UI/SaveData/SaveData.txt").string());
@@ -735,20 +731,13 @@ void UIPlate::resultSetup()
 		ui_data["ResultTime"]->setColor(0.5, 0.5, 1, 1);
 		ui_data["ResultChange2"]->Active();
 		ui_data["ResultChange2"]->setEnd();
+		file.close();
 	}
 }
 
 void UIPlate::endingSetup()
 {
 	setup();
-
-	float left = -(getWindowSize().x - WIDTH) / 2;
-	float right = 800 + (getWindowSize().x - WIDTH) / 2;
-	float bottom = -(getWindowSize().y - WIDTH) / 2;
-	float top = 800 + (getWindowSize().y - WIDTH) / 2;
-	camera_o.setOrtho(left, right,
-					  600, 0,
-					  1, 10);
 
 	game_count = 0;
 	for (auto it = UIObjects::get().begin(); it != UIObjects::get().end(); it++) {
@@ -767,14 +756,6 @@ void UIPlate::endingSetup()
 
 void UIPlate::resultUpdate()
 {
-
-	float left = -(getWindowSize().x - WIDTH) / 2;
-	float right = 800 + (getWindowSize().x - WIDTH) / 2;
-	float bottom = -(getWindowSize().y - WIDTH) / 2;
-	float top = 800 + (getWindowSize().y - WIDTH) / 2;
-	camera_o.setOrtho(left, right,
-					  600, 0,
-					  1, 10);
 
 	game_count++;
 	ui_data["ResultTime"]->setColor(0, 0, 0.5 + std::sinf(game_count / 4) / 2, 1);
