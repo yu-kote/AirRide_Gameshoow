@@ -2,6 +2,7 @@
 #include "../../../Share/Share.h"
 #include "../../../Input/InputEvent.h"
 #include "../../../Share/Resize.h"
+#include "CameraPosition.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -57,6 +58,7 @@ void ar::Camera::update()
 
 	gl::setMatrices(camera);
 
+	CameraPosition = camera.getEyePoint();
 }
 
 void ar::Camera::draw()

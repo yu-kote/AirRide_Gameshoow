@@ -6,6 +6,7 @@
 #include "../../UI/UIPlate/UIPlate.h"
 
 class Player;
+class EnemyHolder;
 
 class Title :public SceneBase {
 public:
@@ -40,6 +41,8 @@ private:
 	};
 
 	std::shared_ptr<Player> player;
+	std::shared_ptr<EnemyHolder> enemyholder;
+
 
 };
 
