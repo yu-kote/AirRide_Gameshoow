@@ -32,6 +32,14 @@ void EnemyHolder::setup()
 	is_tutorial = false;
 }
 
+bool EnemyHolder::isDistant()
+{
+	float distance = -player->transform.position.z + (*getActiveEnemys().begin())->transform.position.z;
+	if (distance < 30)
+		return false;
+	return true;
+}
+
 void EnemyHolder::tutorialSetup()
 {
 	for (auto& it : enemys)
@@ -71,6 +79,7 @@ void EnemyHolder::update()
 	{
 		it.update();
 	}
+	ci::app::console() << isDistant() << std::endl;
 }
 
 void EnemyHolder::draw()
@@ -148,8 +157,9 @@ std::vector<Enemy*> EnemyHolder::getActiveEnemys()
 	std::vector<Enemy*> _ene;
 	for (auto& it : enemys)
 	{
-		if (it.getTarget()) {
+		if (it.isEnd() == false) {
 			_ene.push_back(&it);
+			break;
 		}
 	}
 

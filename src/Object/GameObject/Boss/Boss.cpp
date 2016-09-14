@@ -222,6 +222,15 @@ ci::Matrix44f Boss::getMatrcx()
 	return matrix;
 }
 
+bool Boss::isDistant()
+{
+	float _difference = -player->transform.position.z + transform.position.z;
+
+	if (difference + 15 > _difference)
+		return false;
+	return true;
+}
+
 void Boss::damage()
 {
 	if (player->isCharaDashing())
