@@ -6,8 +6,12 @@ Player ObjData/playerUV.png
 
 Enemy ObjData/enemyUV.png
 
-Boss ObjData/bossUV.png
+Boss ObjData/Boss/bossUV.png
 
 Particle TextureData/particle.png
 
 Smoke TextureData/smoke.png
+
+TargetArrow TextureData/TargetArrow.png
+
+Result TextureData/back_result02.png

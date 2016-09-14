@@ -11,6 +11,7 @@ EnemyHolder::EnemyHolder()
 {
 	enemys = std::vector<Enemy>(4);
 	is_start = false;
+	is_tutorial = false;
 }
 
 void EnemyHolder::setup()
@@ -27,6 +28,7 @@ void EnemyHolder::setup()
 	target_number = 0;
 	enemys[target_number].setTarget(true);
 
+	is_start = false;
 	is_tutorial = false;
 }
 
@@ -43,6 +45,7 @@ void EnemyHolder::tutorialSetup()
 
 	is_start = true;
 	is_tutorial = true;
+	enemys[0].is_waiting = false;
 }
 
 int EnemyHolder::remainingEnemy()
@@ -75,10 +78,12 @@ void EnemyHolder::draw()
 	if (is_tutorial)
 		enemys[0].draw();
 	else
+	{
 		for (auto& it : enemys)
 		{
 			it.draw();
 		}
+	}
 }
 
 void EnemyHolder::transDraw()

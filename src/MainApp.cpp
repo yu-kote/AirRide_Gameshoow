@@ -70,6 +70,7 @@ void DesignApp::mouseUp(MouseEvent event)
 
 void DesignApp::setup()
 {
+	setFullScreen(true);
 	LEAPHANDS.Setup();
 	TextureGet.setup();
 	SoundGet.setup();
@@ -142,7 +143,7 @@ void DesignApp::draw()
 	timer.draw();
 #endif
 	c_Easing::update();
-	Params->draw();
+	//Params->draw();
 }
 
 

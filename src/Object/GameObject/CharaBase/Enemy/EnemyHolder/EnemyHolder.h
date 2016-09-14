@@ -39,7 +39,7 @@ public:
 	std::list<Enemy*> getActiveEnemysList();
 
 
-
+	bool is_standbypos;
 
 
 	bool isEndLasstEnemy();
