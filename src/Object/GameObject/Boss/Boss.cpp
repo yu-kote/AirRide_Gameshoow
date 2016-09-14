@@ -13,18 +13,20 @@ void Boss::setup()
 {
 	is_active = false;
 	pushcount = 0;
-	HP_max = 3;
+	HP_max = 5;
 	HP = HP_max;
 	is_hit = false;
 
 	difference = 22.f;
-	maxspeed = 1.4f;
-	minspeed = 0.8f;
+	maxspeed = 1.35f;
+	minspeed = 1.0f;
 	Params->addParam("Boss difference", &difference).group("BOSS");
 	Params->addParam("Boss maxspeed", &maxspeed).step(0.1f).group("BOSS");
 	Params->addParam("Boss minspeed", &minspeed).step(0.1f).group("BOSS");
 	Params->addParam("Boss HP", &HP).group("BOSS");
 	//Params->addParam("Boss minspeed", &minspeed).step(0.1f).group("BOSS");
+
+	collision_circle_rad = 2;
 
 	smokeSetup();
 
@@ -35,26 +37,51 @@ void Boss::setup()
 	//					 80.0f,                               // Shininess
 	//					 ci::ColorA(0.5f, 0.5f, 0.5f, 1.0f))));	  // Emission
 
-	addComponent<ar::Texture>(ar::Texture("Boss"));
+	bosstex = TextureGet.find("Boss");
 
-	damage_mt = ci::gl::Material(ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Ambient
-								 ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Diffuse
-								 ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Specular
-								 80.0f,                               // Shininess
-								 ci::ColorA(0.5f, 0.5f, 0.5f, 1.0f));
+
 	alpha = 1.0f;
 
-	normal_mt = ci::gl::Material(ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Ambient
-								 ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Diffuse
-								 ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Specular
-								 80.0f,                               // Shininess
-								 ci::ColorA(0.5f, 0.5f, 0.5f, 1.0f));
+	weakpoints = std::vector<WeakPoint>(5);
 
-	hit_mt = ci::gl::Material(ci::ColorA(1.0f, 0.0f, 0.0f, 1.0f),      // Ambient
-							  ci::ColorA(1.0f, 0.0f, 0.0f, 1.0f),      // Diffuse
-							  ci::ColorA(1.0f, 0.0f, 0.0f, 1.0f),      // Specular
-							  80.0f,                               // Shininess
-							  ci::ColorA(0.5f, 0.5f, 0.5f, 1.0f));
+	weakpoints[0].pos = ci::Vec3f(3, 3, 0);
+	weakpoints[1].pos = ci::Vec3f(3, -3, 0);
+	weakpoints[2].pos = ci::Vec3f(-3, 3, 0);
+	weakpoints[3].pos = ci::Vec3f(-3, -3, 0);
+	weakpoints[4].pos = ci::Vec3f(0, 0, 0);
+	weakpoints[0].arrow_pos = ci::Vec3f(-1, -1, -5);
+	weakpoints[1].arrow_pos = ci::Vec3f(-1, 1, -5);
+	weakpoints[2].arrow_pos = ci::Vec3f(1, -1, -5);
+	weakpoints[3].arrow_pos = ci::Vec3f(1, 1, -5);
+	weakpoints[4].arrow_pos = ci::Vec3f(0, 0, -5);
+
+
+	int mesh_count = 0;
+	for (int i = 0; i < weakpoints.size(); i++)
+	{
+		weakpoints[i].is_hit = false;
+		weakpoints[i].is_obscure = false;
+		weakpoints[i].can_attack = true;
+		weakpoints[i].mesh1 = &ObjDataGet.find("Boss" + std::to_string(mesh_count));
+		mesh_count++;
+		if (mesh_count < 8)
+			weakpoints[i].mesh2 = &ObjDataGet.find("Boss" + std::to_string(mesh_count));
+		mesh_count++;
+
+		weakpoints[i].tex = TextureGet.find("TargetArrow");
+		weakpoints[i].mt = ci::gl::Material(ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Ambient
+											ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Diffuse
+											ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Specular
+											80.0f,                               // Shininess
+											ci::ColorA(0.5f, 0.5f, 0.5f, 1.0f));
+	}
+	weakpoints[weakpoints.size() - 1].can_attack = false;
+
+	arrow_scale = ci::Vec3f(2, 2, 0);
+	arrow_pos = ci::Vec3f::zero();
+	Params->addParam("Arrow Scale", &arrow_scale).group("BOSS").step(0.1f);
+	Params->addParam("Arrow Pos", &arrow_pos).group("BOSS");
+
 
 	hit_count = 0;
 	is_hit_staging = false;
@@ -69,11 +96,11 @@ void Boss::update()
 	damage();
 	pushcount++;
 	pushcount %= 60;
-	keepDifference();
 	matrix = signpostmanager->getMatrix(transform.position);
 
 	smokeUpdate();
 	hitStaging();
+	keepDifference();
 }
 
 void Boss::draw()
@@ -87,32 +114,64 @@ void Boss::transDraw()
 	ci::gl::popModelView();
 	ci::gl::pushModelView();
 	ci::gl::enableAlphaBlending();
-
-	ci::gl::multModelView(matrix);
-
-	ci::gl::rotate(ci::Vec3f(0, 0, 180));
-	ci::gl::scale(ci::Vec3f(0.035f, 0.035f, 0.035f));
-
 	drawBegin();
+	ci::gl::multModelView(matrix);
+	ci::gl::rotate(ci::Vec3f(0, 0, 180));
 
-	damage_mt.apply();
+	{
+		for (int i = 0; i < weakpoints.size(); i++)
+		{
 
-	ci::gl::draw(ObjDataGet.find("Boss"));
+			if (weakpoints[i].is_obscure == false)
+			{
+				ci::gl::pushModelView();
+				weakpoints[i].mt.apply();
+				//ci::gl::drawSphere(weakpoints[i].pos, collision_circle_rad);
 
-	ci::gl::disableAlphaBlending();
+				ci::gl::scale(ci::Vec3f(0.035f, 0.035f, 0.035f));
+
+				bosstex->enableAndBind();
+
+				ci::gl::draw(*weakpoints[i].mesh1);
+				if (i < weakpoints.size() - 1)
+					ci::gl::draw(*weakpoints[i].mesh2);
+
+				bosstex->disable();
+
+				ci::gl::popModelView();
+				if (weakpoints[i].can_attack)
+				{
+					ci::gl::pushModelView();
+					weakpoints[i].tex->enableAndBind();
+
+					ci::gl::scale(arrow_scale);
+
+					ci::gl::drawCube(weakpoints[i].pos +
+									 ci::Vec3f(0, -1.5 + sin(arrow_count) * sin(arrow_count), -4) +
+									 weakpoints[i].arrow_pos + arrow_pos,
+									 ci::Vec3f(1, 1, 0));
+
+					arrow_count += 0.02;
+					weakpoints[i].tex->disable();
+					ci::gl::popModelView();
+				}
+			}
+
+		}
+	}
+
 	drawEnd();
+	ci::gl::disableAlphaBlending();
 
 	ci::gl::popModelView();
 	ci::gl::pushModelView();
 
 
 	ci::gl::pushModelView();
-
 	for (auto& it : smokes)
 	{
 		it->transDraw();
 	}
-
 	ci::gl::popModelView();
 }
 
@@ -134,7 +193,7 @@ void Boss::setSignPostManager(std::shared_ptr<ar::SignPostManager> _spm)
 void Boss::entry()
 {
 	if (is_active)return;
-	if (!enemyholder->isEndLasstEnemy()) return;
+	if (!enemyholder->remainingEnemy() == 0) return;
 
 	transform.position.z = player->transform.position.z + 100;
 
@@ -163,22 +222,60 @@ ci::Matrix44f Boss::getMatrcx()
 	return matrix;
 }
 
+bool Boss::isDistant()
+{
+	float _difference = -player->transform.position.z + transform.position.z;
+
+	if (difference + 15 > _difference)
+		return false;
+	return true;
+}
+
 void Boss::damage()
 {
-	if (player->transform.position.z > transform.position.z) {
-		if (is_hit) return;
-		HP--;
-		is_hit = true;
-		hit_count = 0;
-		is_hit_staging = true;
-		return;
+	if (player->isCharaDashing())
+	{
+		int erase_obj_count = 0;
+		for (int i = 0; i < weakpoints.size(); i++)
+		{
+			if (erase_obj_count >= weakpoints.size() - 1)
+				weakpoints[i].can_attack = true;
+			if (weakpoints[i].is_hit == false &&
+				weakpoints[i].can_attack)
+			{
+				if (player->transform.position.distanceSquared(
+					transform.position - weakpoints[i].pos) <
+					(player->getCollisionCirclerad() + collision_circle_rad)
+					*(player->getCollisionCirclerad() + collision_circle_rad)
+					)
+				{
+					if (is_hit) return;
+					HP--;
+					{
+						is_hit = true;
+						hit_count = 0;
+						is_hit_staging = true;
+						weakpoints[i].is_hit = true;
+					}
+					return;
+				}
+			}
+			else
+			{
+				erase_obj_count++;
+			}
+		}
 	}
 	is_hit = false;
-
 }
 
 void Boss::keepDifference()
 {
+	if (player->transform.position.z > transform.position.z)
+	{
+		maxspeed = 2;
+	}
+
 	float _difference = -player->transform.position.z + transform.position.z;
 
 	if (_difference > difference) {
@@ -187,9 +284,9 @@ void Boss::keepDifference()
 	if (_difference < difference) {
 		transform.position.z += maxspeed;
 	}
+
+
 }
-
-
 
 void Boss::smokeSetup()
 {
@@ -217,29 +314,31 @@ void Boss::smokeUpdate()
 
 		smokePop();
 		smokePop();
-		smokePop();
-		smokePop();
+		//smokePop();
+		//smokePop();
 
 	}
 	if (is_hit_staging == false)
 	{
 		if (current_damage_type == DamageType::TWO_STEP)
 		{
-			damage_mt = ci::gl::Material(ci::ColorA(1.0f, 0.0f, 0.0f, 1.0f),      // Ambient
-										 ci::ColorA(1.0f, 0.0f, 0.0f, 1.0f),      // Diffuse
-										 ci::ColorA(1.0f, 0.0f, 0.0f, 1.0f),      // Specular
-										 80.0f,                               // Shininess
-										 ci::ColorA(0.5f, 0.5f, 0.5f, 1.0f));
+			for (int i = 0; i < weakpoints.size(); i++)
+				weakpoints[i].mt = ci::gl::Material(ci::ColorA(1.0f, 0.0f, 0.0f, 1.0f),      // Ambient
+													ci::ColorA(1.0f, 0.0f, 0.0f, 1.0f),      // Diffuse
+													ci::ColorA(1.0f, 0.0f, 0.0f, 1.0f),      // Specular
+													80.0f,                               // Shininess
+													ci::ColorA(0.5f, 0.5f, 0.5f, 1.0f));
 		}
 		if (current_damage_type == DamageType::THREE_STEP)
 		{
-			alpha -= 0.008;
-			damage_mt = ci::gl::Material(ci::ColorA(1.0f, 0.0f, 0.0f, alpha),      // Ambient
-										 ci::ColorA(1.0f, 0.0f, 0.0f, alpha),      // Diffuse
-										 ci::ColorA(1.0f, 0.0f, 0.0f, alpha),      // Specular
-										 80.0f,                               // Shininess
-										 ci::ColorA(0.5f, 0.5f, 0.5f, alpha));
+			for (int i = 0; i < weakpoints.size(); i++)
+				weakpoints[i].mt = ci::gl::Material(ci::ColorA(1.0f, 0.0f, 0.0f, alpha),      // Ambient
+													ci::ColorA(1.0f, 0.0f, 0.0f, alpha),      // Diffuse
+													ci::ColorA(1.0f, 0.0f, 0.0f, alpha),      // Specular
+													80.0f,                               // Shininess
+													ci::ColorA(0.5f, 0.5f, 0.5f, alpha));
 
+			alpha -= 0.008;
 			if (alpha <= 0)
 				smokes.clear();
 		}
@@ -258,7 +357,7 @@ void Boss::smokePop()
 {
 	std::random_device rand;
 	std::mt19937 mt(rand());
-	std::uniform_real_distribution<float> pop_rand(-3.5f / 2.f, 3.5f / 2.f);
+	std::uniform_real_distribution<float> pop_rand(-2.5f, 2.5f);
 
 	ci::Vec3f pop_pos = ci::Vec3f(pop_rand(mt), pop_rand(mt), pop_rand(mt));
 
@@ -273,27 +372,52 @@ void Boss::hitStaging()
 		{
 			staging_change = !staging_change;
 		}
-		if (staging_change)
+		for (int i = 0; i < weakpoints.size(); i++)
 		{
-			damage_mt = ci::gl::Material(ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Ambient
-										 ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Diffuse
-										 ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Specular
-										 80.0f,                               // Shininess
-										 ci::ColorA(0.5f, 0.5f, 0.5f, 1.0f));
+			if (weakpoints[i].is_hit)
+				if (staging_change)
+				{
+					weakpoints[i].mt = ci::gl::Material(ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Ambient
+														ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Diffuse
+														ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Specular
+														80.0f,                               // Shininess
+														ci::ColorA(0.5f, 0.5f, 0.5f, 1.0f));
+
+				}
+				else
+				{
+					weakpoints[i].mt = ci::gl::Material(ci::ColorA(1.0f, 0.0f, 0.0f, 1.0f),      // Ambient
+														ci::ColorA(1.0f, 0.0f, 0.0f, 1.0f),      // Diffuse
+														ci::ColorA(1.0f, 0.0f, 0.0f, 1.0f),      // Specular
+														80.0f,                               // Shininess
+														ci::ColorA(0.5f, 0.5f, 0.5f, 1.0f));
+
+				}
 		}
-		else
-		{
-			damage_mt = ci::gl::Material(ci::ColorA(1.0f, 0.0f, 0.0f, 1.0f),      // Ambient
-										 ci::ColorA(1.0f, 0.0f, 0.0f, 1.0f),      // Diffuse
-										 ci::ColorA(1.0f, 0.0f, 0.0f, 1.0f),      // Specular
-										 80.0f,                               // Shininess
-										 ci::ColorA(0.5f, 0.5f, 0.5f, 1.0f));
-		}
+
+		maxspeed = 1.7f;
+
+		std::random_device rand;
+		std::mt19937 mt(rand());
+		std::uniform_real_distribution<float> shake_rand(-0.4f, 0.4f);
+		ci::Vec3f shake_pos = ci::Vec3f(shake_rand(mt), shake_rand(mt), 0);
+
+		transform.position.x = shake_pos.x;
+		transform.position.y = shake_pos.y;
 
 		if (hit_count >= 60)
 		{
+			for (int i = 0; i < weakpoints.size(); i++)
+				if (weakpoints[i].is_hit)
+					weakpoints[i].is_obscure = true;
 			is_hit_staging = false;
 		}
+	}
+	else
+	{
+		transform.position.x = 0;
+		transform.position.y = 0;
+		maxspeed = 1.35f;
 	}
 	hit_count++;
 }

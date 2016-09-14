@@ -28,8 +28,15 @@ namespace ar
 			set("Player", "ObjData/player.obj");
 			set("obstacle", "ObjData/kirai.obj");
 			set("Enemy", "ObjData/enemy.obj");
-			set("Boss", "ObjData/boss.obj");
-
+			set("Boss0", "ObjData/Boss/boss_hidarisita1.obj");
+			set("Boss1", "ObjData/Boss/boss_hidarisita2.obj");
+			set("Boss2", "ObjData/Boss/boss_hidariue1.obj");
+			set("Boss3", "ObjData/Boss/boss_hidariue2.obj");
+			set("Boss4", "ObjData/Boss/boss_migisita1.obj");
+			set("Boss5", "ObjData/Boss/boss_migisita2.obj");
+			set("Boss6", "ObjData/Boss/boss_migiue1.obj");
+			set("Boss7", "ObjData/Boss/boss_migiue2.obj");
+			set("Boss8", "ObjData/Boss/boss_body.obj");
 			
 		}
 

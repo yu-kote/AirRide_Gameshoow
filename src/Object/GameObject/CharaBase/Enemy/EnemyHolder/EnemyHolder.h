@@ -24,6 +24,9 @@ public:
 	//エネミーたちを動かす関数
 	void start();
 
+	// エネミーとの距離が遠いとtrue
+	bool isDistant();
+
 	void tutorialSetup();
 	int remainingEnemy();
 	bool is_tutorial;
@@ -39,7 +42,7 @@ public:
 	std::list<Enemy*> getActiveEnemysList();
 
 
-
+	bool is_standbypos;
 
 
 	bool isEndLasstEnemy();

@@ -36,6 +36,9 @@ public:
 	int getHp() { return HP; }
 	int getMaxHp() { return HP_max; }
 
+	// ƒ{ƒX‚Æ‚Ì‹——£‚ª‰“‚¢‚Ætrue
+	bool isDistant();
+
 private:
 
 
@@ -80,6 +83,28 @@ private:
 	std::set<DamageType> damage_type;
 	DamageType current_damage_type;
 	ci::Vec3f camera_pos;
+
+	ci::gl::TextureRef bosstex;
+	float collision_circle_rad;
+	struct WeakPoint {
+		ci::Vec3f pos;
+		ci::Vec3f arrow_pos;
+		bool is_hit;
+		// ‚Ý‚¦‚È‚­‚·‚é
+		bool is_obscure;
+		bool can_attack;
+		ci::TriMesh* mesh1;
+		ci::TriMesh* mesh2;
+		ci::gl::TextureRef tex;
+		ci::gl::Material mt;
+
+	};
+
+	std::vector<WeakPoint> weakpoints;
+	float arrow_count = 0;
+
+	ci::Vec3f arrow_scale;
+	ci::Vec3f arrow_pos;
 public:
 
 	void setCameraPos(ci::Vec3f camera_pos_) {
@@ -87,16 +112,17 @@ public:
 	}
 
 private:
-
-	ci::gl::Material normal_mt;
-	ci::gl::Material hit_mt;
-	ci::gl::Material damage_mt;
 	float alpha;
 	int hit_count;
 	bool is_hit_staging;
 	bool staging_change = false;
 
 	void hitStaging();
+
+private: // 4‚Â‚Ì“–‚è”»’è‚Ì‚â‚Â
+
+
+
 
 };
 

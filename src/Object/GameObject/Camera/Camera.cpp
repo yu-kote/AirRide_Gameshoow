@@ -3,6 +3,7 @@
 #include "../../../Input/InputEvent.h"
 #include "../../../Share/Resize.h"
 #include "CameraPosition.h"
+#include <random>
 
 using namespace ci;
 using namespace ci::app;
@@ -29,6 +30,7 @@ void ar::Camera::setup()
 
 	camera.setAspectRatio(getWindowAspectRatio());
 
+	shake_count = 0;
 }
 
 void ar::Camera::update()
@@ -56,6 +58,7 @@ void ar::Camera::update()
 					   lookpoint);
 	}
 
+	shakeCameraUpdate();
 	gl::setMatrices(camera);
 
 	CameraPosition = camera.getEyePoint();
@@ -78,7 +81,7 @@ void ar::Camera::setCenterOfInterestPoint(ci::Vec3f _pos)
 		camera.getCenterOfInterestPoint() +
 		((_pos - camera.getEyePoint()) * 0.1f));*/
 	camera.setCenterOfInterestPoint(_pos);
-
+	shake_buf = _pos;
 }
 
 void ar::Camera::setChara(std::shared_ptr<CharaBase> _chara)
@@ -193,3 +196,29 @@ void ar::Camera::horizontalRotateLimit(float up_limit_, float low_limit_)
 {
 	transform.angle.x = std::min(low_limit_, std::max(up_limit_, transform.angle.x));
 }
+
+void ar::Camera::shakeCameraCall()
+{
+	is_shake = true;
+}
+
+void ar::Camera::shakeCameraUpdate()
+{
+	if (is_shake)
+	{
+		std::random_device rand;
+		std::mt19937 mt(rand());
+		std::uniform_real_distribution<float> shake_rand(-0.1f, 0.1f);
+		Vec3f shake_pos = Vec3f(shake_rand(mt), shake_rand(mt), shake_rand(mt));
+
+		camera.setCenterOfInterestPoint(shake_pos + shake_buf);
+		shake_count++;
+		if (shake_count >= 30)
+		{
+			is_shake = false;
+			shake_count = 0;
+		}
+	}
+	CameraInfoGet.shakeCamera = [&] {shakeCameraCall(); };
+}
+

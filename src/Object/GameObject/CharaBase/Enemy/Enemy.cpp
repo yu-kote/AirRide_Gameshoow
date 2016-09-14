@@ -20,7 +20,8 @@ void Enemy::setup()
 {
 	init();
 
-	collision_circle_rad = 1.2f;
+	collision_circle_rad = 2.5f;
+	is_waiting = true;
 
 	addComponent<ar::Texture>(ar::Texture("Enemy"));
 	mt = ci::gl::Material(ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Ambient
@@ -39,10 +40,10 @@ void Enemy::update()
 	ai->update();
 
 	move();
+	hitStaging();
 	damage();
 	updateStageMatrix();
 	smokeUpdate();
-	hitStaging();
 }
 
 void Enemy::draw()
@@ -52,11 +53,17 @@ void Enemy::draw()
 	drawBegin();
 
 	ci::gl::pushMatrices();
+
+	if (is_waiting)
+		ci::gl::translate(ci::Vec3f(0, 0, -10));
+
 	ci::gl::multModelView(matrix);
+	ci::gl::translate(shake_translate);
 
 	ci::Matrix44f mrotate = ci::Matrix44f::createRotation(transform.angle);
 	ci::gl::multModelView(mrotate);
-	ci::gl::scale(0.07f, 0.07f, 0.07f);
+
+	ci::gl::scale(0.09f, 0.09f, 0.09f);
 	mt.apply();
 	ci::gl::draw(*mesh);
 
@@ -103,12 +110,12 @@ void Enemy::inObstacleArea()
 void Enemy::start()
 {
 	ai->go();
+	is_waiting = false;
 }
 
 void Enemy::damage()
 {
-
-	if (player->isAttack()) {
+	if (player->isCharaDashing()) {
 		if (!isInvincible()) {
 			if (player->transform.position.distanceSquared(
 				transform.position) <
@@ -118,6 +125,7 @@ void Enemy::damage()
 				if (!is_hit) {
 					ai->HP--;
 					HitObstacle(2.5f);
+
 					is_hit_staging = true;
 					hit_count = 0;
 				}
@@ -191,9 +199,9 @@ void Enemy::smokeUpdate()
 		damage_type.insert(current_damage_type);
 
 		smokePop();
-		smokePop();
-		smokePop();
-		smokePop();
+		//smokePop();
+		//smokePop();
+		//smokePop();
 
 	}
 
@@ -232,6 +240,7 @@ void Enemy::hitStagingSetup()
 	hit_count = 0;
 	is_hit_staging = false;
 	staging_change = false;
+	shake_translate = ci::Vec3f::zero();
 }
 
 void Enemy::hitStaging()
@@ -259,20 +268,30 @@ void Enemy::hitStaging()
 								  ci::ColorA(0.5f, 0.5f, 0.5f, 1.0f));
 		}
 
-		if (hit_count >= 60)
+		std::random_device rand;
+		std::mt19937 mt(rand());
+		std::uniform_real_distribution<float> shake_rand(-0.3f, 0.3f);
+		ci::Vec3f shake_pos = ci::Vec3f(shake_rand(mt), shake_rand(mt), 0);
+
+		shake_translate.x = shake_pos.x;
+		shake_translate.y = shake_pos.y;
+
+		if (hit_count >= 120)
 		{
 			is_hit_staging = false;
 		}
 	}
 	else
 	{
+		shake_translate = ci::Vec3f::zero();
 		if (isEnd())
 		{
 			mt = ci::gl::Material(ci::ColorA(1.0f, 0.0f, 0.0f, 1.0f),      // Ambient
 								  ci::ColorA(1.0f, 0.0f, 0.0f, 1.0f),      // Diffuse
 								  ci::ColorA(1.0f, 0.0f, 0.0f, 1.0f),      // Specular
 								  80.0f,                               // Shininess
-								  ci::ColorA(0.5f, 0.5f, 0.5f, 1.0f));
+								  ci::ColorA(0.7f, 0.3f, 0.3f, 1.0f));
+			speed = 0.5f;
 		}
 	}
 	hit_count++;

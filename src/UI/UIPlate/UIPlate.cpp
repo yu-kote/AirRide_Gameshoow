@@ -168,10 +168,12 @@ void UIPlate::tuto1(const bool& end_flag)
 		if (tuto_count[0] == 280) {
 			ui_data["ミッション白板"]->Active();
 		}
-		if (tuto_count[0] == 340) {
+		if (tuto_count[0] == 380) {
 			ui_data["動き説明2"]->Active();
 			ui_data["動き説明2"]->fontSetText(u8"自機はプレイヤーの手を追尾します。\n　手を上まで動かしてみてください。");
 			ui_data["動き実手"]->Active();
+			ui_data["動き印"]->Active();
+			//ui_data["動き矢印"]->Active();
 			tuto_flags[0] = true;
 		}
 	}
@@ -186,6 +188,8 @@ void UIPlate::tuto1(const bool& end_flag)
 			ui_data["ミッション白板"]->setEnd();
 			ui_data["黒板"]->Active();
 			ui_data["黒板"]->setEnd();
+			ui_data["動き印"]->setEnd();
+			//ui_data["動きや印"]->setEnd();
 		}
 	}
 }
@@ -209,6 +213,9 @@ void UIPlate::tuto2(const bool& end_flag)
 			ui_data["ダッシュ説明2"]->Active();
 			ui_data["ダッシュ説明2"]->fontSetText(u8"手を前に突き出すと、突進します。\n　実際にやってみましょう。");
 			ui_data["ダッシュ手"]->Active();
+			
+		}
+		if (tuto_count[2] == 180) {
 			tuto_flags[1] = true;
 		}
 	}
@@ -244,7 +251,7 @@ void UIPlate::tuto3(const bool& end_flag)
 				ui_data["ミッション白板"]->Active();
 			}
 		}
-		if (tuto_count[4] == 60) {
+		if (tuto_count[4] == 180) {
 			ui_data["回避説明2"]->Active();
 			ui_data["回避説明2"]->fontSetText(u8"それでは、敵を突進で倒してみましょう。");
 			ui_data["回避説明"]->Active();
@@ -283,6 +290,7 @@ void UIPlate::tuto4(bool &end_flag)
 		if (change_counnt == 1) {
 			ui_data["ゲーム説明"]->Active();
 			ui_data["説明板"]->Active();
+			ui_data["説明板"]->setColor(1,1,1,0);
 			ui_data["ミッション白板"]->Active();
 			ui_data["ゲーム説明"]->fontSetText(u8"障害物を避けながら、\nエネミーを突進で倒しましょう！");
 		}
@@ -370,12 +378,14 @@ void UIPlate::gameMainUpdate() {
 			ui_data["経過時間"]->Active();
 			ui_data["経過時間"]->timeStart();
 			ui_data["制限時間"]->timeStart();
-			if (SoundGet.find("RaceBGM")->isEnabled())
+			if (SoundGet.find("RaceBGM")->isEnabled()) {
 				SoundGet.find("RaceBGM")->stop();
-			else
+			}
+			else {
 				SoundGet.find("RaceBGM")->start();
-			SoundGet.find("RaceBGM")->gain->setValue(1.0f);
-			SoundGet.find("RaceBGM")->setLoopEnabled(true);
+				SoundGet.find("RaceBGM")->gain->setValue(1.0f);
+				SoundGet.find("RaceBGM")->setLoopEnabled(true);
+			}
 		}
 	}
 	if (!boss->getIsExist()) {
@@ -608,6 +618,7 @@ void UIPlate::gameMainBossActive()
 			SoundGet.find("RaceBGM")->gain->setValue(1.0f - ((static_cast<float>(boss_count) / 30)));
 		}
 		if (boss_count == 30) {
+			SoundGet.find("RaceBGM")->disable();
 			SoundGet.find("Boss")->start();
 			ui_data["ボス出現"]->Active();
 			ui_data["ボス出現"]->setEnd();
@@ -730,7 +741,6 @@ void UIPlate::resultSetup()
 		ui_data["ResultTime"]->fontSetText(u8"今回のタイム　" + std::to_string(time[5].minutes) + "'" + addZero(time[5].seconds) + "''" + addZero(time[5].flame));
 		ui_data["ResultTime"]->setColor(0.5, 0.5, 1, 1);
 		ui_data["ResultChange2"]->Active();
-		ui_data["ResultChange2"]->setEnd();
 		file.close();
 	}
 }
