@@ -36,6 +36,9 @@ public:
 	int getHp() { return HP; }
 	int getMaxHp() { return HP_max; }
 
+	// ƒ{ƒX‚Æ‚Ì‹——£‚ª‰“‚¢‚Ætrue
+	bool isDistant();
+
 private:
 
 

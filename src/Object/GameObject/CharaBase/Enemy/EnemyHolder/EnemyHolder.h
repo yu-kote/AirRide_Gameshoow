@@ -24,6 +24,9 @@ public:
 	//エネミーたちを動かす関数
 	void start();
 
+	// エネミーとの距離が遠いとtrue
+	bool isDistant();
+
 	void tutorialSetup();
 	int remainingEnemy();
 	bool is_tutorial;
