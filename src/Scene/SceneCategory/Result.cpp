@@ -1,4 +1,6 @@
 #include "Result.h"
+#include "../../Share/Share.h"
+#include "../../TaskManager/TextureManager.h"
 
 Result::Result()
 {
@@ -10,7 +12,7 @@ void Result::setup()
 	game_count = 0;
 	end_count = 0;
 	end = false;
-	
+
 	entities.setupGameObject();
 	color = des::Vec3f(1.0f, 1.0f, 1.0f);
 	if (!UIType::is_ending) {
@@ -21,7 +23,7 @@ void Result::setup()
 		ui.endingSetup();
 		color = des::Vec3f(0.0f, 0.0f, 0.0f);
 	}
-	
+
 }
 
 void Result::draw()
@@ -29,6 +31,16 @@ void Result::draw()
 	ci::gl::clear(ColorA(color.x, color.y, color.z, 1.0f));
 
 	ui.resultDraw();
+
+	TextureGet.find("Result")->enableAndBind();
+	gl::enableAlphaBlending();
+	ci::gl::color(ColorA(1, 1, 1, 0.5f));
+
+	ci::gl::drawSolidRect(
+		Rectf(0, 800, 600, 0));
+
+	gl::disableAlphaBlending();
+	TextureGet.find("Result")->disable();
 
 
 }
@@ -56,6 +68,7 @@ void Result::shift()
 			ui.ui_data["Rank5"]->setEnd();
 			ui.ui_data["ResultTime"]->setEnd();
 			ui.ui_data["ƒŠƒUƒ‹ƒg"]->setEnd();
+			ui.ui_data["ResultChange2"]->setEnd();
 		}
 		if (game_count == 600) {
 			c_Easing::apply(color.x, 0.0f, EasingFunction::ExpoIn, 60);

@@ -5,6 +5,7 @@
 #include "../../../../TaskManager/TextureManager.h"
 #include "../../../GameObject/CharaBase/CharaBase.h"
 #include "../../../../TaskManager/SoundManager.h"
+#include "../../Camera/CameraPosition.h"
 
 void Bullets::setup()
 {
@@ -42,6 +43,7 @@ void Bullets::update()
 			if (dif < 1.5 * 1.5) {
 				player->HitObstacle(0.5f);
 				it.bomb();
+				CameraInfoGet.shakeCameraCall();
 			}
 		}
 	}

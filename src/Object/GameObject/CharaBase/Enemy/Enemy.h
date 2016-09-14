@@ -32,6 +32,7 @@ public:
 
 	void start();
 
+	bool is_waiting;
 
 private:
 	void damage();
@@ -41,7 +42,7 @@ private:
 
 	ci::TriMesh* mesh;
 
-private:
+private: // H‚ç‚Á‚½‚Ì‰‰o
 
 	std::list<std::shared_ptr<Smokes>> smokes;
 	void smokeSetup();
@@ -68,6 +69,7 @@ private:
 
 	void hitStagingSetup();
 	void hitStaging();
+	ci::Vec3f shake_translate;
 };
 
 template<class T>

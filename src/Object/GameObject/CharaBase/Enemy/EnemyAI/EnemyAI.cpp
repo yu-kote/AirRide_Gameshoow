@@ -183,14 +183,12 @@ void AILevel4::update()
 AITutorial::AITutorial(CharaBase* _enemy, CharaBase* _player) :
 	EnemyAIBase(_enemy, _player)
 {
-
 	changeTarget();
-	enemy->transform.position.x;
-	enemy->transform.position.y = 1;
 
-	enemy->setPosition(aiterget);
+	enemy->transform.position.x = 3;
+	enemy->transform.position.y = -2.5f;
 
-
+	enemy->setPosition(enemy->transform.position.xy());
 }
 
 void AITutorial::stert()
@@ -199,5 +197,6 @@ void AITutorial::stert()
 
 void AITutorial::update()
 {
+
 	tergetMove();
 }

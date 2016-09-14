@@ -58,13 +58,13 @@ void EnemyAIBase::changeTarget()
 void EnemyAIBase::tergetMove()
 {
 	float difference = enemy->transform.position.z - player->transform.position.z;
-	if (difference > 7.f) {
+	if (difference > 15.f) {
 		enemy->setSpeed(0.8f);
 		return;
 	}
-	if (difference < 7.f
+	if (difference < 15.f
 		&& HP > 0) {
-		enemy->setSpeed(1.5f);
+		enemy->setSpeed(1.6f);
 		return;
 	}
 }
@@ -75,7 +75,7 @@ bool EnemyAIBase::avoidPlayerDashByRoll()
 	if (difference > 9)return false;
 	if (player->isAttack()) {
 		if (hit2d()) {
-			enemy->setSpeed(1.5f);
+			enemy->setSpeed(1.6f);
 			return enemy->isRolling(-enemy->transform.position.xy());
 
 		}

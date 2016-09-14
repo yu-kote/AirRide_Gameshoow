@@ -77,5 +77,14 @@ namespace ar {
 		float rotate_speed = (float)M_PI / 90.0f;
 		float horizontal_up_limit = (float)-M_PI / 2.1f;
 		float horizontal_low_limit = (float)M_PI / 2.1f;
+
+
+	private:
+
+		int shake_count;
+		bool is_shake = false;
+		ci::Vec3f shake_buf;
+		void shakeCameraCall();
+		void shakeCameraUpdate();
 	};
 }
