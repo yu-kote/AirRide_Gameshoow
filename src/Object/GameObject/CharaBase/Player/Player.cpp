@@ -47,6 +47,7 @@ void Player::restart()
 	clash_speed = 0.5f;
 
 	hand_exist_count = 0.0f;
+	start_delay = 1.7f;
 }
 
 void Player::setup()
@@ -91,6 +92,8 @@ void Player::setup()
 	hand_exist_count = 0.0f;
 
 	interval_takes_time = 1.0f;
+
+	start_delay = 1.7f;
 }
 
 void Player::update()
@@ -103,7 +106,7 @@ void Player::update()
 		operationKey();
 
 	move();
-
+	
 	// cameraからはみ出ないようにする
 	debugCourseOutStop();
 
@@ -230,8 +233,15 @@ void Player::operationLeap()
 	// leapmotionの更新処理
 	UpdateLeapHands();
 
+	if (is_stop == true)
+		return;
+
 	// 行き先の更新
 	moveDestination();
+
+	start_delay = std::max(0.0f, start_delay - TIME.getDeltaTime());
+	if (start_delay > 0.0f)
+		return;
 
 	if (hand_exist_count < 1.0f)
 		return;

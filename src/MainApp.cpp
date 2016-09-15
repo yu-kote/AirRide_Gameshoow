@@ -46,6 +46,8 @@ private:
 
 	FrameTimer timer;
 	CameraPersp camera;
+
+	bool is_fullscreen;
 };
 
 void DesignApp::keyDown(KeyEvent event)
@@ -70,7 +72,8 @@ void DesignApp::mouseUp(MouseEvent event)
 
 void DesignApp::setup()
 {
-	setFullScreen(true);
+	is_fullscreen = true;
+	setFullScreen(is_fullscreen);
 	LEAPHANDS.Setup();
 	TextureGet.setup();
 	SoundGet.setup();
@@ -121,6 +124,11 @@ void DesignApp::prepareSettings(Settings* settings)
 
 void DesignApp::update()
 {
+	if (env.isPush(KeyEvent::KEY_1))
+	{
+		is_fullscreen = !is_fullscreen;
+		setFullScreen(is_fullscreen);
+	}
 	timer.start(true);
 	if (timer.getIsStop() == false)
 	{
