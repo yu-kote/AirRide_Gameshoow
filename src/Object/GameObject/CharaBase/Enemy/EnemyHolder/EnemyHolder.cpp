@@ -156,10 +156,14 @@ std::vector<Enemy*> EnemyHolder::getActiveEnemys()
 	std::vector<Enemy*> _ene;
 	for (auto& it : enemys)
 	{
-		if (it.getTarget()) {
+		if (it.isEnd() == false) {
 			_ene.push_back(&it);
-			break;
 		}
+	}
+
+	if (_ene.begin() == _ene.end())
+	{
+		_ene.push_back(new Enemy());
 	}
 
 	return _ene;
@@ -182,7 +186,6 @@ bool EnemyHolder::isEndLasstEnemy()
 {
 	return enemys.back().isEnd();
 }
-
 
 void EnemyHolder::targetChange()
 {
