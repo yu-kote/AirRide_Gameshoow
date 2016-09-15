@@ -79,7 +79,6 @@ void EnemyHolder::update()
 	{
 		it.update();
 	}
-	ci::app::console() << isDistant() << std::endl;
 }
 
 void EnemyHolder::draw()
@@ -157,7 +156,7 @@ std::vector<Enemy*> EnemyHolder::getActiveEnemys()
 	std::vector<Enemy*> _ene;
 	for (auto& it : enemys)
 	{
-		if (it.isEnd() == false) {
+		if (it.getTarget()) {
 			_ene.push_back(&it);
 			break;
 		}
