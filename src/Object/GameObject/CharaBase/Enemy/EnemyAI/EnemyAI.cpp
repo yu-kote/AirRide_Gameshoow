@@ -11,9 +11,9 @@ AILevel1::AILevel1(CharaBase* _enemy, CharaBase* _player) :
 	enemy->setPosition(enemy->transform.position.xy());
 
 	c_Easing::apply(enemy->transform.position.z,
-		100, EasingFunction::CircOut, 50);
+					100, EasingFunction::CircOut, 50);
 	c_Easing::apply(enemy->transform.position.z,
-		150, EasingFunction::CubicIn, 50);
+					150, EasingFunction::CubicIn, 50);
 	c_Easing::stop(enemy->transform.position.z);
 	terget_change_count = 0;
 	changeTarget();
@@ -33,7 +33,7 @@ void AILevel1::update()
 		return;
 	}
 	if (!c_Easing::isEnd(enemy->transform.position.z))return;
-	
+
 
 	enemy->moving(aiterget);
 	tergetMotion(180);
@@ -48,9 +48,9 @@ AILevel2::AILevel2(CharaBase* _enemy, CharaBase* _player) :
 	enemy->transform.position.y = 3;
 	enemy->setPosition(enemy->transform.position.xy());
 	c_Easing::apply(enemy->transform.position.z,
-		100, EasingFunction::CircOut, 50);
+					100, EasingFunction::CircOut, 50);
 	c_Easing::apply(enemy->transform.position.z,
-		200, EasingFunction::ExpoIn, 50);
+					200, EasingFunction::ExpoIn, 50);
 	c_Easing::stop(enemy->transform.position.z);
 	changeTarget();
 
@@ -92,9 +92,9 @@ AILevel3::AILevel3(CharaBase* _enemy, CharaBase* _player) :
 	enemy->setPosition(enemy->transform.position.xy());
 
 	c_Easing::apply(enemy->transform.position.z,
-		100, EasingFunction::CircOut, 50);
+					100, EasingFunction::CircOut, 50);
 	c_Easing::apply(enemy->transform.position.z,
-		250, EasingFunction::ExpoIn, 50);
+					250, EasingFunction::ExpoIn, 50);
 	c_Easing::stop(enemy->transform.position.z);
 	avoid_count = 2;
 	enemy->setIntervalTakesTime(3.f);
@@ -134,9 +134,9 @@ AILevel4::AILevel4(CharaBase* _enemy, CharaBase* _player) :
 	enemy->setPosition(enemy->transform.position.xy());
 
 	c_Easing::apply(enemy->transform.position.z,
-		100, EasingFunction::CircOut, 50);
+					100, EasingFunction::CircOut, 50);
 	c_Easing::apply(enemy->transform.position.z,
-		300, EasingFunction::ExpoIn, 50);
+					300, EasingFunction::ExpoIn, 50);
 	c_Easing::stop(enemy->transform.position.z);
 	avoid_count = 1;
 	enemy->setIntervalTakesTime(3.f);
@@ -174,23 +174,21 @@ void AILevel4::update()
 		}
 
 	}
-	
+
 	enemy->moving(aiterget);
 	tergetMotion(180);
 	tergetMove();
 }
 
-AITutorial::AITutorial(CharaBase* _enemy, CharaBase* _player):
+AITutorial::AITutorial(CharaBase* _enemy, CharaBase* _player) :
 	EnemyAIBase(_enemy, _player)
 {
-
 	changeTarget();
-	/*enemy->transform.position.x = -3;
-	enemy->transform.position.y = -3;
-	*/
-	enemy->setPosition(aiterget);
 
+	enemy->transform.position.x = 3;
+	enemy->transform.position.y = -2.5f;
 
+	enemy->setPosition(enemy->transform.position.xy());
 }
 
 void AITutorial::stert()
@@ -199,5 +197,6 @@ void AITutorial::stert()
 
 void AITutorial::update()
 {
+
 	tergetMove();
 }

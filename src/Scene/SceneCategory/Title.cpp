@@ -45,7 +45,8 @@ void Title::update()
 			ui.titleSetup();
 
 			gameSetup();
-
+			ui.player = entities.getObject<Player>();
+			ui.enemyholder = entities.getObject<EnemyHolder>();
 			if (SoundGet.find("TitleBGM")->isEnabled())
 				SoundGet.find("TitleBGM")->stop();
 			else
@@ -59,25 +60,35 @@ void Title::update()
 		//bool set3
 		//«‚Ìif•¶‚Ì’†‚Åˆø”‚ðtrue‚É‚·‚é
 		if (ui.getTutoFirtsFlag()) {
-			if (LEAPHANDS.GetHandCenterPosToRatio().y >= 0.13f)
+			if (LEAPHANDS.GetHandCenterPosToRatio().y >= 0.14f
+				|| env.isPress(KeyEvent::KEY_0)) {
 				tutorial_flag[0] = true;
+			}
 		}
-		if (ui.getTutoSecondFlag()) {
-			if (player->isCharaDashing())
-				tutorial_flag[1] = true;
-		}
-		if (ui.getTutoThirdFlag()) {
-			if (player->isCharaRolling())
+		if (tutorial_flag[1] == false)
+			if (ui.getTutoSecondFlag()) {
+				if (player->isCharaDashing())
+				{
+					tutorial_flag[1] = true;
+					
+				}
+			}
+		if (ui.getTutoThirdFlag())
+		{
+			if (enemyholder->remainingEnemy() < 4)
+			{
 				tutorial_flag[2] = true;
+			}
 		}
 	}
+
 	if (end_flag == true &&
 		end_count == 1) {
 		ui.ui_data["•”Â"]->Active();
 		ui.ui_data["•”Â"]->setEnd();
 	}
 
-	
+
 
 	if (tutorial) {
 
@@ -207,7 +218,8 @@ void Title::gameSetup()
 	//entities.setObject<ar::ObstacleManager>();
 
 	entities.setObject<Player>();
-	//entities.setObject<EnemyHolder>();
+	entities.setObject<EnemyHolder>();
+
 
 	//entities.setObject<Boss>();
 	//entities.setObject<Bullets>();
@@ -218,9 +230,8 @@ void Title::gameSetup()
 	entities.getObject<Player>()->setSignPostManager(entities.getObject<ar::SignPostManager>());
 	entities.getObject<ar::SignPostManager>()->setPlayer(entities.getObject<Player>());
 
-
-	//entities.getObject<EnemyHolder>()->setSignPostManager(entities.getObject<ar::SignPostManager>());
-	//entities.getObject<EnemyHolder>()->setPlayer(entities.getObject<Player>());
+	entities.getObject<EnemyHolder>()->setSignPostManager(entities.getObject<ar::SignPostManager>());
+	entities.getObject<EnemyHolder>()->setPlayer(entities.getObject<Player>());
 
 	//entities.getObject<ar::ObstacleManager>()->setEnemyHolder(entities.getObject<EnemyHolder>());
 	//entities.getObject<ar::ObstacleManager>()->setPlayer(entities.getObject<Player>());
@@ -240,7 +251,10 @@ void Title::gameSetup()
 
 	entities.setupGameObject();
 
+
+
 	player = entities.getObject<Player>();
+	enemyholder = entities.getObject<EnemyHolder>();
 }
 
 void Title::gameUpdate()

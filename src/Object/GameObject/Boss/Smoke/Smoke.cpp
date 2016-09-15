@@ -2,6 +2,7 @@
 #include "../../../Component/Components/Texture.h"
 #include "../../../Component/Components/Material.h"
 #include <random>
+#include "../../Camera/CameraPosition.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -12,12 +13,11 @@ Smoke::Smoke(ci::Vec3f pop_pos_)
 {
 	setup();
 	transform.position = pop_pos_;
-	//console() << pop_pos_ << std::endl;
 
 	std::random_device rand;
 	std::mt19937 mt(rand());
-	std::uniform_real_distribution<float> vec_rand(-0.2f, 0.2f);
-	std::uniform_real_distribution<float> upvec_rand(-0.1f, 0.6f);
+	std::uniform_real_distribution<float> vec_rand(-0.0f, 0.0f);
+	std::uniform_real_distribution<float> upvec_rand(-0.0f, 0.6f);
 
 	vec = Vec3f(vec_rand(mt), upvec_rand(mt), vec_rand(mt));
 
@@ -34,18 +34,31 @@ void Smoke::setup()
 	addComponent<ar::Texture>(ar::Texture("Smoke"));
 
 	addComponent<ar::Material>(ar::Material(
-		gl::Material(ColorA(0.8f, 0.8f, 0.8f, 1.0f),      // Ambient
-					 ColorA(0.8f, 0.8f, 0.8f, 1.0f),      // Diffuse
-					 ColorA(0.8f, 0.8f, 0.8f, 1.0f),      // Specular
+		gl::Material(ColorA(0.0f, 0.0f, 0.0f, 1.0f),      // Ambient
+					 ColorA(0.0f, 0.0f, 0.0f, 1.0f),      // Diffuse
+					 ColorA(0.0f, 0.0f, 0.0f, 1.0f),      // Specular
 					 80.0f,                               // Shininess
-					 ColorA(0.5f, 0.5f, 0.5f, 1.0f))));	  // Emission
+					 ColorA(0.2f, 0.2f, 0.2f, 1.0f))));	  // Emission
 
 }
 
 void Smoke::update()
 {
 	transform.position += vec;
-	transform.scale = Vec3f(2, 2, 0);
+
+	Vec3f direction = Vec3f(0.0f, 0.0f, -1.0f);
+	Vec3f camera_vec = CameraPosition - transform.position;
+
+	direction.normalize();
+	camera_vec.normalize();
+
+	Vec3f cross = direction.cross(camera_vec);
+	if (cross.lengthSquared() > 0.0f)
+	{
+		ci::Quatf tempquat(cross.normalized(),
+						   acos(camera_vec.normalized().dot(direction.normalized())));//cross.length());
+		rotate = tempquat;
+	}
 
 	count++;
 }
@@ -54,10 +67,9 @@ void Smoke::transDraw()
 {
 	drawBegin();
 	pushModelView();
-	gl::rotate(Vec3f(0, 0, rotate_speed));
 
-	Quatf quat(Vec3f(0, 0, 1), transform.position - camera_pos);
-	gl::rotate(quat.toMatrix44());
+	gl::multModelView(rotate.toMatrix44());
+	gl::scale(Vec3f(2, 2, 0));
 
 	gl::enableAlphaBlending();
 
@@ -66,6 +78,7 @@ void Smoke::transDraw()
 	gl::disableAlphaBlending();
 	popModelView();
 	drawEnd();
+
 }
 
 bool Smoke::isErase()
@@ -87,7 +100,7 @@ void Smokes::setup()
 void Smokes::update()
 {
 	count++;
-	if (count % 10 == 0)
+	if (count % 3 == 0)
 	{
 		smokes.push_back(std::make_shared<Smoke>(Smoke(transform.position + rand_value)));
 	}

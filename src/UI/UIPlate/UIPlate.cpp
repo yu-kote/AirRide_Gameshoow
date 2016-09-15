@@ -25,14 +25,8 @@ void UIPlate::titleSetup()
 		}
 	}
 
-	float left = -(getWindowSize().x - WIDTH) / 2;
-	float right = 800 + (getWindowSize().x - WIDTH) / 2;
-	float bottom = -(getWindowSize().y - WIDTH) / 2;
-	float top = 800 + (getWindowSize().y - WIDTH) / 2;
-	camera_o.setOrtho(left, right,
-		600, 0,
-		1, 10);
-	for (int i = 0; i < 10; i++) {
+
+	for (int i = 0; i < 14; i++) {
 		tuto_count[i] = 0;
 	}
 	for (int i = 0; i < 3; i++) {
@@ -62,16 +56,6 @@ void UIPlate::titleUpdate()
 		ui_data[(*it)]->update();
 	}
 
-	ResizeGet.setPerspCameraResize = [&]()
-	{
-		float left = -(getWindowSize().x - WIDTH) / 2;
-		float right = 800 + (getWindowSize().x - WIDTH) / 2;
-		float bottom = -(getWindowSize().y - WIDTH) / 2;
-		float top = 800 + (getWindowSize().y - WIDTH) / 2;
-		camera_o.setOrtho(left, right,
-			600, 0,
-			1, 10);
-	};
 }
 
 
@@ -87,11 +71,11 @@ void UIPlate::titleDraw()
 
 				ci::gl::translate(0.0f, 0.0f, -3.0f);
 				gl::drawString(ui_data[(*it)]->fontGetText(),
-					Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
-					Color(ui_data[(*it)]->getColorR(),
-						ui_data[(*it)]->getColorG(),
-						ui_data[(*it)]->getColorB()),
-					font[(*it)]);
+							   Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
+							   Color(ui_data[(*it)]->getColorR(),
+									 ui_data[(*it)]->getColorG(),
+									 ui_data[(*it)]->getColorB()),
+							   font[(*it)]);
 
 				ci::gl::popModelView();
 				continue;
@@ -102,11 +86,11 @@ void UIPlate::titleDraw()
 
 				ci::gl::translate(0.0f, 0.0f, -3.0f);
 				gl::drawString(ui_data[(*it)]->timeGetMinutes() + ":" + ui_data[(*it)]->timeGetSeconds() + ":" + ui_data[(*it)]->timeGetFlame(),
-					Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
-					Color(ui_data[(*it)]->getColorR(),
-						ui_data[(*it)]->getColorG(),
-						ui_data[(*it)]->getColorB()),
-					font[(*it)]);
+							   Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
+							   Color(ui_data[(*it)]->getColorR(),
+									 ui_data[(*it)]->getColorG(),
+									 ui_data[(*it)]->getColorB()),
+							   font[(*it)]);
 
 				ci::gl::popModelView();
 				continue;
@@ -159,10 +143,14 @@ void UIPlate::titleDraw()
 void UIPlate::tuto1(const bool& end_flag)
 {
 	if (end_flag == false) {
+		if (ui_data["黒板"]->isActive()) {
+			tuto_count[8]++;
+			if (tuto_count[8] == 60) {
+				player->restart();
+			}
+		}
 		if (!ui_data["黒板"]->isActive()) {
-			ui_data["操作説明"]->Active();
-			ui_data["操作説明"]->setColor(1, 1, 0, 1);
-			ui_data["操作説明"]->fontSetText(u8"操作説明");
+
 			tuto_count[0]++;
 			if (tuto_count[0] == 1) {
 				ui_data["中央白板"]->Active();
@@ -170,37 +158,22 @@ void UIPlate::tuto1(const bool& end_flag)
 		}
 
 		if (tuto_count[0] == 40) {
-			ui_data["動き"]->Active();
-			ui_data["動き"]->setColor(0, 0, 1, 1);
-			ui_data["動き"]->fontSetText(u8"移動方法");
+			ui_data["操作説明"]->Active();
+			ui_data["操作説明"]->setColor(1, 0, 0, 1);
+			ui_data["操作説明"]->fontSetText(u8"操作説明");
 		}
 		if (tuto_count[0] == 200) {
-			ui_data["動き"]->Idle();
 			ui_data["中央白板"]->setEnd();
 		}
 		if (tuto_count[0] == 280) {
-			ui_data["説明白板"]->Active();
-		}
-		if (tuto_count[0] == 420) {
-			ui_data["動き説明"]->Active();
-			ui_data["動き説明"]->fontSetText(u8"手を動かすと,移動ができます。");
-			ui_data["動き説明"]->setColor(0, 0, 1, 0);
-			ui_data["動き手"]->Active();
-		}
-		if (tuto_count[0] == 1000) {
-			ui_data["動き説明"]->setEnd();
-			ui_data["動き手"]->setEnd();
-			ui_data["説明白板"]->setEnd();
-		}
-		if (tuto_count[0] == 1100) {
 			ui_data["ミッション白板"]->Active();
 		}
-		if (tuto_count[0] == 1160) {
+		if (tuto_count[0] == 380) {
 			ui_data["動き説明2"]->Active();
-			ui_data["動き説明2"]->fontSetText(u8"手を上、下、右、左に動かしてみましょう。");
-		}
-		if (tuto_count[0] == 1200) {
+			ui_data["動き説明2"]->fontSetText(u8"自機はプレイヤーの手を追尾します。\n　手を上まで動かしてみてください。");
 			ui_data["動き実手"]->Active();
+			ui_data["動き印"]->Active();
+			//ui_data["動き矢印"]->Active();
 			tuto_flags[0] = true;
 		}
 	}
@@ -215,6 +188,8 @@ void UIPlate::tuto1(const bool& end_flag)
 			ui_data["ミッション白板"]->setEnd();
 			ui_data["黒板"]->Active();
 			ui_data["黒板"]->setEnd();
+			ui_data["動き印"]->setEnd();
+			//ui_data["動きや印"]->setEnd();
 		}
 	}
 }
@@ -222,58 +197,35 @@ void UIPlate::tuto1(const bool& end_flag)
 void UIPlate::tuto2(const bool& end_flag)
 {
 	if (end_flag == false) {
+		if (ui_data["黒板"]->isActive()) {
+			tuto_count[9]++;
+			if (tuto_count[9] == 60) {
+				player->restart();
+			}
+		}
 		if (!ui_data["黒板"]->isActive()) {
 			tuto_count[2]++;
 			if (tuto_count[2] == 1) {
-				ui_data["中央白板"]->Active();
+				ui_data["ミッション白板"]->Active();
 			}
 		}
-		if (tuto_count[2] == 40) {
-			ui_data["ダッシュ"]->Active();
-			ui_data["ダッシュ"]->setColor(0, 0, 1, 1);
-			ui_data["ダッシュ"]->fontSetText(u8"ダッシュ(攻撃)");
-		}
-		if (tuto_count[2] == 200) {
-			ui_data["ダッシュ"]->Idle();
-			ui_data["中央白板"]->setEnd();
-		}
-		if (tuto_count[2] == 280) {
-			ui_data["説明白板"]->Active();
-		}
-		if (tuto_count[2] == 420) {
-			ui_data["ダッシュ説明"]->Active();
-			ui_data["ダッシュ説明"]->fontSetText(u8"手を前に突き出すと、攻撃ができます。");
-			ui_data["ダッシュ説明"]->setColor(0, 0, 1, 0);
-			ui_data["ダッシュ手"]->Active();
-		}
-		if (tuto_count[2] == 1000) {
-			ui_data["ダッシュ説明"]->setEnd();
-			ui_data["ダッシュ手"]->setEnd();
-			ui_data["説明白板"]->setEnd();
-		}
-		if (tuto_count[2] >= 1000) {
-			tuto_count[3]++;
-		}
-		if (tuto_count[3] == 100) {
-			ui_data["ミッション白板"]->Active();
-		}
-		if (tuto_count[3] == 160) {
+		if (tuto_count[2] == 60) {
 			ui_data["ダッシュ説明2"]->Active();
-			ui_data["ダッシュ説明2"]->fontSetText(u8"敵の後ろで、手を突き出して攻撃してみましょう。");
+			ui_data["ダッシュ説明2"]->fontSetText(u8"手を前に突き出すと、突進します。\n　実際にやってみましょう。");
+			ui_data["ダッシュ手"]->Active();
+			
 		}
-		if (tuto_count[3] == 200) {
-			ui_data["ダッシュ実手"]->Active();
+		if (tuto_count[2] == 180) {
 			tuto_flags[1] = true;
 		}
-
 	}
 	else if (end_flag == true) {
-		tuto_count[4]++;
-		if (tuto_count[4] == 1) {
+		tuto_count[3]++;
+		if (tuto_count[3] == 1) {
 			ui_data["TutorialOK"]->Active();
 			ui_data["TutorialOK"]->setEnd();
 			SoundGet.find("Start")->start();
-			ui_data["ダッシュ実手"]->setEnd();
+			ui_data["ダッシュ手"]->setEnd();
 			ui_data["ダッシュ説明2"]->setEnd();
 			ui_data["ミッション白板"]->setEnd();
 			ui_data["黒板"]->Active();
@@ -285,63 +237,39 @@ void UIPlate::tuto2(const bool& end_flag)
 void UIPlate::tuto3(const bool& end_flag)
 {
 	if (end_flag == false) {
-		if (!ui_data["黒板"]->isActive()) {
-			tuto_count[5]++;
-			if (tuto_count[5] == 1) {
-				ui_data["中央白板"]->Active();
+		if (ui_data["黒板"]->isActive()) {
+			tuto_count[10]++;
+			if (tuto_count[10] == 60) {
+				player->restart();
+				
 			}
 		}
-		if (tuto_count[5] == 40) {
-			ui_data["回避"]->Active();
-			ui_data["回避"]->setColor(0, 0, 1, 1);
-			ui_data["回避"]->fontSetText(u8"ロール(回避)");
+		if (!ui_data["黒板"]->isActive()) {
+			tuto_count[4]++;
+			if (tuto_count[4] == 1) {
+				enemyholder->tutorialSetup();
+				ui_data["ミッション白板"]->Active();
+			}
 		}
-		if (tuto_count[5] == 200) {
-			ui_data["回避"]->Idle();
-			ui_data["中央白板"]->setEnd();
-		}
-		if (tuto_count[5] == 280) {
-			ui_data["説明白板"]->Active();
-		}
-		if (tuto_count[5] == 420) {
-			ui_data["回避説明"]->Active();
-			ui_data["回避説明"]->fontSetText(u8"手をクルクルしながら移動すると、回避ができます。");
-			ui_data["回避説明"]->setColor(0, 0, 1, 0);
-			ui_data["回避手"]->Active();
-			ui_data["回避手2"]->Active();
-		}
-		if (tuto_count[5] == 1000) {
-			ui_data["回避説明"]->setEnd();
-			ui_data["回避手"]->setEnd();
-			ui_data["説明白板"]->setEnd();
-		}
-		if (tuto_count[5] >= 1000) {
-			tuto_count[6]++;
-		}
-		if (tuto_count[6] == 100) {
-			ui_data["ミッション白板"]->Active();
-		}
-		if (tuto_count[6] == 160) {
+		if (tuto_count[4] == 180) {
 			ui_data["回避説明2"]->Active();
-			ui_data["回避説明2"]->fontSetText(u8"機雷を、ロールで回避してみましょう。");
-		}
-		if (tuto_count[6] == 200) {
-			ui_data["回避実手"]->Active();
-			ui_data["回避実手2"]->Active();
+			ui_data["回避説明2"]->fontSetText(u8"それでは、敵を突進で倒してみましょう。");
+			ui_data["回避説明"]->Active();
+			ui_data["回避説明"]->fontSetText(u8"　赤い所で突進してください。");
+			ui_data["丸"]->Active();
 			tuto_flags[2] = true;
 		}
-
 	}
 	else if (end_flag == true) {
-		tuto_count[7]++;
-		if (tuto_count[7] == 1) {
+		tuto_count[5]++;
+		if (tuto_count[5] == 1) {
 			ui_data["TutorialOK"]->Active();
 			ui_data["TutorialOK"]->setEnd();
 			SoundGet.find("Start")->start();
-			ui_data["回避実手"]->setEnd();
-			ui_data["回避実手2"]->setEnd();
 			ui_data["回避説明2"]->setEnd();
 			ui_data["ミッション白板"]->setEnd();
+			ui_data["回避説明"]->setEnd();
+			ui_data["丸"]->setEnd();
 			ui_data["黒板"]->Active();
 			ui_data["黒板"]->setEnd();
 			ui_data["操作説明"]->setEnd();
@@ -351,16 +279,32 @@ void UIPlate::tuto3(const bool& end_flag)
 
 void UIPlate::tuto4(bool &end_flag)
 {
+	if (ui_data["黒板"]->isActive()) {
+		tuto_count[11]++;
+		if (tuto_count[11] == 60) {
+			player->restart();
+		}
+	}
 	if (!ui_data["操作説明"]->isActive()) {
+		change_counnt++;
 		if (change_counnt == 1) {
 			ui_data["ゲーム説明"]->Active();
-			ui_data["説明白板"]->Active();
-			ui_data["ゲーム説明"]->fontSetText(u8"チュートリアルは以上です。\nゲームを開始します。");
+			ui_data["説明板"]->Active();
+			ui_data["説明板"]->setColor(1,1,1,0);
+			ui_data["ミッション白板"]->Active();
+			ui_data["ゲーム説明"]->fontSetText(u8"障害物を避けながら、\nエネミーを突進で倒しましょう！");
 		}
-		change_counnt++;
-		if (change_counnt == 350) {
+		if (change_counnt == 240) {
 			ui_data["ゲーム説明"]->setEnd();
-			ui_data["説明白板"]->setEnd();
+			ui_data["説明板"]->setEnd();
+		}
+		if (change_counnt == 300) {
+			ui_data["ゲーム説明2"]->Active();
+			ui_data["ゲーム説明2"]->fontSetText(u8"チュートリアルは以上です。\n　頑張って下さいね！");
+		}
+		if (change_counnt == 500) {
+			ui_data["ゲーム説明2"]->setEnd();
+			ui_data["ミッション白板"]->setEnd();
 			SoundGet.find("TitleBGM")->disable();
 			end_flag = true;
 		}
@@ -401,6 +345,7 @@ void UIPlate::gameMainSetup()
 	ui_data["ResultChange1"]->Active();
 	ui_data["5位"]->Active();
 	ui_data["Rank"]->Active();
+	ui_data["体"]->Active();
 	player->setIsStop(true);
 }
 
@@ -433,59 +378,63 @@ void UIPlate::gameMainUpdate() {
 			ui_data["経過時間"]->Active();
 			ui_data["経過時間"]->timeStart();
 			ui_data["制限時間"]->timeStart();
-			if (SoundGet.find("RaceBGM")->isEnabled())
+			if (SoundGet.find("RaceBGM")->isEnabled()) {
 				SoundGet.find("RaceBGM")->stop();
-			else
+			}
+			else {
 				SoundGet.find("RaceBGM")->start();
-			SoundGet.find("RaceBGM")->setLoopEnabled(true);
+				SoundGet.find("RaceBGM")->gain->setValue(1.0f);
+				SoundGet.find("RaceBGM")->setLoopEnabled(true);
+			}
 		}
 	}
-	switch (enemyholder->getRanking())
-	{
-	case 0:
-		break;
-	case 1:
-		ui_data["2位"]->setEnd();
-		ui_data["3位"]->setEnd();
-		ui_data["4位"]->setEnd();
-		ui_data["5位"]->setEnd();
+	if (!boss->getIsExist()) {
+		switch (enemyholder->remainingEnemy())
+		{
+		case 0:
+			break;
+		case 1:
+			ui_data["2位"]->setEnd();
+			ui_data["3位"]->setEnd();
+			ui_data["4位"]->setEnd();
+			ui_data["5位"]->setEnd();
 
-		ui_data["1位"]->Active();
-		break;
-	case 2:
-		ui_data["1位"]->setEnd();
-		ui_data["3位"]->setEnd();
-		ui_data["4位"]->setEnd();
-		ui_data["5位"]->setEnd();
+			ui_data["1位"]->Active();
+			break;
+		case 2:
+			ui_data["1位"]->setEnd();
+			ui_data["3位"]->setEnd();
+			ui_data["4位"]->setEnd();
+			ui_data["5位"]->setEnd();
 
-		ui_data["2位"]->Active();
-		break;
-	case 3:
-		ui_data["2位"]->setEnd();
-		ui_data["1位"]->setEnd();
-		ui_data["4位"]->setEnd();
-		ui_data["5位"]->setEnd();
+			ui_data["2位"]->Active();
+			break;
+		case 3:
+			ui_data["2位"]->setEnd();
+			ui_data["1位"]->setEnd();
+			ui_data["4位"]->setEnd();
+			ui_data["5位"]->setEnd();
 
-		ui_data["3位"]->Active();
-		break;
-	case 4:
-		ui_data["2位"]->setEnd();
-		ui_data["3位"]->setEnd();
-		ui_data["1位"]->setEnd();
-		ui_data["5位"]->setEnd();
+			ui_data["3位"]->Active();
+			break;
+		case 4:
+			ui_data["2位"]->setEnd();
+			ui_data["3位"]->setEnd();
+			ui_data["1位"]->setEnd();
+			ui_data["5位"]->setEnd();
 
-		ui_data["4位"]->Active();
-		break;
-	case 5:
-		ui_data["2位"]->setEnd();
-		ui_data["3位"]->setEnd();
-		ui_data["4位"]->setEnd();
-		ui_data["1位"]->setEnd();
+			ui_data["4位"]->Active();
+			break;
+		case 5:
+			ui_data["2位"]->setEnd();
+			ui_data["3位"]->setEnd();
+			ui_data["4位"]->setEnd();
+			ui_data["1位"]->setEnd();
 
-		ui_data["5位"]->Active();
-		break;
+			ui_data["5位"]->Active();
+			break;
+		}
 	}
-
 
 	ui_data["制限時間"]->timeUpdate();
 	ui_data["経過時間"]->timeUpdate();
@@ -512,11 +461,11 @@ void UIPlate::gameMainDraw() {
 
 				ci::gl::translate(0.0f, 0.0f, -1.0f);
 				gl::drawString(ui_data[(*it)]->fontGetText(),
-					Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
-					Color(ui_data[(*it)]->getColorR(),
-						ui_data[(*it)]->getColorG(),
-						ui_data[(*it)]->getColorB()),
-					font[(*it)]);
+							   Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
+							   Color(ui_data[(*it)]->getColorR(),
+									 ui_data[(*it)]->getColorG(),
+									 ui_data[(*it)]->getColorB()),
+							   font[(*it)]);
 
 				ci::gl::popModelView();
 				continue;
@@ -528,11 +477,11 @@ void UIPlate::gameMainDraw() {
 
 				ci::gl::translate(0.0f, 0.0f, -3.0f);
 				gl::drawString(ui_data[(*it)]->timeGetMinutes() + "'" + ui_data[(*it)]->timeGetSeconds() + "''" + ui_data[(*it)]->timeGetFlame(),
-					Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
-					Color(ui_data[(*it)]->getColorR(),
-						ui_data[(*it)]->getColorG(),
-						ui_data[(*it)]->getColorB()),
-					font[(*it)]);
+							   Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
+							   Color(ui_data[(*it)]->getColorR(),
+									 ui_data[(*it)]->getColorG(),
+									 ui_data[(*it)]->getColorB()),
+							   font[(*it)]);
 
 				ci::gl::popModelView();
 				continue;
@@ -628,6 +577,7 @@ void UIPlate::gameMainTimeWrite()
 				out_file << time[i].minutes << ' ' << time[i].seconds << ' ' << time[i].flame << std::endl;
 			}
 			out_file << rank;
+			file.close();
 		}
 
 	}
@@ -668,6 +618,7 @@ void UIPlate::gameMainBossActive()
 			SoundGet.find("RaceBGM")->gain->setValue(1.0f - ((static_cast<float>(boss_count) / 30)));
 		}
 		if (boss_count == 30) {
+			SoundGet.find("RaceBGM")->disable();
 			SoundGet.find("Boss")->start();
 			ui_data["ボス出現"]->Active();
 			ui_data["ボス出現"]->setEnd();
@@ -753,13 +704,6 @@ void UIPlate::resultSetup()
 		}
 	}
 
-	float left = -(getWindowSize().x - WIDTH) / 2;
-	float right = 800 + (getWindowSize().x - WIDTH) / 2;
-	float bottom = -(getWindowSize().y - WIDTH) / 2;
-	float top = 800 + (getWindowSize().y - WIDTH) / 2;
-	camera_o.setOrtho(left, right,
-		600, 0,
-		1, 10);
 
 	{
 		std::ifstream file(ci::app::getAssetPath("UI/SaveData/SaveData.txt").string());
@@ -797,21 +741,13 @@ void UIPlate::resultSetup()
 		ui_data["ResultTime"]->fontSetText(u8"今回のタイム　" + std::to_string(time[5].minutes) + "'" + addZero(time[5].seconds) + "''" + addZero(time[5].flame));
 		ui_data["ResultTime"]->setColor(0.5, 0.5, 1, 1);
 		ui_data["ResultChange2"]->Active();
-		ui_data["ResultChange2"]->setEnd();
+		file.close();
 	}
 }
 
 void UIPlate::endingSetup()
 {
 	setup();
-
-	float left = -(getWindowSize().x - WIDTH) / 2;
-	float right = 800 + (getWindowSize().x - WIDTH) / 2;
-	float bottom = -(getWindowSize().y - WIDTH) / 2;
-	float top = 800 + (getWindowSize().y - WIDTH) / 2;
-	camera_o.setOrtho(left, right,
-		600, 0,
-		1, 10);
 
 	game_count = 0;
 	for (auto it = UIObjects::get().begin(); it != UIObjects::get().end(); it++) {
@@ -830,14 +766,6 @@ void UIPlate::endingSetup()
 
 void UIPlate::resultUpdate()
 {
-
-	float left = -(getWindowSize().x - WIDTH) / 2;
-	float right = 800 + (getWindowSize().x - WIDTH) / 2;
-	float bottom = -(getWindowSize().y - WIDTH) / 2;
-	float top = 800 + (getWindowSize().y - WIDTH) / 2;
-	camera_o.setOrtho(left, right,
-		600, 0,
-		1, 10);
 
 	game_count++;
 	ui_data["ResultTime"]->setColor(0, 0, 0.5 + std::sinf(game_count / 4) / 2, 1);
@@ -876,11 +804,11 @@ void UIPlate::resultDraw()
 
 				ci::gl::translate(0.0f, 0.0f, -1.0f);
 				gl::drawString(ui_data[(*it)]->fontGetText(),
-					Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
-					Color(ui_data[(*it)]->getColorR(),
-						ui_data[(*it)]->getColorG(),
-						ui_data[(*it)]->getColorB()),
-					font[(*it)]);
+							   Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
+							   Color(ui_data[(*it)]->getColorR(),
+									 ui_data[(*it)]->getColorG(),
+									 ui_data[(*it)]->getColorB()),
+							   font[(*it)]);
 
 				ci::gl::popModelView();
 				continue;
@@ -892,11 +820,11 @@ void UIPlate::resultDraw()
 
 				ci::gl::translate(0.0f, 0.0f, -3.0f);
 				gl::drawString(ui_data[(*it)]->timeGetMinutes() + ":" + ui_data[(*it)]->timeGetSeconds() + ":" + ui_data[(*it)]->timeGetFlame(),
-					Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
-					Color(ui_data[(*it)]->getColorR(),
-						ui_data[(*it)]->getColorG(),
-						ui_data[(*it)]->getColorB()),
-					font[(*it)]);
+							   Vec2f(ui_data[(*it)]->getPosX(), ui_data[(*it)]->getPosY()),
+							   Color(ui_data[(*it)]->getColorR(),
+									 ui_data[(*it)]->getColorG(),
+									 ui_data[(*it)]->getColorB()),
+							   font[(*it)]);
 
 				ci::gl::popModelView();
 				continue;

@@ -6,6 +6,7 @@
 #include "../Boss/Boss.h"
 
 #include "../Camera/Camera.h"
+#include "../Camera/CameraPosition.h"
 
 
 using namespace ci;
@@ -115,6 +116,7 @@ void ar::ObstacleManager::isPlayerHitObstacle()
 		if (it.isHitObstacle(player->getWorldPoisition(), player->getCollisionCirclerad()))
 		{
 			player->HitObstacle(player->getClashSpeed());
+			CameraInfoGet.shakeCameraCall();
 		}
 	}
 }
