@@ -67,4 +67,6 @@ private:
 	float dash_range;
 
 	float hand_exist_count;
+
+	float start_delay;
 };
