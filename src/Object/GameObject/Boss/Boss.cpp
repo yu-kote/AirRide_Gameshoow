@@ -95,7 +95,7 @@ void Boss::update()
 	}
 	damage();
 	pushcount++;
-	pushcount %= 60;
+	pushcount %= 120;
 	matrix = signpostmanager->getMatrix(transform.position);
 
 	smokeUpdate();
