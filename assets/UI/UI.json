@@ -4030,7 +4030,7 @@
       "UIType": "CollisionUI",
       "TexturePath": "UI/UITexture/Tutorial/Ball.png",
       "Pos_x": 325,
-      "Pos_y": 130,
+      "Pos_y": 100,
       "Size_x": 150,
       "Size_y": 50,
       "EaseIn": [
@@ -4040,8 +4040,8 @@
         { "UIState": "Pos_x","Change": -1500,"EasingType": "ExpoIn","Frame": 80}
       ],
       "EaseUpdate": [
-        { "UIState": "Color_a","Change": 0.9,"EasingType": "ExpoIn","Frame": 40},
-        { "UIState": "Color_a","Change": 0.5,"EasingType": "ExpoIn","Frame": 40}
+        { "UIState": "Color_a","Change": 0.9,"EasingType": "ExpoIn","Frame": 20},
+        { "UIState": "Color_a","Change": 0.5,"EasingType": "ExpoIn","Frame": 20}
       ],
       "EaseCollision": []
     },
@@ -4960,6 +4960,26 @@
       "EaseIn": [ ],
       "EaseOut": [ ],
       "EaseUpdate": [ ]
+    },
+
+    "‹——£": {
+      "UIType": "CollisionUI",
+      "TexturePath": "UI/UITexture/GameMain/tosshin.png",
+      "Pos_x": 400,
+      "Pos_y": 300,
+      "Size_x": 300,
+      "Size_y": 70,
+      "EaseIn": [
+       
+      ],
+      "EaseOut": [
+        
+      ],
+      "EaseUpdate": [
+         { "UIState": "Color_a","Change": 1,"EasingType": "Backout","Frame": 30},
+        { "UIState": "Color_a","Change": 0,"EasingType": "Backout","Frame": 30}
+      ],
+      "EaseCollision": []
     },
 
     "ResultChange1": {
