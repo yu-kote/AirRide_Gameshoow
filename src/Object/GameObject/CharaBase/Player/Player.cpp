@@ -169,6 +169,13 @@ void Player::changeOperationType()
 
 void Player::operationKey()
 {
+	if (is_stop == true)
+		return;
+
+	start_delay = std::max(0.0f, start_delay - TIME.getDeltaTime());
+	if (start_delay > 0.0f)
+		return;
+
 	debugMove();
 
 	if (env.isPush(ci::app::KeyEvent::KEY_SPACE))
