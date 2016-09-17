@@ -435,7 +435,16 @@ void UIPlate::gameMainUpdate() {
 			break;
 		}
 	}
-
+	
+	if (boss->getIsExist()) {
+		ui_data["1位"]->setEnd();
+		ui_data["2位"]->setEnd();
+		ui_data["3位"]->setEnd();
+		ui_data["4位"]->setEnd();
+		ui_data["5位"]->setEnd();
+		ui_data["Rank"]->setEnd();
+		ui_data["体"]->setEnd();
+	}
 	ui_data["制限時間"]->timeUpdate();
 	ui_data["経過時間"]->timeUpdate();
 
@@ -447,7 +456,20 @@ void UIPlate::gameMainUpdate() {
 	if (ui_data["ダッシュゲージ"]->gaugeGetIsMax()) {
 		ui_data["OK"]->Active();
 	}
-
+	if (ui_data["経過時間"]->isActive()) {
+		if (!ui_data["ボス出現"]->isActive()) {
+			if (enemyholder->isDistant()
+				|| boss->isDistant()) {
+				ui_data["距離"]->Active();
+			}
+			else {
+				ui_data["距離"]->setEnd();
+			}
+		}
+		else{
+			ui_data["距離"]->setEnd();
+		}
+	}
 }
 
 void UIPlate::gameMainDraw() {
