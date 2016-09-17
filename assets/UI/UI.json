@@ -4965,8 +4965,8 @@
     "‹——£": {
       "UIType": "CollisionUI",
       "TexturePath": "UI/UITexture/GameMain/tosshin.png",
-      "Pos_x": 400,
-      "Pos_y": 300,
+      "Pos_x": 450,
+      "Pos_y": 400,
       "Size_x": 300,
       "Size_y": 70,
       "EaseIn": [
